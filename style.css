@@ -633,6 +633,7 @@ footer .footer--link-category ul li {
     font-size: 1.125em;
     font-weight: 400;
     margin: 0;
+    margin-bottom: 0.35em;
 }
 
 .index--lessons summary {
