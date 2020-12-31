@@ -430,7 +430,7 @@ header.mobile nav ul {
     font-family: 'JetBrains Mono', monospace;
  }
  
- h2 {
+ #why h2, #how h2 {
      text-align: center;
  }
  
@@ -601,6 +601,22 @@ footer .footer--link-category ul li {
 
 .index--lessons {
     font-size: 0.9em;
+}
+
+.index--lessons p {
+    display: inline-block;
+}
+
+.index--badge {
+    background: #B3295C;
+    color: #f1f1f1;
+    font-weight: bold;
+    font-family: 'Jetbrains Mono', monospace;
+    display: inline-block;
+    font-size: 0.7em;
+    padding: 0.2em 0.5em;
+    border-radius: 9999px;
+    margin: 0 0.2em;
 }
 
 .index--lessons, .index--lessons ol {
