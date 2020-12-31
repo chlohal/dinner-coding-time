@@ -1,0 +1,3316 @@
+[
+    {
+        "name": "Java Pretest",
+        "children": [
+            {
+                "name": "Java Pretest",
+                "children": [
+                    {
+                        "type": "Notes",
+                        "name": "About the Pretest"
+                    },
+                    {
+                        "type": "Survey",
+                        "name": "Mindsets"
+                    },
+                    {
+                        "type": "Quiz",
+                        "name": "Knowledge & Skills: Java"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Primitive Types",
+        "children": [
+            {
+                "name": "1.1   Welcome to AP CS A!",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.1.1 Welcome to AP CS A"
+                    }
+                ]
+            },
+            {
+                "name": "1.2   Why Programming? Why Java?",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.2.1 Printing in Java"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.2.2 Printing in Java"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.2.3 Hello World"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.2.4 Printing Multiple Lines"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.2.5 Welcome Program"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.2.6 ASCII Art"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.2.7 Fixing a Paragraph"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.2.8 Making Popcorn"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.2.9 Personal Timeline"
+                    }
+                ]
+            },
+            {
+                "name": "1.3   Variables and Data Types",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.3.1 Variables and Types"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.3.2 Variables and Types"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.3.3 Variables"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.3.4 Using Final"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.3.5 Our First Integer"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "1.3.6 Variables and Types Pt. 2"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.3.7 Variables and Types Pt. 2"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.3.8 Answering Questions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.3.9 Team Rankings"
+                    }
+                ]
+            },
+            {
+                "name": "1.4   Expressions and Assignments Statements",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.4.1 Arithmetic Expressions"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.4.2 Arithmetic Expressions"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.4.3 Calculator"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.4.4 Temperature Conversion"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.4.5 Tricky Java"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.4.6 Weight of a Pyramid"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.4.7 Add Fractions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.4.8 Freely Falling Bodies"
+                    }
+                ]
+            },
+            {
+                "name": "1.5   Compound Assignment Operators",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.5.1 Compound Assignment Operators"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.5.2 Compound Assignment Operators"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.5.3 All Functions Calculator"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.5.4 Increase/Decrease by 1"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.5.5 Work Shift"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.5.6 My Age"
+                    }
+                ]
+            },
+            {
+                "name": "1.6   User Input",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.6.1 User Input"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.6.2 User Input Quiz"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.6.3 Increase/Decrease by 1 (User Input)"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.6.4 My Age (User Input)"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.6.5 Night Out"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.6.6 MLA Citation"
+                    }
+                ]
+            },
+            {
+                "name": "1.7   Casting and Ranges of Variables",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "1.7.1 Casting"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "1.7.2 Casting"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.7.3 Casting"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.7.4 Casting to an Int"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.7.5 Casting to a Double"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.7.6 Casting Order of Operations"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.7.7 Rounding Using Casting"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.7.8 Movie Ratings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.7.9 Implicit Casting"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "1.7.10 Min and Max Values of Integers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "1.7.11 Integer Overflow"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Using Objects",
+        "children": [
+            {
+                "name": "2.1   Objects: Instances of Classes",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.1.1 Objects: Instances of Classes"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.1.2 Quiz: Classes and Objects"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "2.1.3 Multi-File Exercises in Java"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.1.4 Rectangle Skeleton"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.1.5 GrilledCheese Skeleton"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.1.6 Shark Skeleton"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "2.1.7 Free Response: What instance variables?"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.1.8 Pizza Instance Variables"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.1.9 Phone Skeleton"
+                    }
+                ]
+            },
+            {
+                "name": "2.2   Creating and Storing Objects (Instantiation)",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.2.1 Creating and Storing Objects"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.2.2 Quiz: Constructors"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.2.3 The Rectangle Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.2.4 The Point Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.2.5 The Student Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.2.6 Using the Rectangle Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.2.7 Student GPA Field"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.2.8 Instance Variables for Your Dog"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.2.9 Pizza Time!"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "2.2.10 Instantiation Badge"
+                    }
+                ]
+            },
+            {
+                "name": "2.3   Overloading",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.3.1 Method Overloading"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.3.2 Method Overloading Quiz"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.3.3 Overloaded Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.3.4 Overloaded GrilledCheese"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.3.5 Using the Scanner Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.3.6 Null Pointer Exception"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.3.7 Plain Coffee"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.3.8 Custom Pinatas"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.3.9 Website Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.3.10 Empty References"
+                    }
+                ]
+            },
+            {
+                "name": "2.4   Calling a Void Method",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.4.1 Calling a Void Method"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.4.2 Quiz: Void Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.4.3 Area of a Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.4.4 Program Flow"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.4.5 Hello!"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.4.6 Loose Change"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.4.7 Chat Bot"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.4.8 Greetings and Salutations"
+                    }
+                ]
+            },
+            {
+                "name": "2.5   Calling a Void Method with Parameters",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.5.1 Calling a Void Method with Parameters"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.5.2 Methods and Parameters"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.5.3 Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.5.4 Moving a Point"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.5.5 Using the Point Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.5.6 Calculator"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.5.7 Basketball Players"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.5.8 More Operations"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.5.9 Chat Bot 2.0"
+                    }
+                ]
+            },
+            {
+                "name": "2.6   Calling a Non-void Method",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.6.1 Calling a Non-void Method"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.6.2 Quiz: Non-Void Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.6.3 Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.6.4 Desks in a Room"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.6.5 Activity Log"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.6.6 Number Games"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.6.7 Construction Costs"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.6.8 How Far Away is ...?"
+                    }
+                ]
+            },
+            {
+                "name": "2.7   String Objects",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.7.1 String Objects"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.7.2 String Objects"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.7.3 Immutable Strings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.7.4 String Concatenation"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.7.5 Rectangle Dimensions"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.7.6 Printing Equations"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.7.7 Pretty Printing Operations"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.7.8 Full Name"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.7.9 QuoteMachine"
+                    }
+                ]
+            },
+            {
+                "name": "2.8   String Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.8.1 String Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.8.2 String Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.8.3 Bigger Strings?"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.8.4 Chopping Strings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.8.5 Object Concatenation"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.8.6 Speaking"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.8.7 toString for Flowers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.8.8 Organizing Files"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.8.9 Concatenating Fractions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.8.10 Word Games"
+                    }
+                ]
+            },
+            {
+                "name": "2.9   Wrapper Classes: Integers and Doubles",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.9.1 Wrapper Classes"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.9.2 Quiz: Wrapper Classes"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.9.3 Creating Integers"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.9.4 Using Doubles"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.9.5 Autoboxing Example"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.9.6 Order Up!"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.9.7 Currency"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.9.8 Guess the number!"
+                    }
+                ]
+            },
+            {
+                "name": "2.10   Using the Math Class",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "2.10.1 Using the Math Class"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "2.10.2 Quiz: Static Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.10.3 Using the Math Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.10.4 Static Methods: Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "2.10.5 Generating Random Numbers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.10.6 Circle Area"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.10.7 The Unit Circle"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "2.10.8 Racing"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Boolean Expressions and if Statements",
+        "children": [
+            {
+                "name": "3.1   Boolean Expressions",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.1.1 Comparison Operators"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.1.2 Comparison Operators"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.1.3 Old Enough To Vote"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.1.4 Grade Range"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.1.5 Equality of Strings"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.1.6 Number Order"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.1.7 Sugar Tax"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.1.8 Triple Double"
+                    }
+                ]
+            },
+            {
+                "name": "3.2   if Statements and Control Flow",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.2.1 If Statements"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.2.2 If Statements"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.2.3 Can Vote"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.2.4 Negative Numbers"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.2.5 Rectangle"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.2.6 Discounts"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.2.7 Sweet or Unsweet?"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.2.8 Cooking"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.2.9 Rating"
+                    }
+                ]
+            },
+            {
+                "name": "3.3   if-else Statements",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.3.1 If-Else Statements"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.3.2 If-Else"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.3.3 Bill with add tip"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.3.4 Even and Odd"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.3.5 Positive or Negative"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.3.6 Battleships Move"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.3.7 Ratings"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.3.8 Player Score"
+                    }
+                ]
+            },
+            {
+                "name": "3.4   else if Statements",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.4.1 else-if Statements"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.4.2 else-if"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.4.3 Add Tip"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.4.4 Add Tip - 8 or 4 Customers"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.4.5 Add Tip  - 8, 4, 2 Customers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.4.6 Positive, Negative, or Zero"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.4.7 Salmon Spawn"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.4.8 Berries"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.4.9 Battleships"
+                    }
+                ]
+            },
+            {
+                "name": "3.5   Compound Boolean Expressions",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.5.1 Logical Operators"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.5.2 Logical Operators"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.5.3 Light Switch"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.5.4 Number in Range"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.5.5 Pizza Slices"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.5.6 Roller Coaster"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.5.7 Compound Roller Coaster"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.5.8 Divisibility"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.5.9 Find the  Minimum"
+                    }
+                ]
+            },
+            {
+                "name": "3.6   Equivalent Boolean Expressions",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.6.1 Equivalent Boolean Expressions"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.6.2 De Morgan's Laws"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.6.3 De Morgan AND"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.6.4 De Morgan OR"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.6.5 Amusement Park"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.6.6 Odd Numbers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.6.7 Odd and Even"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "3.6.8 Odd and Even Free Response"
+                    }
+                ]
+            },
+            {
+                "name": "3.7   Comparing Objects",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "3.7.1 Comparing Objects"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "3.7.2 Comparing Objects"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.7.3 Comparing Strings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.7.4 Comparing Rectangles"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.7.5 Null Test"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "3.7.6 Identify Aliases"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.7.7 String Variable Trace"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "3.7.8 String Trace"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.7.9 Three Strings"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "3.7.10 Comparing Circles"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Iteration",
+        "children": [
+            {
+                "name": "4.1   While Loops",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "4.1.1 While Loops"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "4.1.2 While Loops"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.1.3 While Loop Countdown"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.1.4 Get Down to One"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.1.5 Running Average"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.1.6 Making Taffy"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.1.7 Guess the Number"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.1.8 Divisibility"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.1.9 Max and Min Values"
+                    }
+                ]
+            },
+            {
+                "name": "4.2   For Loops",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "4.2.1 For Loops"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "4.2.2 For Loops"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.2.3 For Loop"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.2.4 Countdown"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.2.5 Count By Twos"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.2.6 Print the Odds"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.2.7 Repeat 100 Times"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.2.8 Replace WHILE with FOR Loop"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.2.9 Replace FOR Loop with WHILE Loop"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.2.10 Multiplication Table"
+                    }
+                ]
+            },
+            {
+                "name": "4.3   Developing Algorithms Using Strings",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "4.3.1 Developing Algorithms Using Strings"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "4.3.2 Developing Algorithms Using Strings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.3.3 Traversing Strings"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.3.4 Replace Characters"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.3.5 Reverse String"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.3.6 Replace Letter"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.3.7 Password Checker"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.3.8 Finding Palindromes"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.3.9 Fixing Grammar"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.3.10 Teen Talk"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "4.3.11 String Processing Badge"
+                    }
+                ]
+            },
+            {
+                "name": "4.4   Nested Iteration",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "4.4.1 Nested Iteration"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "4.4.2 Nested Iteration"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.4.3 Make a Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.4.4 Nested Loop Iteration Counts"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.4.5 Inverted Triangle"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.4.6 Upright Number Triangle"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.4.7 Make a Tree"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.4.8 Multiplication Table"
+                    }
+                ]
+            },
+            {
+                "name": "4.5   Informal Code Analysis",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "4.5.1 Informal Code Analysis"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "4.5.2 Informal Code Analysis"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.5.3 Loop Execution Count"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.5.4 While Loop Time"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.5.5 For Loop Time"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "4.5.6 Time Comparisons"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "4.5.7 Improving isChar Speed"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "4.5.8 Improving isChar Speed Check"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "4.5.9 isChar Speed Reflection"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Writing Classes",
+        "children": [
+            {
+                "name": "5.1   Anatomy of Classes",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.1.1 Anatomy of Classes"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.1.2 Quiz: Access Modifers"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.1.3 Rectangle Getter Methods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.1.4 Access for DNA Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.1.5 Access for Employee Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.1.6 Fixing Circle"
+                    }
+                ]
+            },
+            {
+                "name": "5.2   Constructors",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.2.1 Constructors"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.2.2 Quiz: Constructors"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.2.3 SuperHero Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.2.4 Initializing an Object without a Constructor"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.2.5 Batting Average"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.2.6 Dog Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.2.7 Student Overload"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.2.8 SchoolClub Class"
+                    }
+                ]
+            },
+            {
+                "name": "5.3   Documentation with Comments",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.3.1 Documentation with Comments"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.3.2 Quiz: Comments"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.3.3 Comments for Debugging"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.3.4 Power Class with Comments"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.3.5 Commenting Activity Tracker"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.3.6 Commenting Activity Log"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.3.7 C.Y.O.A. Layout"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.3.8 C.Y.O.A. Finishing the story"
+                    }
+                ]
+            },
+            {
+                "name": "5.4   Accessor Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.4.1 Accessor Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.4.2 Quiz: Accessors"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.4.3 Student Getter Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.4.4 SuperHero Class with Secret Identity"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.4.5 Text Messages Getter Methods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.4.6 Full Dragon Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.4.7 A Different Dragon Class"
+                    }
+                ]
+            },
+            {
+                "name": "5.5   Mutator Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.5.1 Mutator Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.5.2 Quiz: Mutators"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.5.3 SuperHero Class with Mutator Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.5.4 Student Setters"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.5.5 Rectangle class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.5.6 Full Fraction Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.5.7 Weekly Routine"
+                    }
+                ]
+            },
+            {
+                "name": "5.6   Writing Classes",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.6.1 Writing Classes"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.6.2 Quiz: Writing Classes"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.6.3 Triangle Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.6.4 Baseball Player Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.6.5 Distance Conversions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.6.6 Food App Demo"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.6.7 Car Class"
+                    },
+                    {
+                        "type": "Resource",
+                        "name": "5.6.8 Combination Lock FRQ"
+                    }
+                ]
+            },
+            {
+                "name": "5.7   Static Variables and Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.7.1 Static Variables and Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.7.2 Quiz: Static Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.7.3 Static SuperHero"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.7.4 Static Variables: Circle"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.7.5 Randomizer Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.7.6 Rock, Paper, Scissors!"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.7.7 How Many Players in the Game?"
+                    }
+                ]
+            },
+            {
+                "name": "5.8   Scope and Access",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.8.1 Scope and Access"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.8.2 Quiz: Local Variables and Scope"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.8.3 Instance Variable Scope"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.8.4 Local Variable Scope"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.8.5 Variable Shadowing"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.8.6 Method Decomposition with Triva"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.8.7 Scope"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.8.8 Which Variables Exist?"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.8.9 Broken Calculator"
+                    }
+                ]
+            },
+            {
+                "name": "5.9   this Keyword",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.9.1 this Keyword"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.9.2 Quiz: this Keyword"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.9.3 Rectangles and this"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "5.9.4 Student and this"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.9.5 Write Your Own CodeHS"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.9.6 Song Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "5.9.7 Fraction Math"
+                    }
+                ]
+            },
+            {
+                "name": "5.10   Ethical and Social Implications of Computing",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "5.10.1 Implications of Computing Systems"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "5.10.2 Computing and Your Life"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "5.10.3 Quiz: Ethical and Social Impact"
+                    },
+                    {
+                        "type": "Connection",
+                        "name": "5.10.4 ACM General Ethical Principles"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "5.10.5 ACM General Ethical Principles"
+                    },
+                    {
+                        "type": "Connection",
+                        "name": "5.10.6 Bias in Facial Recognition"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "5.10.7 Bias in Facial Recognition"
+                    },
+                    {
+                        "type": "Connection",
+                        "name": "5.10.8 Self-driving Cars"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "5.10.9 Self-driving Cars"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Array",
+        "children": [
+            {
+                "name": "6.1   Array Creation and Access",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "6.1.1 Introduction to Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "6.1.2 Quiz: Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.3 Making an Array"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.4 Make an Empty Array"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.5 Indexing Into an Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.1.6 Our First Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.1.7 Set Scores"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.1.8 Last Element in Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.1.9 Snap Shot Splash Screen"
+                    }
+                ]
+            },
+            {
+                "name": "6.2   Traversing Arrays",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "6.2.1 Using Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "6.2.2 Quiz: Using Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.2.3 Iterating Over An Array - For Loop"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.2.4 Iterating Over An Array - While Loop"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.2.5 Array Out of Bounds"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.2.6 Finding a Target Value"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.2.7 Print Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.2.8 Print Odd Array Indices"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.2.9 Find Index of a String"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.2.10 Fibonacci Sequence"
+                    }
+                ]
+            },
+            {
+                "name": "6.3   Enhanced for Loop for Arrays",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "6.3.1 Enhanced For Loop for Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "6.3.2 Enhanced For Loop for Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.3.3 Enhanced For Loop"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.3.4 Classroom Array"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.3.5 Updating Values in a Loop"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.3.6 Print Odds"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.3.7 Largest Value"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.3.8 Classroom Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.3.9 Array Average"
+                    }
+                ]
+            },
+            {
+                "name": "6.4   Developing Algorithms Using Arrays",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "6.4.1 Developing Algorithms Using Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "6.4.2 Developing Algorithms Using Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.4.3 Finding the Minimum Value"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.4.4 Reordering an Array"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.4.5 Finding Duplicates"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.4.6 Find the Median"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.4.7 Find the Last Multiple of 3"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.4.8 Most Improved"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "6.4.9 Car Showroom"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "ArrayList",
+        "children": [
+            {
+                "name": "7.1   Introduction to ArrayList",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.1.1 ArrayLists"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.1.2 Quiz: ArrayList"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.1.3 Initializing an ArrayList"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.1.4 Array vs. ArrayList Initialization"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "7.1.6 Arrays vs. ArrayLists"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.1.7 Initializing an ArrayList"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.1.8 Car Inventory"
+                    }
+                ]
+            },
+            {
+                "name": "7.2   ArrayList Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.2.1 ArrayLists Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.2.2 Quiz: ArrayList Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.2.3 ArrayList and Java Primitives"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.2.4 ArrayList Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.2.5 Array vs. ArrayList Methods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.2.6 Get First Element"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.2.7 ArrayList of Even Numbers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.2.8 Teacher Class List"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.2.9 Teacher Class List Methods"
+                    }
+                ]
+            },
+            {
+                "name": "7.3   Traversing ArrayLists",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.3.1 Traversing ArrayLists"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.3.2 Quiz: Traversing Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.3.3 Reading List"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.3.4 While Loop ArrayList Traversal"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.3.5 ArrayList Traversing Error"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.3.6 Traversing Odds"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.3.8 ArrayList Helper Methods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.3.9 Road Trip!"
+                    }
+                ]
+            },
+            {
+                "name": "7.4   Developing Algorithms using ArrayLists",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.4.1 Developing Algorithms Using ArrayLists"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.4.2 Quiz: Developing Algorithms"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.4.3 Traversing ArrayLists Simultaneously"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.4.4 Inserting Elements While Traversing ArrayLists"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.4.6 ArrayList equals"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.4.7 Airline Tickets"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.4.8 Billboard Top 10"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.4.9 User Data Cleanup"
+                    }
+                ]
+            },
+            {
+                "name": "7.5   Searching",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.5.1 Linear Search"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.5.2 Quiz: Linear Search"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.5.3 Linear Search"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.5.6 Linear Search on ArrayList with While Loop"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.5.7 Fantasy Football Roster"
+                    },
+                    {
+                        "type": "Resource",
+                        "name": "7.5.10 Card Collection FRQ"
+                    }
+                ]
+            },
+            {
+                "name": "7.6   Sorting",
+                "children": [
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.6.1 Selection Sort"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "7.6.2 Selection Sort"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.6.3 Selection Sort"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.6.4 Explore Selection Sort"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "7.6.5 Insertion Sort"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.6.6 Insertion Sort"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.6.7 Insertion Sort"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "7.6.8 Visualizing Algorithms"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.6.9 Explore Insertion Sort"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.6.10 Selection Sort vs. Insertion Sort Run Time"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "7.6.11 Selection Sort vs. Insertion Sort"
+                    }
+                ]
+            },
+            {
+                "name": "7.7   Ethical Issues Around Data Collection",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.7.1 Ethical Issues Around Data Collection"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "7.7.2 Ethical Issues Around Data Collection"
+                    },
+                    {
+                        "type": "Connection",
+                        "name": "7.7.3 The Curly Fry Conundrum"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "7.7.4 Reflection"
+                    },
+                    {
+                        "type": "Connection",
+                        "name": "7.7.5 Guidelines on Ethical Data Use"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "7.7.6 Issue News Article"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "7.7.7 ArrayList Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "2D Array",
+        "children": [
+            {
+                "name": "8.1   2D Arrays",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "8.1.1 2D Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "8.1.2 Quiz: 2D Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "8.1.3 GradeBook"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "8.1.4 ChessBoard"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "8.1.5 Manipulating 2D Arrays"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "8.1.6 Complete Chessboard"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "8.1.7 Tic Tac Toe Board"
+                    }
+                ]
+            },
+            {
+                "name": "8.2   Traversing 2D Arrays",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "8.2.1 Traversing 2D Arrays"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "8.2.2 Quiz: Traversing 2D Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "8.2.3 Traversing Gradebook"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "8.2.4 Linear Search 2D Arrays"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "8.2.5 Row vs. Column Major"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "8.2.6 Row vs. Column Major"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "8.2.7 Sum Rows in a 2D Array"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "8.2.8 Tic Tac Toe Methods"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "8.2.9 Finalizing Tic Tac Toe"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "8.2.10 2D Array Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Inheritance",
+        "children": [
+            {
+                "name": "9.1   Creating Superclasses and Subclasses",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.1.1 Inheritance"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.1.2 Quiz: Subclasses and Superclasses"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.1.3 Person Superclass"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.1.4 Vehicle Superclass"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.1.5 High School Student"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.1.6 Person / Student Object"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.1.7 Books"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.1.8 Computers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.1.9 More Animals!"
+                    }
+                ]
+            },
+            {
+                "name": "9.2   Writing Constructors for Subclasses",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.2.1 Writing Constructors for Subclasses"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.2.2 Quiz: Writing Constructors for Subclasses"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.2.3 Student Subclass"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.2.4 Shape Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.2.5 Implicit Call to Super"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.2.6 Students"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.2.7 Instruments"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.2.8 Foods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.2.9 Clothing Store"
+                    }
+                ]
+            },
+            {
+                "name": "9.3   Overriding Methods",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.3.1 Overriding Methods"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.3.2 Quiz: Overriding Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.3.3 Square is a Rectangle"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.3.4 Student toString"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.3.5 Restaurant Bills"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.3.6 Dogs Bark"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.3.7 Electric Cars"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.3.8 Online Companies"
+                    }
+                ]
+            },
+            {
+                "name": "9.4   super Keyword",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.4.1 super Keyword"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.4.2 Quiz: super Keyword"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.4.3 Square Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.4.4 Animal Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.4.5 Apple Pie"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.4.6 Squares"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.4.7 Bank Accounts"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.4.8 Employees"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.4.9 Student Test Scores"
+                    }
+                ]
+            },
+            {
+                "name": "9.5   Creating References Using Inheritance",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.5.1 Creating References Using Inheritance Hierarchies"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.5.2 Quiz: References Using Inheritance Hierarchies"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.5.3 Animal Sounds"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.5.4 Shape Areas"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.5.5 Person Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.5.6 Pies"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.5.7 Creating .equals"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.5.8 Online Companies Revisited"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.5.9 Assignments"
+                    }
+                ]
+            },
+            {
+                "name": "9.6   Polymorphism",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.6.1 Polymorphism"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.6.2 Quiz: Polymorphism"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.6.3 Using Person Methods"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.6.4 Modified Student Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.6.5 Vehicle Methods"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.6.6 Which Team?"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.6.7 Cars"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.6.8 Library Books"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.6.9 Fun with Solids"
+                    }
+                ]
+            },
+            {
+                "name": "9.7   Object Superclass",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "9.7.1 Object Superclass"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "9.7.2 Quiz: Object Superclass"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.7.3 Default Values"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.7.4 Override toString"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "9.7.5 Override equals"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.7.6 Equal?"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.7.7 Equals? - Part 2"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.7.8 Equal Rectangles"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "9.7.9 2D Array Tester"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Recursion",
+        "children": [
+            {
+                "name": "10.1   Recursion",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "10.1.1 Recursion"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "10.1.2 Quiz: Recursion"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.1.3 Summing"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.1.4 Sum Array"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.1.5 Fibonacci Recursion"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.1.6 Factorial"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.1.7 Countdown!"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.1.8 Recursive Minimum"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.1.9 Bacteria Cultures"
+                    }
+                ]
+            },
+            {
+                "name": "10.2   Recursive Searching",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "10.2.1 Recursive Searching"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "10.2.2 Quiz: Recursive Searching"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.2.3 Binary Search"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.2.4 Binary Recursive"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.2.5 Binary vs Linear"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.2.6 Exploring Binary Searches"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.2.7 Comparing Binary Search and Linear Search"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.2.8 Maximum Iterations"
+                    }
+                ]
+            },
+            {
+                "name": "10.3   Recursive Sorting",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "10.3.1 Recursive Sorting"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "10.3.2 Quiz: Recursive Sorting"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.3.3 Merge Sort"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "10.3.4 Sort Visualizer"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.3.6 Explore Merge Sort"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.3.7 Merge Sort Benchmark Testing"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.3.8 Recursive Calls"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "10.3.9 Sort Benchmark Testing"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Unit Quizzes",
+        "children": [
+            {
+                "name": "Unit Quizzes",
+                "children": [
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 1: Primitive Types"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 2: Using Objects"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 3: Boolean Expressions and If Statements"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 4: Iteration"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 5: Writing Classes"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 6: Arrays"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 7: ArrayLists"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 8: 2D Arrays"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 9: Inheritance"
+                    },
+                    {
+                        "type": "Unit Quiz",
+                        "name": "Unit 10: Recursion"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Blackjack",
+        "children": [
+            {
+                "name": "6.1   Writing BlackJack",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "6.1.1 The Card Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.2 The Card Class"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "6.1.3 The Deck Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.4 The Deck Class"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "6.1.5 The Hand Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.6 The Hand Class"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "6.1.7 The Blackjack Class"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "6.1.8 The Blackjack Game"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "6.1.9 Improving Blackjack"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Battleship",
+        "children": [
+            {
+                "name": "Battleship",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "7.0.1 Battleship Demo"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.2 Battleship Part 1: The Ship Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.3 Battleship Part 2: The Location Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.4 Battleship Part 3: The Grid Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.5 Battleship Part 4: Adding a Ship to the Grid"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.6 Battleship Part 5: The Player Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.7 Battleship Part 6: The Battleship Class"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.8 Battleship Part 7: Finishing the Game"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "7.0.9 Battleship Extensions"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Magpie",
+        "children": [
+            {
+                "name": "18.1   Magpie Lab",
+                "children": [
+                    {
+                        "type": "Connection",
+                        "name": "18.1.1 Magpie Student Guide"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "18.1.2 Activity 1: Chatbots"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "18.1.3 Activity 2: Introduction to Magpie"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "18.1.4 Activity 2: Modifying Magpie"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "18.1.5 Activity 2: Questions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "18.1.6 Activity 3: Improving Keyword Detection"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "18.1.7 Activity 4: Responses that Transform Statements"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Picture Lab",
+        "children": [
+            {
+                "name": "19.1   Picture Lab",
+                "children": [
+                    {
+                        "type": "Resource",
+                        "name": "19.1.1 Introduction & Student Guide"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "19.1.2 A1: Digital Pictures and Color"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "19.1.3 A2: Picking a Color"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "19.1.4 A2 Questions: Picking a Color"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "19.1.5 A3: Exploring a Picture"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "19.1.6 A3 Questions: Exploring a Picture"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "19.1.7 A4: Two-Dimensional Arrays in Java"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "19.1.8 A5: Interfaces"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "19.1.9 A5: Modifying a Picture"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "19.1.10 A6: Mirroring a Picture"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "19.1.11 A9: Edge Detection"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Java Posttest",
+        "children": [
+            {
+                "name": "Java Posttest",
+                "children": [
+                    {
+                        "type": "Notes",
+                        "name": "About the Posttest"
+                    },
+                    {
+                        "type": "Survey",
+                        "name": "Mindsets"
+                    },
+                    {
+                        "type": "Quiz",
+                        "name": "Java Knowledge & Skills"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Additional Exercises",
+        "children": [
+            {
+                "name": "Unit 3",
+                "children": [
+                    {
+                        "type": "Example",
+                        "name": "Lesson 3.2 Air Hockey"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.2 Constructions"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.2 Game Bonus"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 3.3 Floating Point Error"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.3 Comparing Doubles"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.4 Classifying the Rich"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.4 Mesozoic Age"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "Lesson 3.4 Dinosaurs"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.5 Salmon Season"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 3.6 Used Car"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 3.7 Changing Dogs"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 3.7 Creating Strings with New"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 3.7 Creating Strings with Literals"
+                    }
+                ]
+            },
+            {
+                "name": "Unit 4",
+                "children": [
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 4.1 Find Digits"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 4.2 Factorial"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 4.2 Five Little Ducks"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 4.3 Fix the Sum"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 4.5 Values Held in Variables"
+                    },
+                    {
+                        "type": "Quiz",
+                        "name": "Lesson 4.5 Values Held in Variables"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Lesson 4.5 Values Held In Variables"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "Lesson 4.5 Variable Trace"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "Lesson 4.5 Variable Trace"
+                    }
+                ]
+            },
+            {
+                "name": "Unit 5",
+                "children": [
+                    {
+                        "type": "Quiz",
+                        "name": "Lesson 5.10 Ethical Programmer Agreement"
+                    },
+                    {
+                        "type": "Presentation",
+                        "name": "Lesson 5.10 Explore a Software Application"
+                    },
+                    {
+                        "type": "Free Response",
+                        "name": "Lesson 5.10 Career Choice and Computing"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Introduction to Programming in Java with Karel the Dog",
+        "children": [
+            {
+                "name": "11.1   Introduction to Programming With Karel",
+                "children": [
+                    {
+                        "type": "Resource",
+                        "name": "11.1.1 Using Karel in Java"
+                    },
+                    {
+                        "type": "Video",
+                        "name": "11.1.2 Introduction to Programming With Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.1.3 Quiz: Karel Commands"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.1.4 Our First Karel Program"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.1.5 Your First Karel Program"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.1.6 Short Stack"
+                    }
+                ]
+            },
+            {
+                "name": "11.2   More Basic Karel",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.2.1 More Basic Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.2.2 More Basic Karel"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.2.3 Tennis Ball Square"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.2.4 Make a Tower"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.2.5 Pyramid of Karel"
+                    }
+                ]
+            },
+            {
+                "name": "11.3   Java Programs and the Run Method",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.3.1 Writing a Java Program"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.3.2 Run Method"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.3.3 Square Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.3.4 Tower Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.3.5 Gold Medal Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.3.6 Maze Karel"
+                    }
+                ]
+            },
+            {
+                "name": "11.4   Karel Can't Turn Right",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.4.1 Karel Can't Turn Right"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.4.2 Karel Can't Turn Right"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.4.3 Tower and Turn Right"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.4.4 Slide Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.4.5 Fireman Karel"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "11.4.6 Right Turn Karel Badge"
+                    }
+                ]
+            },
+            {
+                "name": "11.5   Methods in Karel",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.5.1 Methods in Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.5.2 Methods in Karel"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.5.3 Turn Around"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.5.4 Planting Bushes"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.5.5 Mario Karel"
+                    }
+                ]
+            },
+            {
+                "name": "11.6   Top Down Design and Decomposition in Karel",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.6.1 Top Down Design and Decomposition in Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.6.2 Top Down Design and Decomposition"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.6.3 Hurdle Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.6.4 The Two Towers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.6.5 Planting Flowers"
+                    }
+                ]
+            },
+            {
+                "name": "11.7   Commenting Your Code",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.7.1 Commenting Your Code"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.7.2 Commenting Your Code"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.7.3 Hurdle Karel (Comments)"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.7.4 The Two Towers + Comments"
+                    }
+                ]
+            },
+            {
+                "name": "11.8   Super Karel",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.8.1 Super Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.8.2 Super Karel"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.8.3 Hurdle Karel (with SuperKarel)"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.8.4 The Two Towers + SuperKarel"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "11.8.5 Super Karel Badge"
+                    }
+                ]
+            },
+            {
+                "name": "11.9   For Loops",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.9.1 For Loops"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.9.2 For Loops"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.9.3 Repeated Move"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.9.4 Put Down Tennis Balls"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.5 Marathon Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.6 Take 'em All"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.7 Dizzy Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.8 For Loop Square"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.9 Planting Flowers"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.9.10 Lots of Hurdles"
+                    }
+                ]
+            },
+            {
+                "name": "11.10   While Loops in Karel",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.10.1 While Loops in Karel"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.10.2 While Loops in Karel"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.10.3 Move to Wall"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.10.4 Follow The Yellow Ball Road"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.10.5 Just Keep Spinning"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.10.6 Lay Row of Tennis Balls"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.10.7 Big Tower"
+                    }
+                ]
+            },
+            {
+                "name": "11.11   If Statements",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.11.1 If Statements"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.11.2 If Statements Quiz"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.11.3 If Statements"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.11.4 Safe Take Ball"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.11.5 Is There a Ball?"
+                    }
+                ]
+            },
+            {
+                "name": "11.12   If/Else Statements",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.12.1 If/Else Statements"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.12.2 If/Else Statements"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.12.3 Flip Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.12.4 Fix It Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.12.5 Invert"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "11.12.6 Conditional Karel Badge"
+                    }
+                ]
+            },
+            {
+                "name": "11.13   Control Structures Example",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.13.1 Control Structures Example"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.13.2 Control Structures Example"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.13.3 Cleanup Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.13.4 Random Hurdles"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.13.5 Fix It Karel"
+                    }
+                ]
+            },
+            {
+                "name": "11.14   More Karel Examples and Testing",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.14.1 More Karel Examples and Testing"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.14.2 Move Tennis Ball Stack"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.14.3 Climbing Karel"
+                    }
+                ]
+            },
+            {
+                "name": "11.15   How to Indent Your Code",
+                "children": [
+                    {
+                        "type": "Video",
+                        "name": "11.15.1 How to Indent Your Code"
+                    },
+                    {
+                        "type": "Check for Understanding",
+                        "name": "11.15.2 How to Indent Your Code"
+                    },
+                    {
+                        "type": "Example",
+                        "name": "11.15.3 Dance and Clean Karel"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.15.4 Diagonal"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "11.15.5 Staircase"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "11.15.6 Karel Exercises Badge"
+                    }
+                ]
+            },
+            {
+                "name": "11.16   Karel Challenges",
+                "children": [
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.1 Fetch"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.2 Racing Karel"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.3 Tower Builder"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.4 Super Cleanup Karel"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.5 Double Tennis Balls"
+                    },
+                    {
+                        "type": "Challenge",
+                        "name": "11.16.6 Midpoint Karel"
+                    },
+                    {
+                        "type": "Badge",
+                        "name": "11.16.7 Karel Challenges Badge"
+                    }
+                ]
+            },
+            {
+                "name": "11.17   Unit 1 Quiz",
+                "children": [
+                    {
+                        "type": "Unit Quiz",
+                        "name": "11.17.1 AP Java Unit 1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extra Course Assignments",
+        "children": [
+            {
+                "name": "Assignments",
+                "children": [
+                    {
+                        "type": "Exercise",
+                        "name": "Dinner"
+                    },
+                    {
+                        "type": "Exercise",
+                        "name": "Dance Battle"
+                    }
+                ]
+            }
+        ]
+    }
+]
