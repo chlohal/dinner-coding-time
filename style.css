@@ -144,6 +144,7 @@
     height: 10vmin;
     top: 4rem;
     z-index: 97;
+    pointer-events: none;
 }
 
 .hero--splash--downcover rect {
@@ -645,8 +646,89 @@ footer .footer--link-category ul li {
     color:  rgb(126, 97, 121);
 }
 
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+}
 
- 
+code#source {
+    display: none;
+    white-space: pre;
+}
+
+.code-with-lines--border-parent {
+    overflow: hidden;
+    border-radius: 5px;
+    background: #1b1d35;
+}
+
+.code-with-lines--parent {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 100%;
+    min-height: 80vh;
+    height: max-content;
+}
+
+.code-with-lines {
+    background: #1b1d35;
+    color: #f7f7f7;
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+
+.code-with-lines th {
+    background: hsl(235, 33%, 23%);
+    color: #eee;
+    width: 5ch;
+    text-align: right;
+    position: absolute;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.code-with-lines tr {
+    white-space: pre;
+    margin: 0;
+    padding: 0;
+    line-height: 1.1;
+}
+
+.code-with-lines tr:hover td {
+    background: #20223f;
+}
+
+.code-with-lines ::selection,
+.code-with-lines ::-moz-selection {
+    background-color: #4e5074;
+    color: #eee;
+}
+
+.code-with-lines th, .code-with-lines td {
+    font-weight: normal;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    vertical-align: top;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.code-with-lines code, .code-with-lines th span {
+    line-height: 1.25;
+    display: inline-block;
+}
+
+.code-with-lines code {
+    padding-left: 5.25ch;
+}
+
+.code-with-lines th span {
+    width: 5ch;
+}
+
+
 @media screen and (min-width: 900px) {
     .hero--text #mobile-go-down-animation {
         display: none;
