@@ -728,6 +728,11 @@ code#source {
     width: 5ch;
 }
 
+main article.license {
+    font-size: 1rem;
+    white-space: pre;
+}
+
 
 @media screen and (min-width: 900px) {
     .hero--text #mobile-go-down-animation {
