@@ -668,6 +668,19 @@ code#source {
     width: 100%;
     min-height: 80vh;
     height: max-content;
+    position: relative;
+}
+
+.code-with-lines--parent::before {
+    content: "";
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5ch;
+    background: hsl(235, 33%, 23%);
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .code-with-lines {
