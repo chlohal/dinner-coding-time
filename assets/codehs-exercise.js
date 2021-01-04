@@ -18,11 +18,12 @@ for(var i = 0; i < sourceLines.length; i++) {
 }
 
 var inThePadding = true;
+var contentLinesStart = 0;
 
 var endPaddingIndex = sourceLines.length - 1;
 
 for(var i = sourceLines.length - 1; i > 0; i--) {
-    if(sourceLines[i].trim() == "") endPaddingIndex = i+1;
+    if(sourceLines[i].trim() == "") endPaddingIndex = i;
     else break;
 }
 
@@ -33,13 +34,14 @@ for(var i = 0; i < endPaddingIndex; i++) {
         continue;
     } else if(sourceLines[i].trim() != "") {
         inThePadding = false;
+        if(contentLinesStart == 0) contentLinesStart = i;
     }
     
     var line = document.createElement("tr");
     
     var lineNum = document.createElement("th");
     var numSpan = document.createElement("span");
-    numSpan.textContent = (i+1);
+    numSpan.textContent = (i+1-contentLinesStart);
     lineNum.appendChild(numSpan);
     line.appendChild(lineNum);
     
