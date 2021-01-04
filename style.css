@@ -420,7 +420,7 @@ header.mobile nav ul {
     background: #f7fdfd;
     color: #1b1d35;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
+    overflow-x: hidden;
  }
  
  body.headerpadding {
@@ -660,6 +660,9 @@ code#source {
     overflow: hidden;
     border-radius: 5px;
     background: #1b1d35;
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
 }
 
 .code-with-lines--parent {
@@ -671,7 +674,7 @@ code#source {
     position: relative;
 }
 
-.code-with-lines--parent::before {
+.code-with-lines--border-parent::before {
     content: "";
     font-size: 1rem;
     position: absolute;
@@ -680,7 +683,6 @@ code#source {
     left: 0;
     width: 5ch;
     background: hsl(235, 33%, 23%);
-    font-family: 'Courier New', Courier, monospace;
 }
 
 .code-with-lines {
@@ -688,15 +690,17 @@ code#source {
     color: #f7f7f7;
     border-collapse: collapse;
     width: 100%;
-    position: relative;
 }
 
 .code-with-lines th {
     background: hsl(235, 33%, 23%);
     color: #eee;
     width: 5ch;
+    left: 0;
+    top: auto;
+    position: -webkit-sticky;
+    position: sticky;
     text-align: right;
-    position: absolute;
     -moz-user-select: none;
     -webkit-user-select: none;
 }
@@ -734,7 +738,7 @@ code#source {
 }
 
 .code-with-lines code {
-    padding-left: 5.25ch;
+    padding-left: 0.25ch;
 }
 
 .code-with-lines th span {
