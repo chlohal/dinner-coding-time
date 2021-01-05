@@ -661,8 +661,9 @@ code#source {
     border-radius: 5px;
     background: #1b1d35;
     font-size: 1rem;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
     position: relative;
+    cursor: text;
 }
 
 .code-with-lines--parent {
@@ -683,6 +684,7 @@ code#source {
     left: 0;
     width: 5ch;
     background: hsl(235, 33%, 23%);
+    cursor: default;
 }
 
 .code-with-lines {
@@ -690,6 +692,7 @@ code#source {
     color: #f7f7f7;
     border-collapse: collapse;
     width: 100%;
+    cursor: text;
 }
 
 .code-with-lines th {
@@ -703,6 +706,7 @@ code#source {
     text-align: right;
     -moz-user-select: none;
     -webkit-user-select: none;
+    cursor: default;
 }
 
 .code-with-lines tr {
@@ -725,7 +729,7 @@ code#source {
 .code-with-lines th, .code-with-lines td {
     font-weight: normal;
     font-size: 1rem;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: inherit;
     vertical-align: top;
     padding: 0;
     margin: 0;
@@ -735,6 +739,7 @@ code#source {
 .code-with-lines code, .code-with-lines th span {
     line-height: 1.25;
     display: inline-block;
+    font-family: inherit;
 }
 
 .code-with-lines code {
