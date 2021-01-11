@@ -7,3 +7,10 @@ document.addEventListener("DOMContentLoaded", function() {
        window.requestAnimationFrame(anim);
     });
 });
+
+function loadDep(src, cb) {
+    var script = document.createElement("script");
+    script.src = "/assets/" + src;
+    if(cb) script.onclick = cb;
+    document.head.appendChild(script);
+}

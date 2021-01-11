@@ -638,8 +638,11 @@ footer .footer--link-category ul li {
 }
 
 .index--lessons summary {
-    cursor: pointer;
     margin: 0.25em 0;
+}
+
+summary {
+    cursor: pointer;
 }
 
 .index--semver-index-key {
@@ -649,10 +652,6 @@ footer .footer--link-category ul li {
 code {
     font-family: 'Courier New', Courier, monospace;
     font-size: 1rem;
-}
-
-code#source {
-    display: none;
     white-space: pre;
 }
 
@@ -664,6 +663,7 @@ code#source {
     font-family: 'Fira Code', 'Courier New', Courier, monospace;
     position: relative;
     cursor: text;
+    margin: 0.5em 0;
 }
 
 .code-with-lines--parent {
