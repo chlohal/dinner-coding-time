@@ -4,8 +4,7 @@ for(var i = 0; ; i++) {
     else break;
 }
 
-loadDep("parser-tools.js");
-loadDep("java-parser.js");
+loadDep("jparse-bundle.js");
 
 
 function makeEditor(source,editorIndex) {
