@@ -421,6 +421,10 @@ header.mobile nav ul {
     color: #1b1d35;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     overflow-x: hidden;
+    min-height: 100vh;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
  }
  
  body.headerpadding {
@@ -441,7 +445,8 @@ header.mobile nav ul {
     max-width: 100%;
     width: 100ch;
     padding: 0 0.5em;
-    margin: auto;
+    margin: 0 auto;
+    flex-grow: 1;
  }
  
  section h2 {
@@ -753,6 +758,69 @@ code {
 main article.license {
     font-size: 1rem;
     white-space: pre;
+}
+
+.alert {
+    position: fixed;
+    bottom: 1em;
+    background: #fefefe;
+    padding: 1em;
+    padding-bottom: 1.5em;
+    border: hsl(14, 92%, 86%) 0 solid;
+    border-radius: 0.5em;
+    margin: 0 auto;
+    width: 60ch;
+    max-width: 100vw;
+    z-index: 100;
+    left: 50%;
+    transform: translate(-50%, 0);
+    overflow: hidden;
+    text-align: center;
+}
+
+.alert button {
+    font: inherit;
+    font-weight: bold;
+    border: 0;
+    cursor: pointer;
+    background: 0;
+}
+
+.alert button:hover,
+.alert button:focus {
+    text-decoration: underline;
+}
+
+.alert.progress::before {
+    background: linear-gradient(90deg, #92D190,#99ffbb, #92D190);
+    background-repeat: repeat;
+    border: 0;
+    background-size: 20em;
+    height: 0.5em;
+    animation: progress-alert-bottom-slide 1s linear infinite
+}
+
+.alert::before {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 0;
+    box-sizing: content-box;
+    border-top: black 0.5em solid;
+    border-color: inherit;
+}
+
+@keyframes progress-alert-bottom-slide {
+    from {
+        background-position: 0em 0em;
+    }
+
+    to {
+        background-position: 20em 0em;
+    }
 }
 
 
