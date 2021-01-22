@@ -120,6 +120,7 @@ function makeEditor(source, editorIndex) {
                 exitButton: true
             });
         }
+        window.ast = ast;
         console.log(ast);
     }
 
@@ -136,8 +137,9 @@ function makeEditor(source, editorIndex) {
     return result;
 }
 
-function makeNumberedLinesTable(htmlLines) {
-    var table = document.createElement("table");
+function makeNumberedLinesTable(htmlLines, table) {
+    if(table === undefined) table = document.createElement("table");
+    while(table.children[0]) table.removeChild(table.children[0]);
     table.classList.add("code-with-lines");
 
     var inThePadding = true;
@@ -195,38 +197,150 @@ function makeNumberedLinesTable(htmlLines) {
 }
 
 
+/**
+ * @typedef {Object} StylingMode
+ * @property {boolean} javaBracketsStyle Use Java-style brackets, with brackets on the same line. If false, it will go to C-style brackets. 
+ * @property {string} indentBy The string to indent blocks by. Must be whitespace
+ * @property {string} spaceAfterStatement Space to include after statements like `for`, but before their parameters.
+ */
+/**
+ * Stringify a Java AST
+ * @param {Object} ast The AST to stringify.
+ * @param {StylingMode} style How the output should be styled.
+ */
 function astToString(ast, style) {
     if(!ast) return "";
 
+    if(style === undefined) style = {};
+    
     if(style.isSnippet) {
         ast = ast.types[0].declaration.body[0];
     }
+    
+    //copy in order to not modify original
+    style = Object.assign({}, style);
+    
+    //default to 4-space styling
+    if(style.indentBy === undefined) style.indentBy = "    ";
+    
+    //default to java-style spacing
+    if(style.javaBracketsStyle === undefined) style.javaBracketsStyle = true;
+    
+    if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = " ";
+    
+    
+    var bracketTypes = ["\n", " "];
+    
 
     switch(ast.type) {
         case "COMPILATION_UNIT":
             return (ast.package ? `${astToString(ast.package, style)};\n` : "") +
-                (ast.imports[0] ? ast.imports.map(function(x) { return astToString(x, style) }).join(";\n") + ";" : "") +
+                ast.imports.map(function(x) { return astToString(x, style) + ";\n"})+
                 ast.types.map(function(x) { return astToString(x, style) }).join(style.spaceBetweenClasses);
         case "PACKAGE_DECLARATION": 
             return "package " + astToString(ast.name, style);
         case "QUALIFIED_NAME":
             return ast.name.map(function(x) { return astToString(x, style); }).join(".");
         case "TYPE_DECLARATION":
+        case "CLASS_BODY_MEMBER_DECLARATION":
             return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") +
                 astToString(ast.declaration,style);
         case "CLASS_DECLARATION":
-            return astToString(ast.name,style) + " " +
+            return "class " + astToString(ast.name,style) + " " +
                 (ast.extends ?  astToString(ast.extends,style) : "") + 
                 (ast.implements ? astToString(ast.implements,style) : "") +
-                style.bracketsStyle +
-                astToString(ast.body,style);
-        case "IDENTIFER":
+                (bracketTypes[+!!style.javaBracketsStyle]) +
+                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
+        case "IDENTIFIER":
+        case "MODIFIER":
+        case "PRIMITIVE_TYPE":
+        case "STRING_LITERAL":
+        case "DECIMAL_LITERAL":
+        case "CHAR_LITERAL":
             return ast.value;
         case "TYPE_LIST":
+        case "QUALIFIED_NAME_LIST":
             return ast.list.map(function(x) { return astToString(x,style); }).join(", "); 
-        
-
+        case "CLASS_BODY":
+            return  "{\n" + 
+                ast.declarations.map(function(x) { return astToString(x,style); }).join("\n") + "\n}"; 
+        case "FIELD_DECLARATION":
+            return astToString(ast.typeType,style) + " " + astToString(ast.variableDeclarators,style) + ";";
+        case "VARIABLE_DECLARATORS": 
+            return ast.list.map(function(x) { return astToString(x,style); }).join(", ");
+        case "VARIABLE_DECLARATOR":
+            return astToString(ast.id,style) + 
+                (ast.init ? " = " + astToString(ast.init,style) : "");
+        case "VARIABLE_DECLARATOR_ID":
+            return astToString(ast.id, style) + 
+            ast.dimensions.map(function(x) { return astToString(x,style); }).join("");
+        case "CONSTRUCTOR_DECLARATION":
+            return astToString(ast.name,style) + " " + astToString(ast.parameters,style) + 
+                (ast.throws ? " throws " + astToString(ast.throws) : "") +
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
+        case "METHOD_DECLARATION":
+            return astToString(ast.name,style) + " " + astToString(ast.parameters,style) + 
+                (ast.throws ? " throws " + astToString(ast.throws) : "") +
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
+        case "FORMAL_PARAMETERS":
+            return "(" + ast.parameters.map(function(x) { return astToString(x,style); }).join(", ") + ")";
+        case "FORMAL_PARAMETER":
+            return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") + 
+                astToString(ast.typeType, style) + " " + astToString(ast.id, style)
+        case "BLOCK":
+            return "{" + "\n" +
+                ast.statements.map(function(x) { return astToString(x,style) + "\n"}).join("") + 
+                "}"; 
+        case "EXPRESSION_STATEMENT":
+            return astToString(ast.expression, style) + ";";
+        case "OPERATOR_EXPRESSION":
+            return astToString(ast.left) + " " +
+                astToString(ast.operator) + " " + 
+                (ast.right ? astToString(ast.right) : "");
+        case "OPERATOR":
+            return ast.operator;
+        case "SEMI_COLON_STATEMENT":
+            return ";"
+        case "LOCAL_VARIABLE_DECLARATION":
+            return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") +
+            astToString(ast.typeType, style) + " " + astToString(ast.declarators, style)
+        case "RETURN_STATEMENT":
+            return "return " + astToString(ast.expression, style) + ";";
+        case "FOR_STATEMENT": 
+            return "for"+(style.spaceAfterStatement)+"(" + astToString(ast.forControl, style) + ")" +
+            bracketTypes[+!!style.javaBracketsStyle] + 
+            indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
+        case "BASIC_FOR_CONTROL":
+            return astToString(ast.forInit, style) + ";" + style.spaceAfterStatement + 
+                astToString(ast.expression, style) + ";" + style.spaceAfterStatement +
+                astToString(ast.expressionList, style);
+        case "EXPRESSION_LIST":
+            return ast.list.map(function(x) { return astToString(x, style) }).join("," + style.spaceAfterStatement);
+        case "POSTFIX_EXPRESSION":
+            return astToString(ast.expression, style) + ast.postfix;
+        case "QUALIFIED_EXPRESSION":
+            return astToString(ast.expression, style) + "." + astToString(ast.rest, style);
+        case "METHOD_INVOCATION":
+            return astToString(ast.name) + "(" + 
+                astToString(ast.parameters, style) + ")";
+        case "IF_STATEMENT":
+            return "if" + style.spaceAfterStatement + "(" + astToString(ast.condition, style) + ")" + 
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true) +
+                (ast.else ? "\nelse " + astToString(ast.else,style) : ""); 
+        default:
+            console.log("unknown type " + ast.type);
+            console.log(ast);
+            return "";
     }
+}
+
+function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
+    var lines = indentText.split("\n");
+    for(var i = 1; i < lines.length - +dontIndentLast; i++) lines[i] = indentBy + lines[i];
+    return lines.join("\n");
 }
 
 
