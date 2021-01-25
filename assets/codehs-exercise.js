@@ -27,6 +27,8 @@ for (var i = 0; ; i++) {
     else break;
 }
 
+editorsTablist.lastElementChild.click();
+
 function loadCodeIntelligence(override) {
     if(navigator.connection || override) {
         if (
