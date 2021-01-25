@@ -3,35 +3,57 @@
     font-style: italic
 }
 
-.hljs-keyword, .hljs-selector-tag {
+.hljs-keyword, .hljs-selector-tag, .hlast-modifier, .hlast-keyword {
     color: #dd743b
 }
 
-.hljs-number, .hljs-regexp, .hljs-string, .hljs-template-variable, .hljs-variable {
+.hljs-regexp, .hlast-string-literal, .hljs-template-variable {
     color: #badb6e
 }
 
-.hljs-subst {
+.hlast-char-literal {
+    color: #abcf57
+}
+
+.hlast-decimal-literal {
+    color: #6edb9b
+}
+
+.hlast-boolean-literal {
     color: #60bd5e
 }
 
-.hljs-name, .hljs-tag {
-    color: #e8bf6a
+span.sibling-1[data-nodepath$="method-declaration identifier"] {
+    color:#e8bf6a
 }
 
-.hljs-type {
-    color: #e97062
+.hljs-, .hljs-tag, .hlast-type-type, span[data-nodepath$="class-declaration identifier"],
+span[data-nodepath$="method-declaration identifier"], span[data-nodepath$="constructor-declaration identifier"] {
+    color: #f2f3cc
 }
 
-.hljs-attr, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-link, .hljs-symbol {
+span[data-nodepath$="method-invocation identifier"] {
+    color: #e46464
+}
+
+.hljs-attr, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-link, .hljs-symbol, .hlast-primitive-type, .hlast-void {
     color: #6d9cbe
 }
 
-.hljs-params {
-    color: #d0d0ff
+
+
+span[data-nodepath$="qualified-expression identifier"].capitalized {
+    color: #f2f3ac;
+    font-style: italic;
 }
 
-.hljs-attribute {
+
+.hljs-params, .hlast-operator, .hlast-dimension {
+    color: #b1b1d8
+}
+
+.hljs-attribute, span[data-nodepath$="type-type identifier"], span[data-nodepath$="formal-parameter identifier"],
+span[data-nodepath$="local-variable-declaration identifier"], span[data-nodepath$="field-declaration identifier"] {
     color: #cda869
 }
 
@@ -75,4 +97,26 @@
 
 .hljs-link {
     text-decoration: underline
+}
+
+#explain-tooltip {
+    position: absolute;
+    margin: 0;
+    background-color: #272b4e;
+    border: 0;
+    padding: 0.25em;
+    border-radius: 0.125em;
+    box-shadow: 0 3px 6px 0px #0d0e1a;
+    color: #f7f7fa;
+    max-width: 35ch;
+    animation: tooltip-fade-in 0.2s;
+}
+
+@keyframes tooltip-fade-in {
+    0% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

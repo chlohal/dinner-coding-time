@@ -1,4 +1,25 @@
 var editors = [];
+var editorsParent, editorsTablist, selectedTab, editorsTabsEmptyState;
+
+(function createTabsParent() {
+    var main = document.querySelector("main");
+
+    var editorsTablistParent = document.createElement("div");
+    editorsTablistParent.classList.add("editor-tabs--grandparent")
+
+    editorsTablist = document.createElement("div");
+    editorsTablist.classList.add("editor-tabs--tablist")
+    editorsTablist.setAttribute("role", "tablist");
+    editorsTablistParent.appendChild(editorsTablist);
+
+    editorsParent = document.createElement("div");
+    editorsParent.classList.add("editor-tabs--parent");
+    editorsParent.innerHTML = `<div class="editor-tabs--emptystate"><h2>Nothing open!</h2><p>Select a file in the top to open it.</p></div>`;
+    editorsTabsEmptyState = editorsParent.children[0];
+    editorsTablistParent.appendChild(editorsParent);
+
+    main.appendChild(editorsTablistParent);
+})();
 
 for (var i = 0; ; i++) {
     var source = document.getElementById("source" + (i || ""));
@@ -13,12 +34,20 @@ function loadCodeIntelligence(override) {
             ((navigator.connection.type != "bluetooth" && navigator.connection.type != "cellular") &&
             !navigator.connection.saveData)
         ) {
-            loadDep("java-parser.js", function() {
+            for(var i = 0; i < editors.length; i++) {
+                (function() {
+                    var editor = editors[i];
+                    if(editor.onLoadCodeIntelligence) requestAnimationFrame(function() {
+                        editor.onStartLoadingCodeIntelligence();
+                    });
+                })()
+            }
+            loadDep(["java-parser.js", "explainer.js"], function() {
                 showAlert({
                     text: "Code Intelligence is loaded!",
                     duration: 800
                 });
-                startCodeIntelligence();
+                requestAnimationFrame(startCodeIntelligence);
             });
             showAlert({
                 text: "Loading Code Intelligence...",
@@ -68,7 +97,6 @@ function loadCodeIntelligence(override) {
 
 loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
 
-
 function startCodeIntelligence() {
     for(var i = 0; i < editors.length; i++) {
         if(editors[i].onLoadCodeIntelligence) editors[i].onLoadCodeIntelligence(window.parser.parse);
@@ -83,8 +111,6 @@ function makeEditor(source, editorIndex) {
     var sourceContent = source.textContent;
     var sourceLinesHtml = source.innerHTML.split("\n");
 
-    var main = document.querySelector("main");
-
     var table = makeNumberedLinesTable(sourceLinesHtml);
     
 
@@ -92,25 +118,35 @@ function makeEditor(source, editorIndex) {
     parent.classList.add("code-with-lines--parent");
     parent.appendChild(table);
 
+    var loader = document.createElement("div");
+    loader.classList.add("code-with-lines--load-box");
+    parent.appendChild(loader);
+
+    //we'll add the SVG after the loader is attached, because it doesn't like it if we don't
+    
     var border = document.createElement("div");
     border.classList.add("code-with-lines--border-parent");
     border.appendChild(parent);
 
-    var accordian = document.createElement("details");
-    var accordianTitle = document.createElement("summary");
+    var tabTitle = document.createElement("button");
     var titleRegexp = (/public\s+class\s+(\w+)/).exec(source.textContent);
     var fileName = titleRegexp ? titleRegexp[1] + ".java" : source.textContent.substring(0, 200).replace(/\n/g, " ") + "...";
-    accordianTitle.textContent = fileName
-
-    if (accordianTitle.textContent.indexOf("Tester") == -1 || editorIndex == 0) accordian.open = true;
-
-    accordian.appendChild(accordianTitle);
-    accordian.appendChild(border);
+    tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`
 
     source.style.display = "none";
-    main.appendChild(accordian);
+    appendTab(tabTitle, border);
+
+    loader.innerHTML = `<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
+
+    function onStartLoadingCodeIntelligence() {
+        this.table.hidden = true;
+        this.parent.classList.add("lines-of-code--loading");
+    }
 
     function onLoadCodeIntelligence(parse) {
+        this.table.hidden = false;
+        this.parent.classList.remove("lines-of-code--loading");
+
         var ast;
         try {
             ast = parse(sourceContent);
@@ -119,13 +155,17 @@ function makeEditor(source, editorIndex) {
                 text: `Error in activating Code Intelligence on ${fileName}.`,
                 exitButton: true
             });
+            return;
         }
+
         window.ast = ast;
-        console.log(ast);
+        var astSource = astToString(ast, {colorize: true});
+        makeNumberedLinesTable(astSource.split("\n"), this.table);
+        explainEditor(this);
     }
 
     var result = {
-        overParent: accordian,
+        parent: parent,
         source: sourceContent,
         index: editorIndex,
         table: table,
@@ -133,8 +173,50 @@ function makeEditor(source, editorIndex) {
     };
 
     result.onLoadCodeIntelligence = onLoadCodeIntelligence.bind(result);
+    result.onStartLoadingCodeIntelligence = onStartLoadingCodeIntelligence.bind(result);
 
     return result;
+}
+
+function appendTab(tab, tabpanel) {
+    var generatedId = "tab-" + (Math.round(Math.random() * 100)) + "-" + editorsParent.children.length;
+    
+    tab.id = generatedId;
+    tabpanel.id = generatedId + "-panel";
+
+    tab.setAttribute("tabindex", "0");
+    tab.setAttribute("aria-controls", generatedId + "-panel");
+    tab.setAttribute("aria-selected", "false");
+    tab.setAttribute("role", "tab");
+
+    tab.addEventListener("click", function() {
+        if(editorsTabsEmptyState) {
+            editorsParent.removeChild(editorsTabsEmptyState);
+            editorsTabsEmptyState = undefined;
+        }
+        if(selectedTab) {
+            selectedTab.setAttribute("aria-selected", "false");
+
+            var selectedTabpanel = document.getElementById(selectedTab.getAttribute("aria-controls"));
+            console.log(selectedTab, selectedTabpanel);
+            selectedTabpanel.setAttribute("hidden", "true");
+            selectedTabpanel.setAttribute("aria-hidden", "true");
+        }
+
+        tabpanel.removeAttribute("hidden");
+        tabpanel.setAttribute("aria-hidden", "false");
+        tab.setAttribute("aria-selected", "true");
+        selectedTab = tab;
+    });
+
+    editorsTablist.appendChild(tab);
+
+    tabpanel.setAttribute("aria-hidden", "true");
+    tabpanel.setAttribute("aria-labelledby", generatedId);
+    tabpanel.setAttribute("role", "tabpanel");
+    tabpanel.setAttribute("hidden", "true");
+
+    editorsParent.appendChild(tabpanel);
 }
 
 function makeNumberedLinesTable(htmlLines, table) {
@@ -153,10 +235,10 @@ function makeNumberedLinesTable(htmlLines, table) {
         }
     }
 
-    var endPaddingIndex = htmlLines.length - 1;
+    var endPaddingIndex = htmlLines.length;
 
     for (var i = htmlLines.length - 1; i > 0; i--) {
-        if (htmlLines[i].trim() == "") endPaddingIndex = i;
+        if (htmlLines[i].match(/^\s+$/g)) endPaddingIndex = i+1;
         else break;
     }
 
@@ -164,9 +246,9 @@ function makeNumberedLinesTable(htmlLines, table) {
 
 
     for (var i = 0; i < endPaddingIndex; i++) {
-        if (inThePadding && htmlLines[i].trim() == "") {
+        if (inThePadding && htmlLines[i].match(/^\s+$/)) {
             continue;
-        } else if (htmlLines[i].trim() != "") {
+        } else if (htmlLines[i].match(/^\s+$/)) {
             inThePadding = false;
             if (contentLinesStart == 0) contentLinesStart = i;
         }
@@ -202,13 +284,14 @@ function makeNumberedLinesTable(htmlLines, table) {
  * @property {boolean} javaBracketsStyle Use Java-style brackets, with brackets on the same line. If false, it will go to C-style brackets. 
  * @property {string} indentBy The string to indent blocks by. Must be whitespace
  * @property {string} spaceAfterStatement Space to include after statements like `for`, but before their parameters.
+ * @property {boolean} colorize Whether to colorize the output with HTML.
  */
 /**
  * Stringify a Java AST
  * @param {Object} ast The AST to stringify.
  * @param {StylingMode} style How the output should be styled.
  */
-function astToString(ast, style) {
+function astToString(ast, style, nodePath, siblingIndex) {
     if(!ast) return "";
 
     if(style === undefined) style = {};
@@ -225,116 +308,213 @@ function astToString(ast, style) {
     
     //default to java-style spacing
     if(style.javaBracketsStyle === undefined) style.javaBracketsStyle = true;
-    
-    if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = " ";
+    if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = "";
+    if(style.linesAfterImport === undefined) style.linesAfterImport = "\n";
     
     
     var bracketTypes = ["\n", " "];
+
+    var isLeaf = 0;
+
+    nodePath = (nodePath === undefined ? [] : nodePath).concat([ast.type]);
+
+    function recurse(a) {
+        isLeaf++;
+        return astToString(a, style, nodePath, isLeaf);
+    }
     
 
+    var result = "";
     switch(ast.type) {
         case "COMPILATION_UNIT":
-            return (ast.package ? `${astToString(ast.package, style)};\n` : "") +
-                ast.imports.map(function(x) { return astToString(x, style) + ";\n"})+
-                ast.types.map(function(x) { return astToString(x, style) }).join(style.spaceBetweenClasses);
+            result = (ast.package ? `${recurse(ast.package)};\n` : "") +
+                ast.imports.map(function(x) { return recurse(x) + ";\n"}) +
+                (ast.imports.length ? style.linesAfterImport : "") +
+                ast.types.map(function(x) { return recurse(x) }).join(style.spaceBetweenClasses);
+            break;
         case "PACKAGE_DECLARATION": 
-            return "package " + astToString(ast.name, style);
+            result = "package " + recurse(ast.name);
+            break;
         case "QUALIFIED_NAME":
-            return ast.name.map(function(x) { return astToString(x, style); }).join(".");
+            result = ast.name.map(function(x) { return recurse(x); }).join(".");
+            break;
         case "TYPE_DECLARATION":
         case "CLASS_BODY_MEMBER_DECLARATION":
-            return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") +
-                astToString(ast.declaration,style);
+            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") +
+                recurse(ast.declaration);
+            break;
         case "CLASS_DECLARATION":
-            return "class " + astToString(ast.name,style) + " " +
-                (ast.extends ?  astToString(ast.extends,style) : "") + 
-                (ast.implements ? astToString(ast.implements,style) : "") +
+            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">class</span> " : "class ") + recurse(ast.name) +
+                (ast.extends ?  recurse(ast.extends) : "") + 
+                (ast.implements ? recurse(ast.implements) : "") +
                 (bracketTypes[+!!style.javaBracketsStyle]) +
-                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
+                break;
         case "IDENTIFIER":
         case "MODIFIER":
         case "PRIMITIVE_TYPE":
         case "STRING_LITERAL":
+        case "BOOLEAN_LITERAL":
         case "DECIMAL_LITERAL":
         case "CHAR_LITERAL":
-            return ast.value;
+            result = ast.value;
+            break;
         case "TYPE_LIST":
         case "QUALIFIED_NAME_LIST":
-            return ast.list.map(function(x) { return astToString(x,style); }).join(", "); 
+            result = ast.list.map(function(x) { return recurse(x); }).join(", ");
+            break;
         case "CLASS_BODY":
-            return  "{\n" + 
-                ast.declarations.map(function(x) { return astToString(x,style); }).join("\n") + "\n}"; 
+            result =  "{\n" + 
+                ast.declarations.map(function(x) { return recurse(x); }).join("\n") + "\n}"; 
+            break;
         case "FIELD_DECLARATION":
-            return astToString(ast.typeType,style) + " " + astToString(ast.variableDeclarators,style) + ";";
+            result = recurse(ast.typeType) + " " + recurse(ast.variableDeclarators) + ";";
+            break;
         case "VARIABLE_DECLARATORS": 
-            return ast.list.map(function(x) { return astToString(x,style); }).join(", ");
+            result = ast.list.map(function(x) { return recurse(x); }).join(", ");
+            break;
         case "VARIABLE_DECLARATOR":
-            return astToString(ast.id,style) + 
-                (ast.init ? " = " + astToString(ast.init,style) : "");
+            result = recurse(ast.id) + 
+                (ast.init ? " " + recurse({type: "OPERATOR", operator: "="}) + " " + recurse(ast.init) : "");
+            break;
         case "VARIABLE_DECLARATOR_ID":
-            return astToString(ast.id, style) + 
-            ast.dimensions.map(function(x) { return astToString(x,style); }).join("");
+            result = recurse(ast.id) + 
+                ast.dimensions.map(function(x) { return recurse(x); }).join("");
+            break;
         case "CONSTRUCTOR_DECLARATION":
-            return astToString(ast.name,style) + " " + astToString(ast.parameters,style) + 
-                (ast.throws ? " throws " + astToString(ast.throws) : "") +
+            result = recurse(ast.name) + " " + recurse(ast.parameters) + 
+                (ast.throws ? " throws " + recurse(ast.throws) : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+            break;
         case "METHOD_DECLARATION":
-            return astToString(ast.name,style) + " " + astToString(ast.parameters,style) + 
-                (ast.throws ? " throws " + astToString(ast.throws) : "") +
+            result = recurse(ast.typeType) + 
+                " " + recurse(ast.name) + style.spaceAfterStatement + recurse(ast.parameters) + 
+                (ast.throws ? " throws " + recurse(ast.throws) : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+            break;
         case "FORMAL_PARAMETERS":
-            return "(" + ast.parameters.map(function(x) { return astToString(x,style); }).join(", ") + ")";
+            result = "(" + ast.parameters.map(function(x) { return recurse(x); }).join(", ") + ")";
+            break;
         case "FORMAL_PARAMETER":
-            return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") + 
-                astToString(ast.typeType, style) + " " + astToString(ast.id, style)
+            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") + 
+                recurse(ast.typeType) + " " + recurse(ast.id);
+            break;
         case "BLOCK":
-            return "{" + "\n" +
-                ast.statements.map(function(x) { return astToString(x,style) + "\n"}).join("") + 
+            result = "{" + "\n" +
+                ast.statements.map(function(x) { return recurse(x) + "\n"}).join("") + 
                 "}"; 
+            break;
         case "EXPRESSION_STATEMENT":
-            return astToString(ast.expression, style) + ";";
+            result = recurse(ast.expression) + ";";
+            break;
         case "OPERATOR_EXPRESSION":
-            return astToString(ast.left) + " " +
-                astToString(ast.operator) + " " + 
-                (ast.right ? astToString(ast.right) : "");
+            return recurse(ast.left) + " " +
+                recurse(ast.operator) + " " + 
+                (ast.right ? recurse(ast.right) : "");
+            break;
         case "OPERATOR":
-            return ast.operator;
+            result = ast.operator;
+            break;
         case "SEMI_COLON_STATEMENT":
-            return ";"
+            result = ";"
+            break;
         case "LOCAL_VARIABLE_DECLARATION":
-            return ast.modifiers.map(function(x) { return astToString(x, style) + " " }).join("") +
-            astToString(ast.typeType, style) + " " + astToString(ast.declarators, style)
+            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") +
+                recurse(ast.typeType) + " " + recurse(ast.declarators);
+            break;
         case "RETURN_STATEMENT":
-            return "return " + astToString(ast.expression, style) + ";";
+            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">return</span> " : "return ") + recurse(ast.expression) + ";";
+            break;
         case "FOR_STATEMENT": 
-            return "for"+(style.spaceAfterStatement)+"(" + astToString(ast.forControl, style) + ")" +
-            bracketTypes[+!!style.javaBracketsStyle] + 
-            indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true);
-        case "BASIC_FOR_CONTROL":
-            return astToString(ast.forInit, style) + ";" + style.spaceAfterStatement + 
-                astToString(ast.expression, style) + ";" + style.spaceAfterStatement +
-                astToString(ast.expressionList, style);
-        case "EXPRESSION_LIST":
-            return ast.list.map(function(x) { return astToString(x, style) }).join("," + style.spaceAfterStatement);
-        case "POSTFIX_EXPRESSION":
-            return astToString(ast.expression, style) + ast.postfix;
-        case "QUALIFIED_EXPRESSION":
-            return astToString(ast.expression, style) + "." + astToString(ast.rest, style);
-        case "METHOD_INVOCATION":
-            return astToString(ast.name) + "(" + 
-                astToString(ast.parameters, style) + ")";
-        case "IF_STATEMENT":
-            return "if" + style.spaceAfterStatement + "(" + astToString(ast.condition, style) + ")" + 
+            result =  (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
+                (style.spaceAfterStatement)+"(" + recurse(ast.forControl) + ")" +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(astToString(ast.body,style), style.indentBy, style.javaBracketsStyle, true) +
-                (ast.else ? "\nelse " + astToString(ast.else,style) : ""); 
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+            break;
+        case "BASIC_FOR_CONTROL":
+            result = recurse(ast.forInit) + ";" + style.spaceAfterStatement + 
+                recurse(ast.expression) + ";" + style.spaceAfterStatement +
+                recurse(ast.expressionList);
+            break;
+        case "EXPRESSION_LIST":
+            result = ast.list.map(function(x) { return recurse(x) }).join("," + style.spaceAfterStatement);
+            break;
+        case "POSTFIX_EXPRESSION":
+            result = recurse(ast.expression) + ast.postfix;
+            break;
+        case "QUALIFIED_EXPRESSION":
+            result = recurse(ast.expression) + "." + recurse(ast.rest);
+            break;
+        case "METHOD_INVOCATION":
+            result = recurse(ast.name) + "(" + 
+                recurse(ast.parameters) + ")";
+                break;
+        case "IF_STATEMENT":
+            result = "if" + style.spaceAfterStatement + "(" + recurse(ast.condition) + ")" + 
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true) +
+                (ast.else ? "\nelse " + recurse(ast.else) : ""); 
+            break;
+        case "VOID":
+            result = "void";
+            break;
+        case "TYPE_TYPE":
+            result = recurse(ast.value) + 
+            ast.dimensions.map(function(x) { return recurse(x) }).join("");
+            break;
+        case "DIMENSION":
+            result = "[]";
+            break;
+        case "IMPORT_DECLARATION":
+            result =  (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") + 
+                (ast.static ? "static " : "") +
+                recurse(ast.name);
+            break;
+        case "SIMPLE_CREATOR":
+            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse(ast.name) + recurse(ast.rest);
+            break;
+        case "IDENTIFIER_NAME":
+            result = ast.elements.map(function(x) { return recurse(x) }).join("," + style.spaceAfterStatement);
+            break;
+        case "IDENTIFIER_NAME_ELEMENT":
+            result = recurse(ast.id) + style.spaceAfterStatement + 
+                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function(x) { return recurse(x); }).join(", ") + ">");
+            break;
+        case "CLASS_CREATOR_REST":
+            result = "(" + recurse(ast.arguments) + ")";
+            break;
+        case "CAST_EXPRESSION":
+            return "(" + recurse(ast.castType) + ")"  + recurse(ast.expression);
         default:
             console.log("unknown type " + ast.type);
             console.log(ast);
-            return "";
+            result = ""; 
     }
+
+    //only colorize single-line things bc that way it won't get messed up upon table-ifying
+    if(style.colorize && !isLeaf) return `<span class="hlast hlast-${snakeKebab(ast.type)}${generateDescribingClasses(result, siblingIndex)}" data-nodepath="${nodePath.map(function(x) { return snakeKebab(x) }).join(" ") }">${encodeCharacterEntities(result)}</span>`;
+    else return result;
+}
+
+function generateDescribingClasses(str, idx) {
+    var classes = "";
+    classes += " sibling-" + idx;
+    if( /^[A-Z]/.test(str)) classes += " capitalized";
+    return classes;
+}
+
+function encodeCharacterEntities(str) {
+    return str.replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+function snakeKebab(snake) {
+    return snake.split("_").join("-").toLowerCase();
 }
 
 function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {

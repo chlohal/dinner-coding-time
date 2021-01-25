@@ -662,22 +662,48 @@ code {
 
 .code-with-lines--border-parent {
     overflow: hidden;
-    border-radius: 5px;
     background: #1b1d35;
     font-size: 1rem;
     font-family: 'Fira Code', 'Courier New', Courier, monospace;
     position: relative;
     cursor: text;
-    margin: 0.5em 0;
+    margin: 0;
 }
 
 .code-with-lines--parent {
     overflow-x: scroll;
+    scrollbar-color: dark;
     overflow-y: hidden;
     width: 100%;
     min-height: 80vh;
     height: max-content;
     position: relative;
+}
+
+.code-with-lines--accordian ::-webkit-scrollbar-track {
+    background-color: darkgrey;
+}
+
+
+.code-with-lines--parent .code-with-lines--load-box {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    align-items: center;
+    background: #1b1d3509;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.code-with-lines--parent.code-with-lines--loading .code-with-lines--load-box {
+    display: flex;
+}
+
+.code-with-lines--load-box svg {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
 }
 
 .code-with-lines--border-parent::before {
@@ -726,6 +752,8 @@ code {
 }
 
 .code-with-lines ::selection,
+#explain-tooltip ::selection,
+#explain-tooltip ::-moz-selection,
 .code-with-lines ::-moz-selection {
     background-color: #4e5074;
     color: #eee;
@@ -749,10 +777,98 @@ code {
 
 .code-with-lines code {
     padding-left: 0.25ch;
+    font-variant-ligatures: none;
 }
 
 .code-with-lines th span {
     width: 5ch;
+}
+
+.lines-of-code--accordian {
+    margin: 0.5em 0;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #2b2d4e;
+    color: #f7f7f7;
+    transition: 0.2s min-height;
+    min-height: 0vh;
+}
+
+.lines-of-code--accordian[open] {
+    min-height: 80vh;
+}
+
+.lines-of-code--accordian summary {
+    border-bottom:3px solid #4e5074;
+    font-weight: lighter;
+    font-size: 0.85em;
+    padding: 0.5em;
+}
+
+.lines-of-code--accordian summary:focus span {
+    outline: #b9b9b9 dotted 1px;
+    text-decoration: dotted;
+}
+
+.editor-tabs--grandparent {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.editor-tabs--parent {
+    height: 80vh;
+    background: #2b2d4e;
+    color: #171825;
+    position: relative;
+}
+
+.editor-tabs--emptystate {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-tabs--tablist {
+    background-color: #3c3d58;
+    border-bottom: 1px solid #373852;
+    padding: 0;
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+}
+.editor-tabs--tablist::-webkit-scrollbar{height: 8px; width:8px}
+.editor-tabs--tablist::-webkit-scrollbar-track{background:#3b3b3b;border-radius:0px}
+.editor-tabs--tablist::-webkit-scrollbar-thumb{background:#666666;border-radius:4px}
+
+.editor-tabs--tablist button {
+    font: inherit;
+    font-size: 0.85em;
+    color: #9493c9;
+    background: 0;
+    padding: 0.25em 0.5em;
+    display: inline-block;
+    cursor: pointer;
+    border: 0;
+    border-right: 1px solid #606288;
+}
+
+.editor-tabs--tablist button:hover {
+    background: linear-gradient(hsl(238, 19%, 26%), hsl(238, 19%, 32%))
+}
+
+.editor-tabs--tablist button[aria-selected=true] {
+    background: #20223f;
+    color: #f7f5f5;
+}
+
+.editor-tabs--tablist button[aria-selected=true]:hover {
+    background: linear-gradient(hsl(236, 33%, 16%),hsl(236, 33%, 22%))
 }
 
 main article.license {

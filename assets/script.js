@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if(!slide) return false;
     
     window.requestAnimationFrame(function anim() {
-       slide.style.transform = `translateY(${window.scrollY*0.65}px)`;
+       slide.style.transform = `translateY(${window.scrollY*0.2}px)`;
        window.requestAnimationFrame(anim);
     });
 });
