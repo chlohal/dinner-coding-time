@@ -110,10 +110,11 @@ function makeEditor(source, editorIndex) {
     source.classList.add("lang-java");
     hljs.highlightBlock(source);
 
-    var sourceContent = source.textContent;
-    var sourceLinesHtml = source.innerHTML.split("\n");
+    var sourceContent = `public class CodingBat { 
+        ${source.textContent}
+    }`;
 
-    var table = makeNumberedLinesTable(sourceLinesHtml);
+    var table = makeNumberedLinesTable(sourceContent.split("\n"));
     
 
     var parent = document.createElement("div");
@@ -131,8 +132,8 @@ function makeEditor(source, editorIndex) {
     border.appendChild(parent);
 
     var tabTitle = document.createElement("button");
-    var titleRegexp = (/public\s+class\s+(\w+)/).exec(source.textContent);
-    var fileName = titleRegexp ? titleRegexp[1] + ".java" : source.textContent.substring(0, 200).replace(/\n/g, " ") + "...";
+    var titleRegexp = (/public\s+\w+\s+(\w+)/).exec(source.textContent);
+    var fileName = titleRegexp ? titleRegexp[1] + ".java" : source.textContent.substring(0, 30).replace(/\n/g, " ") + "...";
     tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`
 
     source.style.display = "none";
@@ -161,7 +162,7 @@ function makeEditor(source, editorIndex) {
         }
 
         window.ast = ast;
-        var astSource = astToString(ast, {colorize: true});
+        var astSource = astToString(ast, {colorize: true, isSnippet: true});
         makeNumberedLinesTable(astSource.split("\n"), this.table);
         explainEditor(this);
     }
@@ -282,6 +283,25 @@ function makeNumberedLinesTable(htmlLines, table) {
 
 
 
+function generateDescribingClasses(str, idx) {
+    var classes = "";
+    classes += " sibling-" + idx;
+    if( /^[A-Z]/.test(str)) classes += " capitalized";
+    return classes;
+}
+
+function encodeCharacterEntities(str) {
+    return str.replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+function snakeKebab(snake) {
+    return snake.split("_").join("-").toLowerCase();
+}
+
 function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
     var lines = indentText.split("\n");
     for(var i = 1; i < lines.length - +dontIndentLast; i++) lines[i] = indentBy + lines[i];
@@ -342,12 +362,4 @@ function showAlert(opts) {
             try { document.body.removeChild(elem); } catch (e) { console.error(e); }
         }, opts.duration || 3000);
     }
-}
-
-function encodeCharacterEntities(str) {
-    return str.replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
 }

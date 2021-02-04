@@ -99,6 +99,11 @@ span[data-nodepath$="local-variable-declaration identifier"], span[data-nodepath
     text-decoration: underline
 }
 
+.hlast-pairedchar.partner-selected {
+    outline: 1px solid #4e5074;
+    background: #171825;
+}
+
 #explain-tooltip {
     position: absolute;
     margin: 0;

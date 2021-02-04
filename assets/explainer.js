@@ -18,11 +18,10 @@
 
     window.explainEditor = function explain(editor) {
         var words = editor.table.querySelectorAll("span.hlast");
-        console.log(words);
 
         for(var i = 0; i < words.length; i++) {
             attachWordExplainer(words[i])
-            
+            if(words[i].classList.contains("hlast-pairedchar")) addPairedchar(words[i]);
         }
 
         editor.parent.addEventListener("mouseenter", function(event) {
@@ -31,6 +30,30 @@
         
     }
 
+    function addPairedchar(pairedchar) {
+        var id = pairedchar.id;
+        var partnerId = "";
+        if(id.includes("-in-")) partnerId = id.replace("-in-", "-out-");
+        else partnerId = id.replace("-out-", "-in-");
+
+        var partner = document.getElementById(partnerId);
+        if(!partner) return false;
+
+        console.log(partner);
+
+        pairedchar.addEventListener("click", function() {
+            pairedchar.tabIndex = "-1";
+            pairedchar.focus();
+
+            partner.classList.add("partner-selected");
+            pairedchar.classList.add("partner-selected");
+        });
+
+        pairedchar.addEventListener("blur", function() {
+            partner.classList.remove("partner-selected");
+            pairedchar.classList.remove("partner-selected");
+        });
+    }
     
     function attachWordExplainer(word) {
         var applicableRuleIdx = rules.findIndex(function(rule) {

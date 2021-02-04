@@ -14,6 +14,10 @@
 
 
     <script src="/assets/script.js" defer></script>
+    <script src="/assets/classwork.js" defer></script>
+
+<link rel="stylesheet" href="/assets/highlight.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -54,32 +58,27 @@
         </path>
     </svg>
     <main>
-        <h1>Classwork</h1>
+<h1>String-3 > countYZ</hl>
 
-        <p>
-            Below are all Classwork answers. This includes CodingBat, as well as some select projects. This does not
-            include most whiteboard problems, as whiteboard problems seem to be made up on the fly by Dinneen.
-        </p>
-        <ol class="index--lessons" id="lessons">
-
-            <li>
-                <h2>CodingBat</h2>
-                <ol>
-                    <li>
-                        <details>
-                            <summary>
-                                <h3>String-3</h3>
-                            </summary>
-                            <ol>
-                                <li>
-                                    <p><a href="/classwork/codingbat/string-3/countYZ">Dinner</a></p>
-                                </li>
-                            </ol>
-                        </details>
-                    </li>
-                </ol>
-            </li>
-        </ol>
+        <code id="source">
+            public int countYZ(String str) {
+                int words = 0;
+                
+                for(int i = 0; i < str.length(); i++) {
+              
+                  if(
+                      //put end-checker first so that it'll short-circuit if we're at the end and not try to get an undefined character for the space
+                      (i + 1 == str.length() || !Character.isLetter(str.charAt(i+1))) && 
+                      (str.toLowerCase().charAt(i) == 'y' || str.toLowerCase().charAt(i) == 'z')
+                    ) {
+                      words++;
+                    }
+                }
+                
+                return words;
+              }
+              
+        </code>
     </main>
     <footer>
         <h3>Dinneen Coding Time</h3>
@@ -121,7 +120,7 @@
                     <li>
                         <a href="/legal/terms">Terms & Conditions</a>
                     </li>
-                    <li>
+<li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>
