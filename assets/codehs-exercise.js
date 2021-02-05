@@ -426,6 +426,44 @@
             }
         }));
         
+        tabPanel.appendChild(createRadioControls({
+            heading: "Code Spacing Out",
+            name: "spaceAfterStatement",
+            opts: [
+                {
+                    value: " ",
+                    checked: !!oldStyle.spaceAfterStatement,
+                    label: "Space the code out loosely. Includes spaces added after <code>for</code> and <code>if</code> statements."
+                },
+                {
+                    value: "",
+                    checked: !oldStyle.spaceAfterStatement,
+                    label: "Space the code out firmly. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements."
+                },
+                {
+                    value: "dense",
+                    checked: oldStyle.spaceAfterStatement=="dense",
+                    label: "Minify the code. This will pack all of your code onto one line and try to make it as small as possible."
+                }
+            ]
+        }));
+        
+        tabPanel.appendChild(createRadioControls({
+            heading: "Comments",
+            name: "removeComments",
+            opts: [
+                {
+                    value: " ",
+                    checked: !oldStyle.removeComments,
+                    label: "Keep comments in the code"
+                },
+                {
+                    value: "",
+                    checked: !!oldStyle.removeComments,
+                    label: "Remove comments from the code completely."
+                }
+            ]
+        }));
         
         var tabPanelSubmitButton = document.createElement("button");
         tabPanelSubmitButton.textContent = "Save & Apply Changes";

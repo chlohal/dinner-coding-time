@@ -21,6 +21,7 @@ if(typeof window === "undefined") var window = {};
  * @property {string} indentBy The string to indent blocks by. Must be whitespace
  * @property {string} spaceAfterStatement Space to include after statements like `for`, but before their parameters.
  * @property {boolean} colorize Whether to colorize the output with HTML.
+ * @property {boolean} removeComments Whether to remove comments or not.
  */
 /**
  * Stringify a Java AST
@@ -46,6 +47,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     if(style.javaBracketsStyle === undefined) style.javaBracketsStyle = true;
     if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = "";
     if(style.linesAfterImport === undefined) style.linesAfterImport = "\n";
+    if(style.removeComments === undefined) style.removeComments = false;
     
     
     var bracketTypes = ["\n", " "];
@@ -81,6 +83,12 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
         return astToString(target, style, nodePath, isLeaf, address.concat(a));
     }
     
+    var isDense = style.spaceAfterStatement == "dense";
+    if(isDense) {
+        style.spaceAfterStatement = "";
+        style.indentBy = "";
+    }
+    
 
     var result = "";
     
@@ -110,6 +118,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 (bracketTypes[+!!style.javaBracketsStyle]) +
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
                 break;
+        case "COMMENT_STANDALONE":
+            if(style.removeComments) break;
         case "IDENTIFIER":
         case "MODIFIER":
         case "PRIMITIVE_TYPE":
@@ -117,7 +127,6 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
         case "BOOLEAN_LITERAL":
         case "DECIMAL_LITERAL":
         case "CHAR_LITERAL":
-        case "COMMENT_STANDALONE":
             result += ast.value;
             break;
         case "FLOAT_LITERAL":
@@ -274,11 +283,13 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             console.log("unknown type " + ast.type);
             console.log(ast);
             result += ""; 
-    }
+    }if(isDense) result = result.trim();
     
     if(ast.followedEmptyLine) result += "\n";
     
-    if(ast.comments) {
+    if(isDense) result = result.replace(/\n/g, "").trim();
+    
+    if(ast.comments && !isDense && !style.removeComments) {
         for(var i = 0; i < ast.comments.length; i++) {
             var formattedVal = recurse(["comments", i]);
             if(ast.comments[i].leading) result = formattedVal + result;
