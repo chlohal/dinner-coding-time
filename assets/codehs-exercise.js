@@ -56,6 +56,8 @@
 
         main.appendChild(editorsTablistParent);
     })();
+    
+    addSettingsTab();
 
     for (var i = 0; ; i++) {
         var source = document.getElementById("source" + (i || ""));
@@ -131,8 +133,8 @@
 
     loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
 
-    function startCodeIntelligence() {
-        showAlert({
+    function startCodeIntelligence(quiet) {
+        if(quiet !== true) showAlert({
             text: "Code Intelligence is loaded!",
             duration: 800
         });
@@ -180,20 +182,27 @@
             this.parent.classList.add("code-with-lines--loading");
         }
 
-        var onLoadCodeIntelligence = function(parse) { 
+        var onLoadCodeIntelligence = function() { 
             var ed = this;
 
             try {
-                executeDependencyFunction("java-parser.js", "parse", [sourceContent], function(ast) {
+                function printToTable(ast) {
                     window.ast = ast;
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, {colorize: true}], function(astSource) {
+                    ed.ast = ast;
+                    
+                    var userStyle = loadUserStyle();
+                    
+                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle], function(astSource) {
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
                         explainEditor(ed);
                         
                         ed.table.hidden = false;
                         ed.parent.classList.remove("code-with-lines--loading");
                     });
-                });
+                }
+                
+                if(ed.ast) printToTable(ed.ast);
+                else executeDependencyFunction("java-parser.js", "parse", [sourceContent], printToTable);
             } catch(e) {
                 showAlert({
                     text: `Error in activating Code Intelligence on ${fileName}.`,
@@ -206,6 +215,7 @@
         }
 
         var result = {
+            ast: null,
             parent: parent,
             source: sourceContent,
             index: editorIndex,
@@ -363,5 +373,149 @@
             .replace(/'/g, "&apos;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
+    }
+    
+    function loadUserStyle() {
+        var userStyle = localStorage.getItem("user-style-prefs");
+        if(userStyle == null)  userStyle = {colorize: true};
+        else userStyle = JSON.parse(userStyle);
+        
+        return userStyle;
+    }
+    
+    function addSettingsTab() {
+        var tabPanel = document.createElement("form");
+        tabPanel.classList.add("editor-settings-tab");
+        
+        var tabPanelHeading = document.createElement("h2");
+        tabPanelHeading.textContent = "Code Formatting Settings";
+        tabPanel.appendChild(tabPanelHeading);
+        
+        var oldStyle = loadUserStyle();
+        
+        //bracket options
+        tabPanel.appendChild(createRadioControls({
+            heading: "Bracket Style",
+            name: "javaBracketsStyle",
+            opts: [
+                {
+                    value: true,
+                    checked: !!oldStyle.javaBracketsStyle,
+                    label: "Use Java-style brackets, like this: <blockquote><pre><code>if(true) {\n    //...</code></pre></blockquote>"
+                },
+                {
+                    value: false,
+                    checked: !oldStyle.javaBracketsStyle,
+                    label: "Use C-style brackets, like this: <blockquote><pre><code>if(true)\n{\n    //...</code></pre></blockquote>"
+                }
+            ]
+        }));
+        
+        tabPanel.appendChild(createTextarea({
+            heading: "Indentation",
+            name: "indentBy",
+            pattern: "^\\s+$",
+            value: oldStyle.indentBy || "    ",
+            style: {
+                width: (oldStyle.indentBy || "    ").length + "ch"
+            },
+            resize: "none",
+            label: "How far each block should be indented by. This input MUST be entirely whitespace in order to give valid Java.",
+            onkeyup: function(event) {
+                event.target.style.width = event.target.value.length + "ch";
+            }
+        }));
+        
+        
+        var tabPanelSubmitButton = document.createElement("button");
+        tabPanelSubmitButton.textContent = "Save & Apply Changes";
+        tabPanelSubmitButton.onclick = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            var formData = Array.from((new FormData(tabPanel)).entries());
+            var userStyle = loadUserStyle();
+            for(var i = 0; i < formData.length; i++) {
+                userStyle[formData[i][0]] = formData[i][1];
+            }
+            localStorage.setItem("user-style-prefs", JSON.stringify(userStyle));
+            
+            startCodeIntelligence(true);
+        }
+        tabPanel.appendChild(tabPanelSubmitButton);
+        
+        
+        var tabButton = document.createElement("button");
+        tabButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill:inherit" d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>`;
+        appendTab(tabButton, tabPanel);
+    }
+    
+    function createTextarea(controlOptions) {
+        var controlParent = document.createElement("div");
+        var defaultName = Date.now().toString(36);
+        
+        if(controlOptions.heading) {
+            var heading = document.createElement("h3");
+            heading.textContent = controlOptions.heading
+            controlParent.appendChild(heading);
+        }
+        
+        var control = document.createElement("label");
+            
+        var input = document.createElement("textarea");
+        input.rows = controlOptions.rows || 1;
+        input.cols = controlOptions.cols || 1;
+        input.style.resize = controlOptions.resize;
+        input.pattern = controlOptions.pattern || "";
+        input.name = controlOptions.name || defaultName;
+        input.value = controlOptions.value || "";
+        input.onkeyup = controlOptions.onkeyup || null;
+        
+        for(var i in controlOptions.style) input.style[i] = controlOptions.style[i];
+        
+        control.appendChild(input);
+        
+        var lContainer = document.createElement("span");
+        lContainer.innerHTML = controlOptions.label;
+        control.appendChild(lContainer);
+        
+        controlParent.appendChild(control);
+        
+        return controlParent;
+    }
+    
+    function createRadioControls(controlOptions) {
+        var controlParent = document.createElement("div");
+        var defaultName = Date.now().toString(36);
+        
+        if(controlOptions.heading) {
+            var heading = document.createElement("h3");
+            heading.textContent = controlOptions.heading
+            controlParent.appendChild(heading);
+        }
+        if(controlOptions.description) {
+            var description = document.createElement("p");
+            description.innerHTML = controlOptions.description
+            controlParent.appendChild(description);
+        }
+        
+        for(var i = 0; i < controlOptions.opts.length; i++) {
+            var control = document.createElement("label");
+            
+            var input = document.createElement("input");
+            input.type = "radio";
+            if(controlOptions.opts[i].checked) input.checked = controlOptions.opts[i].checked;
+            input.name = controlOptions.name || defaultName;
+            input.value = controlOptions.opts[i].value || "";
+            control.appendChild(input);
+            
+            var lContainer = document.createElement("span");
+            lContainer.innerHTML = controlOptions.opts[i].label;
+            control.appendChild(lContainer);
+            
+            controlParent.appendChild(control);
+        }
+        
+        return controlParent;
     }
 })();

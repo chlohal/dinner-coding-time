@@ -20,7 +20,6 @@ if(typeof window === "undefined") var window = {};
  * @property {boolean} javaBracketsStyle Use Java-style brackets, with brackets on the same line. If false, it will go to C-style brackets. 
  * @property {string} indentBy The string to indent blocks by. Must be whitespace
  * @property {string} spaceAfterStatement Space to include after statements like `for`, but before their parameters.
- * @property {boolean} breaks Whether to forcefully indicate word breaks with HTML or not.
  * @property {boolean} colorize Whether to colorize the output with HTML.
  */
 /**
