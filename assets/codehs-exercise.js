@@ -545,7 +545,6 @@
             });
             function anim() {
                 if(selectedTab != tabButton) return requestAnimationFrame(anim);
-                console.log(bottomVisibleThreshold, window.scrollY);
                 
                 if(bottomVisibleThreshold - window.scrollY > containerOffset) {
                     buttonParent.style.position = "fixed";

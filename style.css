@@ -1066,6 +1066,7 @@ main article.license {
     margin: auto;
     display: block;
     transition: box-shadow 0.1s;
+    cursor: pointer;
 }
 
 .editor-settings-tab input[type=radio] {
