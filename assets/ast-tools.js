@@ -1,3 +1,19 @@
+//if we're in a web worker
+if(typeof importScripts === "function") {
+    onmessage = function(event) {
+        var data = event.data;
+
+        if(data.function == "astToString") {
+            postMessage({ 
+                nonce: data.nonce,
+                data: astToString(data.args[0], data.args[1])
+            });
+        }
+    }
+}
+
+if(typeof window === "undefined") var window = {};
+
 
 /**
  * @typedef {Object} StylingMode
@@ -12,15 +28,13 @@
  * @param {Object} ast The AST to stringify.
  * @param {StylingMode} style How the output should be styled.
  */
-function astToString(ast, style, nodePath, siblingIndex) {
+function astToString(ast, style, nodePath, siblingIndex, address) {
     if(!ast) return "";
 
     if(style === undefined) style = {};
     
     if(style.isSnippet && ast.type == "COMPILATION_UNIT") {
-        console.log(ast);
         ast = ast.types[0].declaration.body.declarations[0];
-        console.log(ast);
     }
     
     //copy in order to not modify original
@@ -43,47 +57,59 @@ function astToString(ast, style, nodePath, siblingIndex) {
         type: ast.type,
         idx: siblingIndex || 0
     }]);
+    
+    address = address === undefined ? [] : address;
 
     var pairedCharId = 0;
     function createPairedChar(char) {
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId/2);
-        var res = `<span id="${nodePath.map(function(x) { return x.type + x.idx }).join("")}-${inOut?"out":"in"}-${index}" class="hlast hlast-pairedchar">${char}</span>`;
+        var res = `<span id="${address.join("-")}-${inOut?"out":"in"}-${index}" class="hlast hlast-pairedchar">${char}</span>`;
         pairedCharId++;
         return res;
     }
 
     function recurse(a) {
+        if(typeof a === "string") a = [a];
+        if(typeof a === "object" && a.constructor !== Array) return astToString(a, style, nodePath, isLeaf, address.concat(a));
+        
+        //find the object indicated by the path passed in
+        var target = ast;
+        for(var i = 0; i < a.length; i++) target = target[a[i]];
+        
         isLeaf++;
-        return astToString(a, style, nodePath, isLeaf);
+        
+        return astToString(target, style, nodePath, isLeaf, address.concat(a));
     }
     
 
     var result = "";
-    switch(ast.type) {
+    
+    switch(ast.type || ast.ast_type) {
         case "COMPILATION_UNIT":
-            result = (ast.package ? `${recurse(ast.package)};\n` : "") +
-                ast.imports.map(function(x) { return recurse(x) + ";\n"}) +
+            result += (ast.package ? `${recurse("package")};\n` : "") +
+                ast.imports.map(function(x,i) { return recurse(["imports", i]) + ";\n"}) +
                 (ast.imports.length ? style.linesAfterImport : "") +
-                ast.types.map(function(x) { return recurse(x) }).join(style.spaceBetweenClasses);
+                ast.types.map(function(x,i) { return recurse(["types", i]) }).join(style.spaceBetweenClasses);
             break;
         case "PACKAGE_DECLARATION": 
-            result = "package " + recurse(ast.name);
+            result += "package " + recurse("name");
             break;
         case "QUALIFIED_NAME":
-            result = ast.name.map(function(x) { return recurse(x); }).join(".");
+            result += ast.name.map(function(x,i) { return recurse(["name", i]); }).join(".");
             break;
         case "TYPE_DECLARATION":
         case "CLASS_BODY_MEMBER_DECLARATION":
-            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") +
-                recurse(ast.declaration);
+            ast.declaration.followedEmptyLine = false;
+            result += ast.modifiers.map(function(x,i) { return recurse(["modifiers", i]) + " " }).join("") +
+                recurse("declaration");
             break;
         case "CLASS_DECLARATION":
-            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">class</span> " : "class ") + recurse(ast.name) +
-                (ast.extends ?  recurse(ast.extends) : "") + 
-                (ast.implements ? recurse(ast.implements) : "") +
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">class</span> " : "class ") + recurse("name") +
+                (ast.extends ?  recurse("extends") : "") + 
+                (ast.implements ? recurse("implements") : "") +
                 (bracketTypes[+!!style.javaBracketsStyle]) +
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
                 break;
         case "IDENTIFIER":
         case "MODIFIER":
@@ -92,154 +118,184 @@ function astToString(ast, style, nodePath, siblingIndex) {
         case "BOOLEAN_LITERAL":
         case "DECIMAL_LITERAL":
         case "CHAR_LITERAL":
-            result = ast.value;
+        case "COMMENT_STANDALONE":
+            result += ast.value;
+            break;
+        case "FLOAT_LITERAL":
+            result += ast.value + (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f")
             break;
         case "TYPE_LIST":
         case "QUALIFIED_NAME_LIST":
-            result = ast.list.map(function(x) { return recurse(x); }).join(", ");
+            result += ast.list.map(function(x,i) { return recurse(["list", i]); }).join(", ");
             break;
         case "CLASS_BODY":
-            result =  createPairedChar("{") + "\n" + 
-                ast.declarations.map(function(x) { return recurse(x); }).join("\n") + "\n" +
+            result +=  createPairedChar("{") + "\n" + 
+                ast.declarations.map(function(x,i) { return recurse(["declarations", i]); }).join("\n") + "\n" +
                 createPairedChar("}"); 
             break;
         case "FIELD_DECLARATION":
-            result = recurse(ast.typeType) + " " + recurse(ast.variableDeclarators) + ";";
+            result += recurse("typeType") + " " + recurse("variableDeclarators") + ";";
             break;
         case "VARIABLE_DECLARATORS": 
-            result = ast.list.map(function(x) { return recurse(x); }).join(", ");
+            result += ast.list.map(function(x,i) { return recurse(["list", i]); }).join(", ");
             break;
         case "VARIABLE_DECLARATOR":
-            result = recurse(ast.id) + 
-                (ast.init ? " " + recurse({type: "OPERATOR", operator: "="}) + " " + recurse(ast.init) : "");
+            result += recurse("id") + 
+                (ast.init ? " " + recurse({type: "OPERATOR", operator: "="}) + " " + recurse("init") : "");
             break;
         case "VARIABLE_DECLARATOR_ID":
-            result = recurse(ast.id) + 
-                ast.dimensions.map(function(x) { return recurse(x); }).join("");
+            result += recurse("id") +
+                ast.dimensions.map(function(x,i) { return recurse(["dimensions", i]); }).join("");
             break;
         case "CONSTRUCTOR_DECLARATION":
-            result = recurse(ast.name) + " " + recurse(ast.parameters) + 
-                (ast.throws ? " throws " + recurse(ast.throws) : "") +
+            result += recurse("name") + " " + recurse("parameters") + 
+                (ast.throws ? " throws " + recurse("throws") : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "METHOD_DECLARATION":
-            result = recurse(ast.typeType) + 
-                " " + recurse(ast.name) + style.spaceAfterStatement + recurse(ast.parameters) + 
-                (ast.throws ? " throws " + recurse(ast.throws) : "") +
+            result += recurse("typeType") + 
+                " " + recurse("name") + style.spaceAfterStatement + recurse("parameters") + 
+                (ast.throws ? " throws " + recurse("throws") : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "FORMAL_PARAMETERS":
-            result = createPairedChar("(") + ast.parameters.map(function(x) { return recurse(x); }).join(", ") + createPairedChar(")");
+            result += createPairedChar("(") + ast.parameters.map(function(x,i) { return recurse(["parameters", i]); }).join(", ") + createPairedChar(")");
             break;
         case "FORMAL_PARAMETER":
-            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") + 
-                recurse(ast.typeType) + " " + recurse(ast.id);
+            result += ast.modifiers.map(function(x,i) { return recurse(["modifiers", i]) + " " }).join("") + 
+                recurse("typeType") + " " + recurse("id");
             break;
         case "BLOCK":
-            result = createPairedChar("{") + "\n" +
-                ast.statements.map(function(x) { return recurse(x) + "\n"}).join("") + 
+            result += createPairedChar("{") + "\n" +
+                ast.statements.map(function(x,i) { return recurse(["statements", i]) + "\n"}).join("") + 
                 createPairedChar("}"); 
             break;
         case "EXPRESSION_STATEMENT":
-            result = recurse(ast.expression) + ";";
+            result += recurse("expression") + ";";
             break;
         case "OPERATOR_EXPRESSION":
-            return recurse(ast.left) + " " +
-                recurse(ast.operator) + " " + 
-                (ast.right ? recurse(ast.right) : "");
+            return recurse("left") + " " +
+                recurse("operator") + " " + 
+                (ast.right ? recurse("right") : "");
             break;
         case "OPERATOR":
-            result = ast.operator;
+            result += ast.operator;
             break;
         case "SEMI_COLON_STATEMENT":
-            result = ";"
+            result += ";"
             break;
         case "LOCAL_VARIABLE_DECLARATION":
-            result = ast.modifiers.map(function(x) { return recurse(x) + " " }).join("") +
-                recurse(ast.typeType) + " " + recurse(ast.declarators);
+            result += ast.modifiers.map(function(x,i) { return recurse(["modifiers", i]) + " " }).join("") +
+                recurse("typeType") + " " + recurse("declarators");
             break;
         case "RETURN_STATEMENT":
-            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">return</span> " : "return ") + recurse(ast.expression) + ";";
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">return</span> " : "return ") + recurse("expression") + ";";
             break;
         case "FOR_STATEMENT": 
-            result =  (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
-                (style.spaceAfterStatement)+createPairedChar("(") + recurse(ast.forControl) + createPairedChar(")") +
+            result +=  (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
+                (style.spaceAfterStatement)+createPairedChar("(") + recurse("forControl") + createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "BASIC_FOR_CONTROL":
-            result = recurse(ast.forInit) + ";" + style.spaceAfterStatement + 
-                recurse(ast.expression) + ";" + style.spaceAfterStatement +
-                recurse(ast.expressionList);
+            result += recurse("forInit") + ";" + style.spaceAfterStatement + 
+                recurse("expression") + ";" + style.spaceAfterStatement +
+                recurse("expressionList");
             break;
         case "EXPRESSION_LIST":
-            result = ast.list.map(function(x) { return recurse(x) }).join("," + style.spaceAfterStatement);
+            result += ast.list.map(function(x,i) { return recurse(["list", i]) }).join("," + style.spaceAfterStatement);
             break;
         case "POSTFIX_EXPRESSION":
-            result = recurse(ast.expression) + ast.postfix;
+            result += recurse("expression") + ast.postfix;
             break;
         case "QUALIFIED_EXPRESSION":
-            result = recurse(ast.expression) + "." + recurse(ast.rest);
+            result += recurse("expression") + "." + recurse("rest");
             break;
         case "METHOD_INVOCATION":
-            result = recurse(ast.name) + createPairedChar("(") + 
-                recurse(ast.parameters) + createPairedChar(")");
+            result += recurse("name") + createPairedChar("(") + 
+                recurse("parameters") + createPairedChar(")");
                 break;
         case "IF_STATEMENT":
-            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
-                style.spaceAfterStatement + createPairedChar("(") + recurse(ast.condition) + createPairedChar(")") + 
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
+                style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true) +
-                (ast.else ? "\nelse " + recurse(ast.else) : ""); 
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true) +
+                (ast.else ? "\nelse " + recurse("else") : ""); 
+            break;
+        case "IF_ELSE_EXPRESSION":
+            result += recurse("condition") + " ? " + recurse("if") + " : " + recurse("else");
             break;
         case "VOID":
-            result = "void";
+            result += "void";
+            break;
+        case "THIS":
+            result += "this";
             break;
         case "TYPE_TYPE":
-            result = recurse(ast.value) + 
-            ast.dimensions.map(function(x) { return recurse(x) }).join("");
+            result += recurse("value") + 
+            ast.dimensions.map(function(x,i) { return recurse(["dimensions", i]) }).join("");
             break;
         case "DIMENSION":
-            result = "[]";
+            result += "[]";
             break;
         case "IMPORT_DECLARATION":
-            result =  (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") + 
+            result +=  (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") + 
                 (ast.static ? "static " : "") +
-                recurse(ast.name);
+                recurse("name");
             break;
         case "SIMPLE_CREATOR":
-            result = (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse(ast.name) + recurse(ast.rest);
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse("name") + recurse("rest");
             break;
         case "IDENTIFIER_NAME":
-            result = ast.elements.map(function(x) { return recurse(x) }).join("," + style.spaceAfterStatement);
+            result += ast.elements.map(function(x,i) { return recurse(["elements", i]) }).join("," + style.spaceAfterStatement);
             break;
         case "IDENTIFIER_NAME_ELEMENT":
-            result = recurse(ast.id) + style.spaceAfterStatement + 
-                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function(x) { return recurse(x); }).join(", ") + ">");
+            result += recurse("id") + style.spaceAfterStatement + 
+                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function(x,i) { return recurse(["typeArguments", i]); }).join(", ") + ">");
             break;
         case "CLASS_CREATOR_REST":
-            result = createPairedChar("(") + recurse(ast.arguments) + createPairedChar(")");
+            result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
             break;
         case "CAST_EXPRESSION":
-            result =  createPairedChar("(") + recurse(ast.castType) + createPairedChar(")")  + recurse(ast.expression);
+            result +=  createPairedChar("(") + recurse("castType") + createPairedChar(")")  + recurse("expression");
             break;
         case "PREFIX_EXPRESSION":
-            result = ast.prefix + recurse(ast.expression);
+            result += ast.prefix + recurse("expression");
             break;
         case "PAR_EXPRESSION":
-            result = createPairedChar("(") + recurse(ast.expression) + createPairedChar(")");
+            result += createPairedChar("(") + recurse("expression") + createPairedChar(")");
+            break;
+        case "comment":
+            result += ast.value;
+            if(ast.value.split("\n").length > 1 || ast.value.startsWith("//")) result += "\n";
             break;
         default:
             console.log("unknown type " + ast.type);
             console.log(ast);
-            result = ""; 
+            result += ""; 
+    }
+    
+    if(ast.followedEmptyLine) result += "\n";
+    
+    if(ast.comments) {
+        for(var i = 0; i < ast.comments.length; i++) {
+            var formattedVal = recurse(["comments", i]);
+            if(ast.comments[i].leading) result = formattedVal + result;
+            else result += formattedVal;
+        }
     }
 
     //only colorize single-line things bc that way it won't get messed up upon table-ifying
-    if(style.colorize && !isLeaf) return `<span class="hlast hlast-${snakeKebab(ast.type)}${generateDescribingClasses(result, siblingIndex)}" data-nodepath="${nodePath.map(function(x) { return snakeKebab(x.type) }).join(" ") }">${(result)}</span>`;
-    else return result;
+    if(style.colorize /*&& !isLeaf*/) {
+        return result.split("\n").map(function(line) {
+            return `<span class="hlast hlast-${snakeKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-nodepath="${nodePath.map(function(x,i) { return snakeKebab(x.type || x.ast_type || "") }).join(" ") }">${(line)}</span>`;
+        }).join("\n");
+    }
+    else {
+        return result;
+    }
 }
 
 function generateDescribingClasses(str, idx) {
@@ -251,4 +307,10 @@ function generateDescribingClasses(str, idx) {
 
 function snakeKebab(snake) {
     return snake.split("_").join("-").toLowerCase();
+}
+
+function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
+    var lines = indentText.split("\n");
+    for(var i = 1; i < lines.length - +dontIndentLast; i++) lines[i] = indentBy + lines[i];
+    return lines.join("\n");
 }

@@ -7,12 +7,32 @@
         },
         {
             path: "cast-expression primitive-type",
-            description: "A cast, where you put <code>(aTypeInParentheses)</code> in front of another value, converts the value into the specified type. Here, it's converting to <code>{{content}}</code>."
+            description: "A <b>cast<b>, where you put <code>(aTypeInParentheses)</code> in front of another value, converts the value into the specified type. Here, it's converting to <code>{{content}}</code>."
+        },
+        {
+            path: "if-else-expression",
+            description: function(content, element) {
+                var isBoolStart = content.match(/^\d/) == null;
+                
+                return `This is a <b>ternary expression</b>. It acts like an <code>if () {} else {}</code> block, but in just one line. It's useful for making your code shorter, but can be confusing if you're just starting Java. You can write one like this: <code>booleanVal ? value1 : value2</code>. it will equal <code>value1</code> if <code>booleanVal</code> is true or <code>value2</code> if <code>booleanVal</code> is false.` + (isBoolStart ? "" : `<hr>You might notice that this </code>booleanVal</code> is not actually a boolean value-- look to the left of the expression, and notice that it's using a comparison operator to calculate it.`);
+            }
+        },
+        {
+            path: ["constructor-declaration formal-parameters", "constructor-declaration identifier"],
+            description: "This is the start of a <b>constructor</b>. It is written just like a method, except with no name. This describes how a new instance of the class can be created.",
+            target: "parentElement"
+        },
+        {
+            path: "float-literal",
+            description: "An <code>f</code> after a number marks it as a float. Floats are like doubles, but they have some differences that are too complicated to get into now. Java will automatically convert them if it needs to."
         }
     ];
+    
+    var tooltippedWord = null, tooltipElem = null;
 
     function testRule(rule, wordElem) {
-        return (rule.path ? (wordElem.getAttribute("data-nodepath") || "").endsWith(rule.path) : true) &&
+        var rPathArr = rule.path.constructor===Array ? rule.path : [rule.path];
+        return (rule.path ? rPathArr.find(function(x) { return (wordElem.getAttribute("data-nodepath") || "").endsWith(x) }) : true) &&
             (rule.content ? wordElem.textContent == rule.content : true);
     }
 
@@ -39,8 +59,6 @@
         var partner = document.getElementById(partnerId);
         if(!partner) return false;
 
-        console.log(partner);
-
         pairedchar.addEventListener("click", function() {
             pairedchar.tabIndex = "-1";
             pairedchar.focus();
@@ -65,37 +83,60 @@
         word.setAttribute("data-explain-rule", applicableRuleIdx);
 
         var applicableRule = rules[applicableRuleIdx];
+        
+        function addTooltip(elm) {
+            if(applicableRule.target) elm = elm[applicableRule.target];
+            
+            if(typeof applicableRule.description === "string") tooltip(elm, applicableRule.description.replace(/\{\{content\}\}/g, elm.textContent));
+            else if(typeof applicableRule.description === "function") tooltip(elm, applicableRule.description(elm.textContent, elm));
+        }
 
-        word.addEventListener("mouseenter", function(event) {
-            tooltip(word, applicableRule.description.replace(/\{\{content\}\}/g, word.textContent));
-        });
+        word.onmouseenter = function(event) {
+            addTooltip(word);
+        };
         word.addEventListener("mouseleave", function(event) {
-            console.log(event.relatedTarget.id);
             if(event.relatedTarget && event.relatedTarget.id != "explain-tooltip") destroyTooltip();
+            if(event.relatedTarget && event.relatedTarget.classList.contains("hlast") && event.relatedTarget.onmouseenter) event.relatedTarget.onmouseenter();
         });
+        word.addEventListener("mousemove", function(event) {
+            moveTooltipX(event.clientX); 
+        });
+    }
+    
+    function moveTooltipX(x) {
+        if(tooltipElem) tooltipElem.style.left = x + "px";
     }
 
     function tooltip(elem, content) {
         destroyTooltip();
+        
+        if(tooltippedWord === null) tooltippedWord = elem;
+        tooltippedWord.classList.add("has-tooltip-open");
+        
         var box = elem.getBoundingClientRect();
 
         var deltTop = window.scrollY;
         var deltLeft = window.scrollX;
-
         
-        var tooltip = document.createElement("dialog");
-        tooltip.setAttribute("open", true);
-        tooltip.style.top = (deltTop + box.y + box.height) + "px";
-        tooltip.style.left = (deltLeft + box.x) + "px";
-        tooltip.innerHTML = content;
+        if(tooltipElem === null) initTooltipElem();
+        
+        tooltipElem.style.top = (deltTop + box.y + box.height - 2) + "px";
+        tooltipElem.style.left = (deltLeft + box.x) + "px";
+        tooltipElem.innerHTML = content;
 
-        tooltip.id = "explain-tooltip";
-
-        document.body.appendChild(tooltip);
+        document.body.appendChild(tooltipElem);
+    }
+    
+    function initTooltipElem() {
+        tooltipElem = document.createElement("dialog");
+        tooltipElem.setAttribute("open", true);
+        tooltipElem.id = "explain-tooltip";
     }
 
     function destroyTooltip() {
-        var tooltip = document.getElementById("explain-tooltip");
-        if(tooltip) tooltip.parentElement.removeChild(tooltip);
+        if(tooltippedWord) tooltippedWord.classList.remove("has-tooltip-open");
+        tooltippedWord = null;
+    
+        if(tooltipElem && tooltipElem.parentElement) tooltipElem.parentElement.removeChild(tooltipElem);
     }
 })();

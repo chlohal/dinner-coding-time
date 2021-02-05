@@ -689,6 +689,9 @@ code {
     display: none;
     content: "";
     position: absolute;
+    cursor: default;
+    flex-direction: column;
+    color: #f7f7f7;
     top: 0; left: 0; right: 0; bottom: 0;
     align-items: center;
     background: #1b1d3509;
@@ -796,6 +799,7 @@ code {
 
 .lines-of-code--accordian[open] {
     min-height: 80vh;
+    height: max-content;
 }
 
 .lines-of-code--accordian summary {
@@ -816,7 +820,8 @@ code {
 }
 
 .editor-tabs--parent {
-    height: 80vh;
+    min-height: 80vh;
+    height: max-content;
     background: #2b2d4e;
     color: #171825;
     position: relative;
@@ -927,6 +932,54 @@ main article.license {
     box-sizing: content-box;
     border-top: black 0.5em solid;
     border-color: inherit;
+}
+
+.tip {
+    padding: 0.5em;
+    padding-left: 4em;
+    padding-inline-start: 4em;
+    background: #dcdcf8;
+    border: 1px solid #a5a5c4;
+    margin: 0.5em 0;
+    border-radius: 0.5em;
+    position: relative;
+    overflow: hidden;
+}
+
+.tip h2 {
+    font-size: 1em;
+    text-align: center;
+    display: flex;
+    position: absolute;
+    left: 0;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    width: 3.5em;
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.assignment-navigation {
+    display: flex;
+}
+
+.assignment-navigation a,
+.assignment-navigation span {
+    flex-basis: 200px;
+    flex-grow: 1;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.assignment-navigation span.assignment-navigation--bullet {
+    flex-grow: 0;
+    flex-basis: content;
+}
+
+.assignment-navigation :first-child {
+    text-align: right;
 }
 
 @keyframes progress-alert-bottom-slide {

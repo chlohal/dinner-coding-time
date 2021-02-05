@@ -16,8 +16,8 @@
     <script src="/assets/script.js" defer></script>
     <script src="/assets/codehs-exercise.js" defer></script>
 
-<link rel="stylesheet" href="/assets/highlight.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="/assets/highlight.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -58,10 +58,56 @@
         </path>
     </svg>
     <main>
-<h1>5.4.6 Full Dragon Class</hl>
+        <h1>5.4.6 Full Dragon Class</h1>
 
+        <aside class="tip">
+            <h2>Tip</h2> You don't have to fill <code>DragonTester.java</code>; the autograder doesn't care about it.
+            You'll get a Completed mark either way.
+        </aside>
         <code id="source">
+            public class DragonTester
+            {
+                public static void main(String[] args)
+                {
+                    // Create a Dragon here to test out the Dragon class!
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Dragon 
+{
+    private String attack;
+    private int level;
+    
+    public Dragon(int _level, String _attack) {
+        this.level = _level;
+        this.attack = _attack;
+    }
+    
+    public String getAttack() {
+        return this.attack;
+    }
+    
+    public int getLevel() {
+        return this.level;
+    }
+    
+    public String fight() {
+        String r = "";
+        for(int i = 0; i < level; i++) {
+            r += attack;
+        }
+        return r;
+    }
+    
 
+    // String representation of the object
+    public String toString()
+    {
+        return "Dragon is at level " + level + " and attacks with " + attack;
+    }
+}
         </code>
     </main>
     <footer>
@@ -104,7 +150,7 @@
                     <li>
                         <a href="/legal/terms">Terms & Conditions</a>
                     </li>
-<li>
+                    <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>
