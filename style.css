@@ -1033,6 +1033,21 @@ main article.license {
     border-radius: 5px;
 }
 
+.editor-settings-tab input[type=radio] {
+    appearance: none;
+    border: 2px solid #20223f;
+    background: inherit;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    border-radius: 100%;
+}
+
+.editor-settings-tab input[type=radio]:checked {
+    background: #f7f7f7;
+    border: 2px solid #f7f7f7;
+}
+
 @keyframes progress-alert-bottom-slide {
     from {
         background-position: 0em 0em;

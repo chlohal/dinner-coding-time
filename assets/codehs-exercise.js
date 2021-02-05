@@ -36,6 +36,8 @@
     
     var editors = [];
     var editorsParent, editorsTablist, selectedTab, editorsTabsEmptyState;
+    
+    window.initialTabIdx = -1;
 
     (function createTabsParent() {
         var main = document.querySelector("main");
@@ -55,6 +57,20 @@
         editorsTablistParent.appendChild(editorsParent);
 
         main.appendChild(editorsTablistParent);
+        
+        window.addEventListener("hashchange", function() {
+            if(window.location.hash.startsWith("#/tab-")) {
+                var tIndex = parseInt(window.location.hash.substring(6));
+                if(isNaN(tIndex)) return;
+                editorsTablist.children[tIndex-1].onclick();
+            }
+        });
+        
+        if(window.location.hash.startsWith("#/tab-")) {
+            var tIndex = parseInt(window.location.hash.substring(6));
+            if(isNaN(tIndex)) return;
+            initialTabIdx = tIndex - 1;
+        }
     })();
     
     addSettingsTab();
@@ -65,7 +81,8 @@
         else break;
     }
 
-    editorsTablist.lastElementChild.click();
+    if(initialTabIdx > -1) editorsTablist.children[initialTabIdx].click();
+    else editorsTablist.lastElementChild.click();
 
     function loadCodeIntelligence(override) {
         if(navigator.connection || override) {
@@ -231,7 +248,7 @@
     }
 
     function appendTab(tab, tabpanel) {
-        var generatedId = "tab-" + (Math.round(Math.random() * 100)) + "-" + editorsParent.children.length;
+        var generatedId = "tab-" + editorsParent.children.length;
         
         tab.id = generatedId;
         tabpanel.id = generatedId + "-panel";
@@ -241,7 +258,7 @@
         tab.setAttribute("aria-selected", "false");
         tab.setAttribute("role", "tab");
 
-        tab.addEventListener("click", function() {
+        tab.addEventListener("click", tab.onclick = function() {
             if(editorsTabsEmptyState) {
                 editorsParent.removeChild(editorsTabsEmptyState);
                 editorsTabsEmptyState = undefined;
@@ -253,6 +270,8 @@
                 selectedTabpanel.setAttribute("hidden", "true");
                 selectedTabpanel.setAttribute("aria-hidden", "true");
             }
+            
+            window.location.hash = "#/" + generatedId
 
             tabpanel.removeAttribute("hidden");
             tabpanel.setAttribute("aria-hidden", "false");
@@ -401,12 +420,12 @@
                 {
                     value: true,
                     checked: !!oldStyle.javaBracketsStyle,
-                    label: "Use Java-style brackets, like this: <blockquote><pre><code>if(true) {\n    //...</code></pre></blockquote>"
+                    label: "Use <b>Java-style</b> brackets, on the same line as their block start. <blockquote><pre><code>if(true) {\n    //...\n}</code></pre></blockquote>"
                 },
                 {
                     value: false,
                     checked: !oldStyle.javaBracketsStyle,
-                    label: "Use C-style brackets, like this: <blockquote><pre><code>if(true)\n{\n    //...</code></pre></blockquote>"
+                    label: "Use <b>C-style</b> brackets, which are on a new line from their block start. <blockquote><pre><code>if(true)\n{\n    //...\n}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -433,17 +452,17 @@
                 {
                     value: " ",
                     checked: !!oldStyle.spaceAfterStatement,
-                    label: "Space the code out loosely. Includes spaces added after <code>for</code> and <code>if</code> statements."
+                    label: "<b>Loosely</b> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "",
                     checked: !oldStyle.spaceAfterStatement,
-                    label: "Space the code out firmly. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements."
+                    label: "Space the code out the <b>default</b> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "dense",
                     checked: oldStyle.spaceAfterStatement=="dense",
-                    label: "Minify the code. This will pack all of your code onto one line and try to make it as small as possible."
+                    label: "<b>Minify</b> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. <blockquote><pre><code>public void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -455,12 +474,29 @@
                 {
                     value: " ",
                     checked: !oldStyle.removeComments,
-                    label: "Keep comments in the code"
+                    label: "<b>Keep</b> comments in the code <blockquote><pre><code>//this method runs when the program starts\npublic void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "",
                     checked: !!oldStyle.removeComments,
-                    label: "Remove comments from the code completely."
+                    label: "<b>Remove</b> comments from the code completely.<blockquote><pre><code>public void main(String[] args) {\n    if(3*3>5) {\n        \n    }\n}</code></pre></blockquote>"
+                }
+            ]
+        }));
+        
+        tabPanel.appendChild(createRadioControls({
+            heading: "Rich Formatting",
+            name: "colorize",
+            opts: [
+                {
+                    value: true,
+                    checked: !!oldStyle.colorize,
+                    label: "<b>Parse, analyze, and color</b> the code. This allows features like explainations and automatic refactoring."
+                },
+                {
+                    value: false,
+                    checked: !oldStyle.colorize,
+                    label: "<b>Don't tokenize and color</b> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations."
                 }
             ]
         }));
