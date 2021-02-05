@@ -997,6 +997,7 @@ main article.license {
 
 .editor-settings-tab h3 {
     margin-bottom: 0;
+    margin-top: 1.5em;
 }
 
 .editor-settings-tab label {
@@ -1025,18 +1026,52 @@ main article.license {
     border-radius: 0.5em;
 }
 
+.editor-settings-tab--button-section {
+    height: 2em;
+    display: flex; 
+    align-items: center;
+    position: relative;
+}
+
+.editor-settings-tab--button-container {
+    max-width: 100%;
+    width: 100ch;
+    position: static;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 0 0.5em;
+}
+
+.editor-settings-tab--button-background {
+    background: #2b2d4e;
+    border-top-left-radius: 200px;
+    border-top-right-radius: 200px;
+    padding: 0.5em;
+    position: relative;
+    transition: box-shadow 0.5s;
+}
+
+.editor-settings-tab--button-background.shadowed {
+    box-shadow: 0 -15px 10px -10px #0009;
+}
+
 .editor-settings-tab button {
     font: inherit;
     color: #f7f5f5;
     background: #20223f;
     border: 0;
     border-radius: 5px;
+    margin: auto;
+    display: block;
+    transition: box-shadow 0.1s;
 }
 
 .editor-settings-tab input[type=radio] {
     appearance: none;
     border: 2px solid #20223f;
-    background: inherit;
+    background: #20223f;
     width: 1em;
     height: 1em;
     display: inline-block;

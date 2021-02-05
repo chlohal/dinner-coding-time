@@ -22,6 +22,7 @@ if(typeof window === "undefined") var window = {};
  * @property {string} spaceAfterStatement Space to include after statements like `for`, but before their parameters.
  * @property {boolean} colorize Whether to colorize the output with HTML.
  * @property {boolean} removeComments Whether to remove comments or not.
+ * @property {string} spaceInExpression Space to include inside expressions.
  */
 /**
  * Stringify a Java AST
@@ -48,6 +49,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = "";
     if(style.linesAfterImport === undefined) style.linesAfterImport = "\n";
     if(style.removeComments === undefined) style.removeComments = false;
+    if(style.spaceInExpression === undefined) style.spaceInExpression = style.spaceAfterStatement;
     
     
     var bracketTypes = ["\n", " "];
@@ -130,7 +132,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += ast.value;
             break;
         case "FLOAT_LITERAL":
-            result += ast.value + (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f")
+            result += ast.value;  //apparently doubles are the same as floats for this. + (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f")
             break;
         case "TYPE_LIST":
         case "QUALIFIED_NAME_LIST":
@@ -169,7 +171,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "FORMAL_PARAMETERS":
-            result += createPairedChar("(") + ast.parameters.map(function(x,i) { return recurse(["parameters", i]); }).join(", ") + createPairedChar(")");
+            result += createPairedChar("(") + ast.parameters.map(function(x,i) { return recurse(["parameters", i]); }).join("," + style.spaceInExpression) + createPairedChar(")");
             break;
         case "FORMAL_PARAMETER":
             result += ast.modifiers.map(function(x,i) { return recurse(["modifiers", i]) + " " }).join("") + 
@@ -184,8 +186,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += recurse("expression") + ";";
             break;
         case "OPERATOR_EXPRESSION":
-            return recurse("left") + " " +
-                recurse("operator") + " " + 
+            return recurse("left") + style.spaceInExpression +
+                recurse("operator") + style.spaceInExpression + 
                 (ast.right ? recurse("right") : "");
             break;
         case "OPERATOR":
@@ -246,7 +248,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             ast.dimensions.map(function(x,i) { return recurse(["dimensions", i]) }).join("");
             break;
         case "DIMENSION":
-            result += "[]";
+            result += style.colorize ? createPairedChar("[") + createPairedChar("]") : "[]";
             break;
         case "IMPORT_DECLARATION":
             result +=  (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") + 
@@ -261,7 +263,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             break;
         case "IDENTIFIER_NAME_ELEMENT":
             result += recurse("id") + style.spaceAfterStatement + 
-                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function(x,i) { return recurse(["typeArguments", i]); }).join(", ") + ">");
+                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function(x,i) { return recurse(["typeArguments", i]); }).join("," + style.spaceInExpression) + ">");
             break;
         case "CLASS_CREATOR_REST":
             result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
