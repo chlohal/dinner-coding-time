@@ -1,4 +1,12 @@
 (function() {
+    function loadUserStyle() {
+        var userStyle = localStorage.getItem("user-style-prefs");
+        if (userStyle == null) userStyle = { colorize: true };
+        else userStyle = JSON.parse(userStyle);
+
+        return userStyle;
+    }
+
     var rules = [
         {
             path: "operator-expression string-literal",
@@ -37,11 +45,13 @@
     }
 
     window.explainEditor = function explain(editor) {
+        var userStyle = loadUserStyle();
+
         var words = editor.table.querySelectorAll("span.hlast");
 
         for(var i = 0; i < words.length; i++) {
-            attachWordExplainer(words[i])
-            if(words[i].classList.contains("hlast-pairedchar")) addPairedchar(words[i]);
+            if(!userStyle.hideExplainations) attachWordExplainer(words[i])
+            if(!userStyle.dontHighlightPairedChars && words[i].classList.contains("hlast-pairedchar")) addPairedchar(words[i]);
         }
 
         editor.parent.addEventListener("mouseenter", function(event) {
@@ -59,15 +69,12 @@
         var partner = document.getElementById(partnerId);
         if(!partner) return false;
 
-        pairedchar.addEventListener("click", function() {
-            pairedchar.tabIndex = "-1";
-            pairedchar.focus();
-
+        pairedchar.addEventListener("mouseenter", function() {
             partner.classList.add("partner-selected");
             pairedchar.classList.add("partner-selected");
         });
 
-        pairedchar.addEventListener("blur", function() {
+        pairedchar.addEventListener("mouseleave", function() {
             partner.classList.remove("partner-selected");
             pairedchar.classList.remove("partner-selected");
         });

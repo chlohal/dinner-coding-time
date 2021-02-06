@@ -452,7 +452,7 @@
                 {
                     value: " ",
                     checked: !!oldStyle.spaceAfterStatement,
-                    label: "<em>Loosely</em> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "<em>Loosely</em> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements.<blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "",
@@ -463,6 +463,23 @@
                     value: "dense",
                     checked: oldStyle.spaceAfterStatement == "dense",
                     label: "<em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. <blockquote><pre><code>public void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
+                }
+            ]
+        }));
+
+        tabPanel.appendChild(createRadioControls({
+            heading: "Expression Spacing",
+            name: "spaceInExpression",
+            opts: [
+                {
+                    value: " ",
+                    checked: oldStyle.spaceInExpression === " ",
+                    label: "<em>Add spaces</em> inside expressions and between arguments."
+                },
+                {
+                    value: "",
+                    checked: (oldStyle.spaceInExpression || "") == "",
+                    label: "<em>Use Code Spacing configuration</em> inside expressions and between arguments."
                 }
             ]
         }));
@@ -496,7 +513,58 @@
                 {
                     value: false,
                     checked: !oldStyle.colorize,
-                    label: "<em>Don't tokenize and color</em> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations. Other formatting options will still have an effect."
+                    label: "<em>Don't tokenize and color</em> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations. Because of this, some options will have no effect if this is on."
+                }
+            ]
+        }));
+
+        tabPanel.appendChild(createRadioControls({
+            heading: "Float Suffix",
+            name: "leaveOffFloatSuffix",
+            opts: [
+                {
+                    value: false,
+                    checked: !oldStyle.leaveOffFloatSuffix,
+                    label: "<em>Add the <code>f</code> suffix</em> to floats.<blockquote><pre><code>public void main (String[] args) {\n    System.out.println(0.4f)\n}</code></pre></blockquote>"
+                },
+                {
+                    value: true,
+                    checked: !!oldStyle.leaveOffFloatSuffix,
+                    label: "<em>Don't add the <code>f</code> suffix</em> to floats, implicitly making them doubles.<blockquote><pre><code>public void main (String[] args) {\n    System.out.println(0.4)\n}</code></pre></blockquote>"
+                }
+            ]
+        }));
+
+        tabPanel.appendChild(createRadioControls({
+            heading: "Highlight Paired Characters",
+            name: "dontHighlightPairedChars",
+            opts: [
+                {
+                    value: true,
+                    checked: !!oldStyle.dontHighlightPairedChars,
+                    label: "<em>Don't highlight</em> the counterpart of paired characters (like <code>(</code>, <code>[</code>, or <code>{</code>) when you hover over them."
+                },
+                {
+                    value: false,
+                    checked: !oldStyle.dontHighlightPairedChars,
+                    label: "<em>Highlight</em> the counterpart of paired characters (like <code>(</code>, <code>[</code>, or <code>{</code>) when you hover over them."
+                }
+            ]
+        }));
+
+        tabPanel.appendChild(createRadioControls({
+            heading: "Explain",
+            name: "hideExplainations",
+            opts: [
+                {
+                    value: true,
+                    checked: !!oldStyle.hideExplainations,
+                    label: "<em>Hide</em> explaination tooltips"
+                },
+                {
+                    value: false,
+                    checked: !oldStyle.hideExplainations,
+                    label: "<em>Show</em> explaination tooltips"
                 }
             ]
         }));
@@ -535,28 +603,30 @@
         appendTab(tabButton, tabPanel);
         
         //sticky button
-        requestAnimationFrame(function() {
-            var top = getYPos(tabPanel);
-            var bottomVisibleThreshold = tabPanel.offsetHeight + top - window.innerHeight;
-            
-            var containerOffset = buttonParent.offsetTop;
-            window.addEventListener("resize", function() {
-                bottomVisibleThreshold = tabPanel.offsetHeight + top - window.innerHeight;
-            });
-            function anim() {
-                if(selectedTab != tabButton) return requestAnimationFrame(anim);
+        tabButton.addEventListener("click", function () {
+            requestAnimationFrame(function waitForLayoutChangeAnim() {
                 
-                if(bottomVisibleThreshold - window.scrollY > containerOffset) {
-                    buttonParent.style.position = "fixed";
-                    buttonBackground.classList.add("shadowed");
-                } else {
-                    buttonParent.style.position = "static";
-                    buttonBackground.classList.remove("shadowed");
+                var top = getYPos(tabPanel);
+                var bottomVisibleThreshold = tabPanel.offsetHeight + top - window.innerHeight;
+                
+                var containerOffset = 0;
+
+                console.log(bottomVisibleThreshold, containerOffset, top);
+                function anim() {
+                    if(selectedTab != tabButton) return requestAnimationFrame(anim);
+                    
+                    if(bottomVisibleThreshold - window.scrollY > containerOffset) {
+                        buttonParent.style.position = "fixed";
+                        buttonBackground.classList.add("shadowed");
+                    } else {
+                        buttonParent.style.position = "static";
+                        buttonBackground.classList.remove("shadowed");
+                    }
+                    
+                    requestAnimationFrame(anim);
                 }
-                
-                requestAnimationFrame(anim);
-            }
-            anim();
+                anim();
+            });
         });
     }
     

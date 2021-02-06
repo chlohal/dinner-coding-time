@@ -23,6 +23,9 @@ if(typeof window === "undefined") var window = {};
  * @property {boolean} colorize Whether to colorize the output with HTML.
  * @property {boolean} removeComments Whether to remove comments or not.
  * @property {string} spaceInExpression Space to include inside expressions.
+ * @property {boolean} leaveOffFloatSuffix Convert floats to doubles
+ * @property {boolean} dontHighlightPairedChars Don't link block openers and parens with their counterpart closers.
+ * @property {boolean} hideExplainations Don't display explaination tooltips on select syntax constructs.
  */
 /**
  * Stringify a Java AST
@@ -50,6 +53,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     if(style.linesAfterImport === undefined) style.linesAfterImport = "\n";
     if(style.removeComments === undefined) style.removeComments = false;
     if(style.spaceInExpression === undefined) style.spaceInExpression = style.spaceAfterStatement;
+    if(style.dontHighlightPairedChars === undefined) style.dontHighlightPairedChars = false;
+    if(style.leaveOffFloatSuffix === undefined) style.leaveOffFloatSuffix = true;
     
     
     var bracketTypes = ["\n", " "];
@@ -65,6 +70,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
 
     var pairedCharId = 0;
     function createPairedChar(char) {
+        if(style.dontHighlightPairedChars) return char;
+
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId/2);
         var res = `<span id="${address.join("-")}-${inOut?"out":"in"}-${index}" class="hlast hlast-pairedchar">${char}</span>`;
@@ -132,7 +139,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += ast.value;
             break;
         case "FLOAT_LITERAL":
-            result += ast.value;  //apparently doubles are the same as floats for this. + (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f")
+            result += ast.value;
+            if(!style.leaveOffFloatSuffix) result += (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f");
             break;
         case "TYPE_LIST":
         case "QUALIFIED_NAME_LIST":
@@ -151,14 +159,14 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             break;
         case "VARIABLE_DECLARATOR":
             result += recurse("id") + 
-                (ast.init ? " " + recurse({type: "OPERATOR", operator: "="}) + " " + recurse("init") : "");
+                (ast.init ? style.spaceInExpression + recurse({type: "OPERATOR", operator: "="}) + style.spaceInExpression + recurse("init") : "");
             break;
         case "VARIABLE_DECLARATOR_ID":
             result += recurse("id") +
                 ast.dimensions.map(function(x,i) { return recurse(["dimensions", i]); }).join("");
             break;
         case "CONSTRUCTOR_DECLARATION":
-            result += recurse("name") + " " + recurse("parameters") + 
+            result += recurse("name") + style.spaceAfterStatement + recurse("parameters") + 
                 (ast.throws ? " throws " + recurse("throws") : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
