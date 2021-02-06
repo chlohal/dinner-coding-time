@@ -35,7 +35,7 @@
 
 
     var editors = [];
-    var editorsParent, editorsTablist, selectedTab, editorsTabsEmptyState;
+    var editorsParent, editorsTablist, selectedTabIndex, editorsTabsEmptyState;
 
     window.initialTabIdx = -1;
 
@@ -56,21 +56,35 @@
         editorsTabsEmptyState = editorsParent.children[0];
         editorsTablistParent.appendChild(editorsParent);
 
+        editorsTablist.addEventListener("keydown", function(event) {
+            //get direction from keycode. right is 39, left is 37
+            var directionMovement = event.keyCode - 38;
+            if(directionMovement > 1) directionMovement = 0;
+
+            //use (x+a)%x to wrap `a` around `x`
+            var nextTabIdx = (editorsTablist.children.length + (selectedTabIndex + directionMovement)) % editorsTablist.children.length;
+            if(editorsTablist.children[nextTabIdx]) editorsTablist.children[nextTabIdx].click();
+        })
+
         main.appendChild(editorsTablistParent);
 
-        window.addEventListener("hashchange", function () {
+        window.addEventListener("hashchange", function hashchange() {
             if (window.location.hash.startsWith("#/tab-")) {
                 var tIndex = parseInt(window.location.hash.substring(6));
                 if (isNaN(tIndex)) return;
-                editorsTablist.children[tIndex - 1].onclick();
+
+                var ed = editorsTablist.children[tIndex - 1];
+                if(ed) ed.click();
             }
         });
-
+        
         if (window.location.hash.startsWith("#/tab-")) {
             var tIndex = parseInt(window.location.hash.substring(6));
             if (isNaN(tIndex)) return;
+
             initialTabIdx = tIndex - 1;
         }
+
     })();
 
     addSettingsTab();
@@ -249,22 +263,26 @@
 
     function appendTab(tab, tabpanel) {
         var generatedId = "tab-" + editorsParent.children.length;
+        var index = editorsParent.children.length - 1;
 
         tab.id = generatedId;
         tabpanel.id = generatedId + "-panel";
 
-        tab.setAttribute("tabindex", "0");
+        tab.setAttribute("tabindex", "-1");
         tab.setAttribute("aria-controls", generatedId + "-panel");
         tab.setAttribute("aria-selected", "false");
         tab.setAttribute("role", "tab");
 
-        tab.addEventListener("click", tab.onclick = function () {
+        tab.addEventListener("click", function () {
+            tab.focus();
             if (editorsTabsEmptyState) {
                 editorsParent.removeChild(editorsTabsEmptyState);
                 editorsTabsEmptyState = undefined;
             }
-            if (selectedTab) {
+            if (selectedTabIndex !== undefined) {
+                var selectedTab = editorsTablist.children[selectedTabIndex];
                 selectedTab.setAttribute("aria-selected", "false");
+                selectedTab.setAttribute("tabindex", "-1");
 
                 var selectedTabpanel = document.getElementById(selectedTab.getAttribute("aria-controls"));
                 selectedTabpanel.setAttribute("hidden", "true");
@@ -273,10 +291,11 @@
 
             window.location.hash = "#/" + generatedId
 
+            tab.setAttribute("tabindex", "0");
             tabpanel.removeAttribute("hidden");
             tabpanel.setAttribute("aria-hidden", "false");
             tab.setAttribute("aria-selected", "true");
-            selectedTab = tab;
+            selectedTabIndex = index;
         });
 
         editorsTablist.appendChild(tab);
@@ -599,6 +618,7 @@
         tabPanel.appendChild(unmovingButtonSection);
 
         var tabButton = document.createElement("button");
+        tabButton.setAttribute("aria-label", "Settings");
         tabButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill:inherit" d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>`;
         appendTab(tabButton, tabPanel);
         
@@ -613,7 +633,7 @@
 
                 console.log(bottomVisibleThreshold, containerOffset, top);
                 function anim() {
-                    if(selectedTab != tabButton) return requestAnimationFrame(anim);
+                    if(editorsTablist.children[selectedTabIndex] != tabButton) return requestAnimationFrame(anim);
                     
                     if(bottomVisibleThreshold - window.scrollY > containerOffset) {
                         buttonParent.style.position = "fixed";
