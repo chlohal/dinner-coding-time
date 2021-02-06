@@ -1024,6 +1024,19 @@ main article.license {
     background: #20223f;
     padding: 0.5em;
     border-radius: 0.5em;
+    position: relative;
+    overflow: hidden;
+}
+
+.editor-settings-tab label pre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    box-shadow: 0 0 0.25em 0.25em #20223f inset;
+    pointer-events: none;
 }
 
 .editor-settings-tab--button-section {
