@@ -129,6 +129,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 break;
         case "COMMENT_STANDALONE":
             if(style.removeComments || style.isDense) break;
+            result += indent(undent(ast.value), " ", false, false);
+            break;
         case "IDENTIFIER":
         case "MODIFIER":
         case "PRIMITIVE_TYPE":
@@ -286,7 +288,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += createPairedChar("(") + recurse("expression") + createPairedChar(")");
             break;
         case "comment":
-            result += ast.value;
+            result += indent(undent(ast.value), " ", true, false);
             if(ast.value.split("\n").length > 1 || ast.value.startsWith("//")) result += "\n";
             break;
         default:
@@ -333,4 +335,8 @@ function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
     var lines = indentText.split("\n");
     for(var i = 1; i < lines.length - +dontIndentLast; i++) lines[i] = indentBy + lines[i];
     return lines.join("\n");
+}
+
+function undent(text) {
+    return text.split("\n").map(function(x) {return x.trim()}).join("\n");
 }

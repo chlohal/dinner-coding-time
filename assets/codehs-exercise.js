@@ -42,6 +42,9 @@
     (function createTabsParent() {
         var main = document.querySelector("main");
 
+        var old = document.querySelector(".editor-tabs--grandparent");
+        if(old) main.removeChild(main);
+        
         var editorsTablistParent = document.createElement("div");
         editorsTablistParent.classList.add("editor-tabs--grandparent")
 
