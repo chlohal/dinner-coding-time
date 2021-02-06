@@ -978,7 +978,7 @@ main article.license {
 
 .assignment-navigation span.assignment-navigation--bullet {
     flex-grow: 0;
-    flex-basis: content;
+    flex-basis: auto;
 }
 
 .assignment-navigation :first-child {
