@@ -9,6 +9,21 @@
 
     var rules = [
         {
+            path: "identifier",
+            content: "r",
+            description: "<code>r</code> usually means \"result\". It is typically a variable that gets built on, whether through a loop or other method, and then returned."
+        },
+        {
+            path: "identifier",
+            content: "i",
+            description: "<code>i</code> is usually used as a loop index for a <code>for</code> loop. It counts up as the loop goes through its iterations."
+        },
+        {
+            path: "identifier",
+            content: "k",
+            description: "<code>k</code> is usually used as a loop index when you have two nested loops. It counts up as the <i>inner</i> loop goes through its iterations."
+        },
+        {
             path: "operator-expression string-literal",
             content: "\"\"",
             description: "This empty string is useful to convert other values into <code>String</code>s, because primitive values like <code>int</code> don't have <code>toString()</code> methods."

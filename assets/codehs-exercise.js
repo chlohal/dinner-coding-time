@@ -1,51 +1,114 @@
 (function () {
-    (function addTopNavigation() {
+    window._global = this;
+
+    window.editors = {};
+    var editorsParent, editorsTablist, editorsTablistParent,
+        topNavigationLinks = [null, null], selectedTabIndex = undefined, codeIntelligenceLoaded = false, initialTabIdx = -1;
+
+    (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
+        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7"/*,"5-6-5","5-6-6","5-6-7","5-7-5","5-7-6","5-7-7","5-8-7","5-8-8","5-8-9","5-9-5","5-9-6","5-9-7","6-1-6","6-1-7","6-1-8","6-1-9","6-2-10","6-2-7","6-2-8","6-2-9","6-3-6","6-3-7","6-3-8","6-3-9","6-4-6","6-4-7","6-4-8","7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9","8-1-5","8-1-6","8-1-7","8-2-7","8-2-8","9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7"/*,"5-6-5","5-6-6","5-6-7","5-7-5","5-7-6","5-7-7","5-8-7","5-8-8","5-8-9","5-9-5","5-9-6","5-9-7","6-1-6","6-1-7","6-1-8","6-1-9","6-2-10","6-2-7","6-2-8","6-2-9","6-3-6","6-3-7","6-3-8","6-3-9","6-4-6","6-4-7","6-4-8","7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9","8-1-5","8-1-6","8-1-7","8-2-7","8-2-8","9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9"*/];
-
-        var self = /\d-\d-\d/.exec(location.pathname)[0];
-
+        var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
+        console.log(self);
         var selfIndex = codehsIndex.indexOf(self);
+
+        var previous = codehsIndex[selfIndex - 1];
+        var next = codehsIndex[selfIndex + 1];
+
+        
+
+        var whetherToInitContainer = !topNavigationLinks[0];
 
         var navContainer = document.createElement("div");
         navContainer.classList.add("assignment-navigation");
 
-        var previous = codehsIndex[selfIndex - 1];
-        var beforeLink = document.createElement(previous ? "a" : "span");
-        beforeLink.textContent = "Previous: " + (previous || "").replace(/-/g, ".");
-        beforeLink.href = previous;
-        navContainer.appendChild(beforeLink);
+        
+        if (whetherToInitContainer) topNavigationLinks[0] = document.createElement("a");
+        topNavigationLinks[0].textContent = "Previous: " + (previous || "unavailable").replace(/-/g, ".");
+        topNavigationLinks[0].href = previous || "";
+        if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[0]);
 
-        var bull = document.createElement("span");
-        bull.innerHTML = "&nbsp;&bull;&nbsp;";
-        bull.classList.add("assignment-navigation--bullet");
-        navContainer.appendChild(bull);
+        if (whetherToInitContainer) {
+            var bull = document.createElement("span");
+            bull.innerHTML = "&nbsp;&bull;&nbsp;";
+            bull.classList.add("assignment-navigation--bullet");
+            navContainer.appendChild(bull);
+        }
 
-        var next = codehsIndex[selfIndex + 1];
-        var nextLink = document.createElement(next ? "a" : "span");
-        nextLink.textContent = "Next: " + (next || "unavailable").replace(/-/g, ".");
-        nextLink.href = next;
-        navContainer.appendChild(nextLink || "");
+        
+        if (whetherToInitContainer) topNavigationLinks[1] = document.createElement("a");
+        topNavigationLinks[1].textContent = "Next: " + (next || "unavailable").replace(/-/g, ".");
+        topNavigationLinks[1].href = next || "";
+        if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[1]);
 
-        main.insertBefore(navContainer, main.firstElementChild);
+        if (whetherToInitContainer) main.insertBefore(navContainer, main.firstElementChild);
     })();
 
+    (_global.registerSpaLinks = function registerSpaLinks() {
+        var links = document.querySelectorAll("a:link");
+        for (var i = 0; i < links.length; i++) {
+            //wrap in anon function to preserve a scope
+            (function () {
+                var link = links[i];
+                //if the link leads to another codehs page
+                var path = new URL(link.href).pathname;
+                if (path.match(/^\/codehs\/\d+-\d+-\d+/)) {
+                    link.addEventListener("click", function (event) {
+                        path = new URL(link.href).pathname;
+                        if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+                        event.preventDefault();
 
+                        var partial = path.replace("codehs", "codehs/partials");
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", partial);
+                        xhr.onload = function () {
+                            //if there's an error, just uhhh do it normally i guess
+                            if (xhr.status != 200) return window.location = path;
 
-    var editors = [];
-    var editorsParent, editorsTablist, selectedTabIndex, editorsTabsEmptyState;
+                            window.initialTabIdx = -1;
+                            history.pushState(null, "", path);
 
-    window.initialTabIdx = -1;
+                            var parsingParent = document.createElement("div");
+                            parsingParent.innerHTML = xhr.responseText;
+
+                            //attachment points for the children
+                            var head1 = document.querySelector("h1");
+                            if (head1) head1.parentElement.removeChild(head1);
+                            var tip = document.querySelector("aside.tip");
+                            if (tip) tip.parentElement.removeChild(tip);
+                            var main = document.querySelector("main");
+
+                            for (var i = parsingParent.children.length - 1; i >= 0; i--) {
+                                if (parsingParent.children[i].id.startsWith("source")) {
+                                    main.appendChild(parsingParent.children[i]);
+                                } else {
+                                    main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
+                                }
+                            }
+
+                            selectedTabIndex = undefined;
+                            initialTabIdx = -1
+                            _global.loadEditors();
+                            _global.loadCodeIntelligence(+localStorage.getItem("override-data-saver") || codeIntelligenceLoaded, true);
+                            _global.addTopNavigation();
+                        }
+                        xhr.send();
+                    });
+                }
+            })();
+        }
+    })();
+
 
     (function createTabsParent() {
         var main = document.querySelector("main");
 
         var old = document.querySelector(".editor-tabs--grandparent");
-        if(old) main.removeChild(main);
-        
-        var editorsTablistParent = document.createElement("div");
+        if (old) main.removeChild(main);
+
+        editorsTablistParent = document.createElement("div");
         editorsTablistParent.classList.add("editor-tabs--grandparent")
 
         editorsTablist = document.createElement("div");
@@ -55,18 +118,18 @@
 
         editorsParent = document.createElement("div");
         editorsParent.classList.add("editor-tabs--parent");
-        editorsParent.innerHTML = `<div class="editor-tabs--emptystate"><h2>Nothing open!</h2><p>Select a file in the top to open it.</p></div>`;
-        editorsTabsEmptyState = editorsParent.children[0];
         editorsTablistParent.appendChild(editorsParent);
 
-        editorsTablist.addEventListener("keydown", function(event) {
+        editorsTablist.addEventListener("keydown", function (event) {
             //get direction from keycode. right is 39, left is 37
+            if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+
             var directionMovement = event.keyCode - 38;
-            if(directionMovement > 1) directionMovement = 0;
+            if (directionMovement > 1) directionMovement = 0;
 
             //use (x+a)%x to wrap `a` around `x`
             var nextTabIdx = (editorsTablist.children.length + (selectedTabIndex + directionMovement)) % editorsTablist.children.length;
-            if(editorsTablist.children[nextTabIdx]) editorsTablist.children[nextTabIdx].click();
+            if (editorsTablist.children[nextTabIdx]) editorsTablist.children[nextTabIdx].click();
         })
 
         main.appendChild(editorsTablistParent);
@@ -77,49 +140,63 @@
                 if (isNaN(tIndex)) return;
 
                 var ed = editorsTablist.children[tIndex - 1];
-                if(ed) ed.click();
+                if (ed) ed.click();
             }
         });
-        
+
         if (window.location.hash.startsWith("#/tab-")) {
             var tIndex = parseInt(window.location.hash.substring(6));
-            if (isNaN(tIndex)) return;
-
-            initialTabIdx = tIndex - 1;
+            if (!isNaN(tIndex)) initialTabIdx = tIndex;;
         }
 
     })();
 
     addSettingsTab();
 
-    for (var i = 0; ; i++) {
-        var source = document.getElementById("source" + (i || ""));
-        if (source != null) editors.push(makeEditor(source, i));
-        else break;
-    }
+    (_global.loadEditors = function loadEditors() {
+        removeTransientTabs();
+        var pathWithHash = window.location.pathname + "#/tab-";
 
-    if (initialTabIdx > -1) editorsTablist.children[initialTabIdx].click();
-    else editorsTablist.lastElementChild.click();
+        for (var i = 0; ; i++) {
+            var source = document.getElementById("source" + (i || ""));
+            if(source && source.parentElement) source.parentElement.removeChild(source);
 
-    function loadCodeIntelligence(override) {
-        if (navigator.connection || override) {
+            if (editors[pathWithHash + (i + 1)]) {
+                recoverDeattachedEditor(editors[pathWithHash + (i + 1)]);
+                continue;
+            }
+
+            if (source != null) editors[pathWithHash + (i + 1)] = (makeEditor(source, i));
+            else break;
+        }
+
+        if (initialTabIdx > -1 && initialTabIdx < editorsTablist.children.length) editorsTablist.children[initialTabIdx].click();
+        else editorsTablist.lastElementChild.click();
+    })();
+
+    _global.loadCodeIntelligence = function loadCodeIntelligence(override, quiet) {
+        if (navigator.connection || override || codeIntelligenceLoaded) {
             if (
-                override ||
+                override || codeIntelligenceLoaded ||
                 ((navigator.connection.type != "bluetooth" && navigator.connection.type != "cellular") &&
                     !navigator.connection.saveData)
             ) {
-                for (var i = 0; i < editors.length; i++) {
+                var editorArray = Object.values(editors);
+                for (var i = 0; i < editorArray.length; i++) {
                     (function () {
-                        var editor = editors[i];
+                        var editor = editorArray[i];
                         if (editor.onLoadCodeIntelligence) requestAnimationFrame(function () {
                             editor.onStartLoadingCodeIntelligence();
                         });
                     })()
                 }
                 loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js"], function () {
-                    requestAnimationFrame(startCodeIntelligence);
+                    requestAnimationFrame(function() {
+                        startCodeIntelligence(quiet);
+                    });
+                    codeIntelligenceLoaded = true;
                 });
-                showAlert({
+                if(!quiet) showAlert({
                     text: "Loading Code Intelligence...",
                     stopTimeout: true,
                     inProgress: true
@@ -134,7 +211,7 @@
                         {
                             text: "Download Anyway",
                             action: function () {
-                                loadCodeIntelligence(true);
+                                _global.loadCodeIntelligence(true);
                             }
                         }
                     ]
@@ -151,13 +228,13 @@
                         text: "Always Download",
                         action: function () {
                             localStorage.setItem("override-data-saver", "1")
-                            loadCodeIntelligence(true);
+                            _global.loadCodeIntelligence(true);
                         }
                     },
                     {
                         text: "Download",
                         action: function () {
-                            loadCodeIntelligence(true);
+                            _global.loadCodeIntelligence(true);
                         }
                     }
                 ]
@@ -165,21 +242,25 @@
         }
     }
 
-    loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
+    _global.loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
 
     function startCodeIntelligence(quiet) {
         if (quiet !== true) showAlert({
             text: "Code Intelligence is loaded!",
             duration: 800
         });
-        for (var i = 0; i < editors.length; i++) {
-            if (editors[i].onLoadCodeIntelligence) editors[i].onLoadCodeIntelligence();
+        var editorArray = Object.values(editors);
+        for (var i = 0; i < editorArray.length; i++) {
+            if (editorArray[i].onLoadCodeIntelligence) editorArray[i].onLoadCodeIntelligence();
         }
+    }
+
+    function recoverDeattachedEditor(editor, editorIndex) {
+        appendTab(editor.tab, editor.border);
     }
 
     function makeEditor(source, editorIndex) {
         editorIndex = +editorIndex;
-        source.classList.add("lang-java");
 
         var sourceContent = source.textContent;
         var sourceLinesHtml = source.innerHTML.split("\n");
@@ -202,21 +283,24 @@
         border.appendChild(parent);
 
         var tabTitle = document.createElement("button");
-        var titleRegexp = (/public\s+class\s+(\w+)/).exec(source.textContent);
-        var fileName = titleRegexp ? titleRegexp[1] + ".java" : source.textContent.substring(0, 32).replace(/\n/g, " ") + "...";
+        var titleRegexp = (/public\s+class\s+(\w+)/).exec(sourceContent);
+        var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
         tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`
 
-        source.style.display = "none";
         appendTab(tabTitle, border);
 
         loader.innerHTML = `<h3>Conducting static code analysis. Just a second.</h3><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
 
         function onStartLoadingCodeIntelligence() {
+            if(!this.isAttached()) return;
+
             this.table.hidden = true;
             this.parent.classList.add("code-with-lines--loading");
         }
 
         var onLoadCodeIntelligence = function () {
+            if(!this.isAttached()) return;
+
             var ed = this;
 
             try {
@@ -255,33 +339,34 @@
             index: editorIndex,
             table: table,
             file: fileName,
-            lines: sourceLinesHtml
+            lines: sourceLinesHtml,
+            border: border,
+            tab: tabTitle
         };
 
         result.onLoadCodeIntelligence = onLoadCodeIntelligence.bind(result);
         result.onStartLoadingCodeIntelligence = onStartLoadingCodeIntelligence.bind(result);
+        result.isAttached = (function() { return this.tab.parentElement != null; }).bind(result);
 
         return result;
     }
 
     function appendTab(tab, tabpanel) {
-        var generatedId = "tab-" + editorsParent.children.length;
-        var index = editorsParent.children.length - 1;
+        var plainLocalIdentifier = "tab-" + editorsParent.children.length;
+        var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
+        var slugifiedId = generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
+        var index = editorsParent.children.length;
 
-        tab.id = generatedId;
-        tabpanel.id = generatedId + "-panel";
+        tab.id = slugifiedId;
+        tabpanel.id = slugifiedId + "-panel";
 
         tab.setAttribute("tabindex", "-1");
-        tab.setAttribute("aria-controls", generatedId + "-panel");
+        tab.setAttribute("aria-controls", slugifiedId + "-panel");
         tab.setAttribute("aria-selected", "false");
         tab.setAttribute("role", "tab");
 
         tab.addEventListener("click", function () {
             tab.focus();
-            if (editorsTabsEmptyState) {
-                editorsParent.removeChild(editorsTabsEmptyState);
-                editorsTabsEmptyState = undefined;
-            }
             if (selectedTabIndex !== undefined) {
                 var selectedTab = editorsTablist.children[selectedTabIndex];
                 selectedTab.setAttribute("aria-selected", "false");
@@ -292,7 +377,8 @@
                 selectedTabpanel.setAttribute("aria-hidden", "true");
             }
 
-            window.location.hash = "#/" + generatedId
+            if (window.history && window.history.replaceState) window.history.replaceState(null, "", generatedId);
+            else location.hash = "#/" + plainLocalIdentifier;
 
             tab.setAttribute("tabindex", "0");
             tabpanel.removeAttribute("hidden");
@@ -304,7 +390,7 @@
         editorsTablist.appendChild(tab);
 
         tabpanel.setAttribute("aria-hidden", "true");
-        tabpanel.setAttribute("aria-labelledby", generatedId);
+        tabpanel.setAttribute("aria-labelledby", slugifiedId);
         tabpanel.setAttribute("role", "tabpanel");
         tabpanel.setAttribute("hidden", "true");
 
@@ -593,10 +679,10 @@
 
         var unmovingButtonSection = document.createElement("div");
         unmovingButtonSection.classList.add("editor-settings-tab--button-section");
-        
+
         var buttonBackground = document.createElement("div");
         buttonBackground.classList.add("editor-settings-tab--button-background");
-        
+
         var buttonParent = document.createElement("div");
         buttonParent.classList.add("editor-settings-tab--button-container");
 
@@ -624,38 +710,38 @@
         tabButton.setAttribute("aria-label", "Settings");
         tabButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill:inherit" d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>`;
         appendTab(tabButton, tabPanel);
-        
+
         //sticky button
         tabButton.addEventListener("click", function () {
             requestAnimationFrame(function waitForLayoutChangeAnim() {
-                
+
                 var top = getYPos(tabPanel);
                 var bottomVisibleThreshold = tabPanel.offsetHeight + top - window.innerHeight;
-                
+
                 var containerOffset = 0;
 
                 console.log(bottomVisibleThreshold, containerOffset, top);
                 function anim() {
-                    if(editorsTablist.children[selectedTabIndex] != tabButton) return requestAnimationFrame(anim);
-                    
-                    if(bottomVisibleThreshold - window.scrollY > containerOffset) {
+                    if (editorsTablist.children[selectedTabIndex] != tabButton) return requestAnimationFrame(anim);
+
+                    if (bottomVisibleThreshold - window.scrollY > containerOffset) {
                         buttonParent.style.position = "fixed";
                         buttonBackground.classList.add("shadowed");
                     } else {
                         buttonParent.style.position = "static";
                         buttonBackground.classList.remove("shadowed");
                     }
-                    
+
                     requestAnimationFrame(anim);
                 }
                 anim();
             });
         });
     }
-    
+
     function getYPos(elem) {
         var top = elem.offsetTop;
-        while(elem.offsetParent) top += (elem = elem.offsetParent).offsetTop
+        while (elem.offsetParent) top += (elem = elem.offsetParent).offsetTop
         return top;
     }
 
@@ -727,4 +813,10 @@
 
         return controlParent;
     }
+
+    function removeTransientTabs() {
+        while (editorsParent.children[1]) editorsParent.removeChild(editorsParent.children[1]);
+        while (editorsTablist.children[1]) editorsTablist.removeChild(editorsTablist.children[1]);
+    }
+    _global.removeTransientTabs = removeTransientTabs;
 })();

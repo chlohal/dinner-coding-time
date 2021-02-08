@@ -220,8 +220,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "BASIC_FOR_CONTROL":
-            result += recurse("forInit") + ";" + style.spaceAfterStatement + 
-                recurse("expression") + ";" + style.spaceAfterStatement +
+            result += recurse("forInit") + ";" + style.spaceInExpression + 
+                recurse("expression") + ";" + style.spaceInExpression +
                 recurse("expressionList");
             break;
         case "EXPRESSION_LIST":
@@ -291,8 +291,18 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += indent(undent(ast.value), " ", true, false);
             if(ast.value.split("\n").length > 1 || ast.value.startsWith("//")) result += "\n";
             break;
+        case "TYPE_ARGUMENT":
+            result += recurse("argument") + 
+                (ast.extends ? " " + ((style.colorize ? "<span class=\"hlast hlast-keyword\">extends</span> " : "extends ") + recurse("extends")) : "")
+            break;
+        case "WHILE_STATEMENT":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span>" : "while") +
+            style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
+            bracketTypes[+!!style.javaBracketsStyle] + 
+            indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+            break;
         default:
-            console.log("unknown type " + ast.type);
+            console.log("unknown type " + ast.type + " at " + address.join("."));
             console.log(ast);
             result += ""; 
     }if(style.isDense) result = result.trim();
@@ -301,29 +311,33 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     
     if(style.isDense) result = result.replace(/\n/g, "").trim();
     
-    if(ast.comments && !style.isDense && !style.removeComments) {
-        for(var i = 0; i < ast.comments.length; i++) {
-            var formattedVal = recurse(["comments", i]);
-            if(ast.comments[i].leading) result = formattedVal + result;
-            else result += formattedVal;
-        }
-    }
+    
+
+    var formattedRes = result;
 
     //only colorize single-line things bc that way it won't get messed up upon table-ifying
-    if(style.colorize /*&& !isLeaf*/) {
-        return result.split("\n").map(function(line) {
+    if(style.colorize) {
+        formattedRes = result.split("\n").map(function(line) {
             return `<span class="hlast hlast-${snakeKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-nodepath="${nodePath.map(function(x,i) { return snakeKebab(x.type || x.ast_type || "") }).join(" ") }">${(line)}</span>`;
         }).join("\n");
     }
-    else {
-        return result;
+
+    if(ast.comments && !style.isDense && !style.removeComments) {
+        for(var i = 0; i < ast.comments.length; i++) {
+            var formattedVal = recurse(["comments", i]);
+            if(ast.comments[i].leading) formattedRes = formattedVal + formattedRes;
+            else formattedRes += formattedVal;
+        }
     }
+
+    return formattedRes;
 }
 
 function generateDescribingClasses(str, idx) {
     var classes = "";
     classes += " sibling-" + idx;
     if( /^[A-Z]/.test(str)) classes += " capitalized";
+    if(str.length == 1) classes += " singlechar";
     return classes;
 }
 

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-var depWorkers = {}, callbackNonces = {}, callbackNonceCount = 0;
+var loadedDeps = [], depWorkers = {}, callbackNonces = {}, callbackNonceCount = 0;
 
 var SUPPORTS_WEB_WORKERS = !!window.Worker;
 
@@ -19,16 +19,23 @@ function loadDep(src, uiThreadSrc, cb) {
 
     var loaded = 0;
     for (var i = 0; i < src.length; i++) {
-        if (SUPPORTS_WEB_WORKERS) createWorker(src[i]);
-        else createFallbackDep(src[i]);
-    }
+        if(loadedDeps.includes(src[i])) {
+            loaded++;
+            if (loaded == src.length + uiThreadSrc.length && cb) cb();
+            continue;
+        }
 
-    for (var i = 0; i < src.length; i++) {
         if (SUPPORTS_WEB_WORKERS) createWorker(src[i]);
         else createFallbackDep(src[i]);
     }
     
     for(var i = 0; i < uiThreadSrc.length; i++) {
+        if(loadedDeps.includes(uiThreadSrc[i])) {
+            loaded++;
+            if (loaded == src.length + uiThreadSrc.length && cb) cb();
+            continue;
+        }
+
         createFallbackDep(uiThreadSrc[i]);
     }
 
@@ -46,6 +53,7 @@ function loadDep(src, uiThreadSrc, cb) {
             }
         }
         
+        loadedDeps.push(srcUri);
         loaded++;
         if (loaded == src.length + uiThreadSrc.length && cb) cb();
     }
@@ -54,6 +62,7 @@ function loadDep(src, uiThreadSrc, cb) {
         var script = document.createElement("script");
         script.src = "/assets/" + srcUri;
         script.onload = function () {
+            loadedDeps.push(srcUri);
             loaded++;
             if (loaded == src.length + uiThreadSrc.length && cb) cb();
         }
