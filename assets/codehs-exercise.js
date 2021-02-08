@@ -3,7 +3,15 @@
 
     window.editors = {};
     var editorsParent, editorsTablist, editorsTablistParent,
-        topNavigationLinks = [null, null], selectedTabIndex = undefined, codeIntelligenceLoaded = false, initialTabIdx = -1;
+        topNavigationLinks = [null, null], selectedTabIndex = undefined, codeIntelligenceLoaded = false, initialTabIdx = -1, partialCache = {};
+    window.partialCache = partialCache;
+
+    (function loadStyle() {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "/assets/highlight.css";
+        document.head.appendChild(link);
+    })();
 
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
@@ -11,22 +19,22 @@
         var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7"/*,"5-6-5","5-6-6","5-6-7","5-7-5","5-7-6","5-7-7","5-8-7","5-8-8","5-8-9","5-9-5","5-9-6","5-9-7","6-1-6","6-1-7","6-1-8","6-1-9","6-2-10","6-2-7","6-2-8","6-2-9","6-3-6","6-3-7","6-3-8","6-3-9","6-4-6","6-4-7","6-4-8","7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9","8-1-5","8-1-6","8-1-7","8-2-7","8-2-8","9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
-        console.log(self);
         var selfIndex = codehsIndex.indexOf(self);
 
         var previous = codehsIndex[selfIndex - 1];
         var next = codehsIndex[selfIndex + 1];
 
-        
+
 
         var whetherToInitContainer = !topNavigationLinks[0];
 
         var navContainer = document.createElement("div");
         navContainer.classList.add("assignment-navigation");
 
-        
+
         if (whetherToInitContainer) topNavigationLinks[0] = document.createElement("a");
-        topNavigationLinks[0].textContent = "Previous: " + (previous || "unavailable").replace(/-/g, ".");
+        topNavigationLinks[0].textContent = previous ? ("Previous: " + previous.replace(/-/g, ".")) : "";
+        topNavigationLinks[0].style.cursor = previous ? "" : "default";
         topNavigationLinks[0].href = previous || "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[0]);
 
@@ -37,9 +45,10 @@
             navContainer.appendChild(bull);
         }
 
-        
+
         if (whetherToInitContainer) topNavigationLinks[1] = document.createElement("a");
-        topNavigationLinks[1].textContent = "Next: " + (next || "unavailable").replace(/-/g, ".");
+        topNavigationLinks[1].textContent = next ? ("Next: " + next.replace(/-/g, ".")) : "";
+        topNavigationLinks[1].style.cursor = next ? "" : "default";
         topNavigationLinks[1].href = next || "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[1]);
 
@@ -54,52 +63,80 @@
                 var link = links[i];
                 //if the link leads to another codehs page
                 var path = new URL(link.href).pathname;
-                if (path.match(/^\/codehs\/\d+-\d+-\d+/)) {
+
+                if (path.match(/^\/codehs\/\d+-\d+-\d+/) && !link.hasAttribute("data-is-default-prevented")) {
+                    link.setAttribute("data-is-default-prevented", "true");
                     link.addEventListener("click", function (event) {
+                        if (link.getAttribute("href") == "") return event.preventDefault();
+
                         path = new URL(link.href).pathname;
+
                         if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
                         event.preventDefault();
 
-                        var partial = path.replace("codehs", "codehs/partials");
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("GET", partial);
-                        xhr.onload = function () {
-                            //if there's an error, just uhhh do it normally i guess
-                            if (xhr.status != 200) return window.location = path;
-
-                            window.initialTabIdx = -1;
-                            history.pushState(null, "", path);
-
-                            var parsingParent = document.createElement("div");
-                            parsingParent.innerHTML = xhr.responseText;
-
-                            //attachment points for the children
-                            var head1 = document.querySelector("h1");
-                            if (head1) head1.parentElement.removeChild(head1);
-                            var tip = document.querySelector("aside.tip");
-                            if (tip) tip.parentElement.removeChild(tip);
-                            var main = document.querySelector("main");
-
-                            for (var i = parsingParent.children.length - 1; i >= 0; i--) {
-                                if (parsingParent.children[i].id.startsWith("source")) {
-                                    main.appendChild(parsingParent.children[i]);
-                                } else {
-                                    main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
-                                }
-                            }
-
-                            selectedTabIndex = undefined;
-                            initialTabIdx = -1
-                            _global.loadEditors();
-                            _global.loadCodeIntelligence(+localStorage.getItem("override-data-saver") || codeIntelligenceLoaded, true);
-                            _global.addTopNavigation();
-                        }
-                        xhr.send();
+                        navigateToSpaPath(path);
                     });
                 }
             })();
         }
     })();
+
+    window.addEventListener("popstate", function(event) {
+        if(event.state) navigateToSpaPath(event.state);
+    })
+    function navigateToSpaPath(path) {
+        var partialAddress = path.replace("codehs", "codehs/partials");
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", partialAddress);
+        xhr.onreadystatechange = onLoadPartial;
+        xhr.responseType = "text";
+
+        //event listener for xhr load.
+        function onLoadPartial(force, data) {
+            //cmon wait until it's done-- or until we've got the result
+            if (xhr.readyState != 4 && force !== true) return;
+
+            //if there's an error, just uhhh do it normally i guess
+            if (xhr.status != 200 && force !== true) return window.location = path;
+
+            var loadedFromCache = !!partialCache[partialAddress];
+            partialCache[partialAddress] = xhr.response || data;
+
+            window.initialTabIdx = -1;
+            history.pushState(path, "", path);
+
+            var parsingParent = document.createElement("div");
+            parsingParent.innerHTML = xhr.response || data;
+
+            //attachment points for the children
+            var head1 = document.querySelector("h1");
+            if (head1) head1.parentElement.removeChild(head1);
+            var tip = document.querySelector("aside.tip");
+            if (tip) tip.parentElement.removeChild(tip);
+            var main = document.querySelector("main");
+
+            for (var i = parsingParent.children.length - 1; i >= 0; i--) {
+                if (parsingParent.children[i].id.startsWith("source")) {
+                    main.appendChild(parsingParent.children[i]);
+                } else {
+                    main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
+                }
+            }
+
+            selectedTabIndex = undefined;
+            initialTabIdx = -1
+            removeTransientTabs();
+            addSettingsTab();
+            _global.loadEditors();
+            if (!loadedFromCache) _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
+            _global.addTopNavigation();
+            _global.registerSpaLinks();
+        }
+
+        if (partialCache[partialAddress]) onLoadPartial(true, partialCache[partialAddress]);
+        else xhr.send();
+    }
 
 
     (function createTabsParent() {
@@ -154,12 +191,11 @@
     addSettingsTab();
 
     (_global.loadEditors = function loadEditors() {
-        removeTransientTabs();
         var pathWithHash = window.location.pathname + "#/tab-";
 
         for (var i = 0; ; i++) {
             var source = document.getElementById("source" + (i || ""));
-            if(source && source.parentElement) source.parentElement.removeChild(source);
+            if (source && source.parentElement) source.parentElement.removeChild(source);
 
             if (editors[pathWithHash + (i + 1)]) {
                 recoverDeattachedEditor(editors[pathWithHash + (i + 1)]);
@@ -191,12 +227,12 @@
                     })()
                 }
                 loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js"], function () {
-                    requestAnimationFrame(function() {
+                    requestAnimationFrame(function () {
                         startCodeIntelligence(quiet);
                     });
                     codeIntelligenceLoaded = true;
                 });
-                if(!quiet) showAlert({
+                if (!quiet) showAlert({
                     text: "Loading Code Intelligence...",
                     stopTimeout: true,
                     inProgress: true
@@ -255,8 +291,9 @@
         }
     }
 
-    function recoverDeattachedEditor(editor, editorIndex) {
+    function recoverDeattachedEditor(editor) {
         appendTab(editor.tab, editor.border);
+        editor.onLoadCodeIntelligence();
     }
 
     function makeEditor(source, editorIndex) {
@@ -292,14 +329,14 @@
         loader.innerHTML = `<h3>Conducting static code analysis. Just a second.</h3><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
 
         function onStartLoadingCodeIntelligence() {
-            if(!this.isAttached()) return;
+            if (!this.isAttached()) return;
 
             this.table.hidden = true;
             this.parent.classList.add("code-with-lines--loading");
         }
 
         var onLoadCodeIntelligence = function () {
-            if(!this.isAttached()) return;
+            if (!this.isAttached()) return;
 
             var ed = this;
 
@@ -346,7 +383,7 @@
 
         result.onLoadCodeIntelligence = onLoadCodeIntelligence.bind(result);
         result.onStartLoadingCodeIntelligence = onStartLoadingCodeIntelligence.bind(result);
-        result.isAttached = (function() { return this.tab.parentElement != null; }).bind(result);
+        result.isAttached = (function () { return this.tab.parentElement != null; }).bind(result);
 
         return result;
     }
@@ -377,7 +414,7 @@
                 selectedTabpanel.setAttribute("aria-hidden", "true");
             }
 
-            if (window.history && window.history.replaceState) window.history.replaceState(null, "", generatedId);
+            if (window.history && window.history.replaceState) window.history.replaceState(window.location.pathname, "", generatedId);
             else location.hash = "#/" + plainLocalIdentifier;
 
             tab.setAttribute("tabindex", "0");
@@ -677,6 +714,23 @@
             ]
         }));
 
+        tabPanel.appendChild(createRadioControls({
+            heading: "If/Else Format",
+            name: "ifElseNewline",
+            opts: [
+                {
+                    value: "\n",
+                    checked: oldStyle.ifElseNewline == "\n" || oldStyle.ifElseNewline == undefined,
+                    label: "The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n    else {\n        //...\n    }\n}</code></pre></blockquote>"
+                },
+                {
+                    value: " ",
+                    checked: oldStyle.ifElseNewline == " ",
+                    label: "The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    } else {\n        //...\n    }\n}</code></pre></blockquote>"
+                }
+            ]
+        }));
+
         var unmovingButtonSection = document.createElement("div");
         unmovingButtonSection.classList.add("editor-settings-tab--button-section");
 
@@ -720,7 +774,6 @@
 
                 var containerOffset = 0;
 
-                console.log(bottomVisibleThreshold, containerOffset, top);
                 function anim() {
                     if (editorsTablist.children[selectedTabIndex] != tabButton) return requestAnimationFrame(anim);
 
@@ -815,8 +868,8 @@
     }
 
     function removeTransientTabs() {
-        while (editorsParent.children[1]) editorsParent.removeChild(editorsParent.children[1]);
-        while (editorsTablist.children[1]) editorsTablist.removeChild(editorsTablist.children[1]);
+        while (editorsParent.children[0]) editorsParent.removeChild(editorsParent.children[0]);
+        while (editorsTablist.children[0]) editorsTablist.removeChild(editorsTablist.children[0]);
     }
     _global.removeTransientTabs = removeTransientTabs;
 })();

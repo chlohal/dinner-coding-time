@@ -26,6 +26,7 @@ if(typeof window === "undefined") var window = {};
  * @property {boolean} leaveOffFloatSuffix Convert floats to doubles
  * @property {boolean} dontHighlightPairedChars Don't link block openers and parens with their counterpart closers.
  * @property {boolean} hideExplainations Don't display explaination tooltips on select syntax constructs.
+ * @property {string} ifElseNewline A whitespace string to put between the ends of `if` statements and their `else` statements
  */
 /**
  * Stringify a Java AST
@@ -55,6 +56,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     if(style.spaceInExpression === undefined) style.spaceInExpression = style.spaceAfterStatement;
     if(style.dontHighlightPairedChars === undefined) style.dontHighlightPairedChars = false;
     if(style.leaveOffFloatSuffix === undefined) style.leaveOffFloatSuffix = true;
+    if(style.ifElseNewline === undefined) style.ifElseNewline = "\n";
     
     
     var bracketTypes = ["\n", " "];
@@ -242,7 +244,12 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true) +
-                (ast.else ? "\nelse " + recurse("else") : ""); 
+                (ast.else ? 
+                    style.ifElseNewline + 
+                    (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + 
+                    bracketTypes[+!!style.javaBracketsStyle] + 
+                    indent(recurse("else"), style.indentBy, style.javaBracketsStyle, true)
+                : ""); 
             break;
         case "IF_ELSE_EXPRESSION":
             result += recurse("condition") + " ? " + recurse("if") + " : " + recurse("else");
@@ -297,9 +304,14 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             break;
         case "WHILE_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span>" : "while") +
-            style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
-            bracketTypes[+!!style.javaBracketsStyle] + 
-            indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+                style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+            break;
+        case "BREAK_STATEMENT":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">break</span>" : "break") +
+                (ast.identifier ? (" " + recurse("identifier")) : "") + 
+                ";";
             break;
         default:
             console.log("unknown type " + ast.type + " at " + address.join("."));
