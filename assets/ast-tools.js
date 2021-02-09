@@ -27,6 +27,7 @@ if(typeof window === "undefined") var window = {};
  * @property {boolean} dontHighlightPairedChars Don't link block openers and parens with their counterpart closers.
  * @property {boolean} hideExplainations Don't display explaination tooltips on select syntax constructs.
  * @property {string} ifElseNewline A whitespace string to put between the ends of `if` statements and their `else` statements
+ * @property {('source' | 'block' | 'line')} singleLineBlockBrackets How to treat single-line blocks that can have their brackets removed.
  */
 /**
  * Stringify a Java AST
@@ -92,6 +93,13 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
         isLeaf++;
         
         return astToString(target, style, nodePath, isLeaf, address.concat(a));
+    }
+
+    function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
+        if(style.singleLineBlockBrackets == "source") return block;
+        else if(block.type != "BLOCK" && style.singleLineBlockBrackets == "block") return { type: "BLOCK", statements: [block] };
+        else if((block.statements && block.statements.length == 1) && style.singleLineBlockBrackets == "line") return block.statements[0];
+        else return block;
     }
     
     style.isDense = style.spaceAfterStatement == "dense";
@@ -219,7 +227,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result +=  (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
                 (style.spaceAfterStatement)+createPairedChar("(") + recurse("forControl") + createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "BASIC_FOR_CONTROL":
             result += recurse("forInit") + ";" + style.spaceInExpression + 
@@ -243,9 +251,9 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true) +
+                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), style.indentBy, style.javaBracketsStyle, true) +
                 (ast.else ? 
-                    style.ifElseNewline + 
+                    ( style.singleLineBlockBrackets != "line" && ast.body.type == "BLOCK" ?  style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + 
                     bracketTypes[+!!style.javaBracketsStyle] + 
                     indent(recurse("else"), style.indentBy, style.javaBracketsStyle, true)
@@ -306,7 +314,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span>" : "while") +
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "BREAK_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">break</span>" : "break") +
@@ -335,7 +343,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     }
 
     if(ast.comments && !style.isDense && !style.removeComments) {
-        for(var i = 0; i < ast.comments.length; i++) {
+        for(var i = ast.comments.length - 1; i >= 0; i--) {
             var formattedVal = recurse(["comments", i]);
             if(ast.comments[i].leading) formattedRes = formattedVal + formattedRes;
             else formattedRes += formattedVal;
