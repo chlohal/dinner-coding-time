@@ -198,8 +198,10 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 recurse("typeType") + " " + recurse("id");
             break;
         case "BLOCK":
-            result += createPairedChar("{") + "\n" +
-                ast.statements.map(function(x,i) { return recurse(["statements", i]) + "\n"}).join("") + 
+            result += createPairedChar("{") + 
+                (ast.statements.length ? ("\n" +
+                    ast.statements.map(function(x,i) { return recurse(["statements", i]) + "\n"}).join("") ) 
+                : "") +
                 createPairedChar("}"); 
             break;
         case "EXPRESSION_STATEMENT":
@@ -235,7 +237,8 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 recurse("expressionList");
             break;
         case "EXPRESSION_LIST":
-            result += ast.list.map(function(x,i) { return recurse(["list", i]) }).join("," + style.spaceAfterStatement);
+        case "CATCH_TYPE":
+            result += ast.list.map(function(x,i) { return recurse(["list", i]) }).join("," + style.spaceInExpression);
             break;
         case "POSTFIX_EXPRESSION":
             result += recurse("expression") + ast.postfix;
@@ -248,16 +251,39 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 recurse("parameters") + createPairedChar(")");
                 break;
         case "IF_STATEMENT":
+            function isSingleLinesAllTheWayDown(st) {
+                console.log(st);
+                if(!st || !st.body) return true;
+                else return st.body.type != "BLOCK" && isSingleLinesAllTheWayDown(st.else);
+            }
+            var isSingleLines = isSingleLinesAllTheWayDown(ast);
+            console.log(isSingleLines);
+
+            var indenter = isSingleLines ? "" : style.indentBy;
+
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), style.indentBy, style.javaBracketsStyle, true) +
+                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), indenter, style.javaBracketsStyle, true) +
                 (ast.else ? 
-                    ( style.singleLineBlockBrackets != "line" && ast.body.type == "BLOCK" ?  style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
+                    ( style.singleLineBlockBrackets != "line" && ast.body.type == "BLOCK" ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + 
                     bracketTypes[+!!style.javaBracketsStyle] + 
-                    indent(recurse("else"), style.indentBy, style.javaBracketsStyle, true)
+                    indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.else)), indenter, style.javaBracketsStyle, true)
                 : ""); 
+            break;
+        case "TRY_STATEMENT":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">try</span>" : "try") +
+                bracketTypes[+!!style.javaBracketsStyle] + 
+                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true) +
+                style.ifElseNewline + 
+                (ast.catchClauses.map(function(x,i) { return recurse(["catchClauses", i]) }).join(style.ifElseNewline))
+            break;
+        case "CATCH_CLAUSE":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">catch</span>" : "catch") +
+            createPairedChar("(") + recurse("catchType") + " " + recurse("id") + createPairedChar(")") +
+            bracketTypes[+!!style.javaBracketsStyle] + 
+            indent(recurse(ast.block), style.indentBy, style.javaBracketsStyle, true);
             break;
         case "IF_ELSE_EXPRESSION":
             result += recurse("condition") + " ? " + recurse("if") + " : " + recurse("else");

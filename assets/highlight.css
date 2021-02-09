@@ -61,8 +61,11 @@ span[data-nodepath$="qualified-expression identifier"].capitalized {
     color: #b1b1d8
 }
 
-.hljs-attribute, span[data-nodepath$="type-type identifier"], span[data-nodepath$="formal-parameter identifier"],
-span[data-nodepath$="local-variable-declaration identifier"], span[data-nodepath$="field-declaration identifier"] {
+.hljs-attribute, span[data-nodepath$="type-type identifier"],
+span[data-nodepath$="formal-parameter identifier"],
+span[data-nodepath$="local-variable-declaration identifier"],
+span[data-nodepath$="field-declaration identifier"],
+span[data-nodepath$="catch-type qualified-name identifier"] {
     color: #cda869
 }
 
