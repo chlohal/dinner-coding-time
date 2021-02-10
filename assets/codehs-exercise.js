@@ -25,7 +25,7 @@
             else part = document.createElement("a");
 
             part.textContent = path[i];
-            part.href = path.slice(0, i+1).join("/");
+            part.href = "/" + path.slice(0, i+1).join("/");
 
             if(!header.children[childIndex]) {
                 var sep = document.createElement("span");
