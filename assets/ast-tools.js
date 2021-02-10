@@ -54,10 +54,11 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     if(style.spaceAfterStatement === undefined) style.spaceAfterStatement = "";
     if(style.linesAfterImport === undefined) style.linesAfterImport = "\n";
     if(style.removeComments === undefined) style.removeComments = false;
-    if(style.spaceInExpression === undefined) style.spaceInExpression = style.spaceAfterStatement;
+    if(style.spaceInExpression === undefined) style.spaceInExpression = style.spaceAfterStatement || " ";
     if(style.dontHighlightPairedChars === undefined) style.dontHighlightPairedChars = false;
     if(style.leaveOffFloatSuffix === undefined) style.leaveOffFloatSuffix = true;
     if(style.ifElseNewline === undefined) style.ifElseNewline = "\n";
+    if(style.singleLineBlockBrackets === undefined) style.singleLineBlockBrackets = "block"
     
     
     var bracketTypes = ["\n", " "];
@@ -96,7 +97,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
     }
 
     function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
-        if(style.singleLineBlockBrackets == "source") return block;
+        if(style.singleLineBlockBrackets == "source" || block.type == "IF_STATEMENT") return block;
         else if(block.type != "BLOCK" && style.singleLineBlockBrackets == "block") return { type: "BLOCK", statements: [block] };
         else if((block.statements && block.statements.length == 1) && style.singleLineBlockBrackets == "line") return block.statements[0];
         else return block;
@@ -181,14 +182,14 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += recurse("name") + style.spaceAfterStatement + recurse("parameters") + 
                 (ast.throws ? " throws " + recurse("throws") : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+                recurse("body");
             break;
         case "METHOD_DECLARATION":
             result += recurse("typeType") + 
                 " " + recurse("name") + style.spaceAfterStatement + recurse("parameters") + 
                 (ast.throws ? " throws " + recurse("throws") : "") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
+                recurse("body");
             break;
         case "FORMAL_PARAMETERS":
             result += createPairedChar("(") + ast.parameters.map(function(x,i) { return recurse(["parameters", i]); }).join("," + style.spaceInExpression) + createPairedChar(")");
@@ -198,11 +199,13 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 recurse("typeType") + " " + recurse("id");
             break;
         case "BLOCK":
-            result += createPairedChar("{") + 
-                (ast.statements.length ? ("\n" +
-                    ast.statements.map(function(x,i) { return recurse(["statements", i]) + "\n"}).join("") ) 
-                : "") +
-                createPairedChar("}"); 
+            result += indent(
+                createPairedChar("{") + 
+                    (ast.statements.length ? ("\n" +
+                        ast.statements.map(function(x,i) { return recurse(["statements", i]) + "\n"}).join("") ) 
+                    : "") +
+                createPairedChar("}")
+                , style.indentBy, style.javaBracketsStyle, true);
             break;
         case "EXPRESSION_STATEMENT":
             result += recurse("expression") + ";";
@@ -259,21 +262,23 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
 
             var indenter = isSingleLines ? "" : style.indentBy;
 
+            var lineSep = bracketTypes[+!!style.javaBracketsStyle];
+            if(style.singleLineBlockBrackets == "line" || ast.body.type != "BLOCK") lineSep = " ";
+
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
-                bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), indenter, style.javaBracketsStyle, true) +
+                lineSep + 
+                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), indenter, style.javaBracketsStyle, true) +
                 (ast.else ? 
                     ( style.singleLineBlockBrackets != "line" && ast.body.type == "BLOCK" ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + 
-                    bracketTypes[+!!style.javaBracketsStyle] + 
-                    indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.else)), indenter, style.javaBracketsStyle, true)
+                    lineSep + recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.else))
                 : ""); 
             break;
         case "TRY_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">try</span>" : "try") +
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(ast.body), style.indentBy, style.javaBracketsStyle, true) +
+                recurse(ast.body) +
                 style.ifElseNewline + 
                 (ast.catchClauses.map(function(x,i) { return recurse(["catchClauses", i]) }).join(style.ifElseNewline))
             break;
@@ -338,7 +343,7 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span>" : "while") +
                 style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") + 
                 bracketTypes[+!!style.javaBracketsStyle] + 
-                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body)), style.indentBy, style.javaBracketsStyle, true);
+                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body));
             break;
         case "BREAK_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">break</span>" : "break") +
