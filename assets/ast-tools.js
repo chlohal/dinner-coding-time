@@ -252,12 +252,10 @@ function astToString(ast, style, nodePath, siblingIndex, address) {
                 break;
         case "IF_STATEMENT":
             function isSingleLinesAllTheWayDown(st) {
-                console.log(st);
                 if(!st || !st.body) return true;
                 else return st.body.type != "BLOCK" && isSingleLinesAllTheWayDown(st.else);
             }
             var isSingleLines = isSingleLinesAllTheWayDown(ast);
-            console.log(isSingleLines);
 
             var indenter = isSingleLines ? "" : style.indentBy;
 

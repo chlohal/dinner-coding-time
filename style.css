@@ -269,6 +269,21 @@ header img {
     color: transparent;
 }
 
+header a:first-child {
+    height: 3rem;
+}
+
+header span.breadcrumb-sep {
+    margin-right: 0.1em;
+    margin-right: 0.1em;
+    display: inline-block;
+}
+
+header a {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+}
+
 nav {
     margin-left: auto;
     height: 100%;
