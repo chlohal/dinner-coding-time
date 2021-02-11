@@ -106,7 +106,7 @@
         var value = usage.textContent;
 
         var definition = document.querySelector(`.hlast--variable-definition-identifier[data-var-address='${scope + "." + value}']`);
-        if(!definition) throw usage;
+        if(!definition) console.warn("Undefined variable", usage.innerText, usage);
 
         usage.addEventListener("mouseenter", function() {
             definition.classList.add("partner-selected");

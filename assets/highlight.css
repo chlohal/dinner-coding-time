@@ -117,6 +117,21 @@ span[data-nodepath$="catch-type qualified-name identifier"] {
     background: #171825;
 }
 
+.hlast-block {
+    position: relative;
+}
+
+.hlast-block > .hlast[data-nodepath]::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2ch;
+    border-left:#4e5074 solid 1px;
+    pointer-events: none;
+}
+
 #explain-tooltip {
     position: absolute;
     margin: 0;
@@ -130,6 +145,14 @@ span[data-nodepath$="catch-type qualified-name identifier"] {
     max-width: 100vw;
     width: 40ch;
     animation: tooltip-fade-in 0.2s;
+}
+
+.code-with-lines ::selection,
+#explain-tooltip ::selection,
+#explain-tooltip ::-moz-selection,
+.code-with-lines ::-moz-selection {
+    background-color: #474864;
+    color: #eee;
 }
 
 @keyframes tooltip-fade-in {

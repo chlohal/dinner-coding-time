@@ -769,14 +769,6 @@ code {
     background: #20223f;
 }
 
-.code-with-lines ::selection,
-#explain-tooltip ::selection,
-#explain-tooltip ::-moz-selection,
-.code-with-lines ::-moz-selection {
-    background-color: #4e5074;
-    color: #eee;
-}
-
 .code-with-lines th, .code-with-lines td {
     font-weight: normal;
     font-size: 1rem;

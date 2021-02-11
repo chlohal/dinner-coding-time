@@ -193,18 +193,18 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address) {
             result += ast.list.map(function (x, i) { return recurse(["list", i]); }).join(", ");
             break;
         case "VARIABLE_DECLARATOR":
+            result += recurse("id") +
+                (ast.init ? style.spaceInExpression + recurse({ type: "OPERATOR", operator: "=" }) + style.spaceInExpression + recurse("init") : "");
+            break;
+        case "VARIABLE_DECLARATOR_ID":
             var varNameFormatted = recurse("id");
-            var varNameUnformatted = ast.id.id.value;
+            var varNameUnformatted = ast.id.value;
 
             if(!style.dontRegisterVariables) registerVariable(parentScope, varNameUnformatted);
 
             var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-address="${parentScope.join("") + "." + varNameUnformatted}">${varNameFormatted}</span>` : varNameFormatted;
 
             result += varNameWrapped +
-                (ast.init ? style.spaceInExpression + recurse({ type: "OPERATOR", operator: "=" }) + style.spaceInExpression + recurse("init") : "");
-            break;
-        case "VARIABLE_DECLARATOR_ID":
-            result += recurse("id") +
                 ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");
             break;
         case "CONSTRUCTOR_DECLARATION":
@@ -428,6 +428,7 @@ function snakeKebab(snake) {
 
 function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
     var lines = indentText.split("\n");
+    
     for (var i = 1; i < lines.length - +dontIndentLast; i++) lines[i] = indentBy + lines[i];
     return lines.join("\n");
 }
