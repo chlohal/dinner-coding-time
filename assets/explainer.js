@@ -9,6 +9,11 @@
 
     var rules = [
         {
+            path: "annotation",
+            content: "",
+            description: "This is an <b>annotation</b>. It gives special instructions to the Java compiler to do different things."
+        },
+        {
             path: "identifier",
             content: "r",
             description: "<code>r</code> usually means \"result\". It is typically a variable that gets built on, whether through a loop or other method, and then returned."
@@ -67,6 +72,7 @@
         for(var i = 0; i < words.length; i++) {
             if(!userStyle.hideExplainations) attachWordExplainer(words[i])
             if(!userStyle.dontHighlightPairedChars && words[i].classList.contains("hlast-pairedchar")) addPairedchar(words[i]);
+            if(words[i].classList.contains("hlast--variable-reference-identifier")) addVariableDefinitionJumper(words[i]);
         }
 
         editor.parent.addEventListener("mouseenter", function(event) {
@@ -92,6 +98,23 @@
         pairedchar.addEventListener("mouseleave", function() {
             partner.classList.remove("partner-selected");
             pairedchar.classList.remove("partner-selected");
+        });
+    }
+
+    function addVariableDefinitionJumper(usage) {
+        var scope = usage.getAttribute("data-variable-scope");
+        var value = usage.textContent;
+
+        var definition = document.querySelector(`.hlast--variable-definition-identifier[data-var-address='${scope + "." + value}']`);
+        if(!definition) throw usage;
+
+        usage.addEventListener("mouseenter", function() {
+            definition.classList.add("partner-selected");
+            usage.classList.add("partner-selected");
+        });
+        usage.addEventListener("mouseleave", function() {
+            definition.classList.remove("partner-selected");
+            usage.classList.remove("partner-selected");
         });
     }
     

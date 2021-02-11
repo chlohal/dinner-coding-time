@@ -374,7 +374,9 @@
 
                     var userStyle = loadUserStyle();
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle], function (astSource) {
+                    var variableRegistry = {};
+                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise + "/" + ed.file + "$"]], function (astSource) {
+                        console.log(variableRegistry);
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
                         explainEditor(ed);
 
@@ -396,12 +398,16 @@
 
         }
 
+        var exercise = window.location.pathname;
+        exercise = /\d+-\d+-\d+/.exec(exercise)[0].replace(/-/g, ".");
+
         var result = {
             ast: null,
             parent: parent,
             source: sourceContent,
             index: editorIndex,
             table: table,
+            exercise: exercise,
             file: fileName,
             lines: sourceLinesHtml,
             border: border,
@@ -415,7 +421,7 @@
         return result;
     }
 
-    function appendTab(tab, tabpanel) {
+    function appendTab(tab, tabpanel, parent) {
         var plainLocalIdentifier = "tab-" + editorsParent.children.length;
         var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
         var slugifiedId = generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
@@ -737,6 +743,23 @@
                     value: false,
                     checked: !oldStyle.hideExplainations,
                     label: "<em>Show</em> explaination tooltips"
+                }
+            ]
+        }));
+
+        tabPanel.appendChild(createRadioControls({
+            heading: "Register Variable Scopes",
+            name: "dontRegisterVariables",
+            opts: [
+                {
+                    value: true,
+                    checked: !!oldStyle.dontRegisterVariables,
+                    label: "<em>Don't register variables</em>. This can save memory and make the code viewer faster, but removes features like variable definition finding and some refactoring features."
+                },
+                {
+                    value: false,
+                    checked: !oldStyle.dontRegisterVariables,
+                    label: "<em>Register variables</em>. This option will use an internal object to record variables used in the program and link variable usages to their definitions."
                 }
             ]
         }));
