@@ -102,10 +102,12 @@
     }
 
     function addVariableDefinitionJumper(usage) {
-        var scope = usage.getAttribute("data-variable-scope");
-        var value = usage.textContent;
+        var address = usage.getAttribute("data-variable-address");
+        var type = usage.getAttribute("data-variable-type");
 
-        var definition = document.querySelector(`.hlast--variable-definition-identifier[data-var-address='${scope + "." + value}']`);
+        if(type != "class") type = "variable";
+
+        var definition = document.querySelector(`.hlast--${type}-definition-identifier[data-var-address='${address}']`);
         if(!definition) console.warn("Undefined variable", usage.innerText, usage);
 
         usage.addEventListener("mouseenter", function() {

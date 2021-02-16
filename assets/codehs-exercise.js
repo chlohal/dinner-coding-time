@@ -374,9 +374,7 @@
 
                     var userStyle = loadUserStyle();
 
-                    var variableRegistry = {};
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise + "/" + ed.file + "$"]], function (astSource) {
-                        console.log(variableRegistry);
+                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise + "/" + ed.file ]], function (astSource) {
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
                         explainEditor(ed);
 

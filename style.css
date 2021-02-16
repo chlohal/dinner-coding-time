@@ -817,7 +817,7 @@ code {
 }
 
 .lines-of-code--accordian summary:focus span {
-    outline: #b9b9b9 dotted 1px;
+    outline: #b9b9b9 dotted 1.5px;
     text-decoration: dotted;
 }
 

@@ -113,8 +113,9 @@ span[data-nodepath$="catch-type qualified-name identifier"] {
 }
 
 .hlast.partner-selected, span.hlast.has-tooltip-open {
-    outline: 1px solid #4e5074;
-    background: #171825;
+    outline: 1px solid #eee;
+    background: #191920;
+    color: #fff;
 }
 
 .hlast-block {
