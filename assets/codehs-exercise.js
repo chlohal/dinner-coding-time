@@ -374,7 +374,7 @@
 
                     var userStyle = loadUserStyle();
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise + "/" + ed.file ]], function (astSource) {
+                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise ]], function (astSource) {
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
                         explainEditor(ed);
 
@@ -571,8 +571,9 @@
     }
 
     function loadUserStyle() {
+        var DEFAULT_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block"};
         var userStyle = localStorage.getItem("user-style-prefs");
-        if (userStyle == null) userStyle = { colorize: true };
+        if (userStyle == null) userStyle = DEFAULT_STYLE;
         else userStyle = JSON.parse(userStyle);
 
         return userStyle;

@@ -112,10 +112,15 @@ span[data-nodepath$="catch-type qualified-name identifier"] {
     text-decoration: underline
 }
 
-.hlast.partner-selected, span.hlast.has-tooltip-open {
+.hlast.partner-selected {
     outline: 1px solid #eee;
     background: #191920;
     color: #fff;
+}
+
+.hlast.has-tooltip-open {
+    outline: 1px solid #4e5074;
+    background: #171825;
 }
 
 .hlast-block {
