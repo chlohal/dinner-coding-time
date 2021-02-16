@@ -310,9 +310,12 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += recurse("expression") + ast.postfix;
             break;
         case "QUALIFIED_EXPRESSION":
-            var expressionName = ast.expression.value || ast.expression.type.toLowerCase();
-            var varScope = getVariableScope(parentScope, expressionName);
+            var varScope;
             
+            if(!style.dontRegisterVariables) {
+                var expressionName = ast.expression.value || ast.expression.type.toLowerCase();
+                varScope = getVariableScope(parentScope, expressionName);
+            }
             //override the scope to go to the indicated area!            
             result += recurse("expression") + "." + recurse("rest", "rest", varScope && varScope.scope);
             break;
