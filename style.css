@@ -756,6 +756,7 @@ code {
     -moz-user-select: none;
     -webkit-user-select: none;
     cursor: default;
+    z-index: 1;
 }
 
 .code-with-lines tr {

@@ -3,18 +3,39 @@ if (typeof importScripts === "function") {
     onmessage = function (event) {
         var data = event.data;
 
-        if (data.function == "astToString") {
-            postMessage({
-                nonce: data.nonce,
-                data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3])
-            });
-        }
+        var fns = {
+            astToString: function () {
+                return postMessage({
+                    nonce: data.nonce,
+                    data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3])
+                });
+            },
+            clearVariableRegistry: function () {
+                return postMessage({
+                    nonce: data.nonce,
+                    data: clearVariableRegistry()
+                });
+            }
+        };
+
+        fns[data.function]();
     }
 }
 
 if (typeof window === "undefined") var window = {};
 
 var globalVarRegistry = {};
+
+
+function clearVariableRegistry() {
+    var keys = Object.keys(globalVarRegistry);
+
+    for (var i = 0; i < keys.length; i++) {
+        delete globalVarRegistry[keys[i]];
+    }
+
+    return true;
+}
 
 /**
  * @typedef {Object} StylingMode
@@ -90,20 +111,20 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
     function recurse(a, n, sc) {
         if (typeof a === "string") a = [a];
-        
+
         var newScope = parentScope;
-        if(parentScope.real) newScope = parentScope.real;
-        
+        if (parentScope.real) newScope = parentScope.real;
+
         if (!style.dontRegisterVariables) {
             var nextScopeComponent = getScopeComponent(ast, address.concat(n ? a : [n]));
             newScope = newScope.concat([nextScopeComponent]);
             createScope(newScope);
-            
-            if(sc) sc.real = newScope;
+
+            if (sc) sc.real = newScope;
         }
 
         if (typeof a === "object" && a.constructor !== Array) return astToString(
-            a, style, 
+            a, style,
             (sc || newScope),
             nodePath, isLeaf, address.concat([n]));
 
@@ -113,7 +134,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
         if (target) target.__parent__ = ast;
 
-        
+
 
         isLeaf++;
 
@@ -121,8 +142,16 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     }
 
     function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
+        var blockNorm = (block.type == "BLOCK" && block.statements.length == 1) ? block.statements[0] : block;
+
+        //if-in-for, while-in-for, etc. should *always* be blocks for clarity.
+        if ((blockNorm.type.includes("FOR") || blockNorm.type.includes("WHILE") || blockNorm.type.includes("IF"))
+            && (ast.type.includes("FOR") || ast.type.includes("WHILE") || ast.type.includes("IF"))
+            && ast.type != blockNorm.type) return { type: "BLOCK", statements: [blockNorm] };
+
+
         if (style.singleLineBlockBrackets == "source" || block.type == "IF_STATEMENT") return block;
-        else if (block.type != "BLOCK" && style.singleLineBlockBrackets == "block") return { type: "BLOCK", statements: [block] };
+        else if (block.type != "BLOCK" && (style.singleLineBlockBrackets == "block")) return { type: "BLOCK", statements: [block] };
         else if ((block.statements && block.statements.length == 1) && style.singleLineBlockBrackets == "line") return block.statements[0];
         else return block;
     }
@@ -150,7 +179,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 dontRegisterVariables: true
             });
             parentScope.splice(1, 0, packageName);
-            
+
             result += "package " + recurse("name") + ";\n";
             break;
         case "QUALIFIED_NAME":
@@ -177,25 +206,25 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += ast.value + " ";
             break;
         case "IDENTIFIER":
-            if(!style.dontRegisterVariables) {
+            if (!style.dontRegisterVariables) {
                 if (parent.type === "CLASS_DECLARATION") {
                     //register classes
                     var varNameUnformatted = ast.value;
-    
+
                     var type = parent.extends || "Object";
-    
+
                     if (!style.dontRegisterVariables) registerVariable(parentScope, varNameUnformatted, type, "class");
-    
+
                     result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-var-address="${parentScope.join("")}">${varNameUnformatted}</span>` : varNameUnformatted;
                     break;
-            } else {
-                var varScope = getVariableScope(parentScope, ast.value);
-                if (varScope && style.colorize) result +=
-                    `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${varScope.scopeKey}" data-variable-address=${varScope.address} data-variable-type="${varScope.type}" data-variable-typetype="${varScope.typeType && varScope.typeType.value}">${ast.value}</span>`;
-                else result += ast.value;
-                break;
+                } else {
+                    var varScope = getVariableScope(parentScope, ast.value);
+                    if (varScope && style.colorize) result +=
+                        `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${varScope.scopeKey}" data-variable-address=${varScope.address} data-variable-type="${varScope.type}" data-variable-typetype="${varScope.typeType && varScope.typeType.value}">${ast.value}</span>`;
+                    else result += ast.value;
+                    break;
+                }
             }
-        }
         case "PRIMITIVE_TYPE":
         case "STRING_LITERAL":
         case "BOOLEAN_LITERAL":
@@ -232,7 +261,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             var typeFullyQualified = "";
             if (!style.dontRegisterVariables) {
                 var typeType = parent.typeType || parent.__parent__.typeType || parent.__parent__.__parent__.typeType;
-                
+
                 registerVariable(parentScope, varNameUnformatted, typeType.value, parent.type.toLowerCase());
             }
 
@@ -295,12 +324,17 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
                 (style.spaceAfterStatement) + createPairedChar("(") + recurse("forControl") + createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] +
-                indent(recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body"), style.indentBy, style.javaBracketsStyle, true);
+                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body");
             break;
         case "BASIC_FOR_CONTROL":
             result += recurse("forInit") + ";" + style.spaceInExpression +
                 recurse("expression") + ";" + style.spaceInExpression +
                 recurse("expressionList");
+            break;
+        case "ENHANCED_FOR_CONTROL":
+            result += recurse("declaration") + style.spaceInExpression +
+                recurse({ type: "OPERATOR", operator: ":" }) + style.spaceInExpression +
+                recurse("expression");
             break;
         case "EXPRESSION_LIST":
         case "CATCH_TYPE":
@@ -311,8 +345,8 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "QUALIFIED_EXPRESSION":
             var varScope;
-            
-            if(!style.dontRegisterVariables) {
+
+            if (!style.dontRegisterVariables) {
                 var expressionName = ast.expression.value || ast.expression.type.toLowerCase();
                 varScope = getVariableScope(parentScope, expressionName);
             }
@@ -322,7 +356,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "METHOD_INVOCATION":
             var paramTypes = (ast.parameters ? "~~not-known~~" : "");
             var thisMethodName = `${ast.name.value}(${paramTypes})`;
-            
+
             result += recurse("name") + createPairedChar("(") +
                 recurse("parameters") + createPairedChar(")");
             break;
@@ -370,17 +404,42 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "THIS":
             result += "this";
             break;
+        case "NULL":
+            result += "null";
+            break;
+        case "CONTINUE_STATEMENT":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">continue</span>" : "continue") +
+                (ast.identifier ? " " + recurse("identifier") : "") + ";";
+            break;
+        case "ARRAY_GETTER":
         case "TYPE_TYPE":
+            if (ast.dimensions.length > 0) ast.type = "ARRAY_GETTER";
+
             result += recurse("value") +
-                ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]) }).join("");
+                ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");
             break;
         case "DIMENSION":
-            result += style.colorize ? createPairedChar("[") + createPairedChar("]") : "[]";
+            result += style.colorize ? createPairedChar("[") + recurse("expression") + createPairedChar("]") : `[${recurse("expression")}]`;
+            break;
+        case "CLASS_OR_INTERFACE_TYPE_ELEMENT":
+            result += recurse("name") + ast.dimensions.map(function(x, i) { return recurse(["dimensions", i]); }).join("");
+            break;
+        case "ARRAY_CREATOR_REST":
+            result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }) +
+                (ast.arrayInitializer ? style.spaceInExpression + recurse("arrayInitializer") : "");
+            break;
+        case "ARRAY_INITIALIZER":
+            result += createPairedChar("{") + style.spaceAfterStatement +
+                ast.variableInitializers.map(function (x, i) { return recurse(["variableInitializers", i]); }).join("," + style.spaceInExpression) +
+                style.spaceAfterStatement + createPairedChar("}");
             break;
         case "IMPORT_DECLARATION":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") +
                 (ast.static ? "static " : "") +
                 recurse("name");
+            break;
+        case "CLASS_OR_INTERFACE_TYPE":
+            result += ast.elements.map(function (x, i) { return recurse(["elements", i]); }).join(".");
             break;
         case "SIMPLE_CREATOR":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse("name") + recurse("rest");
@@ -454,14 +513,14 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             else formattedRes += formattedVal;
         }
     }
-    
-    if(address.length == 0) finalActions();
+
+    if (address.length == 0) finalActions();
 
     return formattedRes;
 }
 
 function getAstJavaEquivType(ast, scope) {
-    
+
 }
 
 function finalActions() {
@@ -471,7 +530,8 @@ function finalActions() {
 function generateDescribingClasses(str, idx) {
     var classes = "";
     classes += " sibling-" + idx;
-    if (/^[A-Z]/.test(str)) classes += " capitalized";
+    if (/^[A-Z][a-z]/.test(str)) classes += " capitalized";
+    if (/^[A-Z_]+$/.test(str)) classes += " uppercase";
     if (str.length == 1) classes += " singlechar";
     return classes;
 }
@@ -500,7 +560,9 @@ function getScopeComponent(ast, address) {
         case "METHOD_DECLARATION":
             return "." +
                 ast.name.value + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
-        case "BLOCK":
+        case "FOR_STATEMENT":
+        case "IF_STATEMENT":
+        case "WHILE_STATEMENT":
             var statementInsideBodyIndex = "";
             //start after type defs
             for (i = address.indexOf("statements"); i < address.length - 1; i++) {
@@ -515,11 +577,11 @@ function getScopeComponent(ast, address) {
 
 function createScope(newScope) {
     newScope = newScope.filter(function (x) { return x != "" });
-    
-    if(newScope.length == 0) return false;
-    
+
+    if (newScope.length == 0) return false;
+
     var target = globalVarRegistry;
-    for(var i = 0; i < newScope.length; i++) {
+    for (var i = 0; i < newScope.length; i++) {
         if (!target.children) target.children = {};
         if (!target.children[newScope[i]]) target.children[newScope[i]] = {};
         target = target.children[newScope[i]];
@@ -531,21 +593,21 @@ function registerVariable(scope, varName, typeType, type) {
 
     var address = "", scopeKey = scope.join("");
 
-    if(type == "class") address = scopeKey;
+    if (type == "class") address = scopeKey;
     else address = scopeKey + "." + varName;
 
     var target = globalVarRegistry;
-    for(var i = 0; i < scope.length; i++) {
+    for (var i = 0; i < scope.length; i++) {
         if (!target.children[scope[i]]) target.children[scope[i]] = {};
         target = target.children[scope[i]];
     }
-    
-    if(type != "class") {
-        if(!target.vars) target.vars = {};
-        if(!target.vars[varName]) target.vars[varName] = {};
+
+    if (type != "class") {
+        if (!target.vars) target.vars = {};
+        if (!target.vars[varName]) target.vars[varName] = {};
         target = target.vars[varName];
     }
-    
+
     Object.assign(target, {
         name: varName,
         address: address,
@@ -555,22 +617,22 @@ function registerVariable(scope, varName, typeType, type) {
         type: type || "variable",
         privacy: "public" //TODO: implement
     });
-    
+
     return target;
 }
 
 function getClassScope(currentScope, className) {
     for (var i = currentScope.length; i > 0; i--) {
         var scannedScope = currentScope.slice(0, i);
-        
+
         var target = globalVarRegistry;
-        for(var j = 0; j < scannedScope.length; j++) {
+        for (var j = 0; j < scannedScope.length; j++) {
             target = target.children[scannedScope[j]];
         }
-        
-        if(!target.children) continue;
+
+        if (!target.children) continue;
         console.info(target, className)
-        if(target.children["$" + className]) return target.children["$" + className];
+        if (target.children["$" + className]) return target.children["$" + className];
     }
     return null;
 }
@@ -580,22 +642,22 @@ function getVariableScope(currentScope, varName) {
 
     for (var i = currentScope.length; i > 0; i--) {
         var scannedScope = currentScope.slice(0, i);
-        
+
         var target = globalVarRegistry;
-        for(var j = 0; j < scannedScope.length; j++) {
+        for (var j = 0; j < scannedScope.length; j++) {
             target = target.children[scannedScope[j]];
         }
-        
-        if(!target) console.warn("unknown scope", currentScope, varName, globalVarRegistry);
-        
-        if(!target.vars) continue;
-        if(varName) target = target.vars[varName]
-        
+
+        if (!target) console.warn("unknown scope", currentScope, varName, globalVarRegistry);
+
+        if (!target.vars) continue;
+        if (varName) target = target.vars[varName]
+
         if (typeof target === "object") return target;
         else if (varName === "this" && currentScope[i - 1].startsWith("$")) return {
             scope: scannedScope,
             scopeKey: scannedScope.join(""),
-            name : currentScope[i - 1],
+            name: currentScope[i - 1],
             type: "class"
         }
     }

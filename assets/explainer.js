@@ -9,6 +9,16 @@
 
     var rules = [
         {
+            path: "qualified-expression",
+            content: "Integer.MAX_VALUE",
+            description: "This represents the largest value that an int can ever be. It's usually the initial value when you're trying to calculate a minimum. That way, it will always be decreased later! <hr> If this isn't your style, replace with 100."
+        },
+        {
+            path: "qualified-expression",
+            content: "Integer.MIN_VALUE",
+            description: "This represents the smallest value that an int can ever be. It's usually the initial value when you're trying to calculate a maximum. That way, it will always be increased later! <hr> If this isn't your style, replace with 0."
+        },
+        {
             path: "annotation",
             content: "",
             description: "This is an <b>annotation</b>. It gives special instructions to the Java compiler to do different things."
@@ -151,7 +161,9 @@
     }
     
     function moveTooltipX(x) {
-        if(tooltipElem) tooltipElem.style.left = x + "px";
+        var transform = tooltipElem.style.transform;
+        var transformY = transform.split(",")[1];
+        if(tooltipElem) tooltipElem.style.transform = `translate(${x}px,` + transformY;
     }
 
     function tooltip(elem, content) {
@@ -167,8 +179,7 @@
         
         if(tooltipElem === null) initTooltipElem();
         
-        tooltipElem.style.top = (deltTop + box.y + box.height - 2) + "px";
-        tooltipElem.style.left = (deltLeft + box.x) + "px";
+        tooltipElem.style.transform = `translate(${deltLeft + box.x}px, ${(deltTop + box.y + box.height - 2)}px)`;
         tooltipElem.innerHTML = content;
 
         document.body.appendChild(tooltipElem);
