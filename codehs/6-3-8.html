@@ -62,7 +62,25 @@
 <h1>6.3.8 Classroom Array</h1>
 
         <code id="source">
-
+            public class ClassRoster
+            {
+                public static void main(String[] args)
+                {
+                    Student julian = new Student("Julian", "Jones", 9);
+                    Student larisa = new Student("Larisa", "Torres", 10);
+                    Student amada = new Student("Amada", "Robin", 10);
+                    Student mikka = new Student("Mikka", "Leads", 9);
+                    Student jay = new Student("Jay", "Khalil", 10);
+                    
+                    Student[] classroom = {julian, larisa, amada, mikka, jay};
+            
+                    for(Student kid : classroom) {
+                        System.out.println(kid.getFirstName() + " " + kid.getLastName() + " is in grade " + kid.getGradeLevel());
+                    }
+                    
+                }
+            }
+            
         </code>
     </main>
     <footer>
