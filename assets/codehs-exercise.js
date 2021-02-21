@@ -1,3 +1,5 @@
+var getUserStyle;
+
 (function () {
     window._global = this;
 
@@ -585,19 +587,26 @@
             .replace(/>/g, "&gt;");
     }
 
-    var DEFAULT_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block", "lineWrap": "false"};
-    var __userStyle = null;
+    var __userStyle;
     
     
     function getUserStyle() {
-        if(__userStyle == null) {
+        var DEFAULT_USER_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block", "lineWrap": "false"};
+        
+        _global.getUserStyle = getUserStyle;
+        if(typeof __userStyle == "undefined") {
             var userStyleJson = localStorage.getItem("user-style-prefs");
             if (userStyleJson !== null) __userStyle = JSON.parse(userStyleJson);
-            else __userStyle = DEFAULT_STYLE;
         }
+
+        if(typeof __userStyle == "undefined") __userStyle = DEFAULT_USER_STYLE;
+
+        console.log(__userStyle, DEFAULT_USER_STYLE);
         
         return __userStyle;
     }
+
+    
     
     function setUserStyle(style) {
         __userStyle = style;
