@@ -828,7 +828,7 @@
         }));
         
         tabPanel.appendChild(createRadioControls({
-            heading: "Single-Statement Blocks",
+            heading: "Line Wrap",
             name: "lineWrap",
             opts: [
                 {
