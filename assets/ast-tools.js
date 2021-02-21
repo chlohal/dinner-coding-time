@@ -524,7 +524,7 @@ function getAstJavaEquivType(ast, scope) {
 }
 
 function finalActions() {
-    console.info(globalVarRegistry);
+    //console.info(globalVarRegistry);
 }
 
 function generateDescribingClasses(str, idx) {

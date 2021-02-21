@@ -310,13 +310,14 @@
 
     _global.loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
 
-    function startCodeIntelligence(quiet) {
+    function startCodeIntelligence(quiet, invalidate) {
         if (quiet !== true) showAlert({
             text: "Code Intelligence is loaded!",
             duration: 800
         });
         var editorArray = Object.values(editors);
         for (var i = 0; i < editorArray.length; i++) {
+            if(invalidate) delete editorArray[i].astHtmlSource;
             if (editorArray[i].onLoadCodeIntelligence) editorArray[i].onLoadCodeIntelligence();
         }
     }
@@ -384,13 +385,19 @@
             }
 
             var ed = this;
+            
+            var userStyle = getUserStyle();
+            
+            console.log(userStyle.lineWrap == "true");
+            if(userStyle.lineWrap == "true") ed.table.classList.add("line-wrapped");
+            else ed.table.classList.remove("line-wrapped");
 
             try {
                 function printToTable(ast) {
                     window.ast = ast;
                     ed.ast = ast;
 
-                    var userStyle = loadUserStyle();
+                    
 
                     executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise ]], function (astSource) {
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
@@ -578,13 +585,23 @@
             .replace(/>/g, "&gt;");
     }
 
-    function loadUserStyle() {
-        var DEFAULT_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block"};
-        var userStyle = localStorage.getItem("user-style-prefs");
-        if (userStyle == null) userStyle = DEFAULT_STYLE;
-        else userStyle = JSON.parse(userStyle);
-
-        return userStyle;
+    var DEFAULT_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block", "lineWrap": "false"};
+    var __userStyle = null;
+    
+    
+    function getUserStyle() {
+        if(__userStyle == null) {
+            var userStyleJson = localStorage.getItem("user-style-prefs");
+            if (userStyleJson !== null) __userStyle = JSON.parse(userStyleJson);
+            else __userStyle = DEFAULT_STYLE;
+        }
+        
+        return __userStyle;
+    }
+    
+    function setUserStyle(style) {
+        __userStyle = style;
+        localStorage.setItem("user-style-prefs", JSON.stringify(style));
     }
 
     function addSettingsTab() {
@@ -595,7 +612,7 @@
         tabPanelHeading.textContent = "Code Formatting Settings";
         tabPanel.appendChild(tabPanelHeading);
 
-        var oldStyle = loadUserStyle();
+        var oldStyle = getUserStyle();
 
         //bracket options
         tabPanel.appendChild(createRadioControls({
@@ -809,6 +826,23 @@
                 }
             ]
         }));
+        
+        tabPanel.appendChild(createRadioControls({
+            heading: "Single-Statement Blocks",
+            name: "lineWrap",
+            opts: [
+                {
+                    value: "true",
+                    checked: oldStyle.lineWrap == "true",
+                    label: "Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, it won't be wrapped."
+                },
+                {
+                    value: "false",
+                    checked: oldStyle.lineWrap == "false" || oldStyle.lineWrap == undefined,
+                    label: "Scroll sideways instead of wrapping lines"
+                }
+            ]
+        }));
 
         var unmovingButtonSection = document.createElement("div");
         unmovingButtonSection.classList.add("editor-settings-tab--button-section");
@@ -826,13 +860,13 @@
             event.stopPropagation();
 
             var formData = Array.from((new FormData(tabPanel)).entries());
-            var userStyle = loadUserStyle();
+            var userStyle = getUserStyle();
             for (var i = 0; i < formData.length; i++) {
                 userStyle[formData[i][0]] = formData[i][1];
             }
-            localStorage.setItem("user-style-prefs", JSON.stringify(userStyle));
+            setUserStyle(userStyle);
 
-            startCodeIntelligence(true);
+            startCodeIntelligence(true, true);
         }
         buttonBackground.appendChild(tabPanelSubmitButton);
         buttonParent.appendChild(buttonBackground);

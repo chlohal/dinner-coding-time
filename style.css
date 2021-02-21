@@ -675,6 +675,10 @@ code {
     white-space: pre;
 }
 
+.line-wrapped code {
+    white-space: pre-wrap;
+}
+
 .code-with-lines--border-parent {
     overflow: hidden;
     background: #1b1d35;
@@ -709,13 +713,15 @@ code {
     color: #f7f7f7;
     top: 0; left: 0; right: 0; bottom: 0;
     align-items: center;
-    background: #1b1d3509;
+    background: #1b1d3590;
     justify-content: center;
-    z-index: 1000;
+    padding: 1em;
+    z-index: 10;
 }
 
 .code-with-lines--parent.code-with-lines--loading .code-with-lines--load-box {
     display: flex;
+    text-align: center;
 }
 
 .code-with-lines--load-box svg {
