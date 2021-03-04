@@ -75,6 +75,8 @@
     }
 
     window.explainEditor = function explain(editor) {
+        loadNameManager(editor);
+        
         var userStyle = loadUserStyle();
 
         var words = editor.table.querySelectorAll("span.hlast");
@@ -117,7 +119,7 @@
 
         if(type != "class") type = "variable";
 
-        var definition = document.querySelector(`.hlast--${type}-definition-identifier[data-var-address='${address}']`);
+        var definition = document.querySelector(`.hlast--${type}-definition-identifier[data-variable-address='${address}']`);
         if(!definition) console.warn("Undefined variable", usage.innerText, usage);
 
         usage.addEventListener("mouseenter", function() {

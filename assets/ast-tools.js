@@ -215,7 +215,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
                     if (!style.dontRegisterVariables) registerVariable(parentScope, varNameUnformatted, type, "class");
 
-                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-var-address="${parentScope.join("")}">${varNameUnformatted}</span>` : varNameUnformatted;
+                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-variable-address="${parentScope.join("")}">${varNameUnformatted}</span>` : varNameUnformatted;
                     break;
                 } else {
                     var varScope = getVariableScope(parentScope, ast.value);
@@ -265,7 +265,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 registerVariable(parentScope, varNameUnformatted, typeType.value, parent.type.toLowerCase());
             }
 
-            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${typeFullyQualified}" data-var-address="${parentScope.join("") + "." + varNameUnformatted}">${varNameUnformatted}</span>` : recurse("id");
+            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${typeFullyQualified}" data-variable-address="${parentScope.join("") + "." + varNameUnformatted}">${varNameUnformatted}</span>` : recurse("id");
 
             result += varNameWrapped +
                 ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");

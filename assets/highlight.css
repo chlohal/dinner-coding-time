@@ -120,7 +120,8 @@ span[data-nodepath$="catch-type qualified-name identifier"] {
     text-decoration: underline
 }
 
-.hlast.partner-selected {
+.hlast.partner-selected,
+.hlast:focus {
     outline: 1px solid #eee;
     background: #191920;
     color: #fff;

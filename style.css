@@ -828,14 +828,25 @@ code {
     text-decoration: dotted;
 }
 
-.editor-tabs--grandparent {
+.editor-tabs--grandparent,
+.tools-tabs--grandparent {
     border-radius: 5px;
     overflow: hidden;
+}
+
+.tools-tabs--grandparent {
+    margin-top: 0.25em;
 }
 
 .editor-tabs--parent {
     min-height: 80vh;
     height: max-content;
+    background: #2b2d4e;
+    color: #171825;
+    position: relative;
+}
+
+.tools-tabs--parent {
     background: #2b2d4e;
     color: #171825;
     position: relative;
@@ -853,7 +864,8 @@ code {
     justify-content: center;
 }
 
-.editor-tabs--tablist {
+.editor-tabs--tablist,
+.tools-tabs--tablist {
     background-color: #3c3d58;
     border-bottom: 1px solid #373852;
     padding: 0;
@@ -862,10 +874,15 @@ code {
     scrollbar-width: thin;
 }
 .editor-tabs--tablist::-webkit-scrollbar{height: 8px; width:8px}
-.editor-tabs--tablist::-webkit-scrollbar-track{background:#3b3b3b;border-radius:0px}
-.editor-tabs--tablist::-webkit-scrollbar-thumb{background:#666666;border-radius:4px}
+.editor-tabs--tablist::-webkit-scrollbar{background:#3b3b3b;border-radius:0px}
+.editor-tabs--tablist::-webkit-scrollbar{background:#666666;border-radius:4px}
 
-.editor-tabs--tablist button {
+.tools-tabs--tablist {
+    overflow-x: hidden;
+}
+
+.editor-tabs--tablist button,
+.tools-tabs--tablist button {
     font: inherit;
     font-size: 0.85em;
     color: #9493c9;
@@ -877,6 +894,29 @@ code {
     cursor: pointer;
     border: 0;
     border-right: 1px solid #606288;
+}
+
+.tools-tabs--tablist button {
+    padding: 0;
+    margin: 0.25em 0.5em;
+    padding: 0.25em;
+    text-transform: uppercase;
+    letter-spacing: -0.1ch;
+    font-size: 0.66em;
+    border-right: 0;
+    border: 1px solid transparent;
+}
+
+.tools-tabs--tablist button:hover,
+.tools-tabs--tablist button:focus,
+.tools-tabs--tablist button:focus-within {
+    color: #f7f7f5;
+    outline: none;
+}
+
+.tools-tabs--tablist button[aria-selected="true"] {
+    border-bottom: 1px solid #e46464;
+    color: #f7f5f5;
 }
 
 .editor-tabs--tablist button:hover {
@@ -999,12 +1039,13 @@ main article.license {
     text-align: right;
 }
 
-.editor-settings-tab {
+.tools-tabs--parent > div, 
+.tools-tabs--parent > form {
     color: #f7f7f7;
     padding: 0.5em;
 }
 
-.editor-settings-tab h2, .editor-settings-tab h3 {
+.tools-tabs--parent h2, .tools-tabs--parent h3 {
     font-family: inherit;
     margin-top: 0;
 }
@@ -1022,7 +1063,7 @@ main article.license {
     margin-bottom: 0.5em;
 }
 
-.editor-settings-tab textarea {
+.tools-tabs--parent textarea {
     width: max-content;
     display: block;
     height: 1.5em;
@@ -1032,6 +1073,7 @@ main article.license {
     border-radius: 5px;
     color: #f7f7f7;
     padding: 0;
+    resize: horizontal;
 }
 
 .editor-settings-tab label pre {
@@ -1109,6 +1151,59 @@ main article.license {
 .editor-settings-tab input[type=radio]:checked {
     background: #f7f7f7;
     border: 2px solid #f7f7f7;
+}
+
+.name-manager-tab label {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5em;
+    cursor: auto;
+    width: min-content;
+}
+
+.name-manager-tab label h3 {
+    font-size: 0.5em;
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    margin: 0;
+    max-width: 40ch;
+    text-align: right;
+    overflow: hidden;
+    position: relative;
+    font-weight: normal;
+}
+
+.name-manager-tab label h3 span.content-left-side-elipsis-wrap {
+    position: absolute;
+    right: 0;
+}
+
+.name-manager-tab a h3 {
+    cursor: help;
+}
+
+.name-manager-tab textarea {
+    border: 1px solid transparent;
+    border-bottom: 1px solid #20223f;
+    resize: none;
+    border-radius: 0;
+}
+
+.name-manager-tab textarea:hover {
+    background-color: #4e507449;
+}
+
+.name-manager-tab textarea:focus {
+    outline: 0;
+    border-bottom-color: #f7f7f5;
+}
+
+.name-manager-tab h2 {
+    margin: 0;
+}
+
+.name-manager-tab p {
+    margin-bottom: 0.5em;
+    color: #9493c9
 }
 
 @keyframes progress-alert-bottom-slide {

@@ -8,6 +8,8 @@ var getUserStyle;
         topNavigationLinks = [null, null], selectedTabIndex = undefined, codeIntelligenceLoaded = false, initialTabIdx = -1, partialCache = {};
     window.partialCache = partialCache;
 
+    var toolsTablistParent, toolsTablist, toolsParent, selectedToolTabIndex;
+
     (function loadStyle() {
         var link = document.createElement("link");
         link.rel = "stylesheet";
@@ -19,17 +21,17 @@ var getUserStyle;
         var header = document.querySelector("header");
         var path = location.pathname.substring(1).split("/");
 
-        for(var i = 0; i < path.length; i++) {
+        for (var i = 0; i < path.length; i++) {
             var childIndex = i * 2 + 2;
             var part;
-            
-            if(header.children[childIndex]) part = header.children[childIndex];
+
+            if (header.children[childIndex]) part = header.children[childIndex];
             else part = document.createElement("a");
 
             part.textContent = path[i];
-            part.href = "/" + path.slice(0, i+1).join("/");
+            part.href = "/" + path.slice(0, i + 1).join("/");
 
-            if(!header.children[childIndex]) {
+            if (!header.children[childIndex]) {
                 var sep = document.createElement("span");
                 sep.textContent = "/";
                 sep.classList.add("breadcrumb-separator");
@@ -44,7 +46,7 @@ var getUserStyle;
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7","5-6-5","5-6-6","5-6-7","5-6-8","5-7-5","5-7-6","5-7-7","5-8-7","5-8-8","5-8-9","5-9-5","5-9-6","5-9-7","6-1-6","6-1-7","6-1-8","6-1-9","6-2-10","6-2-7","6-2-8","6-2-9","6-3-6","6-3-7","6-3-8","6-3-9","6-4-6","6-4-7","6-4-8","6-4-9"/*"7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9"*/,"8-1-5","8-1-6","8-1-7","8-2-7","8-2-8"/*,"9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
+        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-10", "6-2-7", "6-2-8", "6-2-9", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9"/*"7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9"*/, "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8"/*,"9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
         var selfIndex = codehsIndex.indexOf(self);
@@ -109,8 +111,8 @@ var getUserStyle;
         }
     })();
 
-    window.addEventListener("popstate", function(event) {
-        if(event.state) navigateToSpaPath(event.state);
+    window.addEventListener("popstate", function (event) {
+        if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
         var partialAddress = path.replace("codehs", "codehs/partials");
@@ -154,7 +156,7 @@ var getUserStyle;
 
             selectedTabIndex = undefined;
             initialTabIdx = -1
-            executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function() {
+            executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
                 _global.garbageCleanEditors();
                 addSettingsTab();
@@ -174,11 +176,12 @@ var getUserStyle;
     (function createTabsParent() {
         var main = document.querySelector("main");
 
-        var old = document.querySelector(".editor-tabs--grandparent");
-        if (old) main.removeChild(main);
+        var old = document.getElementById("editor-tabs");
+        if (old) main.removeChild(old);
 
         editorsTablistParent = document.createElement("div");
-        editorsTablistParent.classList.add("editor-tabs--grandparent")
+        editorsTablistParent.classList.add("editor-tabs--grandparent");
+        editorsTablistParent.id = "editor-tabs";
 
         editorsTablist = document.createElement("div");
         editorsTablist.classList.add("editor-tabs--tablist")
@@ -220,6 +223,84 @@ var getUserStyle;
 
     })();
 
+    (function createToolsParent() {
+        var main = document.querySelector("main");
+
+        var old = document.getElementById("advanced-tools-tabs");
+        if (old) main.removeChild(old);
+
+        toolsTablistParent = document.createElement("div");
+        toolsTablistParent.classList.add("tools-tabs--grandparent");
+        toolsTablistParent.id = "advanced-tools-tabs";
+
+        toolsTablist = document.createElement("div");
+        toolsTablist.classList.add("tools-tabs--tablist")
+        toolsTablist.setAttribute("role", "tablist");
+        toolsTablistParent.appendChild(toolsTablist);
+
+        toolsParent = document.createElement("div");
+        toolsParent.classList.add("tools-tabs--parent");
+        toolsTablistParent.appendChild(toolsParent);
+
+        toolsTablist.addEventListener("keydown", function (event) {
+            //get direction from keycode. right is 39, left is 37
+            if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
+
+            var directionMovement = event.keyCode - 38;
+            if (directionMovement > 1) directionMovement = 0;
+
+            //use (x+a)%x to wrap `a` around `x`
+            var nextTabIdx = (toolsTablist.children.length + (selectedTabIndex + directionMovement)) % toolsTablist.children.length;
+            if (toolsTablist.children[nextTabIdx]) toolsTablist.children[nextTabIdx].click();
+        })
+
+        main.appendChild(toolsTablistParent);
+
+    })();
+
+    (_global.appendToolTab = function appendToolTab(tab, tabpanel) {
+        var plainLocalIdentifier = "tab-" + toolsParent.children.length;
+        var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
+        var slugifiedId = "tool" + generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
+        var index = toolsParent.children.length;
+
+        tab.id = slugifiedId;
+        tabpanel.id = slugifiedId + "-panel";
+
+        tab.setAttribute("tabindex", "-1");
+        tab.setAttribute("aria-controls", slugifiedId + "-panel");
+        tab.setAttribute("aria-selected", "false");
+        tab.setAttribute("role", "tab");
+
+        tab.addEventListener("click", function () {
+            tab.focus();
+            if (selectedToolTabIndex !== undefined) {
+                var selectedTab = toolsTablist.children[selectedToolTabIndex];
+                selectedTab.setAttribute("aria-selected", "false");
+                selectedTab.setAttribute("tabindex", "-1");
+
+                var selectedTabpanel = document.getElementById(selectedTab.getAttribute("aria-controls"));
+                selectedTabpanel.setAttribute("hidden", "true");
+                selectedTabpanel.setAttribute("aria-hidden", "true");
+            }
+
+            tab.setAttribute("tabindex", "0");
+            tabpanel.removeAttribute("hidden");
+            tabpanel.setAttribute("aria-hidden", "false");
+            tab.setAttribute("aria-selected", "true");
+            selectedToolTabIndex = index;
+        });
+
+        toolsTablist.appendChild(tab);
+
+        tabpanel.setAttribute("aria-hidden", "true");
+        tabpanel.setAttribute("aria-labelledby", slugifiedId);
+        tabpanel.setAttribute("role", "tabpanel");
+        tabpanel.setAttribute("hidden", "true");
+
+        toolsParent.appendChild(tabpanel);
+    });
+
     addSettingsTab();
 
     (_global.loadEditors = function loadEditors() {
@@ -258,7 +339,7 @@ var getUserStyle;
                         });
                     })()
                 }
-                loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js"], function () {
+                loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js", "name-manager.js"], function () {
                     requestAnimationFrame(function () {
                         startCodeIntelligence(quiet);
                     });
@@ -319,7 +400,7 @@ var getUserStyle;
         });
         var editorArray = Object.values(editors);
         for (var i = 0; i < editorArray.length; i++) {
-            if(invalidate) delete editorArray[i].astHtmlSource;
+            if (invalidate) delete editorArray[i].astHtmlSource;
             if (editorArray[i].onLoadCodeIntelligence) editorArray[i].onLoadCodeIntelligence();
         }
     }
@@ -333,8 +414,8 @@ var getUserStyle;
         var pathname = window.location.pathname;
         var keys = Object.keys(editors);
 
-        for(var i = 0; i < keys.length - 10; i++) {
-            if(!keys[i].startsWith(pathname)) delete editors[keys[i]];
+        for (var i = 0; i < keys.length - 10; i++) {
+            if (!keys[i].startsWith(pathname)) delete editors[keys[i]];
         }
     }
 
@@ -380,18 +461,17 @@ var getUserStyle;
         var onLoadCodeIntelligence = function () {
             if (!this.isAttached()) return "unattached";
 
-            if(this.astHtmlSource) {
+            if (this.astHtmlSource) {
                 this.table.hidden = false;
                 this.parent.classList.remove("code-with-lines--loading");
                 return "already intelligent"
             }
 
             var ed = this;
-            
+
             var userStyle = getUserStyle();
-            
-            console.log(userStyle.lineWrap == "true");
-            if(userStyle.lineWrap == "true") ed.table.classList.add("line-wrapped");
+
+            if (userStyle.lineWrap == "true") ed.table.classList.add("line-wrapped");
             else ed.table.classList.remove("line-wrapped");
 
             try {
@@ -399,9 +479,9 @@ var getUserStyle;
                     window.ast = ast;
                     ed.ast = ast;
 
-                    
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise ]], function (astSource) {
+
+                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
                         explainEditor(ed);
 
@@ -588,26 +668,24 @@ var getUserStyle;
     }
 
     var __userStyle;
-    
-    
+
+
     function getUserStyle() {
-        var DEFAULT_USER_STYLE = {"colorize":"true","javaBracketsStyle":"","indentBy":"    ","spaceAfterStatement":"","spaceInExpression":" ","removeComments":"","leaveOffFloatSuffix":"true","dontHighlightPairedChars":"","hideExplainations":"","dontRegisterVariables":"","ifElseNewline":"\n","singleLineBlockBrackets":"block", "lineWrap": "false"};
-        
+        var DEFAULT_USER_STYLE = { "colorize": "true", "javaBracketsStyle": "", "indentBy": "    ", "spaceAfterStatement": "", "spaceInExpression": " ", "removeComments": "", "leaveOffFloatSuffix": "true", "dontHighlightPairedChars": "", "hideExplainations": "", "dontRegisterVariables": "", "ifElseNewline": "\n", "singleLineBlockBrackets": "block", "lineWrap": "false" };
+
         _global.getUserStyle = getUserStyle;
-        if(typeof __userStyle == "undefined") {
+        if (typeof __userStyle == "undefined") {
             var userStyleJson = localStorage.getItem("user-style-prefs");
             if (userStyleJson !== null) __userStyle = JSON.parse(userStyleJson);
         }
 
-        if(typeof __userStyle == "undefined") __userStyle = DEFAULT_USER_STYLE;
+        if (typeof __userStyle == "undefined") __userStyle = DEFAULT_USER_STYLE;
 
-        console.log(__userStyle, DEFAULT_USER_STYLE);
-        
         return __userStyle;
     }
 
-    
-    
+
+
     function setUserStyle(style) {
         __userStyle = style;
         localStorage.setItem("user-style-prefs", JSON.stringify(style));
@@ -835,7 +913,7 @@ var getUserStyle;
                 }
             ]
         }));
-        
+
         tabPanel.appendChild(createRadioControls({
             heading: "Line Wrap",
             name: "lineWrap",
@@ -883,9 +961,8 @@ var getUserStyle;
         tabPanel.appendChild(unmovingButtonSection);
 
         var tabButton = document.createElement("button");
-        tabButton.setAttribute("aria-label", "Settings");
-        tabButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path style="fill:inherit" d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>`;
-        appendTab(tabButton, tabPanel);
+        tabButton.textContent = "Format Settings";
+        _global.appendToolTab(tabButton, tabPanel);
 
         //sticky button
         tabButton.addEventListener("click", function () {
