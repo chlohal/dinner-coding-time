@@ -65,7 +65,7 @@ span[data-nodepath$="qualified-expression identifier"].capitalized {
 }
 
 
-.hljs-params, .hlast-operator, .hlast-dimension .hlast-pairedchar {
+.hljs-params, .hlast-operator, .hlast-dimension > .hlast-pairedchar, .hlast-type-arguments > .hlast-pairedchar {
     color: #b1b1d8
 }
 
@@ -73,7 +73,8 @@ span[data-nodepath$="qualified-expression identifier"].capitalized {
 span[data-nodepath$="formal-parameter identifier"],
 span[data-nodepath$="local-variable-declaration identifier"],
 span[data-nodepath$="field-declaration identifier"],
-span[data-nodepath$="catch-type qualified-name identifier"] {
+span[data-nodepath$="catch-type qualified-name identifier"],
+span[data-nodepath$="class-or-interface-type-element identifier"] {
     color: #cda869
 }
 

@@ -100,11 +100,11 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
     var pairedCharId = 0;
     function createPairedChar(char) {
-        if (style.dontHighlightPairedChars) return char;
+        if (style.dontHighlightPairedChars) return style.colorize ? encodeCharacterEntities(char) : char;
 
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId / 2);
-        var res = `<span id="${address.join("-")}-${inOut ? "out" : "in"}-${index}" class="hlast hlast-pairedchar">${char}</span>`;
+        var res = `<span id="${address.join("-")}-${inOut ? "out" : "in"}-${index}" class="hlast hlast-pairedchar">${encodeCharacterEntities(char)}</span>`;
         pairedCharId++;
         return res;
     }
@@ -230,15 +230,17 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "BOOLEAN_LITERAL":
         case "DECIMAL_LITERAL":
         case "CHAR_LITERAL":
-            result += ast.value;
+            result += style.colorize ? encodeCharacterEntities(ast.value) : ast.value;
             break;
         case "FLOAT_LITERAL":
             result += ast.value;
             if (!style.leaveOffFloatSuffix) result += (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f");
             break;
         case "TYPE_LIST":
+            console.log(ast);
         case "QUALIFIED_NAME_LIST":
-            result += ast.list.map(function (x, i) { return recurse(["list", i]); }).join(", ");
+            //firefox bug where arrays sometimes appear as empty slots until manually iterated
+            for(var i = ast.list.length - 1; i >= 0; i--) result += (i >= 1 ? ", " : "") + recurse(["list", i]);
             break;
         case "CLASS_BODY":
             result += createPairedChar("{") + "\n" +
@@ -416,13 +418,15 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             if (ast.dimensions.length > 0) ast.type = "ARRAY_GETTER";
 
             result += recurse("value") +
-                ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");
+                (ast.dimensions ? ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") : "");
             break;
         case "DIMENSION":
             result += style.colorize ? createPairedChar("[") + recurse("expression") + createPairedChar("]") : `[${recurse("expression")}]`;
             break;
         case "CLASS_OR_INTERFACE_TYPE_ELEMENT":
-            result += recurse("name") + ast.dimensions.map(function(x, i) { return recurse(["dimensions", i]); }).join("");
+            result += recurse("name") + 
+                (ast.typeArguments ? recurse("typeArguments") : "") +
+                (ast.dimensions ? ast.dimensions.map(function(x, i) { return recurse(["dimensions", i]); }).join("") : "");
             break;
         case "ARRAY_CREATOR_REST":
             result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }) +
@@ -449,7 +453,14 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "IDENTIFIER_NAME_ELEMENT":
             result += recurse("id") + style.spaceAfterStatement +
-                (ast.typeArguments === undefined ? "" : "<" + ast.typeArguments.map(function (x, i) { return recurse(["typeArguments", i]); }).join("," + style.spaceInExpression) + ">");
+                (ast.typeArguments === undefined ? "" : recurse("typeArguments") );
+            break;
+        case "TYPE_ARGUMENTS":
+            result += createPairedChar("<") + recurse("value") + createPairedChar(">");
+            break;
+        case "TYPE_ARGUMENT":
+            result += recurse("argument") +
+            (ast.extends ? (style.colorize ? " <span class=\"hlast hlast-keyword\">extends</span> " : " extends ") + recurse("extends") : "")
             break;
         case "CLASS_CREATOR_REST":
             result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
@@ -556,7 +567,7 @@ function getScopeComponent(ast, address) {
         case "TYPE_DECLARATION":
             return "$" + ast.declaration.name.value;
         case "CONSTRUCTOR_DECLARATION":
-            return ".new" + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
+            return "%constructor%" + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
         case "METHOD_DECLARATION":
             return "." +
                 ast.name.value + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
@@ -662,4 +673,12 @@ function getVariableScope(currentScope, varName) {
         }
     }
     return null;
+}
+
+function encodeCharacterEntities(str) {
+    return str.replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
