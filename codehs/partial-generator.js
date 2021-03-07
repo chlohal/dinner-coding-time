@@ -2,7 +2,7 @@ var fs = require("fs");
 var files = fs.readdirSync(__dirname);
 for(var i = 0; i < files.length; i++) {
     if(!files[i].match(/\d+-\d+-\d+.html/)) continue;
-    var text = fs.readFileSync(files[i]).toString();
+    var text = fs.readFileSync(__dirname + "/" + files[i]).toString();
     
     var indexStart = text.indexOf("<main>");
     if(indexStart == -1) {

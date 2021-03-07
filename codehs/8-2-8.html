@@ -73,7 +73,7 @@
         game.printBoard();
         
         //Prints the first row of turns taken
-        for(int row = 0; row < 3; row++)
+        for(int row = 0; row &lt; 3; row++)
         {
             if(game.pickLocation(0, row))
             {
@@ -119,16 +119,16 @@
                */
                public void printBoard()
                {
-                   for(int i = -1; i < board.length; i++) {
-                       for(int j = -1; j < board[Math.max(i,0)].length; j++) {
+                   for(int i = -1; i &lt; 3; i++) {
+                       for(int j = -1; j &lt; 3; j++) {
                            //leave the top-left corner blank
-                           if(i<0 && j<0) System.out.print(" ");
-                           else if(i<0) System.out.print(j);
-                           else if(j<0)  System.out.print(i);
+                           if(i&lt;0 && j&lt;0) System.out.print(" ");
+                           else if(i&lt;0) System.out.print(j);
+                           else if(j&lt;0)  System.out.print(i);
                            else System.out.print(board[i][j]);
                            
                            //codehs doesn't like us having the extra padding on the first row for some reason >:(
-                           if(i > -1 || j < 2) System.out.print(" ");
+                           if(i > -1 || j &lt; 2) System.out.print(" ");
                        }
                        System.out.println();
                    }
@@ -171,10 +171,10 @@
                 //This method returns a boolean that returns true if a col has three X or O's
                public boolean checkCol()
                {
-                   for(int row = 0; row < board[0].length; row++) {
+                   for(int row = 0; row &lt; 3; row++) {
                        int xInRow = 0;
                        int oInRow = 0;
-                       for(int col = 0; col < board.length; col++) {
+                       for(int col = 0; col &lt; 3; col++) {
                            if(board[col][row].equals("X")) xInRow++;
                            else xInRow = 0;
                            

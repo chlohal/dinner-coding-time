@@ -101,6 +101,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     var pairedCharId = 0;
     function createPairedChar(char) {
         if (style.dontHighlightPairedChars) return style.colorize ? encodeCharacterEntities(char) : char;
+        if(!style.colorize) return char;
 
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId / 2);
@@ -215,12 +216,12 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
                     if (!style.dontRegisterVariables) registerVariable(parentScope, varNameUnformatted, type, "class");
 
-                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-variable-address="${parentScope.join("")}">${varNameUnformatted}</span>` : varNameUnformatted;
+                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-variable-address="${encodeCharacterEntities(parentScope.join(""))}">${encodeCharacterEntities(varNameUnformatted)}</span>` : varNameUnformatted;
                     break;
                 } else {
                     var varScope = getVariableScope(parentScope, ast.value);
                     if (varScope && style.colorize) result +=
-                        `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${varScope.scopeKey}" data-variable-address=${varScope.address} data-variable-type="${varScope.type}" data-variable-typetype="${varScope.typeType && varScope.typeType.value}">${ast.value}</span>`;
+                        `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${encodeCharacterEntities(varScope.scopeKey)}" data-variable-address=${encodeCharacterEntities(varScope.address)} data-variable-type="${varScope.type}" data-variable-typetype="${encodeCharacterEntities(varScope.typeType && varScope.typeType.value)}">${encodeCharacterEntities(ast.value)}</span>`;
                     else result += ast.value;
                     break;
                 }
@@ -237,7 +238,6 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             if (!style.leaveOffFloatSuffix) result += (style.colorize ? "<span class=\"hlast hlast-float-literal-suffix\">f</span>" : "f");
             break;
         case "TYPE_LIST":
-            console.log(ast);
         case "QUALIFIED_NAME_LIST":
             //firefox bug where arrays sometimes appear as empty slots until manually iterated
             for(var i = ast.list.length - 1; i >= 0; i--) result += (i >= 1 ? ", " : "") + recurse(["list", i]);
@@ -267,7 +267,9 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 registerVariable(parentScope, varNameUnformatted, typeType.value, parent.type.toLowerCase());
             }
 
-            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${typeFullyQualified}" data-variable-address="${parentScope.join("") + "." + varNameUnformatted}">${varNameUnformatted}</span>` : recurse("id");
+            console.log("unformatted varname: " + varNameUnformatted);
+
+            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${encodeCharacterEntities(typeFullyQualified)}" data-variable-address="${encodeCharacterEntities(parentScope.join("") + "." + varNameUnformatted)}">${varNameUnformatted}</span>` : recurse("id");
 
             result += varNameWrapped +
                 ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");
@@ -567,7 +569,7 @@ function getScopeComponent(ast, address) {
         case "TYPE_DECLARATION":
             return "$" + ast.declaration.name.value;
         case "CONSTRUCTOR_DECLARATION":
-            return "%constructor%" + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
+            return "[constructor]" + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
         case "METHOD_DECLARATION":
             return "." +
                 ast.name.value + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
@@ -676,6 +678,7 @@ function getVariableScope(currentScope, varName) {
 }
 
 function encodeCharacterEntities(str) {
+    if(!str) return "";
     return str.replace(/&/g, "&amp;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&apos;")
