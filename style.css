@@ -9,9 +9,10 @@
     position: relative;
     font-family: 'JetBrains Mono', monospace;
     background: #f7f5f5;
-    padding-bottom: 10vmin;
-    overflow-x: hidden;
+    margin-bottom: 10vmin;
+    overflow: visible;
     padding-top: 10vmin;
+    z-index: 98;
 }
 
 #hero .hero--text {
@@ -132,6 +133,11 @@
     bottom: 0;   
 }
 
+#hero .hero--splash {
+    bottom: -10vmin;
+    transform: scaleY(-1);
+}
+
 .hero--splash.down {
     position: relative;
     z-index: 98;
@@ -153,6 +159,10 @@
 
 .hero--splash path.filled {
     fill: #f7fdfd;
+}
+
+#hero .hero--splash path.filled {
+    fill: #f7f5f5
 }
 
 .hero--splash path.stroked {
