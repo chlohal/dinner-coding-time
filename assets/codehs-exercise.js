@@ -272,7 +272,7 @@ var getUserStyle;
         tab.setAttribute("role", "tab");
 
         tab.addEventListener("click", function () {
-            tab.focus();
+            tab.click();
             if (selectedToolTabIndex !== undefined) {
                 var selectedTab = toolsTablist.children[selectedToolTabIndex];
                 selectedTab.setAttribute("aria-selected", "false");
@@ -429,6 +429,37 @@ var getUserStyle;
 
         var parent = document.createElement("div");
         parent.classList.add("code-with-lines--parent");
+        parent.tabIndex = 0;
+        parent.addEventListener("keydown", function(event) {
+            if(event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey) {
+                if(event.key == "a" || event.keyCode == "65") {
+                    if(document.activeElement == parent) {
+                        //check for support
+                        if(typeof window.getSelection === "function") {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            
+                            var sel = window.getSelection();
+                            
+                            var rows = table.children;
+                            for(var i = 0; i < rows.length; i++) {
+                                var range = sel.rangeCount > i ? sel.getRangeAt(i) : document.createRange();
+                                
+                                var tCell = rows[i].lastElementChild;
+                                range.selectNodeContents(tCell);
+                                
+                                if(!(sel.rangeCount > i)) {
+                                    sel.addRange(range);
+                                    console.log("adding range " + sel.rangeCount);
+                                }
+                            }
+                            
+                        }
+                        
+                    }
+                }
+            }
+        });
         parent.appendChild(table);
 
         var loader = document.createElement("div");
@@ -444,7 +475,13 @@ var getUserStyle;
         var tabTitle = document.createElement("button");
         var titleRegexp = (/class\s+([A-Z]\w+)/).exec(sourceContent);
         var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
-        tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`
+        tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`;
+        tabTitle.addEventListener("mouseup", function(event) {
+            requestAnimationFrame(function() {
+                document.activeElement.blur();
+                parent.focus();
+            })
+        });
 
         appendTab(tabTitle, border);
 
