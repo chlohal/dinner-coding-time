@@ -734,6 +734,19 @@ code {
     text-align: center;
 }
 
+.code-with-lines--load-box h3 div {
+    display: block;
+}
+
+.code-with-lines--load-box h3 span {
+    display: inline-block;
+}
+
+.code-with-lines--load-box .elipsisanim {
+    width: 3ch;
+    text-align: left;
+}
+
 .code-with-lines--load-box svg {
     display: inline-block;
     width: 3em;
@@ -1011,6 +1024,11 @@ main article.license {
     border-radius: 0.5em;
     position: relative;
     overflow: hidden;
+}
+
+.tip.btw {
+    background: #ddf8dd;
+    border: 1px solid #a6c5a6;
 }
 
 .tip h2 {

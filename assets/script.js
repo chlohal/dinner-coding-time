@@ -47,7 +47,10 @@ function loadDep(src, uiThreadSrc, cb) {
                 if (typeof callbackNonces[event.data.nonce] === "object") {
                     var task = callbackNonces[event.data.nonce];
                     task.finished = Date.now();
-                    task.cb(event.data.data);
+                    
+                    if(event.data.error) task.cb(event.data);
+                    else task.cb(event.data.data);
+                    
                     task.lag = task.finished - task.sent;
                 }
             }

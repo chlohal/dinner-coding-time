@@ -169,7 +169,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     switch (ast.type || ast.ast_type) {
         case "COMPILATION_UNIT":
             result += recurse("package") +
-                ast.imports.map(function (x, i) { return recurse(["imports", i]) + ";\n" }) +
+                ast.imports.map(function (x, i) { return recurse(["imports", i]) + ";\n" }).join("") +
                 (ast.imports.length ? style.linesAfterImport : "") +
                 ast.types.map(function (x, i) { return recurse(["types", i]) }).join(style.spaceBetweenClasses);
             break;
@@ -266,8 +266,6 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
                 registerVariable(parentScope, varNameUnformatted, typeType.value, parent.type.toLowerCase());
             }
-
-            console.log("unformatted varname: " + varNameUnformatted);
 
             var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${encodeCharacterEntities(typeFullyQualified)}" data-variable-address="${encodeCharacterEntities(parentScope.join("") + "." + varNameUnformatted)}">${varNameUnformatted}</span>` : recurse("id");
 
