@@ -1,5 +1,7 @@
 var getUserStyle;
 
+var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
+
 (function () {
     window._global = this;
 
@@ -152,6 +154,9 @@ var getUserStyle;
             tips.forEach(function(x) { x.parentElement.removeChild(x); });
             
             var main = document.querySelector("main");
+
+            var newDocTitle = parsingParent.querySelector("h1");
+            if(newDocTitle) document.title = newDocTitle.textContent + SPA_TITLE_SUFFIX;
 
             for (var i = parsingParent.children.length - 1; i >= 0; i--) {
                 if (parsingParent.children[i].id.startsWith("source")) {

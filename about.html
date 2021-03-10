@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>4.1.6 Making Taffy | Dinneen Coding Time</title>
+    <title>It's Dinneen Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,15 +14,10 @@
 
 
     <script src="/assets/script.js" defer></script>
-    <script src="/assets/codehs-exercise.js" defer></script>
-<link rel="preload" href="/assets/highlight.css" as="style">
-
-
-
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fira+Code&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,300&family=Fira+Code&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="/style.css">
@@ -31,6 +26,7 @@
 <body class="headerpadding">
     <header>
         <a href="/"><img src="/logo.svg" width="36" height="36" alt="DCT logo, a very stylized D"></a>
+        <h1><a href="/legal">/legal</a></h1>
     </header>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash--downcover"
         preserveAspectRatio="none">
@@ -59,31 +55,29 @@
         </path>
     </svg>
     <main>
-<h1>4.1.6 Making Taffy</h1>
+        <h1>About This Site</h1>
+        <p>This is a site with answers for CodeHS, specifically the A.P. Computer Science A lessons.</p>
+        <p>It's originally for my high school's curriculum, but it seems like some other people might like it too. nice!</p>
 
-        <code id="source">
-            import java.util.Scanner;
-            public class TaffyTester
-            {
-                public static void main(String[] args)
-                {
-                   
-                   int temperature = 0;
-                   Scanner sc = new Scanner(System.in);
-                   
-                   System.out.println("Starting Taffy Timer");
-                   
-                   while(temperature < 270) {
-                       System.out.print("Enter the temperature: ");
-                       temperature = sc.nextInt();
-                       if(temperature < 270) System.out.println("The mixture isn't ready yet.");
-                       
-                   }
-                   
-                   System.out.println("Your taffy is ready for the next step!");
-                }
-            }
-        </code>
+        <h2>Why Dinneen Coding Time?</h2>
+        <p>My Intro to CS and AP CS teacher was Mr. Dinneen, and my friend Santiago joked in Intro that he should make a website named Dinneen Coding Time. A year later, Mr. Dinneen didn't seem to be making it, so I did.</p>
+
+        <h2>FAQ</h2>
+
+        <h3>Is this legal?? Like, taking stuff from CodeHS?</h3>
+        <p>Yep! Check out the <a href="/legal/fairuse">Fair Use Statement</a></p>
+
+        <h3>Do you track users?</h3>
+        <p>I've got a custom page analytics script based on <a href="https://matomo.org">Matomo</a>. It only records the following information:
+            <ul>
+                <li>Someone viewed a page</li>
+                <li>The address of the page that was viewed</li>
+                <li>How quickly the page loaded</li>
+                <li>What browser/OS you used</li>
+                <li>Your general location (i.e. region of the country)</li>
+            </ul>
+            Your IP address is not saved, and no cookies are used. I don't sell your data. No personally identifiable information is recorded, ever. I don't want your information. Keep that stuff to yourself, man :/
+        </p>
     </main>
     <footer>
         <h3>Dinneen Coding Time</h3>
@@ -125,7 +119,7 @@
                     <li>
                         <a href="/legal/terms">Terms &amp; Conditions</a>
                     </li>
-<li>
+                    <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>
