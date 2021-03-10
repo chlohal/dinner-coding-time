@@ -626,6 +626,7 @@ footer .footer--link-category ul li {
     background: linear-gradient(0deg, hsla(179, 83%, 64%, 1) 0%, hsla(338, 75%, 64%, 1) 50%, hsla(14, 92%, 86%, 1) 100%);
     width: 1em;
     height: 1em;
+    -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
@@ -981,10 +982,27 @@ main article.license {
 
 .alert button {
     font: inherit;
-    font-weight: bold;
+    font-size: 0.9em;
     border: 0;
     cursor: pointer;
     background: 0;
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+.alert button::before {
+    content: "["
+}
+
+.alert button::after {
+    content: "]"
+}
+
+.alert button:hover {
+    color: #e85e90;
+}
+
+.alert .snackbar-actions {
+    margin-top: 0.25em;
 }
 
 .alert button:hover,

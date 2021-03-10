@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /codehs/.partials
+
+Sitemap: https://dinneencodingtime.com/sitemap.xml
