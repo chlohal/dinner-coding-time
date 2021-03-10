@@ -46,7 +46,7 @@ var getUserStyle;
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-10-6", "2-10-7", "2-10-8", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-10", "2-3-7", "2-3-8", "2-3-9", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-10", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-9-6", "2-9-7", "2-9-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-10", "3-7-7", "3-7-9", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-10", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-3-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-10", "6-2-7", "6-2-8", "6-2-9", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9","7-1-7","7-1-8","7-2-6","7-2-7","7-2-8","7-2-9","7-3-6","7-3-8","7-3-9","7-4-6","7-4-7","7-4-8","7-4-9","7-5-6","7-5-7","7-6-10","7-6-4","7-6-9", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8"/*,"9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
+        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-10", "6-2-9", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8"/*,"9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"*/];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
         var selfIndex = codehsIndex.indexOf(self);
@@ -120,6 +120,10 @@ var getUserStyle;
         var xhr = new XMLHttpRequest();
         xhr.open("GET", partialAddress);
         xhr.onreadystatechange = onLoadPartial;
+        xhr.onerror = function () {
+            window.location.replace(path);
+            console.log("Error loading partial; navigating to " + path)
+        }
         xhr.responseType = "text";
 
         //event listener for xhr load.
@@ -128,7 +132,7 @@ var getUserStyle;
             if (xhr.readyState != 4 && force !== true) return;
 
             //if there's an error, just uhhh do it normally i guess
-            if (xhr.status != 200 && force !== true) return window.location = path;
+            if (xhr.status != 200 && force !== true) return window.location.replace(path);
 
             var loadedFromCache = !!partialCache[partialAddress];
             partialCache[partialAddress] = xhr.response || data;
@@ -142,8 +146,9 @@ var getUserStyle;
             //attachment points for the children
             var head1 = document.querySelector("h1");
             if (head1) head1.parentElement.removeChild(head1);
-            var tip = document.querySelector("aside.tip");
-            if (tip) tip.parentElement.removeChild(tip);
+            var tips = Array.from(document.querySelectorAll("aside.tip"));
+            tips.forEach(function(x) { x.parentElement.removeChild(x); });
+            
             var main = document.querySelector("main");
 
             for (var i = parsingParent.children.length - 1; i >= 0; i--) {
@@ -272,7 +277,7 @@ var getUserStyle;
         tab.setAttribute("role", "tab");
 
         tab.addEventListener("click", function () {
-            tab.focus();
+            tab.click();
             if (selectedToolTabIndex !== undefined) {
                 var selectedTab = toolsTablist.children[selectedToolTabIndex];
                 selectedTab.setAttribute("aria-selected", "false");
@@ -429,6 +434,38 @@ var getUserStyle;
 
         var parent = document.createElement("div");
         parent.classList.add("code-with-lines--parent");
+        parent.tabIndex = 0;
+        parent.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey) {
+                if (event.key == "a" || event.keyCode == "65") {
+                    if (document.activeElement == parent) {
+                        //check for support
+                        if (typeof window.getSelection === "function") {
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            var sel = window.getSelection();
+
+                            var rows = table.children;
+                            for (var i = 0; i < rows.length; i++) {
+                                var range = sel.rangeCount > i ? sel.getRangeAt(i) : document.createRange();
+
+                                var tCell = rows[i].lastElementChild;
+                                var nextRow = (rows[i + 1] || rows[i]);
+                                range.setStart(tCell, 0);
+                                range.setEnd(nextRow, rows[i + 1] ? 0 : rows[i].children.length);
+
+                                if (!(sel.rangeCount > i)) {
+                                    sel.addRange(range);
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        });
         parent.appendChild(table);
 
         var loader = document.createElement("div");
@@ -444,12 +481,27 @@ var getUserStyle;
         var tabTitle = document.createElement("button");
         var titleRegexp = (/class\s+([A-Z]\w+)/).exec(sourceContent);
         var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
-        tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`
+        tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`;
+        tabTitle.addEventListener("mouseup", function (event) {
+            requestAnimationFrame(function () {
+                document.activeElement.blur();
+                parent.focus();
+            })
+        });
 
         appendTab(tabTitle, border);
 
-        loader.innerHTML = `<h3>Conducting static code analysis. Just a second.</h3><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
-
+        loader.innerHTML = `<h3>Conducting static code analysis.<div><span>Just a second</span><span class="elipsisanim">...</span></div></h3><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
+        
+        var loaderElipsis = loader.firstElementChild.firstElementChild.lastElementChild;
+        window.requestAnimationFrame(function animateLoaderElipsis(time) {
+            var halfSecond = Math.floor(time / 500);
+            var animFrame = (halfSecond % 3) + 1;
+            
+            loaderElipsis.textContent = ".".repeat(animFrame);
+            
+            window.requestAnimationFrame(animateLoaderElipsis);
+        });
         function onStartLoadingCodeIntelligence() {
             if (!this.isAttached()) return;
 
@@ -475,20 +527,32 @@ var getUserStyle;
 
             try {
                 function printToTable(ast) {
+                    if(ast.error) return showErrorAndFallback(ast.error);
+                    
                     window.ast = ast;
                     ed.ast = ast;
 
-
+                    ed.loaderMessage.textContent = "Formatting source tree";
 
                     executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
-                        makeNumberedLinesTable(astSource.split("\n"), ed.table);
-                        explainEditor(ed);
+                        ed.loaderMessage.textContent = "Adding formatted code to document object model";
 
-                        ed.astHtmlSource = astSource;
-                        ed.table.hidden = false;
-                        ed.parent.classList.remove("code-with-lines--loading");
+                        setTimeout(function () {
+                            makeNumberedLinesTable(astSource.split("\n"), ed.table);
+
+                            ed.loaderMessage.textContent = "Adding interactivity hooks";
+                            setTimeout(function () {
+                                explainEditor(ed);
+
+                                ed.astHtmlSource = astSource;
+                                ed.table.hidden = false;
+                                ed.parent.classList.remove("code-with-lines--loading");
+                            }, 10);
+                        }, 10);
                     });
                 }
+
+                ed.loaderMessage.textContent = "Parsing java code";
 
                 if (ed.ast) printToTable(ed.ast);
                 else executeDependencyFunction("java-parser.js", "parse", [sourceContent], printToTable);
@@ -497,10 +561,28 @@ var getUserStyle;
                     text: `Error in activating Code Intelligence on ${fileName}.`,
                     exitButton: true
                 });
+                console.error(e);
+                
                 return;
             }
 
 
+        }
+        
+        function showErrorAndFallback(errorMessage) {
+            loader.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code (3)";
+            var secs = 3;
+            var loop = setInterval(function() {
+                secs--;
+                loader.firstElementChild.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code ("+secs+")";
+                
+                if(secs == 0) {
+                    makeNumberedLinesTable(sourceContent.split("\n"), table);
+                    table.hidden = false;
+                    parent.classList.remove("code-with-lines--loading");
+                    clearInterval(loop);
+                }
+            }, 1000);
         }
 
         var exercise = window.location.pathname;
@@ -516,7 +598,8 @@ var getUserStyle;
             file: fileName,
             lines: sourceLinesHtml,
             border: border,
-            tab: tabTitle
+            tab: tabTitle,
+            loaderMessage: loader.firstElementChild.firstElementChild.firstElementChild
         };
 
         result.onLoadCodeIntelligence = onLoadCodeIntelligence.bind(result);

@@ -61,7 +61,7 @@
             target: "parentElement"
         },
         {
-            path: "float-literal",
+            classList: "hlast-float-literal-suffix",
             description: "An <code>f</code> after a number marks it as a float. Floats are like doubles, but they have some differences that are too complicated to get into now. Java will automatically convert them if it needs to."
         }
     ];
@@ -69,9 +69,9 @@
     var tooltippedWord = null, tooltipElem = null;
 
     function testRule(rule, wordElem) {
-        var rPathArr = rule.path.constructor===Array ? rule.path : [rule.path];
+        var rPathArr = rule.path ? (rule.path.constructor===Array ? rule.path : [rule.path]) : [];
         return (rule.path ? rPathArr.find(function(x) { return (wordElem.getAttribute("data-nodepath") || "").endsWith(x) }) : true) &&
-            (rule.content ? wordElem.textContent == rule.content : true);
+            (rule.content ? wordElem.textContent == rule.content : true) && (rule.classList ? wordElem.classList.contains(rule.classList) : true);
     }
 
     window.explainEditor = function explain(editor) {
