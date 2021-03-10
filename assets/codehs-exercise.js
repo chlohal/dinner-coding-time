@@ -115,7 +115,7 @@ var getUserStyle;
         if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "codehs/partials");
+        var partialAddress = path.replace("codehs", "codehs/.partials");
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", partialAddress);
