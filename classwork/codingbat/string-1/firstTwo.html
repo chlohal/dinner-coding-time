@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>It's Dinneen Coding Time</title>
+    <title>String-1 > firstTwo | Dinneen Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -58,26 +58,19 @@
         </path>
     </svg>
     <main>
-<h1>String-3 > countYZ</h1>
+<h1>String-1 > firstTwo</h1>
 
         <code id="source" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
-            public int countYZ(String str) {
-                int words = 0;
-                
-                for(int i = 0; i < str.length(); i++) {
-              
-                  if(
-                      //put end-checker first so that it'll short-circuit if we're at the end and not try to get an undefined character for the space
-                      (i + 1 == str.length() || !Character.isLetter(str.charAt(i+1))) && 
-                      (str.toLowerCase().charAt(i) == 'y' || str.toLowerCase().charAt(i) == 'z')
-                    ) {
-                      words++;
-                    }
-                }
-                
-                return words;
-              }
-              
+            public String firstTwo(String str) {
+  if (str.length() == 0) {
+    return "";
+  } else if (str.length() == 1) {
+    return str;
+  } else {
+    return str.substring(0, 2);
+  }
+}
+  
         </code>
     </main>
     <footer>

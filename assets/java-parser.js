@@ -4,10 +4,11 @@ if (typeof importScripts === "function") {
         try {
             var data = event.data;
             if (data.function == "parse") {
-                var result = window.parser.parse(data.args[0]);
+                
+                var result = window.parser.parse(wrap(data.args[0], data.args[1]));
                 postMessage({
                     nonce: data.nonce,
-                    data: result
+                    data: unwrap(result, data.args[1])
                 });
             }
         } catch(e) {
@@ -15,8 +16,19 @@ if (typeof importScripts === "function") {
                 nonce: data.nonce,
                 error: e.toString()
             });
+            throw e;
         }
     }
+}
+
+function wrap(src, entryPoint) {
+    if(entryPoint == "CLASS_BODY_MEMBER_DECLARATION") return `public class Wrap { ${src} }`;
+    else return src;
+}
+
+function unwrap(ast, entryPoint) {
+    if(entryPoint == "CLASS_BODY_MEMBER_DECLARATION") return ast.types[0].declaration.body.declarations[0];
+    else return ast;
 }
 
 if (typeof window === "undefined") var window = {};

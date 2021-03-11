@@ -1,11 +1,30 @@
-<!DOCTYPE html>
+var fs = require("fs");
+var sources = [
+    "public String helloName(String name) {\n  return \"Hello \" + name + \"!\";\n}\n",
+    "public String makeAbba(String a, String b) {\n  return a + b + b + a;\n}\n",
+    "public String makeTags(String tag, String word) {\n  return \"&lt;\" + tag + \"&gt;\" + word + \"&lt;/\" + tag + \"&gt;\";\n}\n",
+    "public String makeOutWord(String out, String word) {\n  return out.substring(0,2) + word + out.substring(2);\n}\n",
+    "public String extraEnd(String str) {\n  String temp = str.substring(str.length() - 2);\n  return temp + temp + temp;\n}\n",
+    "public String firstTwo(String str) {\n  if (str.length() == 0) {\n    return \"\";\n  } else if (str.length() == 1) {\n    return str;\n  } else {\n    return str.substring(0, 2);\n  }\n}\n",
+    "public String firstHalf(String str) {\n  return str.substring(0, str.length()/2);\n}\n",
+    "public String withoutEnd(String str) {\n  return str.substring(1, str.length()-1);\n  \n}\n",
+    "public String comboString(String a, String b) {\n  if (a.length() &gt; b.length()) {\n    return b + a + b;\n  } else {\n    return a + b + a;\n  }\n}\n",
+    "public String nonStart(String a, String b) {\n  String concat1 = a.substring(1);\n  String concat2 = b.substring(1);\n  \n  return concat1 + concat2;\n}\n",
+    "public String left2(String str) {\n  String start = str.substring(0, 2);\n  String end = str.substring(2);\n  \n  return end + start;\n}\n",
+    "public String right2(String str) {\n  String end = str.substring(str.length() - 2);\n  String start = str.substring(0, str.length() - 2);\n  \n  return end + start;\n}\n"
+];
+
+sources.forEach(source => {
+    var title = /public String (\w+)/.exec(source)[1];
+
+    var htmlSource = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>It's Dinneen Coding Time</title>
+    <title>String-1 > ${title} | Dinneen Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -58,26 +77,10 @@
         </path>
     </svg>
     <main>
-<h1>String-3 > countYZ</h1>
+<h1>String-1 > ${title}</h1>
 
         <code id="source" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
-            public int countYZ(String str) {
-                int words = 0;
-                
-                for(int i = 0; i < str.length(); i++) {
-              
-                  if(
-                      //put end-checker first so that it'll short-circuit if we're at the end and not try to get an undefined character for the space
-                      (i + 1 == str.length() || !Character.isLetter(str.charAt(i+1))) && 
-                      (str.toLowerCase().charAt(i) == 'y' || str.toLowerCase().charAt(i) == 'z')
-                    ) {
-                      words++;
-                    }
-                }
-                
-                return words;
-              }
-              
+            ${source}  
         </code>
     </main>
     <footer>
@@ -165,4 +168,8 @@
     </footer>
 </body>
 
-</html>
+</html>`;
+
+fs.writeFileSync(__dirname + "/" + title + ".html", htmlSource);
+
+});
