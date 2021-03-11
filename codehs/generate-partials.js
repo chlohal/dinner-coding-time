@@ -16,5 +16,5 @@ for(var i = 0; i < files.length; i++) {
         continue;
     }
 
-    fs.writeFileSync(__dirname + "/partials/" + files[i], text.substring(indexStart + "<main>".length, indexEnd));
+    fs.writeFileSync(__dirname + "/.partials/" + files[i], text.substring(indexStart + "<main>".length, indexEnd));
 }
