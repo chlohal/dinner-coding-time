@@ -1073,8 +1073,6 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                         buttonBackground.classList.remove("shadowed");
                         return console.log("no longer sel");
                     }
-                    
-                    console.log(window.scrollY, bottomVisibleThreshold - window.scrollY, containerOffset, containerOffset);
 
                     if (bottomVisibleThreshold - window.scrollY > containerOffset) {
                         buttonParent.style.position = "fixed";
