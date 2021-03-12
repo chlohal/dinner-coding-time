@@ -833,17 +833,17 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: " ",
                     checked: !!oldStyle.spaceAfterStatement,
-                    label: "<em>Loosely</em> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements.<blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "<em>Loosely</em> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements.<blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "",
                     checked: !oldStyle.spaceAfterStatement,
-                    label: "Space the code out the <em>default</em> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "Space the code out the <em>default</em> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "dense",
                     checked: oldStyle.spaceAfterStatement == "dense",
-                    label: "<em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. <blockquote><pre><code>public void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
+                    label: "<em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. <blockquote><pre><code>public static void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -872,12 +872,12 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: false,
                     checked: !oldStyle.removeComments,
-                    label: "<em>Keep</em> comments in the code <blockquote><pre><code>//this method runs when the program starts\npublic void main(String[] args) {\n    if(3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "<em>Keep</em> comments in the code <blockquote><pre><code>//this method runs when the program starts\npublic static void main(String[] args) {\n    if(3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: true,
                     checked: !!oldStyle.removeComments,
-                    label: "<em>Remove</em> comments from the code completely.<blockquote><pre><code>public void main(String[] args) {\n    if(3*3>5) {\n        \n    }\n}</code></pre></blockquote>"
+                    label: "<em>Remove</em> comments from the code completely.<blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        \n    }\n}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -906,12 +906,12 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: false,
                     checked: !oldStyle.leaveOffFloatSuffix,
-                    label: "<em>Add the <code>f</code> suffix</em> to floats.<blockquote><pre><code>public void main (String[] args) {\n    System.out.println(0.4f)\n}</code></pre></blockquote>"
+                    label: "<em>Add the <code>f</code> suffix</em> to floats.<blockquote><pre><code>public static void main (String[] args) {\n    System.out.println(0.4f)\n}</code></pre></blockquote>"
                 },
                 {
                     value: true,
                     checked: !!oldStyle.leaveOffFloatSuffix,
-                    label: "<em>Don't add the <code>f</code> suffix</em> to floats, implicitly making them doubles.<blockquote><pre><code>public void main (String[] args) {\n    System.out.println(0.4)\n}</code></pre></blockquote>"
+                    label: "<em>Don't add the <code>f</code> suffix</em> to floats, implicitly making them doubles.<blockquote><pre><code>public static void main (String[] args) {\n    System.out.println(0.4)\n}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -974,12 +974,12 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: "\n",
                     checked: oldStyle.ifElseNewline == "\n" || oldStyle.ifElseNewline == undefined,
-                    label: "The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n    else {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket. <blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n    else {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: " ",
                     checked: oldStyle.ifElseNewline == " ",
-                    label: "The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    } else {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: "The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket. <blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    } else {\n        //...\n    }\n}</code></pre></blockquote>"
                 }
             ]
         }));
@@ -991,12 +991,12 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: "block",
                     checked: oldStyle.singleLineBlockBrackets == "block" || oldStyle.singleLineBlockBrackets == undefined,
-                    label: "Single-statement blocks should <em>always</em> have curly brackets. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) {\n        System.out.println(\"hi\");\n    }\n}</code></pre></blockquote>"
+                    label: "Single-statement blocks should <em>always</em> have curly brackets. <blockquote><pre><code>if (3 * 3 > 5) {\n    System.out.println(\"hi\");\n}</code></pre></blockquote>"
                 },
                 {
                     value: "line",
                     checked: oldStyle.singleLineBlockBrackets == "line",
-                    label: "Single-statement blocks should <em>never</em> have curly brackets. <blockquote><pre><code>public void main (String[] args) {\n    if (3 * 3 > 5) System.out.println(\"hi\");\n}</code></pre></blockquote>"
+                    label: "Single-statement blocks should <em>never</em> have curly brackets. <blockquote><pre><code>if (3 * 3 > 5) System.out.println(\"hi\");</code></pre></blockquote>"
                 },
                 {
                     value: "source",
@@ -1058,6 +1058,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
         //sticky button
         tabButton.addEventListener("click", function () {
+            console.log("ee");
             requestAnimationFrame(function waitForLayoutChangeAnim() {
 
                 var top = getYPos(tabPanel);
@@ -1066,7 +1067,14 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 var containerOffset = 0;
 
                 function anim() {
-                    if (editorsTablist.children[selectedTabIndex] != tabButton) return requestAnimationFrame(anim);
+                    
+                    if (toolsTablist.children[selectedToolTabIndex] != tabButton) {
+                        buttonParent.style.position = "static";
+                        buttonBackground.classList.remove("shadowed");
+                        return console.log("no longer sel");
+                    }
+                    
+                    console.log(window.scrollY, bottomVisibleThreshold - window.scrollY, containerOffset, containerOffset);
 
                     if (bottomVisibleThreshold - window.scrollY > containerOffset) {
                         buttonParent.style.position = "fixed";
@@ -1075,7 +1083,6 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                         buttonParent.style.position = "static";
                         buttonBackground.classList.remove("shadowed");
                     }
-
                     requestAnimationFrame(anim);
                 }
                 anim();
