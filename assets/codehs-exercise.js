@@ -1013,7 +1013,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 {
                     value: "true",
                     checked: oldStyle.lineWrap == "true",
-                    label: "Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, it won't be wrapped."
+                    label: "Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, your clipboard copy won't have the wrap."
                 },
                 {
                     value: "false",
