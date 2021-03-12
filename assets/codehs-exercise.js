@@ -464,6 +464,11 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                                     sel.addRange(range);
                                 }
                             }
+                            
+                            //chrome bug patch
+                            if(sel.rangeCount == 1) {
+                                sel.getRangeAt(0).selectNode(table);
+                            }
 
                         }
 
