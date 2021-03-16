@@ -48,7 +48,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8","9-1-6","9-1-7","9-1-8","9-1-9","9-2-6","9-2-7","9-2-8","9-2-9","9-3-6","9-3-7","9-3-8","9-4-6","9-4-7","9-4-8","9-4-9"/*,"9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9"*/, "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
+        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9"/*,"9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9"*/, "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
         var selfIndex = codehsIndex.indexOf(self);
@@ -149,12 +149,12 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             var head1 = document.querySelector("h1");
             if (head1) head1.parentElement.removeChild(head1);
             var tips = Array.from(document.querySelectorAll("aside.tip"));
-            tips.forEach(function(x) { x.parentElement.removeChild(x); });
-            
+            tips.forEach(function (x) { x.parentElement.removeChild(x); });
+
             var main = document.querySelector("main");
 
             var newDocTitle = parsingParent.querySelector("h1");
-            if(newDocTitle) document.title = newDocTitle.textContent + SPA_TITLE_SUFFIX;
+            if (newDocTitle) document.title = newDocTitle.textContent + SPA_TITLE_SUFFIX;
 
             for (var i = parsingParent.children.length - 1; i >= 0; i--) {
                 if (parsingParent.children[i].id.startsWith("source")) {
@@ -230,6 +230,56 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             if (!isNaN(tIndex)) initialTabIdx = tIndex;;
         }
 
+    })();
+
+    (function createHelpfulnessFeedbackThing() {
+        var main = document.querySelector("main");
+
+        var parent = document.createElement("form");
+        parent.classList.add("helpfulness-form");
+
+        var heading = document.createElement("h2");
+        heading.textContent = "Was this page helpful?";
+        parent.appendChild(heading);
+
+        var buttonYes = document.createElement("button");
+        buttonYes.textContent = "Yes";
+        parent.appendChild(buttonYes);
+
+        var buttonNo = document.createElement("button");
+        buttonNo.textContent = "No";
+        parent.appendChild(buttonNo);
+
+        main.appendChild(parent);
+
+        buttonYes.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            buttonYes.textContent = "...";
+            buttonYes.classList.add("helpfulness-form--selected");
+            
+            buttonNo.textContent = "No";
+            buttonNo.classList.remove("helpfulness-form--selected");
+
+            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function() {
+                buttonYes.textContent = "\u2713";
+            });
+        });
+        buttonNo.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            buttonYes.textContent = "Yes";
+            buttonYes.classList.remove("helpfulness-form--selected");
+            
+            buttonNo.textContent = "...";
+            buttonNo.classList.add("helpfulness-form--selected");
+
+            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function() {
+                buttonNo.textContent = "\u2713";
+            });
+        });
     })();
 
     (function createToolsParent() {
@@ -464,9 +514,9 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                                     sel.addRange(range);
                                 }
                             }
-                            
+
                             //chrome bug patch
-                            if(sel.rangeCount == 1) {
+                            if (sel.rangeCount == 1) {
                                 sel.getRangeAt(0).selectNode(table);
                             }
 
@@ -502,14 +552,14 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
         appendTab(tabTitle, border);
 
         loader.innerHTML = `<h3>Conducting static code analysis.<div><span>Just a second</span><span class="elipsisanim">...</span></div></h3><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px" viewBox="0 0 128 128" xml:space="preserve"><g><path d="M75.4 126.63a11.43 11.43 0 0 1-2.1-22.65 40.9 40.9 0 0 0 30.5-30.6 11.4 11.4 0 1 1 22.27 4.87h.02a63.77 63.77 0 0 1-47.8 48.05v-.02a11.38 11.38 0 0 1-2.93.37z" fill="#ffffff" fill-opacity="1"/><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1800ms" repeatCount="indefinite"></animateTransform></g></svg>`;
-        
+
         var loaderElipsis = loader.firstElementChild.firstElementChild.lastElementChild;
         window.requestAnimationFrame(function animateLoaderElipsis(time) {
             var halfSecond = Math.floor(time / 500);
             var animFrame = (halfSecond % 3) + 1;
-            
+
             loaderElipsis.textContent = ".".repeat(animFrame);
-            
+
             window.requestAnimationFrame(animateLoaderElipsis);
         });
         function onStartLoadingCodeIntelligence() {
@@ -537,8 +587,8 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
             try {
                 function printToTable(ast) {
-                    if(ast.error) return showErrorAndFallback(ast.error);
-                    
+                    if (ast.error) return showErrorAndFallback(ast.error);
+
                     window.ast = ast;
                     ed.ast = ast;
 
@@ -572,21 +622,21 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                     exitButton: true
                 });
                 console.error(e);
-                
+
                 return;
             }
 
 
         }
-        
+
         function showErrorAndFallback(errorMessage) {
             loader.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code (3)";
             var secs = 3;
-            var loop = setInterval(function() {
+            var loop = setInterval(function () {
                 secs--;
-                loader.firstElementChild.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code ("+secs+")";
-                
-                if(secs == 0) {
+                loader.firstElementChild.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code (" + secs + ")";
+
+                if (secs == 0) {
                     makeNumberedLinesTable(sourceContent.split("\n"), table);
                     table.hidden = false;
                     parent.classList.remove("code-with-lines--loading");
@@ -1067,7 +1117,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 var containerOffset = 0;
 
                 function anim() {
-                    
+
                     if (toolsTablist.children[selectedToolTabIndex] != tabButton) {
                         buttonParent.style.position = "static";
                         buttonBackground.classList.remove("shadowed");
