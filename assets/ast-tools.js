@@ -404,7 +404,14 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += "void";
             break;
         case "THIS":
-            result += "this";
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">this</span>" : "this") +
+                style.spaceAfterStatement +
+                (ast.arguments ? createPairedChar("(") + recurse("arguments") + createPairedChar(")") : "");
+            break;
+        case "SUPER":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">super</span>" : "super") +
+                style.spaceAfterStatement +
+                (ast.arguments ? createPairedChar("(") + recurse("arguments") + createPairedChar(")") : "");
             break;
         case "NULL":
             result += "null";
