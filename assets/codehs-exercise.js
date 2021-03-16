@@ -614,6 +614,13 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
                 ed.loaderMessage.textContent = "Parsing java code";
 
+                if(sourceContent.trim() == "") {
+                    makeNumberedLinesTable(["### If you somehow got to this unlisted page ###","Sorry, this exercise hasn't been done yet.", "All of these are manually filled by one person, so it takes a bit for them to be finished", "I'm doing Chapter 9 right now, so all chapters, 1 to 10, will be done soon, I promise.","I apologize for the delay."], ed.table);
+                    ed.astHtmlSource = "";
+                    ed.table.hidden = false;
+                    ed.parent.classList.remove("code-with-lines--loading");
+                    return;
+                }
                 if (ed.ast) printToTable(ed.ast);
                 else executeDependencyFunction("java-parser.js", "parse", [sourceContent], printToTable);
             } catch (e) {
