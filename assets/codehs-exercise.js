@@ -539,7 +539,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
         border.appendChild(parent);
 
         var tabTitle = document.createElement("button");
-        var titleRegexp = (/class\s+([A-Z]\w+)/).exec(sourceContent);
+        var titleRegexp = (/class\s+(\w+)(\s|\n)+{/).exec(sourceContent);
         var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
         tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`;
         tabTitle.addEventListener("mouseup", function (event) {
