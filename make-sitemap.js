@@ -25,7 +25,7 @@ function loadHtmlFilesFromFolder(folder) {
     for(var i = 0; i < folderContents.length; i++) {
         let subfile = folderContents[i];
 
-        if(subfile.isDirectory() && !subfile.name.startsWith(".")) {
+        if(subfile.isDirectory() && !subfile.name.startsWith("-partials")) {
             results = results.concat(loadHtmlFilesFromFolder(path.resolve(folder, subfile.name)));
         } else if(subfile.isFile() && subfile.name.endsWith(".html")) {
             results.push(path.resolve(folder, subfile.name));
