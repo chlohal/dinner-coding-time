@@ -117,7 +117,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
         if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "codehs/.partials");
+        var partialAddress = path.replace("codehs", "codehs/-partials");
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", partialAddress);
@@ -546,7 +546,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             requestAnimationFrame(function () {
                 document.activeElement.blur();
                 parent.focus();
-            })
+            });
         });
 
         appendTab(tabTitle, border);
