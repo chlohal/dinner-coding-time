@@ -194,7 +194,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "CLASS_DECLARATION":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">class</span> " : "class ") + recurse("name") +
-                (ast.extends ? recurse("extends") : "") +
+                (ast.extends ? (style.colorize ? "<span class=\"hlast hlast-keyword\"> extends </span>" : " extends ") + recurse("extends") : "") +
                 (ast.implements ? recurse("implements") : "") +
                 (bracketTypes[+!!style.javaBracketsStyle]) +
                 indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
@@ -321,6 +321,9 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "RETURN_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">return</span> " : "return ") + recurse("expression") + ";";
+            break;
+        case "THROW_STATEMENT":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">throw</span> " : "throw ") + recurse("expression") + ";";
             break;
         case "FOR_STATEMENT":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
