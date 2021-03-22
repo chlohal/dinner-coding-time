@@ -45,7 +45,7 @@
         },
         {
             path: "cast-expression primitive-type",
-            description: "A <b>cast<b>, where you put <code>(aTypeInParentheses)</code> in front of another value, converts the value into the specified type. Here, it's converting to <code>{{content}}</code>."
+            description: "A <b>cast</b>, where you put <code>(aTypeInParentheses)</code> in front of another value, converts the value into the specified type. Here, it's converting to <code>{{content}}</code>."
         },
         {
             path: "if-else-expression",
