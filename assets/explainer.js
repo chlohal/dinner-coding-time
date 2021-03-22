@@ -35,8 +35,13 @@
         },
         {
             path: "identifier",
+            content: "j",
+            description: "<code>j</code> is usually used as a loop index when you have two nested loops. It counts up as the <i>inner</i> loop goes through its iterations."
+        },
+        {
+            path: "identifier",
             content: "k",
-            description: "<code>k</code> is usually used as a loop index when you have two nested loops. It counts up as the <i>inner</i> loop goes through its iterations."
+            description: "<code>k</code> is usually used as a loop index when you have two or three nested loops. It counts up as the <i>innermost</i> loop goes through its iterations."
         },
         {
             path: "operator-expression string-literal",
