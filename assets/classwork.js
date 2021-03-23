@@ -27,7 +27,7 @@ var getUserStyle;
             var childIndex = i * 2 + 2 - skipOffset;
             var part;
             
-            if(path[i] == "codingbat" || path[i-1] == "codingbat") {
+            if(path[i] == "codingbat" || path[i-1] == "codingbat" || path[i] == "on-request-from-discord") {
                 skipOffset += 2;
                 continue;
             }
