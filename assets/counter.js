@@ -52,8 +52,6 @@
         window.addEventListener("load", function() {
             setTimeout(onloadSendPageview,1000);
         });
-        window.addEventListener("popstate", onloadSendPageview);
-        window.addEventListener("hashchange", onloadSendPageview);
     } else {
         onloadSendPageview();
     }
