@@ -96,7 +96,7 @@ function executeDependencyFunction(dep, fn, args, cb) {
 
 function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://counter.clh.sh/counter.php?rec=1&idsite=3" +
+    xhr.open("GET", "/count/counter.php?rec=1&idsite=3" +
             "&url=" + encodeURIComponent(window.location) +
             "&rand=" + Math.floor(Math.random()*10000) +
             "&e_c=" + encodeURIComponent(category) + "&e_a=" + encodeURIComponent(action) + "&e_n=" + encodeURIComponent(name)  + "&e_v=" + value
