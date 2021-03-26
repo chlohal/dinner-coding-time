@@ -439,7 +439,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 (ast.dimensions ? ast.dimensions.map(function(x, i) { return recurse(["dimensions", i]); }).join("") : "");
             break;
         case "ARRAY_CREATOR_REST":
-            result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }) +
+            result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") +
                 (ast.arrayInitializer ? style.spaceInExpression + recurse("arrayInitializer") : "");
             break;
         case "ARRAY_INITIALIZER":
