@@ -135,6 +135,9 @@ sources.forEach(source => {
                     <li>
                         <a href="/legal/fairuse">Fair Use Statement</a>
                     </li>
+                    <li>
+                        <a href="/legal/privacy">Privacy Policy</a>
+                    </li>
                 </ul>
             </div>
         </div>
