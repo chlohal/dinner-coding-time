@@ -1,6 +1,6 @@
 (function() {
 
-    function onloadSendPageview(isSPA) {
+    function onloadSendPageview(isSPA, referrerOverride) {
     
     var xhr = new XMLHttpRequest(),
     url = "/count/counter.php?rec=1&apiv=1&send_image=0",
@@ -8,7 +8,7 @@
     
     var purl = window.location.toString(),
     rand = Math.floor(Math.random()*100000),
-    referrer = document.referrer || "",
+    referrer = referrerOverride || document.referrer || "",
     titleElem = document.getElementsByTagName("title")[0],
     title = purl;
     
