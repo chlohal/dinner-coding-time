@@ -34,13 +34,13 @@
             "&rand=" + rand +
             "&urlref=" + encodeURIComponent(referrer) +
             "&action_name=" + encodeURIComponent(title) +
-            "&gt_ms=" + pageLoadTime +
+            (isSPA ? "" : "&gt_ms=" + pageLoadTime +
             "&pf_net=" + networkTime +
             "&pf_srv=" + serverTime +
             "&pf_tfr=" + transferTime +
             "&pf_dm1=" + domProcessingTime +
             "&pf_dm2=" + domCompletionTime +
-            "&pf_onl=" + onloadTime );
+            "&pf_onl=" + onloadTime ));
     
     xhr.send();
     
