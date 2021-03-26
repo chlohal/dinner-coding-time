@@ -135,6 +135,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
             //if there's an error, just uhhh do it normally i guess
             if (xhr.status != 200 && force !== true) return window.location.replace(path);
+            else if(typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true);
 
             var loadedFromCache = !!partialCache[partialAddress];
             partialCache[partialAddress] = xhr.response || data;

@@ -1,6 +1,6 @@
 (function() {
 
-    function onloadSendPageview() {
+    function onloadSendPageview(isSPA) {
     
     var xhr = new XMLHttpRequest(),
     url = "/count/counter.php?rec=1&apiv=1&send_image=0",
@@ -15,7 +15,7 @@
     var pageLoadTime = 0;
     var networkTime = 0, serverTime = 0, transferTime = 0, domProcessingTime = 0, domCompletionTime = 0, onloadTime = 0;
     
-    if(window.performance) {
+    if(window.performance && !isSPA) {
         var perfData = window.performance.getEntriesByType ? window.performance.getEntriesByType("navigation")[0] : window.performance.timing;
         pageLoadTime = Math.max(0, perfData.duration ? perfData.duration : perfData.loadEventEnd - (perfData.navigationStart||0));
     
@@ -45,6 +45,8 @@
     xhr.send();
     
     }
+
+    window.__onloadSendPageview = onloadSendPageview;
     
     if(window.addEventListener) {
         window.addEventListener("load", function() {
