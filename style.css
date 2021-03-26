@@ -178,7 +178,7 @@
     transform: translateY(36px);
 }
 
-.hero--text h1, p {
+.hero--text h1 {
     margin: 0;
 }
 
@@ -637,6 +637,12 @@ footer .footer--link-category ul li {
 
 .index--lessons p {
     display: inline-block;
+    margin: 0;
+}
+
+figcaption {
+    text-align: center;
+    font-style: italic;
 }
 
 .index--badge {
@@ -681,7 +687,7 @@ summary {
 }
 
 code {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
     font-size: 1rem;
     white-space: pre;
 }
@@ -714,6 +720,12 @@ code {
     background-color: darkgrey;
 }
 
+.code-with-lines--snippet {
+    font-family: 'Fira Code', 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    overflow: hidden;
+    min-height: max-content;
+}
 
 .code-with-lines--parent .code-with-lines--load-box {
     display: none;

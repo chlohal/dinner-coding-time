@@ -98,6 +98,9 @@ sources.forEach(source => {
                     <li>
                         <a href="/worksheets">Worksheets</a>
                     </li>
+<li>
+                        <a href="/error-almanac">Error Almanac</a>
+                    </li>
                 </ul>
             </div>
             <div class="footer--link-category">

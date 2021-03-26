@@ -80,7 +80,7 @@
     }
 
     window.explainEditor = function explain(editor) {
-        loadNameManager(editor);
+        if(typeof loadNameManager === "function") loadNameManager(editor);
         
         var userStyle = loadUserStyle();
 
