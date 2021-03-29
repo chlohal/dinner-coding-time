@@ -118,6 +118,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
     })
     function navigateToSpaPath(path) {
         var partialAddress = path.replace("codehs", "codehs/-partials");
+        var originalUrl = window.location.toString();
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", partialAddress);
@@ -135,7 +136,6 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
             //if there's an error, just uhhh do it normally i guess
             if (xhr.status != 200 && force !== true) return window.location.replace(path);
-            else if(typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true);
 
             var loadedFromCache = !!partialCache[partialAddress];
             partialCache[partialAddress] = xhr.response || data;
@@ -175,6 +175,8 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                 _global.addTopNavigation();
                 _global.registerSpaLinks();
                 _global.createBreadcrumbs();
+                
+                if(typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
             });
         }
 

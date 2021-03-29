@@ -7,7 +7,7 @@ if (typeof importScripts === "function") {
             astToString: function () {
                 return postMessage({
                     nonce: data.nonce,
-                    data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3])
+                    data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3], data.args[4])
                 });
             },
             clearVariableRegistry: function () {
@@ -58,12 +58,14 @@ function clearVariableRegistry() {
  * @param {Object} ast The AST to stringify.
  * @param {StylingMode} style How the output should be styled.
  */
-function astToString(ast, style, parentScope, nodePath, siblingIndex, address, parent) {
+function astToString(ast, style, parentScope, nodePath, siblingIndex, address, parent, codeblockId) {
     if (!ast) return "";
 
     if (parentScope === undefined) parentScope = [];
     if (style === undefined) style = {};
+    if (codeblockId === undefined) codeblockId = Math.floor(Math.random()*1000) + "-" + Date.now();
     if (parent === undefined) parent = {};
+    
 
     if (style.isSnippet && ast.type == "COMPILATION_UNIT") {
         ast = ast.types[0].declaration.body.declarations[0];
@@ -105,7 +107,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId / 2);
-        var res = `<span id="${address.join("-")}-${inOut ? "out" : "in"}-${index}" class="hlast hlast-pairedchar">${encodeCharacterEntities(char)}</span>`;
+        var res = `<span id="codeblock-${codeblockId}-${address.join("-")}-${inOut ? "out" : "in"}-${index}" class="hlast hlast-pairedchar">${encodeCharacterEntities(char)}</span>`;
         pairedCharId++;
         return res;
     }
@@ -127,7 +129,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         if (typeof a === "object" && a.constructor !== Array) return astToString(
             a, style,
             (sc || newScope),
-            nodePath, isLeaf, address.concat([n]));
+            nodePath, isLeaf, address.concat([n]), ast, codeblockId);
 
         //find the object indicated by the path passed in
         var target = ast;
@@ -139,7 +141,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
         isLeaf++;
 
-        return astToString(target, style, sc || newScope, nodePath, isLeaf, address.concat(a), ast);
+        return astToString(target, style, sc || newScope, nodePath, isLeaf, address.concat(a), ast, codeblockId);
     }
 
     function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
@@ -216,12 +218,12 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
                     if (!style.dontRegisterVariables) registerVariable(parentScope, varNameUnformatted, type, "class");
 
-                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-variable-address="${encodeCharacterEntities(parentScope.join(""))}">${encodeCharacterEntities(varNameUnformatted)}</span>` : varNameUnformatted;
+                    result += style.colorize ? `<span class="hlast hlast--class-definition-identifier" data-variable-address="${codeblockId}/${encodeCharacterEntities(parentScope.join(""))}">${encodeCharacterEntities(varNameUnformatted)}</span>` : varNameUnformatted;
                     break;
                 } else {
                     var varScope = getVariableScope(parentScope, ast.value);
                     if (varScope && style.colorize) result +=
-                        `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${encodeCharacterEntities(varScope.scopeKey)}" data-variable-address=${encodeCharacterEntities(varScope.address)} data-variable-type="${varScope.type}" data-variable-typetype="${encodeCharacterEntities(varScope.typeType && varScope.typeType.value)}">${encodeCharacterEntities(ast.value)}</span>`;
+                        `<span class="hlast hlast--variable-reference-identifier ${generateDescribingClasses(ast.value, isLeaf)}" data-variable-scope="${encodeCharacterEntities(varScope.scopeKey)}" data-variable-address="${codeblockId}/${encodeCharacterEntities(varScope.address)}" data-variable-type="${varScope.type}" data-variable-typetype="${encodeCharacterEntities(varScope.typeType && varScope.typeType.value)}">${encodeCharacterEntities(ast.value)}</span>`;
                     else result += ast.value;
                     break;
                 }
@@ -267,7 +269,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 registerVariable(parentScope, varNameUnformatted, typeType.value, parent.type.toLowerCase());
             }
 
-            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${encodeCharacterEntities(typeFullyQualified)}" data-variable-address="${encodeCharacterEntities(parentScope.join("") + "." + varNameUnformatted)}">${varNameUnformatted}</span>` : recurse("id");
+            var varNameWrapped = style.colorize ? `<span class="hlast hlast--variable-definition-identifier" data-var-typetype="${encodeCharacterEntities(typeFullyQualified)}" data-variable-address="${codeblockId}/${encodeCharacterEntities(parentScope.join("") + "." + varNameUnformatted)}">${varNameUnformatted}</span>` : recurse("id");
 
             result += varNameWrapped +
                 ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("");

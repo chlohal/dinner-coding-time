@@ -1,6 +1,6 @@
 (function() {
 
-    function onloadSendPageview(isSPA) {
+    function onloadSendPageview(isSPA, referrerOverride) {
     
     var xhr = new XMLHttpRequest(),
     url = "/count/counter.php?rec=1&apiv=1&send_image=0",
@@ -8,7 +8,7 @@
     
     var purl = window.location.toString(),
     rand = Math.floor(Math.random()*100000),
-    referrer = document.referrer || "",
+    referrer = referrerOverride || document.referrer || "",
     titleElem = document.getElementsByTagName("title")[0],
     title = purl;
     
@@ -34,13 +34,13 @@
             "&rand=" + rand +
             "&urlref=" + encodeURIComponent(referrer) +
             "&action_name=" + encodeURIComponent(title) +
-            "&gt_ms=" + pageLoadTime +
+            (isSPA ? "" : "&gt_ms=" + pageLoadTime +
             "&pf_net=" + networkTime +
             "&pf_srv=" + serverTime +
             "&pf_tfr=" + transferTime +
             "&pf_dm1=" + domProcessingTime +
             "&pf_dm2=" + domCompletionTime +
-            "&pf_onl=" + onloadTime );
+            "&pf_onl=" + onloadTime ));
     
     xhr.send();
     
@@ -52,8 +52,6 @@
         window.addEventListener("load", function() {
             setTimeout(onloadSendPageview,1000);
         });
-        window.addEventListener("popstate", onloadSendPageview);
-        window.addEventListener("hashchange", onloadSendPageview);
     } else {
         onloadSendPageview();
     }
