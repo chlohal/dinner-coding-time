@@ -153,7 +153,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             && ast.type != blockNorm.type) return { type: "BLOCK", statements: [blockNorm] };
 
 
-        if (style.singleLineBlockBrackets == "source" || block.type == "IF_STATEMENT") return block;
+        if (style.singleLineBlockBrackets == "source" || block.type == "IF_STATEMENT" || block.type == "FOR_STATEMENT" || block.type == "WHILE_STATEMENT") return block;
         else if (block.type != "BLOCK" && (style.singleLineBlockBrackets == "block")) return { type: "BLOCK", statements: [block] };
         else if ((block.statements && block.statements.length == 1) && style.singleLineBlockBrackets == "line") return block.statements[0];
         else return block;
