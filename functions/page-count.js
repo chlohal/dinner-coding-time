@@ -4,12 +4,17 @@ exports.handler = function(event, context, callback) {
 
     var https = require("https");
 
+    console.log("TOKEN SUBSTR: " +process.env.COUNT_TOKEN.substring(0, 4));
+
     var path = "/counter.php?" + params.toString() + "&token_auth=" + process.env.COUNT_TOKEN + "&cip=" + event.headers["client-ip"];
 
     const options = {
         hostname: "counter.clh.sh",
         path: path,
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            "user-agent": event.headers["user-agent"]
+        }
     };
 
     var req = https.request(options, function (res) {
@@ -21,6 +26,7 @@ exports.handler = function(event, context, callback) {
             body += chunk;
         });
         res.on("close", function() {
+            console.log(res.statusCode, body);
             callback(null, {
                 statusCode: 200,
                 body: "done",
