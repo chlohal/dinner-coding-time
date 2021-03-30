@@ -1,0 +1,60 @@
+
+<h1>5.4.7 A Different Dragon Class</h1>
+
+        
+<aside class="tip">
+    <h2>Tip</h2> You don't have to fill <code>DragonTester.java</code>; the autograder doesn't care about it.
+    You'll get a Completed mark either way.
+</aside>
+<code id="source">
+    public class DragonTester
+    {
+        public static void main(String[] args)
+        {
+            // Start here!
+        }
+    }
+    
+</code>
+<code id="source1">
+    public class Dragon 
+    {
+        private String name;
+        private int level;
+        private boolean canBreatheFire;
+        
+        public Dragon(String _name, int _level) {
+            this.level = _level;
+            this.name = _name;
+            this.canBreatheFire = level >= 70;
+        }
+        
+        public String getName() {
+            return this.name;
+        }
+        
+        public int getLevel() {
+            return this.level;
+        }
+        
+        public boolean isFireBreather() {
+            return this.canBreatheFire;
+        }
+        
+        public void attack() {
+            System.out.println(canBreatheFire ? ">>>>>>>>>>\n>>>>>>>>>>>>>>\n>>>>>>>>>>>>>>\n>>>>>>>>>>" : "~ ~ ~");
+        }
+        
+        public void gainExperience() {
+            this.canBreatheFire = (level+=10) >= 70;
+        }
+        
+    
+        // String representation of the object
+        public String toString()
+        {
+            return "Dragon is at level " + level + " and is named " + name;
+        }
+    }
+</code>
+    

@@ -1,0 +1,71 @@
+
+<h1>6.3.8 Classroom Array</h1>
+
+        <code id="source">
+            public class ClassRoster
+            {
+                public static void main(String[] args)
+                {
+                    Student julian = new Student("Julian", "Jones", 9);
+                    Student larisa = new Student("Larisa", "Torres", 10);
+                    Student amada = new Student("Amada", "Robin", 10);
+                    Student mikka = new Student("Mikka", "Leads", 9);
+                    Student jay = new Student("Jay", "Khalil", 10);
+                    
+                    Student[] classroom = {julian, larisa, amada, mikka, jay};
+            
+                    for(Student kid : classroom) {
+                        System.out.println(kid.getFirstName() + " " + kid.getLastName() + " is in grade " + kid.getGradeLevel());
+                    }
+                    
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            /**
+ * The Student class holds data about a student.
+ * The fields are firstName, lastName, and grade.
+ */
+public class Student
+{
+    // Attributes
+    private String firstName;
+    private String lastName;
+    private int gradeLevel;
+    
+    // Constructor
+    public Student(String fName, String lName, int grade)
+    {
+        firstName = fName;
+        lastName = lName;
+        gradeLevel = grade;
+    }
+    
+    public String getFirstName()
+    {
+        return firstName;
+    }
+    
+    // new getter
+    public String getLastName()
+    {
+        return lastName;
+    }
+    
+    // new getter 
+    public int getGradeLevel()
+    {
+        return gradeLevel;
+    }
+    
+    /*
+    public String toString()
+    {
+        return firstName + " " + lastName + " is in grade: " + gradeLevel;
+    }
+    */
+}
+
+        </code>
+    

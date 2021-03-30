@@ -1,0 +1,39 @@
+
+<h1>6.3.9 Array Average</h1>
+
+        <code id="source">
+            public class ArrayAverageTester
+            {
+            
+               public static void main(String[] args)
+               {
+                 int[] numArray =  {12, 17, 65, 7, 30, 88};
+                 
+                 ArrayAverage avg = new ArrayAverage(numArray);
+                 System.out.println("The average of the array is " + avg.getAverage());
+               }
+            }
+            
+        </code>
+
+        <code id="source1">
+            public class ArrayAverage
+{
+   private int[] values;
+
+   public ArrayAverage(int[] theValues)
+   {
+      values = theValues;
+   }
+
+   public double getAverage()
+   {
+     //double so that division won't be rounded
+     double sum = 0;
+     for(int m : values) sum += m;
+     return sum / values.length;
+   }
+}
+
+        </code>
+    

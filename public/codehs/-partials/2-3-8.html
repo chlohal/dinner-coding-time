@@ -1,0 +1,71 @@
+
+<h1>2.3.8 Custom Pinatas</h1>
+
+        <code id="source">
+            public class PinataTester
+            {
+                public static void main(String[] args)
+                {
+                    // Make Pinatas!
+                    Pinata ella = new Pinata();
+                    Pinata pete = new Pinata("chocolate", "blue", "star");
+                    Pinata sweetie = new Pinata("sour straws");
+                    
+                    // Print the pinatas
+                    System.out.println(ella);
+                    System.out.println(pete);
+                    System.out.println(sweetie);
+                    
+                    
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Pinata
+{
+    // Instance variables
+    private String candy;    // what kind of candy is inside
+    private String color;    
+    private String shape;
+    
+    // Constructor without parameters
+    public Pinata()
+    {
+        candy = "hard candy";
+        color = "rainbow";
+        shape = "donkey";
+    }
+    
+    // Add an overloaded constructor that allows the user
+    // to customize all of the instance variables
+    public Pinata(String _candy, String _color, String _shape) {
+        candy = _candy;
+        color = _color;
+        shape = _shape;
+    }
+    
+    // Add an overloaded constructor that allows the user
+    // to customize the color and shape
+    public Pinata(String _color, String _shape) {
+        candy = "hard candy";
+        color = _color;
+        shape = _shape;
+    }
+    
+    // Add an overloaded constructor that allows the user
+    // to customize the candy
+    public Pinata(String _candy) {
+        candy = _candy;
+        color = "rainbow";
+        shape = "donkey";
+    }
+    
+    
+    public String toString()
+    {
+        return color + " " + shape + " pinata filled with " + candy;
+    }
+}
+        </code>
+    

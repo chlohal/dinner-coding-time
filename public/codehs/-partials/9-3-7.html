@@ -1,0 +1,81 @@
+
+<h1>9.3.7 Electric Cars</h1>
+
+        <code id="source">
+            public class CarTester
+            {
+                public static void main(String[] args)
+                {
+                    // Create a Car object
+                    Car car = new Car("Toyota", "20");
+                    // Print out the model
+                    System.out.println(car.getModel());
+                    // Print out the MPG
+                    System.out.println(car.getMPG());
+                    // Print the object
+                    System.out.println(car);
+                    // Create an ElectricCar object
+                    ElectricCar elecCar = new ElectricCar("Tesla");
+                    // Print out the model
+                    System.out.println(elecCar.getModel());
+                    // Print out the MPG
+                    System.out.println(elecCar.getMPG());
+                    // Print the object
+                    System.out.println(elecCar);
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Car {
+
+                //This code is complete
+                private String model;
+                private String mpg;
+            
+                public Car(String model, String mpg){
+                    this.model = model;
+                    this.mpg = mpg;
+                }
+            
+                public String getModel(){
+                    return model;
+                }
+            
+                public String getMPG(){
+                    return mpg;
+                }
+            
+                public String toString(){
+                    return model + " gets " + mpg + " mpg.";
+                }
+            }
+            
+        </code>
+        <code id="source2">
+            public class ElectricCar extends Car {
+
+                // Complete the constructor
+                public ElectricCar(String model){
+                   super(model, "Electric cars do not calculate MPG.");
+                }
+            
+                // Override the getMPG here.
+                // It should return: "Electric cars do not calculate MPG.
+                @Override 
+                public String getMPG() {
+                    return "Electric cars do not calculate MPG.";
+                }
+                
+            
+                // Override the toString() here.
+                // (model) is an  electric car.
+                @Override
+                public String toString() {
+                    return super.getModel() + " is an electric car.";
+                }
+                
+            }
+            
+        </code>
+    

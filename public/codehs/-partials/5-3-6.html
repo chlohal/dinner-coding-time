@@ -1,0 +1,81 @@
+
+<h1>5.3.6 Commenting Activity Log</h1>
+
+        <code id="source">
+            public class ActivityTracker
+            {
+                public static void main(String[] args)
+                {
+                    ActivityLog mylog = new ActivityLog();
+                    
+                    mylog.addMiles(5);
+                    mylog.addHours(1);
+                    
+                    System.out.print("Total Miles: ");
+                    System.out.println(mylog.getMiles());
+                    
+                    double hoursToday = mylog.getHours();
+                    
+                    mylog.addHours(1.5);
+                    mylog.addHours(3);
+                    
+                    double increase = mylog.getHours() - hoursToday;
+                    
+                    System.out.print("There are ");
+                    System.out.print(increase);
+                    System.out.println(" more hours today than two days ago");
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class ActivityLog
+            {
+                private double numHours;
+                private double numMiles;
+                
+                public ActivityLog()
+                {
+                    numHours = 0;
+                    numMiles = 0;
+                }
+                
+                /**
+                 * Increase hours in log by given amount
+                 * @param hours the amount of hours to add
+                */ 
+                public void addHours(double hours)
+                {
+                    numHours += hours;
+                }
+                
+                /**
+                 * Increase miles in log by given amount
+                 * @param miles the amount of miles to add
+                */ 
+                public void addMiles(double miles)
+                {
+                    numMiles += miles;
+                }
+                
+                /**
+                 * Get amount of miles accumulated 
+                 * @return Accumulated miles
+                */ 
+                public double getMiles()
+                {
+                    return numMiles;
+                }
+                
+                /**
+                 * Get amount of hours accumulated 
+                 * @return Accumulated hours
+                */ 
+                public double getHours() 
+                {
+                    return numHours;
+                }
+                
+            }
+        </code>
+    

@@ -1,0 +1,27 @@
+
+<h1>4.1.6 Making Taffy</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+            public class TaffyTester
+            {
+                public static void main(String[] args)
+                {
+                   
+                   int temperature = 0;
+                   Scanner sc = new Scanner(System.in);
+                   
+                   System.out.println("Starting Taffy Timer");
+                   
+                   while(temperature < 270) {
+                       System.out.print("Enter the temperature: ");
+                       temperature = sc.nextInt();
+                       if(temperature < 270) System.out.println("The mixture isn't ready yet.");
+                       
+                   }
+                   
+                   System.out.println("Your taffy is ready for the next step!");
+                }
+            }
+        </code>
+    

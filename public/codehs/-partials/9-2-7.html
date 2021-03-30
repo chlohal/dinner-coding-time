@@ -1,0 +1,81 @@
+
+<h1>9.2.7 Instruments</h1>
+
+        <code id="source">
+            public class Wind extends Instrument
+            {
+                private boolean usesReed;
+                
+                public Wind(String name, String family, boolean usesReed) {
+                    super(name, family);
+                    this.usesReed = usesReed;
+                }
+             
+            }
+            
+        </code>
+        <code id="source1">
+            public class InstrumentTester
+{
+    public static void main(String[] args)
+    {
+        /**
+         * Don't Change This Tester Class!
+         * 
+         * When you are finished, this should run without error.
+         */ 
+        Wind tuba = new Wind("Tuba", "Brass", false);
+        Wind clarinet = new Wind("Clarinet", "Woodwind", true);
+        
+        Strings violin = new Strings("Violin", true);
+        Strings harp = new Strings("Harp", false);
+        
+        System.out.println(tuba);
+        System.out.println(clarinet);
+        
+        System.out.println(violin);
+        System.out.println(harp);
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class Strings extends Instrument
+{
+     private boolean usesBow;
+    
+    public Strings(String name, boolean usesBow) {
+        super(name, "Strings");
+        this.usesBow = usesBow;
+    }
+       
+}
+
+        </code>
+        <code id="source3">
+            public class Instrument
+{
+    
+    private String name;
+    private String family;
+    
+    public Instrument(String name, String family) {
+        this.name = name;
+        this.family = family;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getFamily() {
+        return this.family;
+    }
+    
+    public String toString() {
+        return this.name + " is a member of the " + this.family + " family.";
+    }
+}
+
+        </code>
+    

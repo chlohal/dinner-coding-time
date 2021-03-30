@@ -1,0 +1,114 @@
+
+<h1>9.6.8 Library Books</h1>
+
+        <code id="source">
+            public class Novel extends Book
+            {
+                private String genre;
+                private int pages;
+                
+                public Novel(String title, String author, 
+                            String genre, int pages) {
+                                super(title, author);
+                                this.genre = genre;
+                                this.pages = pages;
+                            }
+                            public void setGenre(String genre) {
+                this.genre = genre;
+            }
+            public String getGenre() {
+                return this.genre;
+            }
+            
+            public void setPages(int pages) {
+                this.pages = pages;
+            }
+            public int getPages() {
+                return this.pages;
+            }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Book
+            {
+            
+                private String title;
+                private String author;
+                
+                public Book(String title, String author) {
+                    this.title = title;
+                    this.author = author;
+                }
+                
+                public void setTitle(String title) {
+                this.title = title;
+            }
+            public String getTitle() {
+                return this.title;
+            }
+            
+            public void setAuthor(String author) {
+                this.author = author;
+            }
+            public String getAuthor() {
+                return this.author;
+            }
+            }
+             
+        </code>
+        <code id="source2">
+            public class TextBook extends Book
+{
+    private String subject;
+    private String edition;
+    
+    public TextBook(String title, String author, 
+                String subject, String edition) {
+                    super(title, author);
+                    this.subject = subject;
+                    this.edition = edition;
+                }
+                public void setSubject(String subject) {
+    this.subject = subject;
+}
+public String getSubject() {
+    return this.subject;
+}
+
+public void setEdition(String edition) {
+    this.edition = edition;
+}
+public String getEdition() {
+    return this.edition;
+}
+
+}
+
+        </code>
+        <code id="source3">
+            import java.util.ArrayList;
+
+public class BookTester
+{
+    public static void main(String[] args)
+    {
+        ArrayList&lt;Book&gt; books = new ArrayList&lt;Book&gt;();
+        
+        books.add(new TextBook("Genetics", "Some Old Dude", "Biology", "3rd"));
+        books.add(new TextBook("The Golden Ratio: A Historical Look", "Some Other Old Dude", "Maths", "1st"));
+        
+        books.add(new Novel("Harry Potter", "J.K. Rowling", "Fantasy", 300));
+        books.add(new Novel("Lord of the Rings", "J.R.R. Tolkien", "Fantasy", 1000));
+        
+        
+        for(Book book : books) {
+            System.out.println(book.getTitle());
+            System.out.println(book.getAuthor());
+            System.out.println(book.toString());
+        }
+    }
+}
+
+        </code>
+    

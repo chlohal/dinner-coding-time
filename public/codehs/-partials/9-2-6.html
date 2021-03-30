@@ -1,0 +1,89 @@
+
+<h1>9.2.6 Students</h1>
+
+<aside class="tip">
+    <h2>JSYK</h2>
+    <p>You don't need to fill in <code>StudentTester.java</code> at all-- the autograder doesn't care about it. It's just filled in here for posterity.</p>
+</aside>
+
+        <code id="source">
+            public class Student
+            {
+                private String name;
+                private int classYear;
+               
+               public Student(String name, int classYear) {
+                   this.name = name;
+                   this.classYear = classYear;
+               }
+               
+               
+                public String getName(){
+                   return name;
+                }
+               
+                public int getClassYear(){
+                   return classYear;
+                }
+               
+                public String toString(){
+                    return name + ", class of " + classYear;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class StudentTester
+{
+    public static void main(String[] args)
+    {
+        
+        /**
+         * Create a student in the class of 2020
+         */
+         Student student = new Student("Quin", 2020);
+         
+         
+         /**
+         * Create a student athlete in the class of 2022
+         * that is eligible and plays soccer.
+         */
+         StudentAthlete jock = new StudentAthlete("Elle", 2022, "Soccer", true);
+         
+         
+         System.out.println(student);
+         System.out.println(jock);
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class StudentAthlete extends Student
+{
+    private String sport;
+    private boolean eligible;
+    
+   public StudentAthlete(String name, int classYear, String sport, boolean eligible) {
+       super(name, classYear);
+       this.sport = sport;
+       this.eligible = eligible;
+   }
+   
+   
+   public String getSport(){
+       return sport;
+   }
+   
+   public boolean isEligible(){
+       return eligible;
+   }
+    
+    @Override
+    public String toString(){
+        return super.getName() + ", class of " + super.getClassYear() +
+            ", plays " + sport;
+    }
+}
+
+        </code>
+    

@@ -1,0 +1,76 @@
+
+<h1>9.2.8 Foods</h1>
+
+        <code id="source">
+            public class Fruit extends HealthyFood
+            {
+                private boolean isLocal;
+                private String color;
+                
+                public Fruit(String foodName, int calories, boolean isLocal, String foodColor) {
+                    super(foodName, calories, "Fruit");
+                    this.isLocal = isLocal;
+                    this.color = foodColor;
+                }
+                
+                public boolean isLocal() {
+                    return this.isLocal;
+                    }
+                public String getColor() {
+                    return this.color;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class FoodTester
+{
+    public static void main(String[] args)
+    {
+        System.out.println(new Food("Apple", 2000));
+        System.out.println(new HealthyFood("Cake", 2000, "Meat"));
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class HealthyFood extends Food
+{
+    private String group;
+    
+    public HealthyFood(String foodName, int calories, String foodGroup) {
+        super(foodName, calories);
+        this.group = foodGroup;
+    }
+    
+    public String getGroup() {
+        return this.group;
+    }
+}
+
+        </code>
+        <code id="source3">
+            public class Food
+{
+    private String name;
+    private int calories;
+    
+    public Food (String foodName, int calories) {
+        this.name = foodName;
+        this.calories = calories;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    public int getCal() {
+        return this.calories;
+    }
+    
+    public String toString() {
+        return name + " has " + calories + " calories";
+    }
+}
+
+        </code>
+    

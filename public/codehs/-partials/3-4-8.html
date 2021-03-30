@@ -1,0 +1,27 @@
+
+<h1>3.4.8 Berries</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Berries
+            {
+                public static void main(String[] args)
+                {
+                    // Ask for a berry initial
+                    Scanner input = new Scanner(System.in);
+                    
+                    String berries = input.nextLine();
+                    char berry = berries.charAt(0);
+                    
+                    // To get the input as a character, use the String method
+                    // charAt().  Use str.charAt(0) since you want the
+                    // first character
+                    if(berry == 'r') System.out.println("You ordered raspberry");
+                    else if(berry == 'h') System.out.println("You ordered huckleberry");
+                    else if(berry == 'g') System.out.println("You ordered goji berry");
+                    else System.out.println("Berry not recognized");
+                }
+            }
+        </code>
+    

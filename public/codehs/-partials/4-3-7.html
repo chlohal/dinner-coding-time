@@ -1,0 +1,22 @@
+
+<h1>4.3.7 Password Checker</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Password
+            {
+                public static void main(String[] args)
+                {
+                    Scanner sc = new Scanner(System.in);
+                    String pw = sc.nextLine();
+                    System.out.println(passwordCheck(pw));
+                }
+                
+                public static boolean passwordCheck(String password)
+                {
+                    return password.length() > 7 && password.matches("^[0-9A-z]+$");
+                }
+            }
+        </code>
+    

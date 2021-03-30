@@ -1,0 +1,32 @@
+
+<h1>7.2.7 ArrayList of Even Numbers</h1>
+
+        <code id="source">
+            import java.util.ArrayList;
+
+            public class Evens
+            {
+                public static void main(String[] args)
+                {
+                    ArrayList&lt;Integer&gt; evens = new ArrayList&lt;Integer&gt;();
+                    
+                    for(int i = 2; i <= 100; i+=2) evens.add(i);
+                    
+                    printArray(evens);
+                }
+                
+                
+                //Don't alter this method! It will print your array in the console
+                public static void printArray(ArrayList&lt;Integer&gt; array)
+                {
+                    System.out.println("Array:");
+                    for(int name: array)
+                    {
+                        System.out.print(name + " ");
+                    }
+                }
+            }
+            
+            
+        </code>
+    

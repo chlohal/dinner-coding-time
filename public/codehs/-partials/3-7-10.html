@@ -1,0 +1,38 @@
+
+<h1>3.7.10 Comparing Circles</h1>
+
+        <aside class="tip btw">
+            <h2>BTW</h2>
+            <p>Because of some obscure features of the Java compiler, this assignment will work just fine even if you use <code>==</code> instead <code>.equals()</code>. You can just change nothing for this one! Even so, you should still use the code below. That trick will fail on more complex assignments, where it isn't as easy for the compiler to optimize.</p>
+        </aside>
+        <code id="source">
+            public class CircleTester 
+            {
+                public static void main(String[] args)
+                {
+                    Circle one = new Circle(10, "blue", 50, 35);
+                    Circle two = new Circle(10, "blue", 50, 35);
+                    Circle three = new Circle(20, "red", 0, 0);
+                    Circle four = three;
+                    
+                    // Modify this program to correctly compare objects
+                    // We should not be comparing objects using ==
+                    
+                    if(one.equals(two))
+                    {
+                        System.out.println("Circles one and two are equal!");
+                        System.out.println(one);
+                        System.out.println(two);
+                    }
+                    
+                    if(three.equals(four))
+                    {
+                        System.out.println("Circles three and four are equal!");
+                        System.out.println(three);
+                        System.out.println(four);
+                    }
+                }
+            }
+            
+        </code>
+    

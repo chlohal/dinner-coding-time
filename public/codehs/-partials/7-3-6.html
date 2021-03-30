@@ -1,0 +1,35 @@
+
+<h1>7.3.6 Traversing Odds</h1>
+
+        <code id="source">
+            import java.util.ArrayList;
+
+            public class Odds
+            {
+                public static void main(String[] args)
+                {
+                    ArrayList&lt;Integer&gt; odds = new ArrayList&lt;Integer&gt;();
+                    // Pre-load the array list with values.
+                    for(int index = 1; index &lt; 101; index++)
+                    {
+                        odds.add(index);
+                        odds.add(index);
+                    }
+                    //call removeEvens on the array above!
+                    removeEvens(odds);
+                }
+                
+                public static void removeEvens(ArrayList&lt;Integer&gt; array)
+                {
+                    for(int i = 0; i &lt; array.size(); i++) {
+                        if(array.get(i) % 2 == 0) {
+                            array.remove(i);
+                            i--;
+                        }
+                    }
+                    
+                    for(int i = 0; i &lt; array.size(); i++) System.out.println(array.get(i));
+                }
+            }
+        </code>
+    

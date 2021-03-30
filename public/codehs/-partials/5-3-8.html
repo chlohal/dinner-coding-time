@@ -1,0 +1,32 @@
+
+<h1>5.3.8 C.Y.O.A. Finishing the story</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class CYOA
+            {
+                private static Scanner input;
+                
+                public static void main(String[] args)
+                {
+                    input = new Scanner(System.in);
+                    
+                    System.out.println("Intro");
+                    
+                    System.out.println("Question 1. Option [A] or [B]?");
+                    if(input.nextLine().equals("A")) {
+                        //option A
+                            System.out.println("Question 2. Option [X] or [Y]?");
+                            if(input.nextLine().equals("X")) {
+                                //Option X
+                            } else {
+                                //Option Y
+                            }
+                    } else {
+                        //option B
+                    }
+                }
+            }
+        </code>
+    

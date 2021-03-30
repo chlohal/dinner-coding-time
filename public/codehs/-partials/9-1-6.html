@@ -1,0 +1,70 @@
+
+<h1>9.1.6 Person / Student Object</h1>
+
+        <code id="source">
+            public class Student extends Person {
+
+                private int grade;
+                private double gpa;
+            
+                public Student(String name, String birthday, int grade, double gpa){
+                    super(name, birthday);
+                    this.grade = grade;
+                    this.gpa = gpa;
+                }
+            
+                public int getGrade(){
+                    return grade;
+                }
+            
+                public double getGpa(){
+                    return gpa;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Person {
+
+                private String name;
+                private String birthday;
+            
+                public Person (String name, String birthday)
+                {
+                    this.name = name;
+                    this.birthday = birthday;
+                }
+            
+                public String getBirthday(){ 
+                    return birthday;
+                }
+            
+                public String getName(){
+                    return name;
+                }
+            
+            
+            }
+            
+        </code>
+        <code id="source2">
+            public class PersonRunner
+{
+    public static void main(String[] args)
+    {
+        Person tom = new Person("Thomas Edison", " February 11, 1847");
+        
+        System.out.println(tom.getName());
+        System.out.println(tom.getBirthday());
+        
+        Student albert = new Student("Albert Einstein", "March 14, 1879", 12, 5.0);
+        
+        System.out.println(albert.getName());
+        System.out.println(albert.getBirthday());
+        System.out.println(albert.getGrade());
+        System.out.println(albert.getGpa());
+    }
+}
+
+        </code>
+    

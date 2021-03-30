@@ -1,0 +1,38 @@
+
+<h1>3.3.8 Player Score</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Basketball
+            {
+                public static void main(String[] args)
+                {
+                    Scanner input = new Scanner(System.in);
+                    
+                    System.out.println("Enter player one's name: ");
+                    String p1name = input.nextLine();
+                    System.out.println("Enter player two's name: ");
+                    String p2name = input.nextLine();
+                    System.out.println("Enter Tracy's score");
+                    int p1score = input.nextInt();
+                    System.out.println("Enter Karel's score");
+                    int p2score = input.nextInt();
+                    if(p1name.compareTo(p2name) < 0) {
+                        System.out.println(p1name + " scored " + p1score + " points");
+                        System.out.println(p2name + " scored "+ p2score + " points");
+                    } else {
+                        System.out.println(p2name + " scored "+ p2score + " points");
+                        System.out.println(p1name + " scored " + p1score + " points");
+                        
+                    }
+                    
+                    if(p1score > p2score) System.out.println(p1name + " wins!");
+                    else System.out.println(p2name + " wins!");
+            
+                    
+                    
+                }
+            }
+        </code>
+    

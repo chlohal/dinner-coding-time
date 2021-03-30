@@ -1,0 +1,82 @@
+
+<h1>9.1.8 Computers</h1>
+
+        <code id="source">
+            public class Desktop extends Computer
+            {
+                
+            private boolean monitor;
+            
+                
+                
+                public boolean hasMonitor() {
+                    return this.monitor;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Laptop extends Computer
+{
+   private double batteryLife;
+   
+   public void setBatteryLife(double _batteryLife) {
+        this.batteryLife = _batteryLife;
+    }
+    
+    public double getBatteryLife() {
+        return this.batteryLife;
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class Computer
+{
+
+    private int screenSize;
+    private int memory;
+    
+    public void setScreenSize(int _screenSize) {
+        this.screenSize = _screenSize;
+    }
+    
+    public int getScreenSize() {
+        return this.screenSize;
+    }
+    
+    public void setMemory(int _memory) {
+        this.memory = _memory;
+    }
+    
+    public int getMemory() {
+        return this.memory;
+    }
+    
+    
+
+}
+
+        </code>
+        <code id="source3">
+            public class ComputerTester
+{
+    public static void main(String[] args)
+    {
+        Laptop macBook = new Laptop();
+        macBook.setBatteryLife(8.5);
+        
+        Desktop dell = new Desktop();
+        dell.setScreenSize(18);
+        
+        Computer surface = new Computer();
+        surface.setScreenSize(11);
+        
+        System.out.println(macBook.getBatteryLife());
+        System.out.println(dell.getScreenSize());
+        System.out.println(surface.getScreenSize());
+    }
+}
+
+        </code>
+    

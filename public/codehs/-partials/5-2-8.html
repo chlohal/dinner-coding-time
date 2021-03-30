@@ -1,0 +1,98 @@
+
+<h1>5.2.8 SchoolClub Class</h1>
+
+        <code id="source">
+            public class Student
+{
+    private String firstName;
+    private String lastName;
+    private int gradeLevel;
+    private String school;
+
+    /**
+     * Constructors go here.
+     * Check out StudentTester.java for an example of how to use
+     * this constructor. Make sure your code matches the call in the
+     * tester.
+     */
+     
+     public Student(String fN, String lN, int grd, String schl) {
+         this.firstName = fN;
+         this.lastName = lN;
+         this.gradeLevel = grd;
+         this.school = schl;
+     }
+     
+     public Student(String fN, String lN, int grd) {
+         this.firstName = fN;
+         this.lastName = lN;
+         this.gradeLevel = grd;
+         this.school = grd >= 9 ? "high school" : grd >= 6 ? "middle school" : "elementary school";
+     }
+   
+   
+    
+    /**
+     * This is a toString for the Student class. It returns a String
+     * representation of the object, which includes the fields
+     * in that object.
+     * 
+     * Modify the to string to add 'and goes to _____' at the end
+     */
+    public String toString()
+    {
+        return firstName + " " + lastName + " is in grade " + gradeLevel + " and goes to " + school;
+    }
+    
+    public String getFirstName(){
+        return firstName;
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class StudentTester
+            {
+                public static void main(String[] args)
+                {
+                    Student alan = new Student("Alan", "Turing", 11, "Liberty High School");
+                    Student ada = new Student("Ada", "Lovelace", 5);
+                    
+                    System.out.println(alan);
+                    System.out.println(ada);
+                    
+                    System.out.println(new SchoolClub(alan, "dnd club"));
+                    
+                }
+            }            
+        </code>
+        <code id="source2">
+            public class SchoolClub
+            {
+            
+                private Student leader;
+                private String name;
+                private int numMembers;
+            
+                /* Add your constructor here
+                 * Constructor should take a leader and club name, then set
+                 * numMembers to 0.
+                 */
+                 
+                public SchoolClub(Student ldr, String n) {
+                    this.leader = ldr;
+                    this.name = n;
+                    this.numMembers = 0;
+                }
+            
+                public void addMember() {
+                    numMembers ++;
+                }
+            
+                public String toString(){
+                    return leader.getFirstName() + " is the leader of the " + name + " club.";
+                }
+            }
+            
+        </code>
+    

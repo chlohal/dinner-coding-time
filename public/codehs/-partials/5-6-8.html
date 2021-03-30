@@ -1,0 +1,30 @@
+
+<h1>5.6.8 Open Response: Combination Lock FRQ</h1>
+
+        <code id="source">
+            public class CombinationLock {
+                private String password;
+                
+                public CombinationLock(String password) {
+                    this.password = password;
+                }
+                
+                public String getClue(String guess) {
+                    //this clue will be built in the `for` loop later
+                    String clue = "";
+                    //passwords & guesses are always 4 letters
+                    for(int i = 0; i < 4; i++) {
+                        //iterate through; for each letter, determine the clue character & build on the clue
+                        char guessLetter = guess.charAt(i);
+                        //if the guess was correct for this char, it's the character itself
+                        if(guessLetter == password.charAt(i)) clue += guessLetter;
+                        //if the guess is correct, but in the wrong spot, it's '+'
+                        else if(password.indexOf(guessLetter) > -1) clue += "+";
+                        //if it's just totally incorrect and you should be ashamed, add "*"
+                        else clue += "*";
+                    }
+                    return clue;
+                }
+            }
+        </code>
+    

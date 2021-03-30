@@ -1,0 +1,26 @@
+
+
+<h1>6.1.9 Snap Shot Splash Screen</h1>
+
+        <code id="source">
+            public class SnapShot
+            {
+                public static void main(String[] args)
+                {
+                    String[] splashLines ={ "Welcome",
+                                            "to",
+                                            "the snap shot",
+                                            "app!" };
+                                            
+                    for(int i = 0; i < splashLines.length; i++) System.out.println(splashLines[i]);
+                    
+                    splashLines[0] = "Upgrade";
+                    splashLines[splashLines.length - 1] = "premium app!";
+                    
+                    System.out.println("");
+                    
+                    for(int i = 0; i < splashLines.length; i++) System.out.println(splashLines[i]);
+                }
+            }
+        </code>
+    

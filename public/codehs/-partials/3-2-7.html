@@ -1,0 +1,21 @@
+
+<h1>3.2.7 Sweet or Unsweet?</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class DrinkOrder
+            {
+                public static void main(String[] args)
+                {
+                    Scanner input = new Scanner(System.in);
+                    
+                    String drinkName = input.nextLine();
+                    System.out.println();
+                    int sugar = input.nextInt();
+                    
+                    System.out.println(drinkName + (sugar>0?" with sugar":""));
+                }
+            }
+        </code>
+    

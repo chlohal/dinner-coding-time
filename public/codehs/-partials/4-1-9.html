@@ -1,0 +1,30 @@
+
+<h1>4.1.9 Max and Min Values</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class MaxMin
+            {
+                public static void main(String[] args)
+                {
+                    int smallest = Integer.MAX_VALUE;
+                    int largest = Integer.MIN_VALUE;
+                    
+                    Scanner sc = new Scanner(System.in);
+                    
+                    int input = 0;
+                    while(true) {
+                        System.out.println("Enter a number (-1 to quit): ");
+                        input = sc.nextInt();
+                        if(input != -1) {
+                            System.out.println("Smallest # so far: " + (smallest = Math.min(smallest, input)));
+                            System.out.println("Largest # so far: " + (largest = Math.max(largest, input)));
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+        </code>
+    

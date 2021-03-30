@@ -1,0 +1,51 @@
+
+        <h1>5.4.5 Text Messages Getter Methods</h1>
+
+        <aside class="tip">
+            <h2>Tip</h2> You don't have to fill <code>Messages.java</code>; the autograder doesn't care about it.
+            You'll get a Completed mark either way.
+        </aside>
+        <code id="source">
+            public class Messages
+{
+    public static void main(String[] args)
+    {
+        // Your code here.
+        // Create two TextMessage objects and print them out.
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class TextMessage
+            {
+                private String message;
+                private String sender;
+                private String receiver;
+                
+                public TextMessage(String from, String to, String theMessage)
+                {
+                    sender = from;
+                    receiver = to;
+                    message = theMessage;
+                }
+                
+                public String toString()
+                {
+                    return sender + " texted " + receiver + ": " + message;
+                }
+            
+                public String getMessage() {
+                    return this.message;
+                }
+            
+                public String getSender() {
+                    return this.sender;
+                }
+            
+                public String getReceiver() {
+                    return this.receiver;
+                }
+            }
+        </code>
+    

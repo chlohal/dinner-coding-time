@@ -1,0 +1,68 @@
+
+<h1>5.5.6 Full Fraction Class</h1>
+<aside class="tip">
+    <h2>Tip</h2> You don't have to fill <code>FractionTester.java</code>; the autograder doesn't care about it.
+    You'll get a Completed mark either way.
+</aside>
+        <code id="source">
+            public class FractionTester
+{
+    public static void main(String[] args)
+    {
+        // Implement the Fraction class in Fraction.java
+        
+        // Then add code here to test out your Fraction class!
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class Fraction
+            {
+                public int numerator;
+                public int denominator;
+                
+                public Fraction(int n, int d) {
+                    this.numerator = n;
+                    this.denominator = d;
+                }
+                
+                
+                public int getNumerator() {
+                    return this.numerator;
+                }
+                
+                public int getDenominator() {
+                    return this.denominator;
+                }
+                
+                public void setNumerator(int x) {
+                    this.numerator = x;
+                }
+                
+                
+                public void setDenominator(int x) {
+                    this.denominator = x;
+                }
+                
+                public void add(Fraction other) {
+                    this.numerator = this.numerator * other.getDenominator() + other.getNumerator() * this.denominator;
+                    this.denominator *= other.getDenominator();
+                }
+                
+                public void subtract(Fraction other) {
+                    this.numerator = this.numerator * other.getDenominator() - other.getNumerator() * this.denominator;
+                    this.denominator *= other.getDenominator();
+                }
+                
+                public void multiply(Fraction other) {
+                    this.numerator *= other.getNumerator();
+                    this.denominator *= other.getDenominator();
+                }
+                
+                public String toString() {
+                    return this.numerator + " / " + this.denominator;
+                }
+            }
+        </code>
+    

@@ -1,0 +1,80 @@
+
+<h1>9.2.9 Clothing Store</h1>
+
+        <code id="source">
+            public class Sweatshirt extends Clothing
+            {
+            
+            private boolean hood;
+            
+            public Sweatshirt(String size, String color, boolean hasHood) {
+                super(size, color);
+                this.hood = hasHood;
+            }
+            
+            public boolean hasHood() {
+                return hood;
+            }
+            }
+            
+        </code>
+        <code id="source1">
+            public class TShirt extends Clothing
+{
+    private String fabric;
+    
+    public TShirt(String size, String color, String fabric) {
+        super(size, color);
+        this.fabric = fabric;
+    }
+    
+    public String getFabric() {
+        return fabric;
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class Clothing
+{
+    private String size;
+    private String color;
+    
+    public Clothing(String size, String color) {
+        this.size = size;
+        this.color = color;
+    }
+    
+    public String getSize() {
+        return size;
+    }
+public String getColor() {
+    return color;
+}
+}
+
+        </code>
+        <code id="source3">
+            public class Jeans extends Clothing
+{
+    public Jeans(String size) {
+        super(size, "blue");
+    }
+    
+}
+
+        </code>
+        <code id="source4">
+            public class ClothingTester
+{
+    public static void main(String[] args)
+    {
+        System.out.println(new Sweatshirt("L", "blue", false));
+        System.out.println(new Jeans("XS"));
+        System.out.println(new Clothing("M", "red"));
+        System.out.println(new Jeans("L"));
+    }
+}
+
+        </code>
+    

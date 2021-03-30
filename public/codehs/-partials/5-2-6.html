@@ -1,0 +1,41 @@
+
+<h1>5.2.6 Dog Class</h1>
+
+    <code id="source">
+        public class Dog
+{
+    private String name;
+    private int age;
+    private double weight;
+
+    // Add your constructors here
+    public Dog(String name, int age, double weight) {
+        this.name = name;
+        this.age = age;
+        this.weight = weight;
+    }
+    
+    public Dog(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.weight = 0.0;
+    }
+
+    public String toString(){
+        return "Name: " + name + "\nWeight: " + weight +  "\nAge: " + age;
+    }
+}
+
+    </code>
+        <code id="source1">
+            public class DogTester
+            {
+                public static void main(String[] args)
+                {
+                    // Start here!
+                    System.out.println(new Dog("Dog", 3, 2.0));
+                    System.out.println(new Dog("Dog", 3));
+                }
+            }
+        </code>
+    

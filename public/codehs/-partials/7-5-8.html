@@ -1,0 +1,43 @@
+
+<h1>7.5.8 Card Collector FRQ</h1>
+
+        <code id="source">
+            import java.util.ArrayList;
+            public class CardCollection {
+                private ArrayList&lt;Card&gt; collection;
+                
+                public CardCollection(ArrayList&lt;Card&gt; theCollection) {
+                    this.collection = theCollection;
+                }
+                
+                public double totalValue() {
+                    double total = 0.0;
+                    for(int i = 0; i &lt; collection.size(); i++) {
+                        total += collection.get(i).getValue();
+                    }
+                    return total;
+                }
+                
+                public void checkPerfect() {
+                    for(int i = 0; i &lt; collection.size(); i++) {
+                        if(collection.get(i).getCondition().equals("perfect")) System.out.println(collection.get(i).getName());
+                    }
+                }
+                
+                public void orderNumerically() {
+                    //horribly inoptimal sort algo, but we haven't learned anything better
+                    for(int i = 0; i &lt; collection.size(); i++) {
+                        int setNumBase = collection.get(i).getSetNum();
+                        for(int j = i + 1; j &lt; collection.size(); j++) {
+                            Card toMove = collection.get(j);
+                            if(toMove.getSetNum() &lt; setNumBase) {
+                                collection.remove(j);
+                                collection.add(i, toMove);
+                                i--;
+                            }
+                        }
+                    }    
+                }
+            }
+        </code>
+    

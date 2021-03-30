@@ -1,0 +1,76 @@
+
+<h1>7.4.9 User Data Cleanup</h1>
+
+<code id="source">
+    import java.util.ArrayList;
+
+public class DataPurgeTester
+{
+    public static void main(String[] args)
+    {
+        ArrayList&lt;String&gt; emails = new ArrayList&lt;String&gt;();
+        addEmails(emails);
+        System.out.println("List is all emails: " +DataPurge.containsOnlyEmails(emails));
+        DataPurge.removeDuplicates(emails);
+        DataPurge.removeAOL(emails);
+        System.out.println(emails);
+    }
+    
+    
+    
+    public static void addEmails(ArrayList&lt;String&gt; emails)
+    {
+        emails.add("tbmaddux@icloud.com");
+        emails.add("rfisher@outlook.com");
+        emails.add("anicolao@verizon.net");
+        emails.add("openldap@me.com");
+        emails.add("improv@gmail.com");
+        emails.add("alias@sbcglobal.net");
+        emails.add("portele@me.com");
+        emails.add("doormat@icloud.com");
+        emails.add("mailarc@aol.com");
+        emails.add("portele@me.com");
+        emails.add("rmcfarla@optonline.net");
+        emails.add("chrisk@verizon.net");
+        emails.add("gordonjcp@aol.com");
+        emails.add("improv@gmail.com");
+    }
+}
+
+</code>
+        <code id="source1">
+            import java.util.ArrayList;
+
+            public class DataPurge
+            {
+                public static void removeDuplicates(ArrayList&lt;String&gt; list) {
+                    ArrayList&lt;String&gt; existing = new ArrayList&lt;String&gt;();
+                    
+                    for(int i = 0; i < list.size(); i++) {
+                        String email = list.get(i);
+                        if(existing.indexOf(email) != -1) {
+                            list.remove(i);
+                            i--;
+                        }
+                        existing.add(email);
+                    }
+                }
+                public static void removeAOL(ArrayList&lt;String&gt; list) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).indexOf("@aol.com") > -1) {
+                            System.out.println("removing " + list.get(i));
+                            list.remove(i);
+                            i--;
+                        }
+                    }
+                }
+                public static boolean containsOnlyEmails(ArrayList&lt;String&gt; list) {
+                    for(int i = 0; i < list.size(); i++) {
+                        if(list.get(i).indexOf("@") == -1 || list.get(i).indexOf(".") == -1) return false;
+                    }
+                    return true;
+                }
+            }
+            
+        </code>
+    

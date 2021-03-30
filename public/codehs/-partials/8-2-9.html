@@ -1,0 +1,168 @@
+
+<h1>8.2.8 Tic Tac Toe Methods</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+public class TicTacToeTester
+{
+    public static void main(String[] args)
+    {
+        TicTacToe game = new TicTacToe();
+        Scanner sc = new Scanner(System.in);
+        
+        boolean playing = true;
+        while(playing) {
+                
+                game.printBoard();
+                System.out.println("Enter coordinates of move (first row, then col)");
+                int row = sc.nextInt();
+                int col = sc.nextInt();
+                if(!game.pickLocation(row, col)) {
+                    System.out.println("Invalid choice. Pick again, please.");
+                    continue;
+                }
+                game.takeTurn(row, col);
+                
+                if(game.checkWin()) {
+                    game.printBoard();
+                    System.out.println("You just won!");
+                    break;
+                }
+                if(!game.spaceAvailable()) {
+                    game.printBoard();
+                    System.out.println("Tie!");
+                    break;
+                }
+        }
+    }
+}
+        </code>
+        <code id="source1">
+            public class TicTacToe
+{
+   //copy over your constructor from the Tic Tac Toe Board activity in the previous lesson!
+   private int turn;
+   private String[][] board;
+    
+    public TicTacToe() {
+        this.board = new String[][] {
+            {"-", "-", "-"},
+            {"-", "-", "-"},
+            {"-", "-", "-"}
+        };
+        this.turn = 0;
+    }
+    
+    public String[][] getBoard() {
+        return this.board;
+    }
+   
+   //this method returns the current turn
+   public int getTurn()
+   {
+       return this.turn;
+   }
+   
+   /*This method prints out the board array on to the console
+   */
+   public void printBoard()
+   {
+       for(int i = -1; i < board.length; i++) {
+           int rowLength = board[Math.max(i,0)].length;
+           for(int j = -1; j < rowLength; j++) {
+               //leave the top-left corner blank
+               if(i < 0 && j < 0) System.out.print(" ");
+               else if(i < 0) System.out.print(j);
+               else if(j < 0)  System.out.print(i);
+               else System.out.print(board[i][j]);
+               
+               //codehs doesn't like us having the extra padding on the first row for some reason >:(
+               if(i > -1 || j < 2) System.out.print(" ");
+           }
+           System.out.println();
+       }
+   }
+   
+   //This method returns true if space row, col is a valid space
+   public boolean pickLocation(int row, int col)
+   {
+        return board[row][col].equals("-");
+   }
+   
+   //This method places an X or O at location row,col based on the int turn
+   public void takeTurn(int row, int col)
+   {
+       if(turn % 2 == 0) board[row][col] = "X";
+       else board[row][col] = "O";
+       
+       turn++;
+   }
+   
+   public boolean spaceAvailable() {
+       for(String[] row : board) {
+           for(String space : row) {
+               if(space.equals("-")) return true;
+           }
+       }
+       return false;
+   }
+   
+   //This method returns a boolean that returns true if a row has three X or O's in a row
+   public boolean checkRow()
+   {
+       for(String[] row : board) {
+           int xInRow = 0;
+           int oInRow = 0;
+           for(String space : row) {
+               if(space.equals("X")) xInRow++;
+               else xInRow = 0;
+               
+               if(space.equals("O")) oInRow++;
+               else oInRow = 0;
+               
+               if(xInRow >= 3 || oInRow >= 3) return true;
+           }
+       }
+       return false;
+   }
+   
+    //This method returns a boolean that returns true if a col has three X or O's
+   public boolean checkCol()
+   {
+       int rowLength = board[0].length;
+       for(int row = 0; row < rowLength; row++) {
+           int xInRow = 0;
+           int oInRow = 0;
+           for(int col = 0; col < board.length; col++) {
+               if(board[col][row].equals("X")) xInRow++;
+               else xInRow = 0;
+               
+               if(board[col][row].equals("O")) oInRow++;
+               else oInRow = 0;
+               
+               if(xInRow >= 3 || oInRow >= 3) return true;
+           }
+       }
+       return false;
+   }
+   
+    //This method returns a boolean that returns true if either diagonal has three X or O's
+   public boolean checkDiag()
+   {
+       String diag1 = board[0][0] + board[1][1] + board[2][2];
+       String diag2 = board[0][2] + board[1][1] + board[0][2];
+       
+       return diag1.equals("XXX") || diag1.equals("OOO") || diag2.equals("XXX") || diag2.equals("OOO");
+   }
+   
+   //This method returns a boolean that checks if someone has won the game
+   public boolean checkWin()
+   {
+       return checkDiag() || checkCol() || checkRow();
+   }
+
+}
+
+        </code>
+    

@@ -1,0 +1,20 @@
+
+<h1>3.5.8 Divisibility</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Divisibility 
+            {
+                public static void main(String[] args)
+                {
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("Enter the dividend: \nEnter the divisor: ");
+                    int dividend = input.nextInt();
+                    int divisor = input.nextInt();
+                    if(divisor == 0 || dividend % divisor > 0) System.out.println(dividend + " is not divisible by " + divisor + "!");
+                    else System.out.println(dividend + " is divisible by " + divisor + "!");
+                }
+            }
+        </code>
+    

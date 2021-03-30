@@ -1,0 +1,26 @@
+
+<h1>3.2.6 Discounts</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Discounts
+            {
+                public static void main(String[] args)
+                {
+                    // Create a scanner object
+                    Scanner in = new Scanner(System.in);
+                    
+                    // Ask how many hours were you parked
+                    int hoursParked = in.nextInt();
+                    // Compute cost - $3.50 per hour
+                    double cost = 3.5 * hoursParked;
+                    // If cost is over $20, set cost to $20
+                    if(cost > 20) cost = 20.0;
+                    // Display the final cost
+                    System.out.println("You owe $" + cost);
+                    
+                }
+            }
+        </code>
+    

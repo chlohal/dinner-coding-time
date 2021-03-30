@@ -1,0 +1,85 @@
+
+<h1>9.1.9 More Animals!</h1>
+
+        <aside class="tip">
+            <h2>JSYK</h2>
+            <p>You don't need to fill in <code>AnimalTester.java</code> at all-- the autograder doesn't care about it.</p>
+        </aside>
+
+        <code id="source">
+            public class AnimalTester
+            {
+                public static void main(String[] args)
+                {
+                    // Add code to test your hierarchy
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Pet extends Animal
+{
+   private String name;
+   private String size;
+   
+   public void setName(String _name) {
+       this.name = _name;
+   }
+   public String getName() {
+       return this.name;
+   }
+   
+   public void setSize(String _size) {
+       this.size = _size;
+   }
+   public String getSize() {
+       return this.size;
+   }
+   
+}
+
+        </code>
+        <code id="source2">
+            public class Animal
+{
+   private String type;
+   
+   public void setType(String _type) {
+       this.type = _type;
+   }
+   public String getType() {
+       return this.type;
+   }
+   
+}
+
+        </code>
+        <code id="source3">
+            public class Fish extends Pet
+{
+    
+    String water;
+    public void setWater(String _water) {
+       this.water = _water;
+   }
+   public String setWater() {
+       return this.water;
+   }
+}
+
+        </code>
+        <code id="source4">
+            public class Dog extends Pet
+{
+   boolean isTrained;
+    public void setIsTrained(boolean _isTrained) {
+       this.isTrained = _isTrained;
+   }
+   public boolean getIsTrained() {
+       return this.isTrained;
+   }
+   
+}
+
+        </code>
+    

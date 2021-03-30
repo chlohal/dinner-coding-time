@@ -1,0 +1,73 @@
+
+<h1>2.8.9 Concatenating Fractions</h1>
+
+        <code id="source">
+            public class Fraction
+            {
+                private int numerator;
+                private int denominator;
+                
+                public Fraction(int numer, int denom)
+                {
+                    numerator = numer;
+                    denominator = denom;
+                }
+                
+                // Returns the numerator
+                public int getNumerator()
+                {
+                    return numerator;
+                }
+                
+                // Returns the denominator
+                public int getDenominator()
+                {
+                    return denominator;
+                }
+                
+                
+                // Returns a string representing a fraction
+                // in the form
+                // numerator/denominator
+                public String toString()
+                {
+                    return numerator + "/" + denominator;
+                }
+                
+                
+            }
+            
+        </code>
+        <code id="source1">
+            import java.util.Scanner;
+
+public class FractionTester
+{
+    public static void main(String[] args)
+    {
+        // Create objects
+        Scanner input = new Scanner(System.in);
+        
+        // Ask for input
+        System.out.println("Enter the numerator:");
+        int numer = input.nextInt();
+        
+        System.out.println("Enter the denominator:");
+        int denom = input.nextInt();
+        // Create a new Fraction with the user's input
+        Fraction fr = new Fraction(numer, denom);
+        Fraction half = new Fraction(1, 2);
+        // Add the fractions
+        // Make use of the getDenominator and getNumerator methods
+        Fraction result = new Fraction((1*denom + 2*numer),
+                                        2 * denom);
+        
+        // Print out the fractions as an equation
+        // Remember you don't have to call toString yourself!
+        System.out.println(half + " + " + fr + " = " + result);
+        
+    }
+}
+
+        </code>
+    

@@ -1,0 +1,85 @@
+
+<h1>9.1.7 Books</h1>
+
+        <code id="source">
+            public class Fiction extends Book
+            {
+                private String author;
+                
+                
+                public String getAuthor() {
+                    return author;
+                }
+                
+                public void setAuthor(String author) {
+                    this.author = author;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class BookTester
+{
+    public static void main(String[] args)
+    {
+        Fiction hungerGames = new Fiction();
+        
+        hungerGames.setPages(374);
+        hungerGames.setName("The Hunger Games");
+        hungerGames.setAuthor("Suzanne Collins");
+        
+        Dict websters = new Dict();
+        websters.setPages(720);
+        websters.setName("Webster's Dictionary");
+        websters.setWords(171476);
+        
+        System.out.println(hungerGames.getName());
+        System.out.println(websters.getName());
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class Dict extends Book
+{
+    private int words;
+    
+    
+    public int getWords() {
+        return words;
+    }
+    
+    public void setWords(int words) {
+        this.words = words;
+    }
+}
+
+        </code>
+        <code id="source3">
+            public class Book
+{
+    
+    
+    private int pages;
+    private String name;
+    
+    
+    public int getPages() {
+        return pages;
+    }
+    
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+        </code>
+    

@@ -1,0 +1,78 @@
+
+<h1>5.6.6 Food App Demo</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class FoodRunner
+            {
+                public static void main(String[] args)
+                {
+                    Scanner input = new Scanner(System.in);
+                    
+                    Food burger = new Food("Hamburgers", 600);
+                    Food fries = new Food("Hamburgers", 350);
+                    Food coke = new Food("Hamburgers", 200);
+                    
+                    System.out.println(burger);
+                    System.out.println("How many would you like?");
+                    int burgerCount = input.nextInt();
+                    
+                    System.out.println(fries);
+                    System.out.println("How many would you like?");
+                    int friesCount = input.nextInt();
+                    
+                    System.out.println(coke);
+                    System.out.println("How many would you like?");
+                    int cokeCount = input.nextInt();
+                    
+                    System.out.println("Your meal will have a total of "   + ( 
+                            burger.getCalories() * burgerCount +
+                            fries .getCalories() * friesCount  +
+                            coke  .getCalories() * cokeCount
+                        )
+                        + " calories");
+                }
+            }
+            
+        </code>
+        <code id="source1">
+public class Food
+{
+        private String name;
+        private int calories;
+        
+        
+        public Food(String name, int calories) {
+            this.name = name;
+            this.calories = calories;
+        }
+        
+        
+        public int getCalories() {
+            return this.calories;
+        }
+        
+        public void setCalories(int calories) {
+            this.calories = calories;
+        }
+        
+        
+        
+        public String getName() {
+            return this.name;
+        }
+        
+        public void setName(String name) {
+            this.name = name;
+        }
+        
+        
+        public String toString() {
+            return name + " have " + calories + " calories.";
+        }
+    
+}
+
+        </code>
+    

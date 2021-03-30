@@ -1,0 +1,81 @@
+
+<h1>2.5.8 More Operations</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class CalculatorTester
+            {
+                public static void main(String[] args)
+                {
+                    Scanner in = new Scanner(System.in);
+                    
+                    System.out.println("Enter 2 doubles");
+                    
+                    double x = in.nextDouble();
+                    double y = in.nextDouble();
+                    
+                    Calculator calc = new Calculator();
+                    calc.sum(x, y);
+                    calc.subtract(x, y);
+                    calc.multiply(x, y);
+                    calc.divide(x, y);
+                }
+            }
+        </code>
+        <code id="source1">
+            public class Calculator
+{
+    // This class does not need instance variables!
+    
+    // Prints the sum of x and y
+    public void sum(double x, double y)
+    {
+        double result = x + y;
+        System.out.print(x);
+        System.out.print(" + ");
+        System.out.print(y);
+        System.out.print(" = ");
+        System.out.println(result);
+        
+    }
+    
+    // Prints the product of x and y
+    public void multiply(double x, double y)
+    {
+        double result = x * y;
+        System.out.print(x);
+        System.out.print(" * ");
+        System.out.print(y);
+        System.out.print(" = ");
+        System.out.println(result);
+        
+    }
+    
+    // Prints the product of x and y
+    public void divide(double x, double y)
+    {
+        double result = x / y;
+        System.out.print(x);
+        System.out.print(" / ");
+        System.out.print(y);
+        System.out.print(" = ");
+        System.out.println(result);
+        
+    }
+    
+    // Prints the product of x and y
+    public void subtract(double x, double y)
+    {
+        double result = x - y;
+        System.out.print(x);
+        System.out.print(" - ");
+        System.out.print(y);
+        System.out.print(" = ");
+        System.out.println(result);
+        
+    }
+}
+
+        </code>
+    

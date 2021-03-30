@@ -1,0 +1,66 @@
+
+<h1>2.4.6 Loose Change</h1>
+
+        <code id="source">
+            public class Coins {
+
+                private int quarters;
+                private int dimes;
+                private int nickels;
+                private int pennies;
+            
+                public Coins(int numQuarters, int numDimes, int numNickels, int numPennies){
+                    quarters = numQuarters;
+                    dimes = numDimes;
+                    nickels = numNickels;
+                    pennies = numPennies;
+                }
+            
+                public void addQuarter(){
+                    quarters ++;
+                }
+            
+                public void addDime(){
+                    dimes ++;
+                }
+            
+                public void addNickel(){
+                    nickels ++;
+                }
+            
+                public void addPenny(){
+                    pennies ++;
+                }
+                
+                public void dimesCount(){
+                    System.out.println(dimes);
+                }
+            
+                public void bankValue(){
+                    System.out.println(quarters * 0.25 + dimes * 0.10
+                            + nickels * 0.05 + pennies * 0.01);
+                }
+            
+                public void bankCount(){
+                    System.out.println(quarters + dimes + nickels + pennies);
+                }
+            }            
+        </code>
+        <code id="source1">
+            public class CoinTester
+{
+    public static void main(String[] args) {
+        Coins bank = new Coins(4,3,2,1);
+        
+        bank.addQuarter();
+        bank.addQuarter();
+        bank.addDime();
+        bank.addDime();
+        bank.addPenny();
+        
+        bank.bankCount();
+        bank.bankValue();
+    }
+}
+        </code>
+    

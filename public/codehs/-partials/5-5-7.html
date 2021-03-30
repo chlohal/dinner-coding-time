@@ -1,0 +1,65 @@
+
+<h1>5.5.7 Weekly Routine</h1>
+<aside class="tip">
+    <h2>Tip</h2> You don't have to fill <code>RoutineTester.java</code>; the autograder doesn't care about it.
+    You'll get a Completed mark either way.
+</aside>
+        <code id="source">
+            public class RoutineTester
+{
+    public static void main(String[] args) 
+    {
+        Routine myWeek = new Routine();
+        
+        myWeek.setSchool(8);
+        myWeek.setSports(3);
+        myWeek.setSleep(8);
+        myWeek.setFun(2);
+        
+        // Prints the totals for the WHOLE WEEK
+        myWeek.printTotal();
+    }
+}
+
+        </code>
+        <code id="source1">public class Routine
+            {
+                private double sleep;
+                private double fun;
+                private double school;
+                private double sports;
+                
+                public Routine() {
+                    this.sleep = 0.0;
+                    this.fun = 0.0;
+                    this.school = 0.0;
+                    this.sports = 0.0;
+                }
+                
+                public void setSleep(double s) {
+                    this.sleep = s;
+                }
+                public void setFun(double s) {
+                    this.fun = s;
+                }
+                public void setSchool(double s) {
+                    this.school = s;
+                }
+                public void setSports(double s) {
+                    this.sports = s;
+                }
+                
+                public void printTotal() {
+                    System.out.println("Weekly Totals");
+                    System.out.println("Sleep: " + sleep*7);
+                    System.out.println("School: " + school*7);
+                    System.out.println("Sports: " + sports*7);
+                    System.out.println("Fun: " + fun*7);
+                    System.out.println("Grand Total: " + (sleep*7 + school*7 + sports*7 + fun*7 ));
+                    System.out.println("Hours left over: " + (24*7-(sleep*7 + school*7 + sports*7 + fun*7 )) );
+            
+                }
+            }
+            
+        </code>
+    

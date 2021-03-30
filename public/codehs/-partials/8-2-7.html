@@ -1,0 +1,25 @@
+
+<h1>8.2.7 Sum Rows in a 2D Array</h1>
+
+        <code id="source">
+            public class Sum
+            {
+                public static void main(String[] args)
+                {
+                    int[][] array = {{32, 4, 14, 65, 23, 6},
+                                    {4, 2, 53, 31, 765, 34},
+                                    {64235, 23, 522, 124, 42, 64}};
+                                    
+                    for(int i = 0; i < array.length; i++) System.out.println(sumRow(array, i));
+                }
+                
+                public static int sumRow(int[][] array, int row)
+                {
+                    int total = 0;
+                    for(int n : array[row]) total += n;
+                    return total;
+                }
+            }
+            
+        </code>
+    

@@ -1,0 +1,47 @@
+
+<h1>5.6.5 Distance Conversions</h1>
+
+        <code id="source">
+            public class DistanceTester
+            {
+                public static void main(String[] args)   
+                {
+                    Distance milesFromSchool = new Distance(5.0);
+                    Distance milesFromPark = new Distance(10.0);
+                    Distance milesFromFriend = new Distance(12.0);
+                    
+                    System.out.println(milesFromSchool.toYards());
+                    System.out.println(milesFromPark.toKilometers());
+                    System.out.println(milesFromFriend.toFeet());
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Distance
+{
+    private double miles;
+    
+    public Distance(double startMiles) {
+        this.miles = startMiles;
+    }
+    
+    public double toKilometers() {
+        return miles / 0.62137;
+    }
+    
+    public double toYards() {
+        return miles * 1760;
+    }
+    
+    public double toFeet() {
+        return miles * 5280;
+    }
+    
+    public double getMiles() {
+        return miles;
+    }
+}
+
+        </code>
+    

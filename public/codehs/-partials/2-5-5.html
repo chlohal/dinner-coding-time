@@ -1,0 +1,48 @@
+
+<h1>2.5.5 Using the Point Class</h1>
+
+        <code id="source">
+            public class Point
+            {
+                private int x;
+                private int y;
+                
+                public Point(int xCoord, int yCoord)
+                {
+                    x = xCoord;
+                    y = yCoord;
+                }
+                
+                public void move(int dx, int dy)
+                {
+                    x += dx;
+                    y += dy;
+                }
+                
+                public String toString()
+                {
+                    return x + ", " + y;
+                }
+            }
+        </code>
+        <code id="source1">
+            public class PointTester
+{
+    public static void main(String[] args)
+    {
+        Point p = new Point(10, 5);
+        System.out.println(p);
+        p.move(3, 4);
+        
+        System.out.println(p);
+        
+        Point p2 = new Point(2, 4);
+        System.out.println(p2);
+        p2.move(5, 2);
+        
+        System.out.println(p2);
+
+    }
+}
+        </code>
+    

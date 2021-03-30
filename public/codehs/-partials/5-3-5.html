@@ -1,0 +1,73 @@
+
+<h1>5.3.5 Commenting Activity Tracker</h1>
+
+        <code id="source">
+            public class ActivityLog
+            {
+                private double numHours;
+                private double numMiles;
+                
+                public ActivityLog()
+                {
+                    numHours = 0;
+                    numMiles = 0;
+                }
+                
+                public void addHours(double hours)
+                {
+                    numHours += hours;
+                }
+                
+                public void addMiles(double miles)
+                {
+                    numMiles += miles;
+                }
+                
+                public double getMiles()
+                {
+                    return numMiles;
+                }
+                
+                public double getHours() 
+                {
+                    return numHours;
+                }
+                
+            }
+            
+        </code>
+        <code id="source1">
+            public class ActivityTracker
+{
+    public static void main(String[] args)
+    {
+        ActivityLog mylog = new ActivityLog();
+        
+        //log miles
+        mylog.addMiles(5);
+        mylog.addHours(1);
+        
+        //print user's mile count
+        System.out.print("Total Miles: ");
+        //print on a separate line
+        System.out.println(mylog.getMiles());
+        
+        //get initial hours from log
+        double hoursToday = mylog.getHours();
+        
+        //log some hours
+        mylog.addHours(1.5);
+        mylog.addHours(3);
+        
+        //get change-- `final - initial`
+        double increase = mylog.getHours() - hoursToday;
+        
+        //print increase; use `.print()` instead of string concatanation
+        System.out.print("There are ");
+        System.out.print(increase);
+        System.out.println(" more hours today than two days ago");
+    }
+}
+
+        </code>
+    

@@ -1,0 +1,85 @@
+
+<h1>5.6.7 Car Class</h1>
+
+        <code id="source">
+            public class CarTester {
+
+                public static void main(String[] args) {
+                    //Create a car that gets 20 mpg and has a 15 gallon tank
+                    Car minivan = new Car(20.0, 15.0);
+                    //Fill up the gas tank
+                    minivan.addGas();
+                    //Check the miles available
+                    System.out.println("Miles available: " + minivan.milesAvailable());
+                    //Drive 100 miles
+                    minivan.drive(100.0);
+                    //Check the miles available
+                    System.out.println("Miles available: " + minivan.milesAvailable());
+                    //Add 2 gallons to the gas tank
+                    minivan.addGas(2.0);
+                    //Check the miles available
+                    System.out.println("Miles available: " + minivan.milesAvailable());
+                    //Try driving more miles than available by driving 1000 miles
+                    minivan.drive(1000.0);
+                    //Drive 200 miles
+                    minivan.drive(200.0);
+                    //Check how much gas you have left
+                    System.out.println("Gas remaining: " + minivan.getGas());
+                    //Print total miles driven
+                    System.out.println("Total Miles Driven: " + minivan.getTotalMilesDriven());
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Car {
+                private double efficiency; // this is miles per gallon
+                private double gas;
+                private double tankCapacity;
+                private double totalMilesDriven;
+                
+                public Car(double carEfficiency, double carTankCapacity) {
+                    this.efficiency = carEfficiency;
+                    this.tankCapacity = carTankCapacity;
+                    
+                    this.gas = 0;
+                    this.totalMilesDriven = 0;
+                }
+                
+                public void addGas() {
+                    System.out.println("Filling up ...");
+                    this.gas = tankCapacity;
+                }
+                public void addGas(double amount) {
+                    System.out.println("Adding gas ...");
+                    
+                    //you could also use `this.gas = Math.min(gas + amount, tankCapacity)`
+                    this.gas += amount;
+                    if(this.gas > this.tankCapacity) this.gas = this.tankCapacity;
+                }
+                
+                public double getTotalMilesDriven() {
+                    return this.totalMilesDriven;
+                }
+                public void drive(double distance) {
+                    if(canDrive(distance)) {
+                        System.out.println("Driving " + distance);
+                        totalMilesDriven += distance;
+                        gas -= distance / efficiency;
+                    } else {
+                        System.out.println("Can't drive " + distance + ". That's too far!");
+                    }
+                }
+                public boolean canDrive(double distance) {
+                    return gas >= distance / efficiency;
+                }
+                public double milesAvailable() {
+                    return efficiency * gas;
+                }
+                public double getGas() {
+                    return gas;
+                }
+            }
+            
+        </code>
+    

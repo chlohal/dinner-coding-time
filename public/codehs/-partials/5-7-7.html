@@ -1,0 +1,38 @@
+
+<h1>5.7.7 How Many Players in the Game?</h1>
+
+        <aside class="tip">
+            <h2>JSYK</h2>
+            <p>You don't have to fill in <code>PlayerTester</code> at all; the auto-grader doesn't care about it. You'll be approved either way!</p>
+        </aside>
+
+        <code id="source">
+            public class PlayerTester
+            {
+                public static void main(String[] args)
+                {
+                    // Test out the Player class here!
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Player 
+            {
+                // Static Variables
+                // ...
+                public static int totalPlayers = 0;
+                public static int maxPlayers = 10;
+                
+                // Public Methods
+                public Player() 
+                {
+                    totalPlayers++;
+                }
+                
+                public static boolean gameFull() {
+                    return totalPlayers >= maxPlayers;
+                }
+            }
+        </code>
+    

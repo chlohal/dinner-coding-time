@@ -1,0 +1,77 @@
+
+<h1>2.9.8 Guess the number!</h1>
+
+        <code id="source">
+            public class Extremes
+            {
+                Integer min;
+                Integer max;
+                
+                // Constructor
+                public Extremes()
+                {
+                    min = Integer.MIN_VALUE;
+                    max = Integer.MAX_VALUE;
+                }
+                
+                // Returns the difference
+                // max - number
+                public Integer maxDiff(Integer number)
+                {
+                    return max - number;
+                }
+            
+                // Returns the difference
+                // min - number
+                public Integer minDiff(Integer number)
+                {
+                    return min - number;
+                }
+                
+                // Returns a String representation
+                // in the form
+                // [min, max]
+                public String toString()
+                {
+                    return "[" + min + ", " + max + "]";   
+                }
+            }
+        </code>
+        <code id="source1">
+            import java.util.Scanner;
+import java.lang.*;
+
+public class ExtremeMain
+{
+    public static void main(String[] args)
+    {
+        // Create a Scanner object
+        Scanner input = new Scanner(System.in);
+        
+        // Create an Extremes object
+        Extremes extremes = new Extremes();
+        
+        // Ask the user to guess the maximum value of an Integer
+        System.out.println("Guess the maximum Integer value: ");
+        Integer guessMax = new Integer(input.nextInt());
+        System.out.println("You were off by " + extremes.maxDiff(guessMax));
+        System.out.println("Guess the minimum Integer value: ");
+        Integer guessMin = new Integer(input.nextInt());
+        System.out.println("You were off by " + extremes.minDiff(guessMin));
+        
+        // Compute and display the difference
+        // between the max and the guess
+        
+        
+        // Ask the user to guess the minimum value of an Integer
+        
+        
+        // Compute and display the difference 
+        // between the min and the guess
+        
+        
+    }
+}
+
+        </code>
+    

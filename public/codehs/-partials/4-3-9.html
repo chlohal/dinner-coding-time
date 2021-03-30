@@ -1,0 +1,33 @@
+
+<h1>4.3.9 Fixing Grammar</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+            public class Grammar
+            {
+                public static void main(String[] args)
+                {
+                    Scanner sc = new Scanner(System.in);
+                    String f = sc.nextLine();
+                }
+                
+                public static String useProperGrammar(String theText)
+                {
+                    String replaced = "";
+                    int correctCount = 0;
+                    for(int i = 0; i < theText.length(); i++) {
+                        if(theText.charAt(i) == '2') {
+                            replaced += "to";
+                            correctCount++;
+                        } else {
+                            replaced += "" + theText.charAt(i);
+                        }
+                    }
+                    
+                    System.out.println("Fixed " + correctCount + " grammatical errors:");
+                    
+                    return replaced;
+                }
+            }
+        </code>
+    

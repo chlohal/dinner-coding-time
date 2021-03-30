@@ -1,0 +1,56 @@
+
+<h1>9.3.6 Dogs Bark</h1>
+
+        <code id="source">
+            public class DogTester
+            {
+                public static void main(String[] args)
+                {
+                    System.out.println(new Dog("Fido"));
+                    System.out.println(new LoudDog("Tib"));
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class LoudDog extends Dog
+{
+   
+   public LoudDog(String name){
+       super(name);
+   }
+   
+   public String speak(){
+       return "BARK!";
+   }
+   
+   public String toString(){
+      return super.getName() + " is loud and likes to " + speak();
+   }
+}
+
+        </code>
+        <code id="source2">
+            public class Dog
+{
+    private String name;
+    
+     public Dog(String name){
+       this.name = name;
+   }
+   
+   public String getName(){
+       return name;
+   }
+   
+   public String speak(){
+       return "Bark!";
+   }
+   
+   public String toString(){
+       return name + " likes to " + speak();
+   }
+}
+
+        </code>
+    

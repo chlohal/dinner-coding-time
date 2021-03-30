@@ -1,0 +1,51 @@
+
+<h1>7.3.8 ArrayList Helper Methods</h1>
+
+        <code id="source">
+            import java.util.ArrayList;
+
+            public class ArrayListMethodsTester
+            {
+                public static void main(String[] args)
+                {
+                    ArrayList&lt;String&gt; stringArray = new ArrayList&lt;String&gt;();
+                    stringArray.add("This");
+                    stringArray.add("is");
+                    stringArray.add("an");
+                    stringArray.add("ArrayList");
+                    stringArray.add("of");
+                    stringArray.add("Strings");
+                    
+                    ArrayListMethods.print(stringArray);
+                    System.out.println("\nArrayList is condensing:");
+                    ArrayListMethods.condense(stringArray);
+                    ArrayListMethods.print(stringArray);
+                    System.out.println("\nArrayList is duplicating:");
+                    ArrayListMethods.duplicate(stringArray);
+                    ArrayListMethods.print(stringArray);
+                    
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            import java.util.ArrayList;
+public class ArrayListMethods
+{
+    public static void print(ArrayList&lt;String&gt; array) {
+        for(String s : array) System.out.println(s);
+    }
+    public static void condense(ArrayList&lt;String&gt; array) {
+        for(int i = 0; i &lt; array.size() - 1; i++) {
+            array.set(i, array.get(i) + array.get(i+1));
+            array.remove(i+1);
+        }
+    }
+    public static void duplicate(ArrayList&lt;String&gt; array) {
+        for(int i = 0; i &lt; array.size(); i+=2) {
+            array.add(i, array.get(i));
+        }
+    }
+}
+        </code>
+    

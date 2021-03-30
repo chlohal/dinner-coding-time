@@ -1,0 +1,36 @@
+
+<h1>2.2.8 Instance Variables for Your Dog</h1>
+
+        <code id="source">
+            public class Dog 
+            {
+                private String breed;
+                private String name;
+                
+                public Dog(String theBreed, String _name)
+                {
+                    breed = theBreed;
+                    name = _name;
+                }
+                
+                // This method should work after you add the
+                // new instance variable and update the constructor.
+                // DO NOT modify this method.
+                public String toString()
+                {
+                    return name + " is a " + breed;
+                }
+            }
+        </code>
+        <code id="source1">
+            public class DogTester 
+{
+    public static void main(String[] args) 
+    {
+        Dog golden = new Dog("Golden Retriever", "Sammy");
+        System.out.println(golden);
+    }
+}
+
+        </code>
+    

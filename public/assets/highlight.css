@@ -1,0 +1,183 @@
+.hlast-comment-standalone, .hlast-comment, .hljs-quote {
+    color: hsl(36, 0%, 62%);
+    font-style: italic
+}
+
+.hljs-keyword, .hljs-selector-tag, .hlast-modifier, .hlast-keyword {
+    color: #dd743b
+}
+
+.hlast-this, .hlast-null {
+    color: #f55742
+}
+
+.hlast-null {
+    color: #f777ec
+}
+
+.hljs-regexp, .hlast-string-literal, .hljs-template-variable {
+    color: #badb6e
+}
+
+.hlast-char-literal {
+    color: #abcf57
+}
+
+.hlast-decimal-literal, .hlast-float-literal {
+    color: #6edb9b
+}
+
+.hlast-float-literal-suffix {
+    font-weight: lighter;
+    color: #bee0cc
+}
+
+.hlast-boolean-literal {
+    color: #60bd5e
+}
+
+span.sibling-1[data-nodepath$="method-declaration identifier"] {
+    color:#e8bf6a
+}
+
+.hljs-, .hljs-tag, .hlast-type-type, span[data-nodepath$="class-declaration identifier"],
+span[data-nodepath$="method-declaration identifier"], span[data-nodepath$="constructor-declaration identifier"] {
+    color: #f2f3cc
+}
+
+span[data-nodepath$="method-invocation identifier"] {
+    color: #e46464
+}
+
+.hljs-attr, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-link, .hljs-symbol, .hlast-primitive-type, .hlast-void {
+    color: #6d9cbe
+}
+
+
+
+span[data-nodepath$="qualified-expression identifier"].capitalized {
+    color: #f2f3ac;
+    font-style: italic;
+}
+
+.hlast-identifier.uppercase {
+    color: #e3fcf7
+}
+
+
+.hljs-params, .hlast-operator, .hlast-dimension > .hlast-pairedchar, .hlast-type-arguments > .hlast-pairedchar {
+    color: #b1b1d8
+}
+
+.hljs-attribute, .hlast-field-declaration span[data-nodepath$="type-type identifier"],
+span[data-nodepath$="formal-parameter identifier"],
+span[data-nodepath$="local-variable-declaration identifier"],
+span[data-nodepath$="field-declaration identifier"],
+span[data-nodepath$="catch-type qualified-name identifier"],
+span[data-nodepath$="class-or-interface-type-element identifier"] {
+    color: #cda869
+}
+
+.hlast-annotation {
+    color: #e39ee9;
+    font-style: italic;
+}
+
+.hljs-section, .hljs-title {
+    color: #ffc66d
+}
+
+.hljs-addition {
+    background-color: #144212;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%
+}
+
+.hljs-deletion {
+    background-color: #600;
+    color: #e6e1dc;
+    display: inline-block;
+    width: 100%
+}
+
+.hljs-selector-class {
+    color: #9b703f
+}
+
+.hljs-selector-id {
+    color: #8b98ab
+}
+
+.hljs-emphasis {
+    font-style: italic
+}
+
+.hljs-strong {
+    font-weight: 700
+}
+
+.hljs-link {
+    text-decoration: underline
+}
+
+.hlast.partner-selected,
+.hlast:focus {
+    outline: 1px solid #eee;
+    background: #191920;
+    color: #fff;
+}
+
+.hlast.has-tooltip-open {
+    outline: 1px solid #4e5074;
+    background: #171825;
+}
+
+.hlast-block {
+    position: relative;
+}
+
+.hlast-block > .hlast[data-nodepath]::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2ch;
+    border-left:#4e5074 solid 1px;
+    pointer-events: none;
+}
+
+#explain-tooltip {
+    position: absolute;
+    margin: 0;
+    background-color: #272b4e;
+    border: 0;
+    padding: 0.25em;
+    border-radius: 0.125em;
+    box-shadow: 0 3px 6px 0px #0d0e1a;
+    color: #f7f7fa;
+    line-height: 1.2;
+    max-width: 100vw;
+    width: 40ch;
+    animation: tooltip-fade-in 0.2s;
+    top: 0;
+    left: 0;
+}
+
+.code-with-lines ::selection,
+#explain-tooltip ::selection,
+#explain-tooltip ::-moz-selection,
+.code-with-lines ::-moz-selection {
+    background-color: #474864;
+    color: #eee;
+}
+
+@keyframes tooltip-fade-in {
+    0% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

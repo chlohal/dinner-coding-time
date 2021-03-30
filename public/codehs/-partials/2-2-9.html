@@ -1,0 +1,36 @@
+
+<h1>2.2.9 Pizza Time!</h1>
+
+        <code id="source">
+            public class Pizza
+            {
+                private String type;
+                private String toppings;
+                private int size;
+            
+                Pizza(String theType, String theToppings, int theSize) {
+                    type = theType;
+                    toppings = theToppings;
+                    size = theSize;
+                }
+                
+                public String toString() {
+                    return (size + "in " + type + " pizza with " + toppings);
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class PizzaTester 
+{
+    public static void main(String[] args)
+    {
+        
+        System.out.println((new Pizza("Veggie", "Tomato", 12)).toString());
+        System.out.println((new Pizza("Hawaiian", "Pineapple", 10)).toString());
+        System.out.println((new Pizza("Salad", "Lettuce", 8)).toString());
+    }
+}
+
+        </code>
+    
