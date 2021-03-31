@@ -531,7 +531,7 @@ footer h3 {
     align-self: start;
 }
 
-footer .footer--socials {
+.footer--socials {
     list-style-type: none;
     display: flex;
     margin: 0;
@@ -542,18 +542,22 @@ footer .footer--socials {
     margin-top: 1em;
 }
 
-footer .footer--socials li {
+.footer--socials li {
     display: inline-block;
     margin-right: 1em;
 }
 
-footer .footer--socials svg {
+.footer--socials svg {
     height: 1.25em;
     width: 1.25em;
 }
 
-footer .footer--socials svg path {
+.footer--socials svg path {
     fill: #f7f5f5;
+}
+
+.footer--socials.dark svg path {
+    fill: #0E0F19;
 }
 
 footer .footer--links a {
