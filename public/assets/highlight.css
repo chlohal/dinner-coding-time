@@ -1,4 +1,4 @@
-.hlast-comment-standalone, .hlast-comment, .hljs-quote {
+.hlast-comment-standalone, .hljs-comment, .hlast-line-comment, .hlast-comment, .hljs-quote {
     color: hsl(36, 0%, 62%);
     font-style: italic
 }
@@ -7,7 +7,7 @@
     color: #dd743b
 }
 
-.hlast-this, .hlast-null {
+.hlast-this, .hlast-new {
     color: #f55742
 }
 
@@ -15,8 +15,13 @@
     color: #f777ec
 }
 
-.hljs-regexp, .hlast-string-literal, .hljs-template-variable {
+.hljs-regexp, .hlast-string-literal, .hljs-string, .hljs-template-variable {
     color: #badb6e
+}
+
+.hlast-escaped-quoted-char, .hlast-escaped-char {
+    color: #d7dd84;
+    font-weight: lighter;
 }
 
 .hlast-char-literal {
