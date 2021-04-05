@@ -73,7 +73,7 @@
     height: 1.5em;
     background: #2991ce;
     border-radius: 100%;
-    z-index: 999;
+    z-index: 9999;
     animation: shadowpulse 1s infinite;
     pointer-events: visiblePainted;
 }
@@ -95,6 +95,10 @@
     pointer-events: none;
 }
 
+.edit-tutorial--pulse-tip.collapsed {
+    display: none;
+}
+
 .edit-tutorial--pulse-tip button {
     font: inherit;
     font-family: 'JetBrains Mono', monospace;
@@ -110,7 +114,6 @@
 }
 
 .edit-tutorial--pulse:hover .edit-tutorial--pulse-tip {
-    display: block;
     opacity: 1;
     transform: scale(1);
     pointer-events: initial;

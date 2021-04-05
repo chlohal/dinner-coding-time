@@ -5,17 +5,17 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Contribute | Dinneen Coding Time</title>
+    <title>7.5.6 Linear Search on ArrayList with While Loop | Dinneen Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
+
     <script src="/assets/script.js" defer></script>
-    <script src="/assets/contribute-edit.js" defer></script>
-    <script src="/assets/contribute-editor-tutorial.js" defer></script>
-    <link rel="preload" href="/assets/highlight.css" as="style">
+    <script src="/assets/codehs-exercise.js" defer></script>
+<link rel="preload" href="/assets/highlight.css" as="style">
 
 
 
@@ -26,217 +26,6 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/assets/tutorial.css">
-
-    <style>
-        .part--annotate .code-with-lines th.can-have-annotation {
-            cursor: zoom-in;
-            vertical-align: bottom;
-            position: relative;
-        }
-
-        .code-with-lines th.has-annotation {
-            cursor: zoom-out;
-        }
-
-        .part--annotate .code-with-lines th.can-have-annotation::before {
-            content: "";
-            background-color: #dbdbdb;
-            position: absolute;
-            width: 0.5em;
-            height: 1em;
-        }
-
-        body.part--annotate .code-with-lines th.has-annotation::before {
-            content: "";
-            position: absolute;
-            width: 0.5em;
-            height: 1em;
-            background-color: #2991ce;
-        }
-
-        .code-with-lines code {
-            display: block;
-        }
-
-        .code-with-lines code:focus {
-            outline: 0;
-        }
-
-        .part--annotate .editbox {
-            display: none;
-        }
-
-        .editbox {
-            font: inherit;
-            border: 0;
-            background: #0000;
-            caret-color: #f7f7f7;
-            color: transparent;
-            resize: none;
-            left: 5ch;
-            top: 0;
-            height: 1000%;
-            width: 1000%;
-            position: absolute;
-            line-height: 1.25;
-            padding: 0;
-            margin: 0;
-            white-space: pre;
-        }
-
-        .editbox ::selection,
-        .editbox ::-moz-selection {
-            background-color: #474864;
-            color: #eee;
-        }
-
-        .editbox:focus {
-            outline: none;
-        }
-
-        .annotation {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            width: calc(100% + 5ch);
-            left: -5ch;
-            background: #f7fdfd;
-            border-radius: 5px;
-            color: #1b1d35;
-            z-index: 2;
-            display: none;
-        }
-
-        .part--annotate .annotation {
-            display: block;
-        }
-
-        .annotation,
-        .annotation p {
-            user-select: none;
-        }
-
-        .annotation:focus-within,
-        .annotation:focus-within p {
-            user-select: text;
-        }
-
-        .annotation::before {
-            content: "";
-            width: 100%;
-            top: 0;
-            height: 5px;
-            display: block;
-            position: absolute;
-            pointer-events: none;
-            background: linear-gradient(180deg, #1b1d35, transparent);
-        }
-
-        .annotation::after {
-            content: "";
-            width: 100%;
-            bottom: 0;
-            height: 5px;
-            display: block;
-            position: absolute;
-            pointer-events: none;
-            background: linear-gradient(0deg, #1b1d35, transparent);
-        }
-
-        .annotation p {
-            padding: 0.5em;
-            font-size: 1.4rem;
-            margin: 0;
-            white-space: normal;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-
-        nav#pipeline {
-            display: flex;
-            justify-content: space-evenly;
-            position: relative;
-            margin: 0 2em;
-        }
-
-        nav#pipeline::before {
-            content: "";
-            position: absolute;
-            background: linear-gradient(270deg, hsla(179, 83%, 64%, 1) 0%, hsla(338, 75%, 64%, 1) 50%, hsla(14, 92%, 86%, 1) 100%);
-            display: block;
-            left: 0;
-            right: 0;
-            height: 2px;
-            top: 50%;
-            bottom: 50%;
-            z-index: 0;
-        }
-
-        nav#pipeline button {
-            background: #f7f7f7;
-            border: 0;
-            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
-            z-index: 1;
-            cursor: pointer;
-            font-size: 1.25rem;
-            transition: color 0.2s;
-        }
-
-        nav#pipeline button::before {
-            content: "["
-        }
-
-        nav#pipeline button::after {
-            content: "]"
-        }
-
-        nav#pipeline button[aria-selected] {
-            color: hsla(338, 75%, 64%, 1);
-        }
-
-        nav#pipeline #pipeline-completion {
-            content: "";
-            position: absolute;
-            background: #1b1d35;
-            display: block;
-            right: 0;
-            height: 2px;
-            top: 50%;
-            bottom: 50%;
-            width: 100%;
-            z-index: 0;
-            transform-origin: right;
-            transition: transform 0.2s;
-        }
-
-        .created-state {
-            display: flex;
-            color: #f7f7f7;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .editor-tabs--tablist button .exit-button {
-            border: 0;
-        }
-
-        .exit-button:hover {
-            color: #f7f5f5;
-        }
-
-        .part--publish #editor-tabs {
-            display: none;
-        }
-
-        #reviewer {
-            display: none
-        }
-
-        .part--publish #reviewer {
-            display: block;
-        }
-    </style>
 </head>
 
 <body class="headerpadding">
@@ -270,34 +59,63 @@
         </path>
     </svg>
     <main>
-        <nav id="pipeline">
-            <button>Edit Java</button>
-            <button>Add Annotations</button>
-            <button>Review & Publish</button>
-            <span aria-hidden="true" id="pipeline-completion"></span>
-        </nav>
-        <h1 contenteditable="">Loading, please wait...</h1>
-        <div id="reviewer">
-            <section>
-                <h3>Review Annotations</h3>
-                <p>Because of technical limitations, annotations are not connected to lines. Instead, they're connected
-                    to specific statements in the code. For these purposes, classes, imports, and methods are all
-                    grouped under the general definition of "statement".</p>
-                <p>If you note your annotations being attached incorrectly, please let me know!</p>
-                <table id="review-annotations"></table>
-            </section>
-            <section>
-                <h3>Tip</h3>
-                <p>A "tip" appears at the top of the assignment. This is a good place to let people know about a
-                    Grader.java quirk, a tricky way the assignment is worded, or something else that doesn't really fit
-                    in an annotation.</p>
-                <label><input type="checkbox" name="Activate tip" id="show-tip-editor-check">Include a tip in this assignment</label>
-                <aside class="tip" id="tip-editor" style="display: none;">
-                    <h2 contenteditable="true">TIP</h2>
-                    <p contenteditable="true">Edit me!</p>
-                </aside>
-            </section>
-        </div>
+<h1>7.5.6 Linear Search on ArrayList with While Loop</h1>
+
+        <code id="source">
+            import java.util.ArrayList;
+            import java.util.Scanner;
+            public class FantasyFootball {
+                public static void main(String[] args) {
+                    ArrayList&lt;String&gt; availablePlayers = new ArrayList&lt;String&gt;();
+                    addPlayers(availablePlayers);
+                    
+                    String[] team = new String[5];
+                    
+                    Scanner sc = new Scanner(System.in);
+                    
+                    for(int i = 0; i < 5; i++) {
+                        System.out.println("Enter Player you would like on your team: ");
+                        String player = sc.nextLine();
+                        int playerIndex = search(availablePlayers, player);
+                        if(playerIndex > -1) {
+                            System.out.println("Great! That player is added to your team!");
+                            team[i] = player;
+                            availablePlayers.remove(playerIndex);
+                        }
+                        else {
+                            System.out.println("That player is not available, please pick another player.");
+                            i--;
+                        }
+                        System.out.println("");
+                    }
+                    System.out.println("Your team is:");
+                    for(int i = 0; i < 5; i++) System.out.println(team[i]);
+                }
+                public static int search(ArrayList&lt;String&gt; array, String player) {
+                    for(int i = 0; i < array.size(); i++) {
+                        if(array.get(i).equals(player)) return i;
+                    }
+                    return -1;
+                }
+                public static void addPlayers(ArrayList&lt;String&gt; array) {
+                    array.add("Cam Newton");
+                    array.add("Antonio Brown");
+                    array.add("Leveon Bell");
+                    array.add("Patrick Mahomes");
+                    array.add("Saquon Barkley");
+                    array.add("Mike Evans");
+                    array.add("Odell Beckham Jr.");
+                    array.add("Travis Kelce");
+                    array.add("Baker Mayfield");
+                    array.add("Michael Thomas");
+                    array.add("Julio Jones");
+                    array.add("Ezekial Elliott");
+                    array.add("Alvin Kamara");
+                    array.add("Davante Adams");
+                    array.add("Aaron Rogers");
+                }
+            }
+        </code>
     </main>
     <footer>
         <h3>Dinneen Coding Time</h3>
@@ -314,7 +132,7 @@
                     <li>
                         <a href="/worksheets">Worksheets</a>
                     </li>
-                    <li>
+<li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
                 </ul>
@@ -339,7 +157,7 @@
                     <li>
                         <a href="/legal/terms">Terms &amp; Conditions</a>
                     </li>
-                    <li>
+<li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>

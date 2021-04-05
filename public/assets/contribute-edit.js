@@ -47,7 +47,7 @@ var getUserStyle;
             parsingParent.innerHTML = xhr.response || data;
 
             //attachment points for the children
-            var tips = Array.from(document.querySelectorAll("aside.tip"));
+            var tips = Array.from(document.querySelectorAll("aside.tip:not(#tip-editor)"));
             tips.forEach(function (x) { x.parentElement.removeChild(x); });
 
             var main = document.querySelector("main");
@@ -631,22 +631,36 @@ public class NewClass${idx}${Math.floor(Math.random()*10000)} {
         var annotations = loadAllAnnotations();
         var table = document.getElementById("review-annotations");
         
+        while(table.children[0]) table.removeChild(table.children[0]);
+        
         for(var i = 0; i < annotations.length; i++) {
             table.appendChild(createReviewAnnotationRow(annotations[i]));
         }
+        
+        var checkbox = document.getElementById("show-tip-editor-check");
+        var tipEditor = document.getElementById("tip-editor");
+        function updateCheckbox() {
+            if(checkbox.checked) {
+                tipEditor.style.display = "block";
+            } else {
+                tipEditor.style.display = "none";
+            }
+        }
+        checkbox.addEventListener("change", updateCheckbox);
+        updateCheckbox();
     }
     
     function createReviewAnnotationRow(annotation) {
         var row = document.createElement("tr");
         
-        var anno = document.createElement("th");
-        anno.innerHTML = annotation.html;
-        anno.textContent = anno.textContent.substring(0, 150);
-        row.appendChild(anno);
-        
-        var astPos = document.createElement("td");
+        var astPos = document.createElement("th");
         astPos.textContent = annotation.astConstruct.split(",").reverse().map(x=> `statement ${x}`).join(" in ");
         row.appendChild(astPos);
+        
+        var annoContent = document.createElement("td");
+        annoContent.innerHTML = annotation.html;
+        annoContent.textContent = annoContent.textContent.substring(0, 150);
+        row.appendChild(annoContent);
         
         return row;
     }

@@ -2,6 +2,10 @@ var modalLightbox, modal;
 
 var steps = [
     {
+        target: ".tutorial-modal--button-container button:nth-child(1)",
+        button: "targetClick"
+    },
+    {
         target: "#pipeline button:nth-child(1)",
         content: "<h3>Step 1: Edit Java</h3> <p>In the first step out of 3, you can touch up the Java code of the solution. <strong>Just click on the file below to edit it!</strong> </p> <p>Please note, however, that this editor is a very minimal, quick-and-dirty thing. It's meant only for touch-ups-- it's not that good for serious coding! If you're trying to code a new challenge, I'd advise writing it somewhere else.</p>",
         continue: "button"
@@ -9,13 +13,12 @@ var steps = [
     {
         target: "#pipeline button:nth-child(2)",
         content: "<h3>Step 2: Annotate</h3> <p>Click on the '[Add Annotations]' button to go to the next step.</p>",
-        continue: "targetClick",
-        anchorX: "right"
+        continue: "button",
     },
     {
         target: "[aria-hidden=false] th.can-have-annotation",
         content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate <em>any</em> line because of technical limitations.</p><p>Click on the line number to add one.</p>",
-        continue: "targetClick",
+        continue: "button",
         delay: 10
     },
     {
@@ -27,9 +30,14 @@ var steps = [
     {
         target: "#pipeline button:nth-child(3)",
         content: "<h3>Step 3: Publishing</h3> <p>Click on the '[Review & Publish]' button when finished annotating in order to go to the next step!</p>",
-        continue: "targetClick",
+        continue: "button",
         anchorX: "right"
     },
+    {
+        target: "#review-annotations",
+        content: "<h3>See your Annotations</h3> <p>Review your annotations and make sure that everything's looking good </p>",
+        continue: "button"
+    }
 ]
 
 function showModal() {
@@ -46,6 +54,10 @@ function showModal() {
     modal.appendChild(modalInner);
 
     document.body.appendChild(modal);
+    
+    requestAnimationFrame(function() {
+        showTutorialStep(0);
+    });
 }
 
 function buildModalContent() {
@@ -98,10 +110,19 @@ function closeModal() {
 }
 
 function startTutorial() {
-    showTutorialStep(0);
+    showTutorialStep(1);
+}
+
+function removeStrayTutorialStep() {
+    var steps = Array.from(document.querySelectorAll(".edit-tutorial--pulse"));
+    for(var i = 0; i < steps.length; i++) {
+        steps[i].parentElement.removeChild(steps[i]);
+    }
 }
 
 function showTutorialStep(index) {
+    removeStrayTutorialStep();
+    
     var stepObject = steps[index];
     var targets = Array.from(document.querySelectorAll(stepObject.target));
     var target;
@@ -148,7 +169,10 @@ function buildTutorialPulse(x, y, html, buttonCb) {
 
     var pulseTip = document.createElement("div");
     pulseTip.classList.add("edit-tutorial--pulse-tip");
-    pulseTip.innerHTML = html;
+    
+    if(html !== undefined) pulseTip.innerHTML = html;
+    else pulseTip.classList.add("collapsed");
+    
     pulse.appendChild(pulseTip);
     
     if(buttonCb) {
