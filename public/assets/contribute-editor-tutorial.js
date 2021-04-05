@@ -14,29 +14,40 @@ var steps = [
         target: "#pipeline button:nth-child(2)",
         content: "<h3>Step 2: Annotate</h3> <p>Click on the '[Add Annotations]' button to go to the next step.</p>",
         continue: "button",
+        clickTargetAction: true
     },
     {
         target: "[aria-hidden=false] th.can-have-annotation",
-        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate <em>any</em> line because of technical limitations.</p><p>Click on the line number to add one.</p>",
-        continue: "button",
+        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate <em>any</em> line because of technical limitations.</p><p><strong>Click on the line number</strong> to add one.</p>",
+        continue: "button,targetClick",
+        clickTargetAction: true,
         delay: 10
     },
     {
         target: ".annotation",
         content: "<h3>Annotating</h3> <p>Write whatever you want! Try to explain the statement or method in a user-friendly way.</p>",
-        continue: "button",
+        continue: "button,targetClick",
+        clickTargetAction: true,
         anchorX: "center"
     },
     {
         target: "#pipeline button:nth-child(3)",
         content: "<h3>Step 3: Publishing</h3> <p>Click on the '[Review & Publish]' button when finished annotating in order to go to the next step!</p>",
         continue: "button",
+        clickTargetAction: true,
         anchorX: "right"
     },
     {
         target: "#review-annotations",
-        content: "<h3>See your Annotations</h3> <p>Review your annotations and make sure that everything's looking good </p>",
+        content: "<h3>See your Annotations</h3> <p>Review your annotations and make sure that everything's looking good! The table might look odd-- that's okay :) If you're not familiar with the statements, don't worry about it. </p>",
         continue: "button"
+    },
+    {
+        target: "#show-tip-editor-check",
+        content: "<h3>Add a Tip</h3><p>Is there anything weird about this assignment that people should know right away? You may want to add a tip.</p><p>Tips show up at the top and give important information.</p>",
+        anchorX: "right",
+        continue: "button",
+        clickTargetAction: true
     }
 ]
 
@@ -129,8 +140,6 @@ function showTutorialStep(index) {
     
     target = targets[Math.floor(Math.random() * Math.min(5, targets.length))];
     
-    console.log(targets);
-    
     setTimeout(function() {
         var targetRect = target.getBoundingClientRect();
         
@@ -142,10 +151,17 @@ function showTutorialStep(index) {
         var xPos = targetRect.x + (stepObject.anchorX === "right" ? targetRect.width : stepObject.anchorX === "center" ? targetRect.width/2 : 0);
         var yPos = targetRect.y + (stepObject.anchorY === "bottom" ? targetRect.height : stepObject.anchorY === "center" ? targetRect.height/2 : 0);
         
-        if(stepObject.continue == "button") {
+        if(stepObject.continue === undefined) stepObject.continue = "";
+        
+        if(stepObject.continue.includes("button")) {
             pulse = buildTutorialPulse(xPos, yPos, stepObject.content, function() {
                 pulse.parentElement.removeChild(pulse);
-                if(steps.length-1 > index) showTutorialStep(index + 1); 
+                if(stepObject.clickTargetAction) target.click();
+                
+                //only continue right away if it's *just* the button
+                if(stepObject.continue == "button") {
+                    if(steps.length-1 > index) showTutorialStep(index + 1);   
+                } 
             });
             document.body.appendChild(pulse);
         } else {
@@ -153,9 +169,9 @@ function showTutorialStep(index) {
             document.body.appendChild(pulse);
         }
         
-        if(stepObject.continue == "targetClick") target.addEventListener("click", function oneTimeListener() {
-            pulse.parentElement.removeChild(pulse);
-            if(steps.length-1 > index) showTutorialStep(index + 1);
+        if(stepObject.continue.includes("targetClick")) target.addEventListener("click", function oneTimeListener() {
+            if(pulse.parentElement) pulse.parentElement.removeChild(pulse);
+                if(steps.length-1 > index) showTutorialStep(index + 1);
             target.removeEventListener("click", oneTimeListener);
         });
     }, stepObject.delay || 10);
