@@ -2,11 +2,10 @@
 
 /codehs/:addr /legal/takedown 451!
 /worksheets* /legal/takedown 451!
-/error-almanac/* /legal/takedown 451!
 /homework/* /legal/takedown 451!
 /classwork/* /legal/takedown 451!
 /about /legal/takedown 451!
 /report-bug /legal/takedown 451!
 / /legal/takedown 451!
 
-/contribute/edit/* /contribute/edit 200!
+/contribute/:assignment /contribute/edit 200

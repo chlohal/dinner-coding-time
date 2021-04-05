@@ -14,6 +14,7 @@
 
     <script src="/assets/script.js" defer></script>
     <script src="/assets/contribute-edit.js" defer></script>
+    <script src="/assets/contribute-editor-tutorial.js" defer></script>
 <link rel="preload" href="/assets/highlight.css" as="style">
 
 
@@ -25,9 +26,10 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/tutorial.css">
 
     <style>
-        .code-with-lines th {
+        .part--annotate .code-with-lines th.can-have-annotation {
             cursor: zoom-in;
             vertical-align: bottom;
             position: relative;
@@ -36,13 +38,21 @@
         .code-with-lines th.has-annotation {
             cursor: zoom-out;
         }
-
-        .code-with-lines th.has-annotation::before {
+        
+        .part--annotate .code-with-lines th.can-have-annotation::before {
+            content: "";
+            background-color: #dbdbdb;
             position: absolute;
-            color: #2991ce;
-            font-weight: bolder;
-            transform: scale(1.5) translateX(0.25ch);
-            content: "\2235";
+            width: 0.5em;
+            height: 1em;
+        }
+
+        body.part--annotate .code-with-lines th.has-annotation::before {
+            content: "";
+            position: absolute;
+            width: 0.5em;
+            height: 1em;
+            background-color:#2991ce;
         }
 
         .code-with-lines code {
@@ -52,7 +62,7 @@
         .code-with-lines code:focus {
             outline: 0;
         }
-        .annotations-open .editbox {
+        .part--annotate .editbox {
             display: none;
         }
         .editbox {
@@ -72,6 +82,11 @@
             margin: 0;
             white-space: pre;
         }
+        .editbox ::selection, 
+        .editbox ::-moz-selection {
+            background-color: #474864;
+            color: #eee;
+        }
         .editbox:focus {
             outline: none;
         }
@@ -85,6 +100,16 @@
             border-radius: 5px;
             color: #1b1d35;
             z-index: 2;
+            display: none;
+        }
+        .part--annotate .annotation {
+            display: block;
+        }
+        .annotation, .annotation p {
+            user-select: none;
+        }
+        .annotation:focus-within,.annotation:focus-within p {
+            user-select: text;
         }
         .annotation::before {
             content: "";
@@ -136,6 +161,9 @@
             border: 0;
             font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
             z-index: 1;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: color 0.2s;
         }
         nav#pipeline button::before {
             content: "["
@@ -155,8 +183,33 @@
             height: 2px;
             top: 50%;
             bottom: 50%;
-            width: 75%;
+            width: 100%;
             z-index: 0;
+            transform-origin: right;
+            transition: transform 0.2s;
+        }
+        .created-state {
+            display: flex;
+            color: #f7f7f7;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .editor-tabs--tablist button .exit-button {
+            border: 0;
+        }
+        .exit-button:hover {
+            color: #f7f5f5;
+        }
+        
+        .part--publish #editor-tabs {
+            display: none;
+        }
+        #reviewer {
+            display: none
+        }
+        .part--publish #reviewer {
+            display: block;
         }
     </style>
 </head>
@@ -193,13 +246,18 @@
     </svg>
     <main>
         <nav id="pipeline">
-            <button aria-selected="true">Edit Java</button>
+            <button>Edit Java</button>
             <button>Add Annotations</button>
             <button>Review & Publish</button>
             <span aria-hidden="true" id="pipeline-completion"></span>
         </nav>
 <h1 contenteditable="">Loading, please wait...</h1>
-
+<div id="reviewer">
+    <section>
+        <h3>Annotations</h3>
+        <table id="review-annotations"></table>
+    </section>
+</div>
     </main>
     <footer>
         <h3>Dinneen Coding Time</h3>

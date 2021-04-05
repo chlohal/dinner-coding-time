@@ -14,14 +14,19 @@ var keywordContexts = {
     "class": "keyword",
     "public": "keyword",
     "static": "keyword",
+    
+    "public": "modifier",
+    "private": "modifier",
 
     "void": "void",
     "new": "new",
     "this": "this",
+    "super": "this",
     "null": "null",
 
     "for": "keyword",
     "if": "keyword",
+    "else": "keyword",
     "while": "keyword",
     "return": "keyword",
     "import": "keyword",
@@ -43,17 +48,26 @@ var startingChars = {
 function lex(src) {
     var result = "";
     var context = "BASE";
+    var syntaxLocation = "COMPILE_UNIT";
     var term = "";
+    
+    var counters = {
+        statement: [0],
+        activeCounter: 0
+    }
+    
+    var parenDepth = 0;
+    
 
-    for(var i = 0; i < src.length; i++) {
-        var char = src.charAt(i);
+    for(var j = 0; j < src.length; j++) {
+        var char = src.charAt(j);
         switch(context) {
             case "BASE": 
                 if(isAlphaNumeric(char)) {
                     term += char;
                 } else { 
-                    if(keywordContexts[term]) {
-                        result += `<span class="hlast-${keywordContexts[term] === true ? "keyword" : keywordContexts[term]}">${term}</span>`;
+                    if(keywordContexts.hasOwnProperty(term)) {
+                        result += `<span class="hlast-${keywordContexts[term]}">${term}</span>`;
                     } else if(term.match(/^-?[\d.]+$/)) {
                         result += `<span class="hlast-decimal-literal">${term}</span>`;
                     } else if(isCapitalized(term)) {
@@ -67,11 +81,11 @@ function lex(src) {
                         result += term;
                         term = "\"";
                         context = "STRING_LITERAL";
-                    } else if(char == "/" && src.charAt(i+1) == "/") {
+                    } else if(char == "/" && src.charAt(j+1) == "/") {
                         result += term;
                         term = "/";
                         context = "LINE_COMMENT";
-                    } else if(char == "/" && src.charAt(i+1) == "*") {
+                    } else if(char == "/" && src.charAt(j+1) == "*") {
                         result += term;
                         term = "/";
                         context = "COMMENT";
@@ -113,7 +127,7 @@ function lex(src) {
                 }
             break;
             case "COMMENT":
-                if(src.charAt(i - 1) == "*" && char == "/") {
+                if(src.charAt(j - 1) == "*" && char == "/") {
                     context = "BASE";
                     result += `<span class="hlast-comment">${term}/</span>`;
                     term = "";
@@ -122,13 +136,36 @@ function lex(src) {
                 }
             break;
         }
+        
+        if(context == "BASE" && char == "(") parenDepth++;
+        else if(context == "BASE" && char == ")") parenDepth--;
+        
+        if(context == "BASE") {
+            if(char == ";" && parenDepth == 0) {
+                counters.statement[counters.activeCounter]++;
+            } else if(char == "{") {
+                counters.activeCounter++;
+                while(counters.activeCounter >= counters.statement.length) counters.statement.push(0);
+                
+            } else if(char == "}") {
+                counters.statement.splice(counters.activeCounter, counters.statement.length - counters.activeCounter);
+                counters.activeCounter--;
+                counters.statement[counters.activeCounter]++;
+            }
+        }
+        
+        
+        if(j == 0 || src.charAt(j - 1) == "\n" || (context == "BASE" && char == "}")) {
+            result += `<span class="hlast-linemarker" data-address="${counters.statement.join(",")}"></span>`;
+        }
 
         if(char == "\n" && context != "BASE") {
             result += `<span class="hlast-${context.toLowerCase().replace(/_/g, "-")}">${term}</span>`;
             term =  "";
         }
+        
 
-        if(i + 1 == src.length) {
+        if(j + 1 == src.length && context != "BASE") {
             result += `<span class="hlast-${context.toLowerCase().replace(/_/g, "-")}">${term}</span>`;
         }
     }

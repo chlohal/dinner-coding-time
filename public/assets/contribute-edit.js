@@ -67,6 +67,7 @@ var getUserStyle;
 
             _global.removeAllEditors();
             _global.loadEditors();
+            _global.updateCurrentPartTo(0);
         }
 
         if (partialCache[partialAddress]) onLoadPartial(true, partialCache[partialAddress]);
@@ -171,6 +172,45 @@ var getUserStyle;
     })();
 
     createPlusButton();
+    
+    (_global.addSkeletonTip = function addSkeletonTip() {
+        
+    });
+    
+    (_global.loadPartButtons = function loadPartButtons() {
+        var partPipeline = document.getElementById("pipeline");
+        var partButtons = Array.from(partPipeline.children).filter(function(x) { return x.tagName == "BUTTON" } );
+        
+        for(var i = 0; i < partButtons.length; i++) {
+            initPartButton(partButtons[i], i);
+        }
+        
+        
+    })();
+    
+    function initPartButton(partButton, index) {
+        partButton.addEventListener("click", function() {
+            _global.updateCurrentPartTo(index);
+        })
+    }
+    
+    (_global.updateCurrentPartTo = function updateCurrentPartTo(partIndex) {
+        var partPipeline = document.getElementById("pipeline");
+        var partButtons = Array.from(partPipeline.children).filter(function(x) { return x.tagName == "BUTTON" } );
+        
+        
+        for(var i = 0; i < partButtons.length; i++) partButtons[i].removeAttribute("aria-selected");
+        partButtons[partIndex].setAttribute("aria-selected", "true");
+        
+        var completion = document.getElementById("pipeline-completion");
+        completion.style.transform = `scaleX(${0.25*(3 - partIndex)})`;
+        
+        var partNames = ["code", "annotate", "publish"];
+        for(var i = 0; i < partNames.length; i++) document.body.classList.remove("part--" + partNames[i]);
+        document.body.classList.add("part--" + partNames[partIndex]);
+        
+        if(partIndex == 2) loadReviewer();
+    })(0);
 
     (_global.loadEditors = function loadEditors() {
         var pathWithHash = window.location.pathname + "#/tab-";
@@ -217,7 +257,7 @@ var getUserStyle;
                             for (var i = 0; i < rows.length; i++) {
                                 var range = sel.rangeCount > i ? sel.getRangeAt(i) : document.createRange();
 
-                                var tCell = rows[i].lastElementChild;
+                                var tCell = rows[i].lastElementChild.lastElementChild;
                                 var nextRow = (rows[i + 1] || rows[i]);
                                 range.setStart(tCell, 0);
                                 range.setEnd(nextRow, rows[i + 1] ? 0 : rows[i].children.length);
@@ -234,11 +274,6 @@ var getUserStyle;
             }
         });
         parent.appendChild(table);
-
-        loadDep("hljs-worker.js", [], function() {
-            var editbox = createEditorEditbox(sourceLines, table);
-            parent.appendChild(editbox);
-        });
 
         var loader = document.createElement("div");
         loader.classList.add("code-with-lines--load-box");
@@ -259,6 +294,11 @@ var getUserStyle;
                 document.activeElement.blur();
                 parent.focus();
             })
+        });
+        
+        loadDep("hljs-worker.js", [], function() {
+            var editbox = createEditorEditbox(sourceLines, table, tabTitle);
+            parent.appendChild(editbox);
         });
 
         appendTab(tabTitle, border);
@@ -325,7 +365,6 @@ var getUserStyle;
     }
 
     function appendTab(tab, tabpanel) {
-        console.log("appending");
         var plainLocalIdentifier = "tab-" + editorsParent.children.length;
         var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
         var slugifiedId = generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
@@ -341,15 +380,16 @@ var getUserStyle;
 
         tab.addEventListener("click", function () {
             tab.focus();
-            console.log(index, selectedTabIndex);
             if (selectedTabIndex !== undefined) {
                 var selectedTab = editorsTablist.children[selectedTabIndex];
-                selectedTab.setAttribute("aria-selected", "false");
-                selectedTab.setAttribute("tabindex", "-1");
+                if(selectedTab !== undefined) {
+                    selectedTab.setAttribute("aria-selected", "false");
+                    selectedTab.setAttribute("tabindex", "-1");
 
-                var selectedTabpanel = document.getElementById(selectedTab.getAttribute("aria-controls"));
-                selectedTabpanel.setAttribute("hidden", "true");
-                selectedTabpanel.setAttribute("aria-hidden", "true");
+                    var selectedTabpanel = document.getElementById(selectedTab.getAttribute("aria-controls"));
+                    selectedTabpanel.setAttribute("hidden", "true");
+                    selectedTabpanel.setAttribute("aria-hidden", "true");
+                }
             }
 
             if (window.history && window.history.replaceState) window.history.replaceState(window.location.pathname, "", generatedId);
@@ -361,6 +401,18 @@ var getUserStyle;
             tab.setAttribute("aria-selected", "true");
             selectedTabIndex = index;
         });
+        
+        if(tab.textContent.length > 3) {
+            var exitButton = document.createElement("button");
+            exitButton.classList.add("exit-button");
+            exitButton.innerHTML = "&times;";
+            exitButton.setAttribute("aria-label", "Delete File");
+            exitButton.addEventListener("click", function() {
+                if(tab.parentElement) tab.parentElement.removeChild(tab);
+                if(tabpanel.parentElement) tabpanel.parentElement.removeChild(tabpanel);
+            });
+            tab.appendChild(exitButton);
+        }
 
         editorsTablist.appendChild(tab);
 
@@ -385,7 +437,7 @@ var getUserStyle;
                 if(table.children[i]) line = table.children[i];
                 else line = document.createElement("tr");
 
-                createAddAnnotationTh(i + 1, line);
+                createAddAnnotationTh(i + 1, line, htmlLines[i].replace(/<span class="hlast-linemarker" data-address="[\d,]+"><\/span>/g, "").match(/\w/));
 
                 createTableLineContent(htmlLines[i], line);
                 
@@ -397,7 +449,7 @@ var getUserStyle;
         return table;
     }
 
-    function createAddAnnotationTh(index, line) {
+    function createAddAnnotationTh(index, line, canHaveAnnotation) {
         var th;
 
         if(line.firstElementChild && line.firstElementChild.tagName == "TH") th = line.firstElementChild;
@@ -408,9 +460,12 @@ var getUserStyle;
             var numSpan = document.createElement("span");
             numSpan.textContent = index;
             th.appendChild(numSpan);
+            
 
             var annotation;
             th.addEventListener("click", function() {
+                if(!document.body.classList.contains("part--annotate")) return false;
+                if(!canHaveAnnotation) return false;
                 if(th.parentElement == undefined) return false;
 
                 if(!annotation) {
@@ -430,6 +485,9 @@ var getUserStyle;
             });
         }
         
+        if(canHaveAnnotation) th.classList.add("can-have-annotation");
+        else th.classList.remove("can-have-annotation");
+        
         if(!line.firstElementChild) line.appendChild(th);
 
         return th;
@@ -446,13 +504,15 @@ var getUserStyle;
         return paraParent;
     }
 
-    function createEditorEditbox(htmlLines, table) {
+    function createEditorEditbox(htmlLines, table, tabTitle) {
         var editbox = document.createElement("textarea");
         editbox.classList.add("editbox");
         editbox.setAttribute("spellcheck", "false");
         for(var i = 0; i < htmlLines.length; i++) {
             editbox.innerHTML += htmlLines[i] + "\n";
         }
+        
+        var lastHTML = "";
         editbox.addEventListener("input", function(event) {
             //floaty enters
             if(event.inputType === "insertLineBreak" || event.inputType == "insertParagraph") {
@@ -474,17 +534,20 @@ var getUserStyle;
                 editbox.selectionEnd = selStart + indent;
             }
 
-
-            var parserParent = document.createElement("div");
-            parserParent.textContent = editbox.value;
-            parserParent.classList.add("lang-java");
+            
             executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function(data) {
                 makeNumberedLinesTable(data.split("\n"), table);
             });
+            
+            
+            var titleRegexp = (/class\s+([A-Z]\w+)/).exec(editbox.value);
+            var fileName = titleRegexp ? titleRegexp[1] + ".java" : editbox.value.substring(0, 32).replace(/\n/g, " ") + "...";
+            tabTitle.firstElementChild.textContent = fileName;
         });
 
         executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function(data) {
             makeNumberedLinesTable(data.split("\n"), table);
+            lastHTML = data;
         });
 
         return editbox;
@@ -528,7 +591,80 @@ var getUserStyle;
     var __userStyle;
 
     function createPlusButton() {
-
+        var button = document.createElement("button");
+        button.textContent = "+";
+        
+        button.addEventListener("click", function() {
+           var source = document.createElement("code");
+           var idx = editorsTablist.children.length;
+           source.textContent = 
+`
+public class NewClass${idx}${Math.floor(Math.random()*10000)} {
+    
+}`;
+            var sourceParent = document.createElement("div");
+            sourceParent.appendChild(source);
+            makeEditor(source, idx);
+            requestAnimationFrame(function() {
+               editorsTablist.children[editorsTablist.children.length - 1].click(); 
+            });
+        });
+        
+        var createdState = document.createElement("div");
+        createdState.classList.add("created-state");
+        
+        var createdStateHeading = document.createElement("h2");
+        createdStateHeading.textContent = "File Created!";
+        createdState.appendChild(createdStateHeading);
+        
+        var createdStateSummary = document.createElement("p");
+        createdStateSummary.textContent = "Users will not be able to see this tab. You can rename your new file by editing the name of its first class.";
+        createdState.appendChild(createdStateSummary);
+        
+        var csParent = document.createElement("div");
+        csParent.appendChild(createdState);
+        
+        appendTab(button, csParent);
+    }
+    
+    function loadReviewer() {
+        var annotations = loadAllAnnotations();
+        var table = document.getElementById("review-annotations");
+        
+        for(var i = 0; i < annotations.length; i++) {
+            table.appendChild(createReviewAnnotationRow(annotations[i]));
+        }
+    }
+    
+    function createReviewAnnotationRow(annotation) {
+        var row = document.createElement("tr");
+        
+        var anno = document.createElement("th");
+        anno.innerHTML = annotation.html;
+        anno.textContent = anno.textContent.substring(0, 150);
+        row.appendChild(anno);
+        
+        var astPos = document.createElement("td");
+        astPos.textContent = annotation.astConstruct.split(",").reverse().map(x=> `statement ${x}`).join(" in ");
+        row.appendChild(astPos);
+        
+        return row;
+    }
+    
+    function loadAllAnnotations() {
+        var annotations = document.querySelectorAll(".annotation");
+        
+        var result = [];
+        for(var i = 0; i < annotations.length; i++) {
+            var lineMarkers = annotations[i].parentElement.querySelectorAll(".hlast-linemarker");
+            var canonLineMarker = lineMarkers[lineMarkers.length - 1];
+            result.push({
+                html: annotations[i].innerHTML.replace("contenteditable", "data-human-edited"),
+                astConstruct: canonLineMarker.getAttribute("data-address")
+            }); 
+        }
+        
+        return result;
     }
 
 
@@ -554,7 +690,7 @@ var getUserStyle;
 
     window.addEventListener("load", function loadPathnamePartial() {
         var pathname = window.location.pathname;
-        var partialName = pathname.split("/")[3];
+        var partialName = pathname.split("/")[2];
 
         _global.navigateToSpaPath("/codehs/" + partialName);
     });
