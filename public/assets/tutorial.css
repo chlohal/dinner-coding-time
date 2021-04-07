@@ -71,11 +71,21 @@
     position: fixed;
     width: 1.5em;
     height: 1.5em;
-    background: #2991ce;
+    background: #ff2d2d;
     border-radius: 100%;
     z-index: 9999;
     animation: shadowpulse 1s infinite;
-    pointer-events: visiblePainted;
+    pointer-events: all;
+}
+
+.edit-tutorial--pulse::before {
+    content: "";
+    position: absolute;
+    width: 3.5em;
+    height: 3.5em;
+    top: -1em;
+    left: -1em;
+    border-radius: 100%;
 }
 
 .edit-tutorial--pulse-tip {
@@ -83,7 +93,7 @@
     border-radius: 0.75em;
     top: 0;
     left: 0;
-    background-color: #2991ce;
+    background-color: inherit;
     color: #f7f7f7;
     padding: 1em;
     transform: scale(0);
@@ -121,7 +131,7 @@
 
 @keyframes shadowpulse {
     0% {
-        box-shadow: #2991ce55 0 0 0 0.5em;
+        box-shadow: #ce292955 0 0 0 0.5em;
     }
     80% {
         box-shadow: #2991ce00 0 0 0 1em;

@@ -32,6 +32,8 @@ var keywordContexts = {
     "import": "keyword",
     "break": "keyword",
     "continue": "keyword",
+    "try": "keyword",
+    "catch": "keyword",
 
     "int": "primitive-type",
     "char": "primitive-type",
@@ -67,14 +69,17 @@ function lex(src) {
                     term += char;
                 } else { 
                     if(keywordContexts.hasOwnProperty(term)) {
-                        result += `<span class="hlast-${keywordContexts[term]}">${term}</span>`;
+                        result += `<span class="hlast-verification-term hlast-${keywordContexts[term]}">${term}</span>`;
                     } else if(term.match(/^-?[\d.]+$/)) {
-                        result += `<span class="hlast-decimal-literal">${term}</span>`;
+                        result += `<span class="hlast-verification-term hlast-decimal-literal">${term}</span>`;
                     } else if(isCapitalized(term)) {
-                        result += `<span class="hlast-type-type">${term}</span>`;
+                        result += `<span class="hlast-verification-term hlast-type-type">${term}</span>`;
+                    } else if(term.trim() != "") {
+                        result += `<span class="hlast-verification-term">${term}</span>`;
                     } else {
                         result += term;
                     }
+                    
                     term = "";
 
                     if(char == "\"") {
@@ -165,7 +170,7 @@ function lex(src) {
         }
         
 
-        if(j + 1 == src.length && context != "BASE") {
+        if(j + 1 == src.length) {
             result += `<span class="hlast-${context.toLowerCase().replace(/_/g, "-")}">${term}</span>`;
         }
     }

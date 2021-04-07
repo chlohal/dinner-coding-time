@@ -46,10 +46,6 @@ var getUserStyle;
             var parsingParent = document.createElement("div");
             parsingParent.innerHTML = xhr.response || data;
 
-            //attachment points for the children
-            var tips = Array.from(document.querySelectorAll("aside.tip:not(#tip-editor)"));
-            tips.forEach(function (x) { x.parentElement.removeChild(x); });
-
             var main = document.querySelector("main");
 
             for (var i = parsingParent.children.length - 1; i >= 0; i--) {
@@ -57,8 +53,17 @@ var getUserStyle;
                     main.appendChild(parsingParent.children[i]);
                 } else if(parsingParent.children[i].tagName == "H1") {
                     document.querySelector("h1").textContent = parsingParent.children[i].textContent;
-                } else {
-                    main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
+                } else if(parsingParent.children[i].classList.contains("tip")) {
+                    document.getElementById("show-tip-editor-check").checked = true;
+                    
+                    var tipEditor = document.getElementById("tip-editor");
+                    
+                    var heading = parsingParent.children[i].querySelector("h2");
+                    tipEditor.querySelector("h2").innerHTML = heading.innerHTML;
+                    
+                    var paragraph = parsingParent.children[i].querySelector("p");
+                    if(paragraph) tipEditor.querySelector("p").innerHTML = paragraph.innerHTML;
+                    else  tipEditor.querySelector("p").innerHTML = parsingParent.children[i].innerHTML.replace(heading.outerHTML, "");
                 }
             }
 
@@ -170,8 +175,6 @@ var getUserStyle;
         }
 
     })();
-
-    createPlusButton();
     
     (_global.addSkeletonTip = function addSkeletonTip() {
         
@@ -401,18 +404,6 @@ var getUserStyle;
             tab.setAttribute("aria-selected", "true");
             selectedTabIndex = index;
         });
-        
-        if(tab.textContent.length > 3) {
-            var exitButton = document.createElement("button");
-            exitButton.classList.add("exit-button");
-            exitButton.innerHTML = "&times;";
-            exitButton.setAttribute("aria-label", "Delete File");
-            exitButton.addEventListener("click", function() {
-                if(tab.parentElement) tab.parentElement.removeChild(tab);
-                if(tabpanel.parentElement) tabpanel.parentElement.removeChild(tabpanel);
-            });
-            tab.appendChild(exitButton);
-        }
 
         editorsTablist.appendChild(tab);
 
@@ -437,7 +428,7 @@ var getUserStyle;
                 if(table.children[i]) line = table.children[i];
                 else line = document.createElement("tr");
 
-                createAddAnnotationTh(i + 1, line, htmlLines[i].replace(/<span class="hlast-linemarker" data-address="[\d,]+"><\/span>/g, "").match(/\w/));
+                createAddAnnotationTh(i + 1, line, htmlLines[i].includes("<span class=\"hlast-verification-term"));
 
                 createTableLineContent(htmlLines[i], line);
                 
@@ -465,7 +456,7 @@ var getUserStyle;
             var annotation;
             th.addEventListener("click", function() {
                 if(!document.body.classList.contains("part--annotate")) return false;
-                if(!canHaveAnnotation) return false;
+                if(!th.classList.contains("can-have-annotation")) return console.log("no can hav");
                 if(th.parentElement == undefined) return false;
 
                 if(!annotation) {
@@ -512,7 +503,6 @@ var getUserStyle;
             editbox.innerHTML += htmlLines[i] + "\n";
         }
         
-        var lastHTML = "";
         editbox.addEventListener("input", function(event) {
             //floaty enters
             if(event.inputType === "insertLineBreak" || event.inputType == "insertParagraph") {
@@ -589,43 +579,6 @@ var getUserStyle;
     }
 
     var __userStyle;
-
-    function createPlusButton() {
-        var button = document.createElement("button");
-        button.textContent = "+";
-        
-        button.addEventListener("click", function() {
-           var source = document.createElement("code");
-           var idx = editorsTablist.children.length;
-           source.textContent = 
-`
-public class NewClass${idx}${Math.floor(Math.random()*10000)} {
-    
-}`;
-            var sourceParent = document.createElement("div");
-            sourceParent.appendChild(source);
-            makeEditor(source, idx);
-            requestAnimationFrame(function() {
-               editorsTablist.children[editorsTablist.children.length - 1].click(); 
-            });
-        });
-        
-        var createdState = document.createElement("div");
-        createdState.classList.add("created-state");
-        
-        var createdStateHeading = document.createElement("h2");
-        createdStateHeading.textContent = "File Created!";
-        createdState.appendChild(createdStateHeading);
-        
-        var createdStateSummary = document.createElement("p");
-        createdStateSummary.textContent = "Users will not be able to see this tab. You can rename your new file by editing the name of its first class.";
-        createdState.appendChild(createdStateSummary);
-        
-        var csParent = document.createElement("div");
-        csParent.appendChild(createdState);
-        
-        appendTab(button, csParent);
-    }
     
     function loadReviewer() {
         var annotations = loadAllAnnotations();
@@ -648,6 +601,66 @@ public class NewClass${idx}${Math.floor(Math.random()*10000)} {
         }
         checkbox.addEventListener("change", updateCheckbox);
         updateCheckbox();
+        
+        var name = document.getElementById("authorNameInput");
+        name.value = localStorage.getItem("contribute-editor-authorNameInput") || "";
+        name.addEventListener("input", function() {
+            localStorage.setItem("contribute-editor-authorNameInput", name.value);
+        });
+        
+        var url = document.getElementById("authorUrlInput");
+        url.value = localStorage.getItem("contribute-editor-authorUrlInput") || "";
+        url.addEventListener("input", function() {
+            localStorage.setItem("contribute-editor-authorUrlInput", url.value);
+        });
+        
+        var pubButton = document.getElementById("publish-button");
+        var pubTip = document.getElementById("publish-tip");
+        
+        function updateLegalCheckboxes() {
+            var allApproved = document.getElementById("licenseApproval").checked && 
+                document.getElementById("contentHostingApproval").checked &&
+                document.getElementById("ugcDenialApproval").checked;
+            
+            pubButton.disabled = !allApproved
+            
+            if(allApproved) pubTip.classList.add("faded");
+            else pubTip.classList.remove("faded");
+        }
+        updateLegalCheckboxes();
+        document.getElementById("licenseApproval").addEventListener("change", updateLegalCheckboxes);
+        document.getElementById("contentHostingApproval").addEventListener("change", updateLegalCheckboxes);
+        document.getElementById("ugcDenialApproval").addEventListener("change", updateLegalCheckboxes);
+        
+        var publishing = false;
+        pubButton.addEventListener("click", function() {
+            if(publishing) return;
+            if(pubButton.disabled) {
+                alert("You must accept all the legal things to publish!");
+            } else {
+                pubButton.textContent = "...";
+                publishing = true;
+                uploadPublish();
+            }
+        });
+    }
+    
+    function uploadPublish() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/contributor/publishes");
+        
+        xhr.setRequestHeader("Content-Type", "application/json");
+        
+        xhr.onload = function() {
+            showPublishSuccessModal(JSON.parse(xhr.responseText));
+            document.getElementById("publish-button").textContent = "Published!";
+        }
+        
+        xhr.send(JSON.stringify(createFullExportFile()));
+    }
+    
+    function showPublishSuccessModal(publishData) {
+        
     }
     
     function createReviewAnnotationRow(annotation) {
@@ -659,26 +672,77 @@ public class NewClass${idx}${Math.floor(Math.random()*10000)} {
         
         var annoContent = document.createElement("td");
         annoContent.innerHTML = annotation.html;
-        annoContent.textContent = annoContent.textContent.substring(0, 150);
+        annoContent.textContent = annoContent.textContent.substring(0, 150) + "[...]";
         row.appendChild(annoContent);
         
         return row;
     }
     
-    function loadAllAnnotations() {
-        var annotations = document.querySelectorAll(".annotation");
+    function loadAllAnnotations(parent) {
+        var annotations = (parent || document).querySelectorAll(".annotation");
         
         var result = [];
         for(var i = 0; i < annotations.length; i++) {
             var lineMarkers = annotations[i].parentElement.querySelectorAll(".hlast-linemarker");
             var canonLineMarker = lineMarkers[lineMarkers.length - 1];
             result.push({
-                html: annotations[i].innerHTML.replace("contenteditable", "data-human-edited"),
+                html: annotations[i].innerHTML.replace(/ ?contenteditable="(true)?"/g, ),
                 astConstruct: canonLineMarker.getAttribute("data-address")
             }); 
         }
         
         return result;
+    }
+    
+    _global.createFullExportFile = function createFullExportFile() {
+        var result = {
+            files: [],
+            author: {
+                name: document.getElementById("authorNameInput").value,
+                url: document.getElementById("authorUrlInput").value
+            },
+            html: ""
+        };
+        
+        var fileEditors = Array.from(document.querySelectorAll(".code-with-lines--border-parent"));
+        for(var i = 0; i < fileEditors.length; i++) {
+            result.files.push(getAnnotationsAndSource(fileEditors[i]));
+        }
+        
+        var resultHtml = "";
+        
+        resultHtml += `<script class="annotation">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
+        
+        var annotationJson = {};
+        for(var i = 0; i < result.files; i++) {
+            annotationJson["source" + result.files[i].id] = result.files[i].annotations;
+        }
+        resultHtml += `<script class="annotation">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
+        
+        resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");
+        
+        if(document.getElementById("show-tip-editor-check").checked) {
+            resultHtml += document.getElementById("tip-editor").outerHTML
+                .replace(/ ?contenteditable="(true)?"/g, "")
+                .replace(/style="[^"]+"/g, "")
+                .replace("id=\"tip-editor\"", "");
+        }
+        
+        for(var i = 0; i < result.files.length; i++) {
+            resultHtml += `<code id="source${result.files[i].id || ""}">${encodeCharacterEntities(result.files[i].source)}</code>\n`;
+        }
+        
+        return result;
+    }
+    
+    function getAnnotationsAndSource(elem) {
+        var source = elem.querySelector(".editbox").value;
+        var annotations = loadAllAnnotations(elem);
+        return {
+            id: /tab-(\d+)/.exec(elem.id)[1],
+            source: source,
+            annotations: annotations
+        }
     }
 
 

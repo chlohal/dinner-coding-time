@@ -13,6 +13,7 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <script src="/assets/script.js" defer></script>
+    <script src="/assets/compressor.js" defer></script>
     <script src="/assets/contribute-edit.js" defer></script>
     <script src="/assets/contribute-editor-tutorial.js" defer></script>
     <link rel="preload" href="/assets/highlight.css" as="style">
@@ -236,6 +237,44 @@
         .part--publish #reviewer {
             display: block;
         }
+
+        #reviewer em {
+            font-style: normal;
+            color: #793cbe;
+        }
+        
+        .publish--parent {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .publish--button {
+            background: hsla(338, 75%, 64%, 1);
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            width: max-content;
+            max-width: 80vw;
+            color: #f7f7f7;
+            font-size: 1.4em;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            border: 0;
+            cursor: pointer;
+        }
+        .publish--button[disabled] {
+            background: rgb(202, 146, 166);
+            cursor: default;
+        }
+        .publish--tip {
+            color: #575868;
+            letter-spacing: -0.1ch;
+            font-size: 0.9em;
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+        .publish--tip.faded {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -281,8 +320,9 @@
             <section>
                 <h3>Review Annotations</h3>
                 <p>Because of technical limitations, annotations are not connected to lines. Instead, they're connected
-                    to specific statements in the code. For these purposes, classes, imports, and methods are all
-                    grouped under the general definition of "statement".</p>
+                    to specific <em>statements</em> in the code. For these purposes, <em>classes</em>, <em
+                        style="color: #2B7E2A">imports</em>, and <em style="color: #7B7E2A">methods</em> are all
+                    grouped under the general definition of "<em>statement</em>".</p>
                 <p>If you note your annotations being attached incorrectly, please let me know!</p>
                 <table id="review-annotations"></table>
             </section>
@@ -291,12 +331,43 @@
                 <p>A "tip" appears at the top of the assignment. This is a good place to let people know about a
                     Grader.java quirk, a tricky way the assignment is worded, or something else that doesn't really fit
                     in an annotation.</p>
-                <label><input type="checkbox" name="Activate tip" id="show-tip-editor-check">Include a tip in this assignment</label>
+                <label><input type="checkbox" name="Activate tip" id="show-tip-editor-check">Include a tip in this
+                    assignment</label>
                 <aside class="tip" id="tip-editor" style="display: none;">
                     <h2 contenteditable="true">TIP</h2>
                     <p contenteditable="true">Edit me!</p>
                 </aside>
             </section>
+            <section>
+                <h3>Export & Publish</h3>
+                <h4>Input your name</h4>
+                <p>I want to give you credit! This doesn't have to be your real name-- it could be your Discord username
+                    or your Twitter handle. Whatever you want! (as long as it's appropriate, ofc).</p>
+                <p>If you would prefer an air of mystery, you can also leave this blank.</p>
+                <label>Name: <input id="authorNameInput" placeholder="Jen Doe"></label>
+                <p>If you'd like to link to your website, Twitter, GitHub, or whatever, feel free to do that here! This
+                    is completely optional.</p>
+                <label>Website: <input id="authorUrlInput" placeholder="https://example.com"></label>
+
+                <h3>Legal Junk</h3>
+                <p>In order to legally host your work, you technically need to agree to grant the site a license.</p>
+                <p>
+                    <label><input type="checkbox" id="licenseApproval">I agree to grant an exclusive <a
+                            href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative
+                            Commons Attribution 4.0 International</a> license to host my content.</label>
+                    <br>
+                    <label><input type="checkbox" id="contentHostingApproval">I agree that the site is
+                        not obligated to host any content that may be seen as objectionable or inappropriate.</label>
+                    <br>
+                    <label><input type="checkbox" id="ugcDenialApproval">I affirm that this should not qualify as
+                        user-generated content, and that I am acting as a volunteer</label>
+                </p>
+            </section>
+            <div class="publish--parent">
+                <button class="publish--button" id="publish-button" disabled>Submit for Publication</button>
+                <span class="publish--tip" id="publish-tip">Please accept all legal items before publishing!</span>
+            </div>
+
         </div>
     </main>
     <footer>

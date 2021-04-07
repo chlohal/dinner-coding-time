@@ -18,7 +18,7 @@ var steps = [
     },
     {
         target: "[aria-hidden=false] th.can-have-annotation",
-        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate <em>any</em> line because of technical limitations.</p><p><strong>Click on the line number</strong> to add one.</p>",
+        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate just <em>any</em> line because of technical limitations.</p><p><strong>Click on the line number</strong> to add one.</p>",
         continue: "button,targetClick",
         clickTargetAction: true,
         delay: 10
@@ -28,26 +28,56 @@ var steps = [
         content: "<h3>Annotating</h3> <p>Write whatever you want! Try to explain the statement or method in a user-friendly way.</p>",
         continue: "button,targetClick",
         clickTargetAction: true,
-        anchorX: "center"
+        anchorX: "center",
+        onclick: function(target) {
+            var content = "this is an annotation!", i = 0;
+            requestAnimationFrame(function anim() {
+                target.firstElementChild.textContent = content.substring(0, i);
+                if(i < content.length) requestAnimationFrame(anim);
+                i++;
+            })
+            
+        }
     },
     {
         target: "#pipeline button:nth-child(3)",
         content: "<h3>Step 3: Publishing</h3> <p>Click on the '[Review & Publish]' button when finished annotating in order to go to the next step!</p>",
         continue: "button",
         clickTargetAction: true,
-        anchorX: "right"
+        anchorX: "left"
     },
     {
         target: "#review-annotations",
-        content: "<h3>See your Annotations</h3> <p>Review your annotations and make sure that everything's looking good! The table might look odd-- that's okay :) If you're not familiar with the statements, don't worry about it. </p>",
+        content: "<h3>See your Annotations</h3> <p>Review your annotations and make sure that everything's looking good! The table might look odd-- that's okay :) If you're not familiar with the statements, don't worry about it-- this feature is mainly for advanced users. </p>",
         continue: "button"
     },
     {
         target: "#show-tip-editor-check",
         content: "<h3>Add a Tip</h3><p>Is there anything weird about this assignment that people should know right away? You may want to add a tip.</p><p>Tips show up at the top and give important information.</p>",
-        anchorX: "right",
+        anchorX: "left",
         continue: "button",
-        clickTargetAction: true
+        clickTargetAction: true,
+        onclick: function(target) {
+            if(!target.checked) target.click();
+        }
+    },
+    {
+        target: "#reviewer > section:nth-child(3) > h4:nth-child(2)",
+        content: "<h3>Enter your name</h3> <p>Please enter your handle, and your website if you have one! This makes sure that I can give you credit for your work on the assignment page :)</p>",
+        continue: "button"
+    },
+    {
+        target: "#reviewer > section:nth-child(3) > h3:nth-child(8)",
+        content: "<h3>The boring legal stuff</h3> <p>To make sure that I can legally use your work, please check these boxes. This is all about making sure that you're fine with me hosting your content, and that you understand you're not technically a 'user'. There are <strong>far</strong> more regulations for user-generated content, so I want to avoid them.</p>",
+        continue: "button"
+    },
+    {
+        target: "#publish-button",
+        content: "<h3>That's it!</h3> <p>When you're done with everything, click the publish button, and it'll be sent directly to me! I'll review it & put it on the site ASAP :)</p>",
+        continue: "button",
+        onclick: function(target) {
+            window.location.reload();
+        }
     }
 ]
 
@@ -68,6 +98,7 @@ function showModal() {
     
     requestAnimationFrame(function() {
         showTutorialStep(0);
+        window.scrollTo(0, 0);
     });
 }
 
@@ -80,7 +111,7 @@ function buildModalContent() {
     modalInner.appendChild(head);
 
     var body = document.createElement("p");
-    body.textContent = "It seems like you haven't used the contribution editor before. Would you like to get started with a quick interactive tutorial?";
+    body.innerHTML = "It seems like you haven't used the contribution editor before. Would you like to get started with a quick interactive tutorial?<br><strong>NOTE: No annotations from the tutorial will be used. Don't put too much effort in!</strong>";
     modalInner.appendChild(body);
 
     var buttonContainer = buildModalButtons();
@@ -107,6 +138,7 @@ function buildModalButtons() {
     buttonContainer.appendChild(noButton);
     noButton.addEventListener("click", function () {
         closeModal();
+        removeStrayTutorialStep();
     });
 
     return buttonContainer;
@@ -143,6 +175,8 @@ function showTutorialStep(index) {
     setTimeout(function() {
         var targetRect = target.getBoundingClientRect();
         
+        window.scrollTo(0, (targetRect.y + window.scrollY) - (window.innerHeight * 0.5));
+        targetRect = target.getBoundingClientRect();
         
         if(stepObject.targetAction) target[stepObject.targetAction]();
 
@@ -157,6 +191,7 @@ function showTutorialStep(index) {
             pulse = buildTutorialPulse(xPos, yPos, stepObject.content, function() {
                 pulse.parentElement.removeChild(pulse);
                 if(stepObject.clickTargetAction) target.click();
+                if(stepObject.onclick) stepObject.onclick(target);
                 
                 //only continue right away if it's *just* the button
                 if(stepObject.continue == "button") {
@@ -181,7 +216,7 @@ function buildTutorialPulse(x, y, html, buttonCb) {
     var pulse = document.createElement("div");
     pulse.classList.add("edit-tutorial--pulse");
     pulse.style.top = y + "px";
-    pulse.style.left = x + "px";
+    pulse.style.right = (window.innerWidth - x) + "px";
 
     var pulseTip = document.createElement("div");
     pulseTip.classList.add("edit-tutorial--pulse-tip");
@@ -216,4 +251,7 @@ function enableScroll() {
     document.body.parentElement.style.overflow = "";
 }
 
-showModal();
+if(!localStorage.getItem("contribute-editor-tutorialViewed")) {
+    showModal();
+    localStorage.setItem("contribute-editor-tutorialViewed", 1);
+}

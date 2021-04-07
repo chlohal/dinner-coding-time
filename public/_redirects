@@ -9,3 +9,5 @@
 / /legal/takedown 451!
 
 /contribute/:assignment /contribute/edit 200
+
+/api/contributor/publishes /.netlify/functions/contribute-publish 200
