@@ -213,6 +213,7 @@ var getUserStyle;
         document.body.classList.add("part--" + partNames[partIndex]);
         
         if(partIndex == 2) loadReviewer();
+        else document.getElementById("reviewer").hidden = true;
     })(0);
 
     (_global.loadEditors = function loadEditors() {
@@ -581,6 +582,8 @@ var getUserStyle;
     var __userStyle;
     
     function loadReviewer() {
+        document.getElementById("reviewer").hidden = false;
+
         var annotations = loadAllAnnotations();
         var table = document.getElementById("review-annotations");
         
@@ -660,7 +663,18 @@ var getUserStyle;
     }
     
     function showPublishSuccessModal(publishData) {
-        
+        var link = document.getElementById("publish-link");
+
+        document.getElementById("publish-result-modal").hidden = false;
+        link.value = "https://api.jsonbin.it/bins/" + publishData.bin;
+        document.getElementById("copy-publish-link").addEventListener("click", function() {
+            link.parentElement.parentElement.classList.remove("copied");
+
+            link.select();
+            document.execCommand("copy");
+
+            link.parentElement.parentElement.classList.add("copied");
+        });
     }
     
     function createReviewAnnotationRow(annotation) {
@@ -686,7 +700,7 @@ var getUserStyle;
             var lineMarkers = annotations[i].parentElement.querySelectorAll(".hlast-linemarker");
             var canonLineMarker = lineMarkers[lineMarkers.length - 1];
             result.push({
-                html: annotations[i].innerHTML.replace(/ ?contenteditable="(true)?"/g, ),
+                html: annotations[i].innerHTML.replace(/ ?contenteditable="(true)?"/g, ""),
                 astConstruct: canonLineMarker.getAttribute("data-address")
             }); 
         }
@@ -711,12 +725,14 @@ var getUserStyle;
         
         var resultHtml = "";
         
-        resultHtml += `<script class="annotation">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
+        resultHtml += `<script class="author">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
         
         var annotationJson = {};
-        for(var i = 0; i < result.files; i++) {
+        for(var i = 0; i < result.files.length; i++) {
+            console.log(result.files[i]);
             annotationJson["source" + result.files[i].id] = result.files[i].annotations;
         }
+        console.warn(annotationJson);
         resultHtml += `<script class="annotation">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
         
         resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");
@@ -729,8 +745,10 @@ var getUserStyle;
         }
         
         for(var i = 0; i < result.files.length; i++) {
-            resultHtml += `<code id="source${result.files[i].id || ""}">${encodeCharacterEntities(result.files[i].source)}</code>\n`;
+            resultHtml += `<code id="source${result.files[i].id || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
         }
+
+        result.html = resultHtml;
         
         return result;
     }

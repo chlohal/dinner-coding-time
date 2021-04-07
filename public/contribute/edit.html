@@ -242,13 +242,14 @@
             font-style: normal;
             color: #793cbe;
         }
-        
+
         .publish--parent {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
+
         .publish--button {
             background: hsla(338, 75%, 64%, 1);
             font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
@@ -261,10 +262,12 @@
             border: 0;
             cursor: pointer;
         }
+
         .publish--button[disabled] {
             background: rgb(202, 146, 166);
             cursor: default;
         }
+
         .publish--tip {
             color: #575868;
             letter-spacing: -0.1ch;
@@ -272,8 +275,126 @@
             opacity: 1;
             transition: opacity 0.2s;
         }
+
         .publish--tip.faded {
             opacity: 0;
+        }
+
+        .modal--lightbox {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 0 0 150vmax 0 #000 inset;
+            background: #0009;
+        }
+
+        .modal--base {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 1000;
+
+            background: 0;
+            border: 0;
+        }
+
+        .modal--inner {
+            background: #f7f7f7;
+            border-radius: 50px;
+            padding: 2em 3em;
+            text-align: center;
+            box-shadow: 0 0 150vmax 0 #000;
+        }
+        .copiable-link {
+            border: #575868 1px solid;
+            border-radius: 0.25em;
+            display: flex;
+            overflow: hidden;
+            width: max-content;
+            max-width: 100%;
+            padding: 0 0.1em;
+        }
+        .copiable-link::before {
+            content: "Copied!";
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            width: min-content;
+            background: #474864;
+            border-radius: 0.25em;
+            padding: 0.125em;
+            z-index: 1;
+            font-size: 0.85em;
+            pointer-events: none;
+            color: #f7f7f7;
+            opacity: 0;
+            transform: scale(0) translateX(-50%);
+        }
+        .copiable-link.copied::before {
+            animation: fade-in-up-out 0.75s;
+            transform: scale(1) translateX(-50%);
+        }
+        @keyframes fade-in-up-out {
+            from {
+                opacity: 0;
+                transform: translateY(-0.25em) translateX(-50%);
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(-0.25em) translateX(-50%);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-1.25em) translateX(-50%);
+            }
+
+        }
+        .copiable-link input {
+            background: 0;
+            border: 0;
+            width: max-content;
+            vertical-align: middle;
+        }
+        .copiable-link button {
+            background: 0;
+            border: 0;
+            padding: 0.1em;
+        }
+        .copiable-link button svg {
+            width: 1.5em;
+        }
+        .copiable-link--input-wrapper {
+            position: relative;
+        }
+        .copiable-link--input-wrapper::after {
+            content: "";
+            width: 1em;
+            height: 100%;
+            display: inline-block;
+            background: linear-gradient(-90deg, #f7f7f7, transparent);
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: none;
+        }
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -316,7 +437,27 @@
             <span aria-hidden="true" id="pipeline-completion"></span>
         </nav>
         <h1 contenteditable="">Loading, please wait...</h1>
-        <div id="reviewer">
+        <div class="modal--lightbox" id="publish-result-modal" hidden>
+            <dialog class="modal--base">
+                <div class="modal--inner">
+                    <h2>
+                        🎉 Published! 🎉
+                    </h2>
+                    <p class="center">
+                        Please send this link in the discord:
+                        <span class="copiable-link">
+                            <span class="copiable-link--input-wrapper">
+                                <input id="publish-link" readonly> 
+                            </span>
+                            <button aria-label="Copy the link" id="copy-publish-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z"/></svg>
+                            </button> 
+                        </span>
+                    </p>
+                </div>
+            </dialog>
+        </div>
+        <div id="reviewer" hidden>
             <section>
                 <h3>Review Annotations</h3>
                 <p>Because of technical limitations, annotations are not connected to lines. Instead, they're connected

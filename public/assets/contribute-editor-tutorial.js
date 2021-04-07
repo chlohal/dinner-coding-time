@@ -2,7 +2,7 @@ var modalLightbox, modal;
 
 var steps = [
     {
-        target: ".tutorial-modal--button-container button:nth-child(1)",
+        target: ".modal--button-container button:nth-child(1)",
         button: "targetClick"
     },
     {
@@ -84,12 +84,12 @@ var steps = [
 function showModal() {
     disableScroll();
     modalLightbox = document.createElement("div");
-    modalLightbox.classList.add("tutorial-modal--lightbox");
+    modalLightbox.classList.add("modal--lightbox");
 
     document.body.appendChild(modalLightbox);
 
     modal = document.createElement("dialog");
-    modal.classList.add("tutorial-modal--base");
+    modal.classList.add("modal--base");
 
     var modalInner = buildModalContent();
     modal.appendChild(modalInner);
@@ -104,7 +104,7 @@ function showModal() {
 
 function buildModalContent() {
     var modalInner = document.createElement("div");
-    modalInner.classList.add("tutorial-modal--inner");
+    modalInner.classList.add("modal--inner");
 
     var head = document.createElement("h2");
     head.textContent = "It's dangerous to go alone! Take this."
@@ -122,7 +122,7 @@ function buildModalContent() {
 
 function buildModalButtons() {
     var buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("tutorial-modal--button-container");
+    buttonContainer.classList.add("modal--button-container");
 
     var yesButton = document.createElement("button");
     yesButton.textContent = "Yes";

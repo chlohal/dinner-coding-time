@@ -1,57 +1,22 @@
-.tutorial-modal--lightbox {
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: 0 0 150vmax 0 #000 inset; 
-    background: #0009;
-}
 
-.tutorial-modal--base {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    z-index: 1000;
-    
-    background: 0;
-    border: 0;
-}
-
-.tutorial-modal--inner {
-    background: #f7f7f7;
-    border-radius: 50px;
-    padding: 2em 3em;
-    text-align: center;
-    box-shadow: 0 0 150vmax 0 #000; 
-}
-.tutorial-modal--inner h2 {
+.modal--inner h2 {
     margin: 0;
 }
-.tutorial-modal--inner p {
+.modal--inner p {
     font-size: 1.4rem;
 }
 
-.tutorial-modal--button-container {
+.modal--button-container {
     display: flex;
     justify-content: space-evenly;
     margin: 0 30%;
 }
 
-.tutorial-modal--button-container button:hover {
+.modal--button-container button:hover {
     color: hsla(338, 75%, 64%, 1);
 }
 
-.tutorial-modal--button-container button {
+.modal--button-container button {
     background: #f7f7f7;
     border: 0;
     font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
@@ -60,10 +25,10 @@
     font-size: 1.25rem;
     transition: color 0.2s;
 }
-.tutorial-modal--button-container button::before {
+.modal--button-container button::before {
     content: "["
 }
-.tutorial-modal--button-container button::after {
+.modal--button-container button::after {
     content: "]"
 }
 
