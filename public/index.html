@@ -5,9 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bidvertiser2052702 -->
-
-    <title>It's Dinneen Coding Time</title>
+    <title>It's Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -16,6 +14,8 @@
 
 
     <script src="/assets/script.js" defer></script>
+    <script src="/assets/testemonial-cards.js" defer></script>
+    <script src="/assets/discord-membercount.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -23,11 +23,13 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/assets/non-editor-page.css">
+    <link rel="stylesheet" href="/assets/testemonial-cards.css">
 </head>
 
 <body>
     <header class="shadowed">
-        <a class="header--homelink" href="/"><img src="/logo.svg" width="36" height="36" alt="DCT logo, a very stylized D"></a>
+        <a class="header--homelink" href="/"><img src="/logo.svg" width="36" height="36"
+                alt="DCT logo, a very stylized D"></a>
     </header>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash--downcover"
         preserveAspectRatio="none">
@@ -42,9 +44,9 @@
     </svg>
     <div id="hero">
         <div class="hero--text">
-            <h1>Dinneen Coding Time</h1>
+            <h1>Dinner Coding Time</h1>
             <p>
-                Easy help on Dinneen-related problems
+                Easy help on AP Computer Science
                 <span id="mobile-go-down-animation"></span>
             </p>
         </div>
@@ -61,8 +63,8 @@
                 </a>
             </li>
             <li>
-                <a href="/worksheets">
-                    <span class="hero--cta--icon">&gt;</span> Worksheets
+                <a href="/error-almanac">
+                    <span class="hero--cta--icon">&gt;</span> Errors
                 </a>
             </li>
         </ul>
@@ -83,15 +85,15 @@
 
         </svg>
     </div>
-    <h2 class="visually-hidden">Why use Dinneen Coding Time?</h2>
+    <h2 class="visually-hidden">Why use Dinner Coding Time?</h2>
     <ul class="social-proof-cards">
         <li>
-            <h3 class="social-proof-cards--big-number">13</h3>
-            In-Class Lessons
+            <h3 class="social-proof-cards--big-number" id="discord-users-counter">...</h3>
+            Discord Members Online Now
         </li>
         <li>
-            <h3 class="social-proof-cards--big-number">38</h3>
-            CodeHS Lesson Solutions w/ Explaination
+            <h3 class="social-proof-cards--big-number">208</h3>
+            CodeHS Lessons w/ Explanation
         </li>
         <li>
             <h3 class="social-proof-cards--big-number">92%</h3>
@@ -99,48 +101,97 @@
         </li>
 
     </ul>
+    <ul class="testemonial-cards" id="frontpage-testemonial-cards-parent">
+        <li><span>It was really helpful, because I'd be having an error, and there's no real... way to know what's going
+                on; it was such a helpful site because you could look, and be like 'oh, I know what I'm doing
+                now'.</span></li>
+        <li><span>tysm for making the website cause who knows how my grade would look otherwise. <img draggable="false"
+                    class="emoji" width="24" height="24" alt="🙏"
+                    src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f64f.png"> you guys are
+                great, I hope all ur crops are watered</span></li>
+        <li><span>thanks for the help, now i understand how to do problems like that</span></li>
+        <li><span>and my teacher doesn’t even teach it she just sends us on codehs and says watch the video and view the
+                examples [...] that website was like heaven</span></li>
+        <li><span>thank you so much again this really just saved my grade</span></li>
+        <li><span>I appreciate your help</span></li>
+        <li><span>OMG ALL GOOD THANK YOU!!! You saved me <img draggable="false" class="emoji" width="24" height="24"
+                    alt="😭" src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f62d.png"><img draggable="false"
+                    class="emoji" width="24" height="24" alt="💖"
+                    src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f496.png"><img draggable="false" class="emoji"
+                    width="24" height="24" alt="🙏" src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f64f.png">Really
+                thank
+                you I was
+                almost about to panic since i almost had it in late turned but now I’m on time
+                <img draggable="false" class="emoji" width="24" height="24" alt="🥺"
+                    src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f97a.png"><img draggable="false" class="emoji"
+                    width="24" height="24" alt="💖" src="https://twemoji.maxcdn.com/v/13.0.2/72x72/1f496.png"></span>
+        </li>
+        <li><span>Holy crap thank you so much!</span></li>
+        <li><span>I can't thank you enough! Just wanted to email back to say my thanks [...] you guys really are
+                life/gradesavers :)</span></li>
+        <li><span>I really appreciate you guys being so chill and putting up these answers.</span></li>
+        <li><span>Bro I used that site like everyday</span></li>
+        <li><span>DCT let me look for certain aspects I was missing in my code which lead to failures not in the
+                test-cases but in the grader itself.</span></li>
+        <li><span>I would've dropped out from APCS if it wasn't for your help</span></li>
+        <li><span>Hey I just want to let you know that your website helped me tremendously over the past month or
+                two</span></li>
+        <li><span>This made this semester a lot less stressful knowing that there was help for me when i wasn't getting
+                a
+                lot in class already</span></li>
+        <li><span>It was helpful to see another person’s approach and see if any of their techniques could point at the
+                issues in my code</span></li>
+        <li><span>What you did really saved my time, stress, and gave me more sleep</span></li>
+        <li><span>It was super helpful for when I got stuck on a question, it was a lifesaver.</span></li>
+        <li><span> Thank u pal ur saving my grade</span></li>
+        <li><span>hey!! the site with all the java programs literally saved my life thank youuuu</span></li>
+        <li><span>thanks so much i just got really stumped</span></li>
+        <li><span>I think I get the project more now thanks.</span></li>
+        <li><span>thank you you are probably asleep now its like 2 am for me but oh my god thank you</span></li>
+        <li><span>yes you're a life saver!! thank you</span></li>
+        <li><span>I honestly don’t know what is going on in this class, we got teachers that came and left and online is not helping much. But thanks a lot!</span></li>
+    </ul>
     <section id="why">
         <h2>Why make this site?</h2>
         <ol>
             <li>
-                <h3>Dinneen Assigns the Work</h3>
-                <p>... Kinda. We don't really know what it is, or when it's assigned, or when it's due. But we think
-                    that he assigned it.</p>
+                <h3>CodeHS has gaps.</h3>
+                <p>For students who naturally understand computer science, CodeHS is great! Not all of us are like that,
+                    though.</p>
             </li>
             <li>
-                <h3>We Do the Work</h3>
-                <p>The work we know of, at least. When the WAAG isn't filled in, the assignments are made up on the spot,
-                    etc, it can be hard.</p>
+                <h3>It's hard to understand.</h3>
+                <p>If you don't get the right solution on the first time, it is hard to <em>ever</em> arrive at the
+                    right solution. Auto-graders offer generic solutions that don't always work. Meanwhile, they require
+                    <em>exactly</em> correct output in order to pass the task.
+                </p>
             </li>
             <li>
-                <h3>It's not Dinneen's Fault</h3>
-                <p>He's good. It's not his fault. The previous two points kinda imply he's doing bad, but I want to be
-                    clear that he's definitely not. Everyone's a bit unorganized this year.
-                    We just want to be able to do the work without calling classmates and asking for help.</p>
+                <h3>They're not "bad"</h3>
+                <p>CodeHS is definitely 'better' than this site, but they're also more general. They've tutorials on 9 -
+                    14 languages (depending on how you define a 'language'), at all levels. We get frusturated
+                    sometimes, but CodeHS is incredible, to be honest!</p>
             </li>
             <li>
-                <h3>So this Site has Answers</h3>
-                <p>Take them! They're free and cool and fresh :D Probably don't use them <i>all</i> the time, because
-                    you need
-                    to learn the assignments, but if you need them they're here.</p>
+                <h3>but this can be more focused</h3>
+                <p>This is <em>not</em> a competitor to CodeHS. It's a companion & a helper site, designed to help you
+                    out on confusing assignments. In addition, this site has explanations
+                    for
+                    <em>how</em> to do the challenges. It helps CodeHS to not be such a just-test-until-you-pass
+                    environment.
+                </p>
             </li>
             <li>
-                <h3>Also, it's Not Cheating</h3>
-                <p>Mr. Dinneen asks that students who understand the material help other students. This is literally the
-                    same thing: explaining the answers. Of course, I'll take it down if Mr. Dinneen asks me
-                    directly, but as-is, it's one hundred percent allowed.</p>
+                <h3>and help students directly.</h3>
+                <p>We take pride in being able to help students with every question, because we're students ourselves.
+                    If
+                    you have a question or something you're confused about, feel free to ask on our Discord or over
+                    email! </p>
             </li>
         </ol>
     </section>
-    <section id="how">
-        <h2>How to use this?</h2>
-        <p>There are 3 sections: <a href="/codehs">CodeHS</a>, <a href="/classwork">classwork assignments</a>, and <a
-                href="/worksheets">homework worksheets</a>. Each one contains useful information about that specific
-            part of class, broken down into whatever organization system Dinneen uses. Feel free to use these answers,
-            filled worksheets, and in-class assignments however you like!</p>
-    </section>
     <footer>
-        <h3>Dinneen Coding Time</h3>
+        <h3>Dinner Coding Time</h3>
         <div class="footer--links">
             <div class="footer--link-category">
                 <h4>Content</h4>
@@ -151,10 +202,8 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
+                    
                     <li>
-                        <a href="/worksheets">Worksheets</a>
-                    </li>
-<li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
                 </ul>
@@ -179,7 +228,7 @@
                     <li>
                         <a href="/legal/terms">Terms &amp; Conditions</a>
                     </li>
-<li>
+                    <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>
@@ -196,7 +245,7 @@
         </div>
         <ul class="footer--socials">
             <li>
-                <a href="https://github.com/coleh2/dinneen-coding-time">
+                <a href="https://github.com/coleh2/dinner-coding-time">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -205,7 +254,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://discord.gg/m2Zub6EYyp">
+                <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener">
                     <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                         clip-rule="evenodd" viewBox="0 0 24 24">
                         <path
@@ -215,7 +264,7 @@
                 </a>
             </li>
             <li>
-                <a href="mailto:contact@dinneencodingtime.com">
+                <a href="mailto:contact@dinnercodingtime.com">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z" />

@@ -538,7 +538,6 @@ var getUserStyle;
 
         executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function(data) {
             makeNumberedLinesTable(data.split("\n"), table);
-            lastHTML = data;
         });
 
         return editbox;
@@ -715,7 +714,8 @@ var getUserStyle;
                 name: document.getElementById("authorNameInput").value,
                 url: document.getElementById("authorUrlInput").value
             },
-            html: ""
+            html: "",
+            location: window.location.toString()
         };
         
         var fileEditors = Array.from(document.querySelectorAll(".code-with-lines--border-parent"));
@@ -725,15 +725,15 @@ var getUserStyle;
         
         var resultHtml = "";
         
-        resultHtml += `<script class="author">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
+        resultHtml += `<script class="author-datascript">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
         
         var annotationJson = {};
         for(var i = 0; i < result.files.length; i++) {
             console.log(result.files[i]);
-            annotationJson["source" + result.files[i].id] = result.files[i].annotations;
+            annotationJson["source" + ((+result.files[i].id)||"")] = result.files[i].annotations;
         }
         console.warn(annotationJson);
-        resultHtml += `<script class="annotation">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
+        resultHtml += `<script class="annotation-datascript">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
         
         resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");
         
@@ -745,7 +745,7 @@ var getUserStyle;
         }
         
         for(var i = 0; i < result.files.length; i++) {
-            resultHtml += `<code id="source${result.files[i].id || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
+            resultHtml += `<code id="source${(+result.files[i].id) || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
         }
 
         result.html = resultHtml;

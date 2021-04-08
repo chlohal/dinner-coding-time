@@ -6,8 +6,37 @@ onmessage = (event) => {
             nonce: data.nonce,
             data: result
         });
+    } else if(data.function == "getLineAddresses") {
+        postMessage({
+            nonce: data.nonce,
+            data: getLineAddresses(data.args[0])
+        });
     }
   };
+
+
+function getLineAddresses(source) {
+    var lexed = lex(source);
+    var lexedLines = lexed.split("\n");
+    var linesResult = [];
+    for(var i = 0; i < lexedLines.length; i++) {
+        var lastIndexOfAddressKey = lexedLines[i].lastIndexOf("data-address=");
+        if(lastIndexOfAddressKey == -1) {
+            linesResult.push("");
+            continue;
+        }
+
+        //displace by 1 to shift over the opening quote
+        var addressValueStartIndex = lastIndexOfAddressKey + ("data-address=".length + 1);
+        var address = "";
+        for(var j = addressValueStartIndex; lexedLines[i].charAt(j) != "\""; j++) {
+            address += lexedLines[i].charAt(j);
+        }
+        linesResult.push(address);
+    }
+
+    return linesResult;
+}
 
 
 var keywordContexts = {
@@ -39,6 +68,8 @@ var keywordContexts = {
     "char": "primitive-type",
     "boolean": "primitive-type",
     "double": "primitive-type",
+    "long": "primitive-type",
+    "short": "primitive-type"
 }
 
 var startingChars = {
@@ -50,7 +81,6 @@ var startingChars = {
 function lex(src) {
     var result = "";
     var context = "BASE";
-    var syntaxLocation = "COMPILE_UNIT";
     var term = "";
     
     var counters = {

@@ -612,6 +612,68 @@ code {
     white-space: pre;
 }
 
+
+.helpfulness-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 1em;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 0.5em;
+    right: 0.5em;
+    background: #f7fdfd;
+    z-index: 9;
+    width: min-content;
+    transition: transform 0.2s;
+    box-shadow: 0 0 0.5em 0 #00000055;
+}
+
+.helpfulness-form--buttons {
+    display: flex;
+    width: min-content;
+}
+
+.helpfulness-form h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    color:hsl(238, 19%, 32%);
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.helpfulness-form button {
+    background: 0;
+    border: 1px solid hsl(239, 19%, 45%);
+    border-radius: 999px;
+    padding: 0.5em;
+    font-size: 1em;
+    font-size: 0.8em;
+    font-family: 'JetBrains Mono', monospace;
+    flex-grow: 1;
+    margin: 0 1em;
+}
+
+.helpfulness-form button.helpfulness-form--selected:first-of-type {
+    background:#ddf8dd;
+}
+
+.helpfulness-form button.helpfulness-form--selected:last-of-type {
+    background:#f8dddd;
+}
+
+.helpfulness-form.submission-completed {
+    transform: translateY(150%);
+}
+
+
+img.emoji {
+    display: inline;
+    width: 1em;
+    height: 1em;
+}
+
 @keyframes progress-alert-bottom-slide {
     from {
         background-position: 0em 0em;
