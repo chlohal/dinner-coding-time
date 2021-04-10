@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>snippet 1</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+
+    <script src="/assets/script.js" defer></script>
+    <script src="/assets/snippet-codeblock.js" defer></script>
+<link rel="preload" href="/assets/highlight.css" as="style">
+
+
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <code class="snippet" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+        //a helper function to make a recipe card
+        function makeRecipeCard(recipe) {
+            var card = document.createElement("li");
+            var cardLink = document.createElement("a");
+            var cardTitle = document.createElement("h2");
+            var cardImage = document.createElement("img");
+            
+            var cardAvatar = document.createElement("img");
+
+            cardLink.href = "/cookbook?id=" + recipe._id;
+            cardLink.classList.add("wrapper");
+
+            cardTitle.textContent = recipe.title;
+
+            cardImage.src = recipe.image || "/asset/FFFFFF-0.png";
+            cardImage.setAttribute("loading", "lazy");
+            cardImage.classList.add("skeletoned");
+            //if an image is defined, un-skeleton it when it loads
+            cardImage.addEventListener("load", function() {
+                if(recipe.image) cardImage.classList.remove("skeletoned");
+            });
+
+            var cardByline = makeCardByline(recipe.ownerUserId);
+
+            cardLink.appendChild(cardTitle);
+            cardLink.appendChild(cardByline);
+            cardLink.appendChild(cardImage);
+
+            card.appendChild(cardLink);
+
+            return card;
+        }
+    </code>
+</body>
+
+</html>

@@ -86,10 +86,17 @@ function showModal() {
     modalLightbox = document.createElement("div");
     modalLightbox.classList.add("modal--lightbox");
 
+    modalLightbox.addEventListener("click", function() {
+        if(modalLightbox.parentElement) modalLightbox.parentElement.removeChild(modalLightbox);
+    })
     document.body.appendChild(modalLightbox);
 
     modal = document.createElement("dialog");
     modal.classList.add("modal--base");
+
+    modal.addEventListener("click", function(event) {
+        event.stopPropagation();
+    })
 
     var modalInner = buildModalContent();
     modal.appendChild(modalInner);

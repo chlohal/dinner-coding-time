@@ -110,9 +110,11 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 }
 
 (function createHelpfulnessFeedbackThing() {
-    if(window.location.pathname == "/") return false;
+    if(window.location.pathname == "/" || window.location.pathname.includes("contribute")) return false;
 
     var main = document.querySelector("main");
+
+    if(!main) return false;
 
     var parent = document.createElement("form");
     parent.classList.add("helpfulness-form");

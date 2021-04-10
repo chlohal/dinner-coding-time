@@ -25,6 +25,6 @@
 
         xhr.send();
     }
-    setInterval(update, 30*1000);
+    setInterval(update, 300*1000);
     update();
 })();

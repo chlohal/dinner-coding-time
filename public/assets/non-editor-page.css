@@ -668,7 +668,7 @@ code {
 }
 
 
-img.emoji {
+.emoji {
     display: inline;
     width: 1em;
     height: 1em;

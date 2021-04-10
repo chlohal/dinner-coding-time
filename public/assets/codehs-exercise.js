@@ -117,7 +117,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "codehs/-partials");
+        var partialAddress = path.replace("codehs", "-partials/codehs");
         var originalUrl = window.location.toString();
 
         var xhr = new XMLHttpRequest();
@@ -214,7 +214,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if(byline && !author) {
             byline.parentElement.removeChild(byline);
         }
-        else if(!byline) {
+        else if(!byline && author) {
             byline = document.createElement("p");
             byline.classList.add("byline");
 
@@ -231,9 +231,12 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             title.parentElement.insertBefore(byline, title);
         }
-        var bylineLink = byline.firstElementChild;
-        bylineLink.href = author.url;
-        bylineLink.textContent = author.name;
+        
+        if(author) {
+            var bylineLink = byline.firstElementChild;
+            bylineLink.href = author.url;
+            bylineLink.textContent = author.name;
+        }
     })();
 
 

@@ -1391,6 +1391,16 @@ main article.license {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.emoji {
+    display: inline;
+    width: 1em;
+    height: 1em;
+}
+
+svg.emoji {
+    vertical-align: sub;
+}
+
 @keyframes progress-alert-bottom-slide {
     from {
         background-position: 0em 0em;
