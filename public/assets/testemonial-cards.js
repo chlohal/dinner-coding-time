@@ -28,8 +28,10 @@ window.addEventListener("load", function() {
         
         if(loopTriggerCardWidth + loopTriggerCardX + MARGIN + transformX < 0) {
             var firstCard = cardsParent.firstElementChild
+            
+            transformX += firstCard.clientWidth + MARGIN * 2;
+            
             cardsParent.removeChild(firstCard);
-            transformX += loopTriggerCardWidth + MARGIN * 2;
             cardsParent.appendChild(firstCard);
 
             loopTriggerCard = cardsParent.children[triggerCardIndex];
@@ -37,8 +39,10 @@ window.addEventListener("load", function() {
             loopTriggerCardWidth = loopTriggerCardBox.width;
         } else if(loopTriggerCardWidth + loopTriggerCardX + MARGIN + transformX > window.innerWidth) {
             var lastCard = cardsParent.lastElementChild
+            
+            transformX -= lastCard.clientWidth + MARGIN * 2;
+            
             cardsParent.removeChild(lastCard);
-            transformX -= loopTriggerCardWidth + MARGIN * 2;
             cardsParent.insertBefore(lastCard, cardsParent.firstElementChild);
 
             loopTriggerCard = cardsParent.children[1];

@@ -11,7 +11,8 @@
     position: relative;
     margin: 18px;
     padding: 1em;
-    width: 10em;
+    width: max-content;
+    max-width: 10em;
     flex-shrink: 0;
     flex-direction: column;
     font-size: 1.4rem;
@@ -62,6 +63,6 @@
 
 @media screen and (min-width: 900px) {
     .testemonial-cards li {
-        width: 30em;
+        max-width: 30em;
     }
   }
