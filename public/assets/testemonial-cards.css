@@ -35,10 +35,14 @@
     transition: background-color 0.1s color 0.1s;
 }
 
-.testemonial-cards  li:hover::after {
-    background: linear-gradient(90deg, hsla(179, 83%, 64%, 0.1) 0%, hsla(338, 75%, 64%, 0.1) 100%);
-    color: transparent;
-    background-clip: text;
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+    .testemonial-cards  li:hover::after {
+        background: linear-gradient(90deg, hsla(179, 83%, 64%, 0.1) 0%, hsla(338, 75%, 64%, 0.1) 100%);
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        
+    }
 }
 
 .testemonial-cards li::before {
