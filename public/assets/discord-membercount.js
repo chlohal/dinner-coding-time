@@ -1,5 +1,5 @@
 (function() {
-    var DEFAULT = 300;
+    var DEFAULT = 100;
 
     var countElem = document.getElementById("discord-users-counter");
     if(countElem === null) return false;
@@ -19,8 +19,8 @@
                     memberCount = json.presence_count;
                 } catch(e) {}
             }
-            console.log(memberCount);
             countElem.textContent = memberCount;
+            countElem.setAttribute("title", "Last updated at " + (new Date()).toLocaleTimeString());
         }
 
         xhr.send();

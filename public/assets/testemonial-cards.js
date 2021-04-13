@@ -18,7 +18,9 @@ window.addEventListener("load", function() {
     var mouseX = 0;
     var oldMouseX = 0;
 
-    requestAnimationFrame(function anim(time) {
+    var animating = true;
+
+    function anim(time) {
         if(oldTime === undefined) oldTime = time;
         
         var elapsed = time - oldTime;
@@ -73,8 +75,9 @@ window.addEventListener("load", function() {
 
         
 
-        requestAnimationFrame(anim);
-    });
+        if(animating) requestAnimationFrame(anim);
+    };
+    requestAnimationFrame(anim);
 
     var matchfunc = null, prefixes = ["","ms","moz","webkit","o"], i, m;
     for(i=0; i<prefixes.length; i++) {
