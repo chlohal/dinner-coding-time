@@ -3,7 +3,7 @@ importScripts("lightweight-java-highlighter.js");
 onmessage = (event) => {
     var data = event.data;
     if (data.function == "lex") {
-        var result = lex(data.args[0], data.args[1]);
+        var result = lex(data.args[0], data.args[1], data.args[2]);
         postMessage({
             nonce: data.nonce,
             data: result
@@ -12,7 +12,7 @@ onmessage = (event) => {
 };
 
 var contexts = {
-    "BASE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "BASE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
 
         if (char == "\\") return {
             context: contexts.ESCAPED
@@ -27,9 +27,26 @@ var contexts = {
         else if (lineIndex == 0 && str.startsWith("### ", index)) return {
             context: contexts.H3
         };
-        else if (lineIndex == 0 && str.startsWith("#### ", index)) return {
-            context: contexts.H4
+        
+        if (lineIndex == 0 && str.startsWith("> ", index)) return {
+            context: contexts.BLOCKQUOTE
         };
+        
+        if(lineIndex == 0 && str.startsWith("---", index)) return {
+            context: contexts.HORIZONTAL_RULE
+        };
+        
+        if(str.startsWith("\~\~", index)) return {
+            context: contexts.STRIKED
+        };
+        
+        if(str.startsWith("__", index)) return {
+            context: contexts.UNDERLINE
+        };
+        
+        if(char == "[") return {
+            context: contexts.LINK
+        }
 
         if (str.startsWith("***", index)) return {
             context: contexts.BOLD_ITALICS
@@ -60,7 +77,7 @@ var contexts = {
             add: char
         };
     },
-    "BOLD": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "BOLD": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex > 0 && str.startsWith("**", index)) {
             return {
                 add: "<strong>" + (keepSyntax ? "**" : "") + term.substring(2, term.length - 1) + (keepSyntax ? "**" : "") + "</strong>",
@@ -71,7 +88,7 @@ var contexts = {
             return {};
         }
     },
-    "ITALICS": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "ITALICS": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex > 0 && str.startsWith("*", index)) {
             return {
                 add: "<em>" + (keepSyntax ? "*" : "") + term.substring(1, term.length - 1) + (keepSyntax ? "*" : "") + "</em>",
@@ -82,7 +99,7 @@ var contexts = {
             return {};
         }
     },
-    "BOLD_ITALICS": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "BOLD_ITALICS": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex > 0 && str.startsWith("***", index)) {
             return {
                 add: "<em><strong>" + (keepSyntax ? "***" : "") + term.substring(3, term.length - 1) + (keepSyntax ? "***" : "") + "</strong></em>",
@@ -93,7 +110,7 @@ var contexts = {
             return {};
         }
     },
-    "CODE_INLINE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "CODE_INLINE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex > 0 && str.startsWith("`", index)) {
             return {
                 add: "<code>" + (keepSyntax ? "`" : "") + term.substring(1, term.length - 1) + (keepSyntax ? "`" : "") + "</code>",
@@ -104,7 +121,7 @@ var contexts = {
             return {};
         }
     },
-    "CODE_BLOCK": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "CODE_BLOCK": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex > 0 && str.startsWith("```", index)) {
             if(term.substring(3, 3+5) == "java\n") term = (keepSyntax ? "java\n" : "") + lexJava(term.substring(8, term.length - 1), false);
             else term = term.substring(3, term.length - 1);
@@ -118,10 +135,10 @@ var contexts = {
             return {};
         }
     },
-    "H1": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "H1": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (char == "\n") {
             return {
-                add: "<h1>" + (keepSyntax ? "# " : "") + term.substring(2, term.length - 1) + "</h1>",
+                add: "<h"+ ((baseHeadingDepth||0)+1) +">" + (keepSyntax ? "# " : "") + term.substring(2, term.length - 1) + "</h"+ ((baseHeadingDepth||0)+1) +">",
                 context: contexts.BASE,
                 skip: 1
             };
@@ -129,10 +146,10 @@ var contexts = {
             return {};
         }
     },
-    "H2": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "H2": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (char == "\n") {
             return {
-                add: "<h2>" + (keepSyntax ? "## " : "") + term.substring(3, term.length - 1) + "</h2>",
+                add: "<h"+ ((baseHeadingDepth||0)+2) +">" + (keepSyntax ? "## " : "") + term.substring(3, term.length - 1) + "</h"+ ((baseHeadingDepth||0)+2) +">",
                 context: contexts.BASE,
                 skip: 1
             };
@@ -140,10 +157,10 @@ var contexts = {
             return {};
         }
     },
-    "H3": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "H3": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (char == "\n") {
             return {
-                add: "<h3>" + (keepSyntax ? "### " : "") + term.substring(4, term.length - 1) + "</h3>",
+                add: "<h"+ ((baseHeadingDepth||0)+3) +">" + (keepSyntax ? "### " : "") + term.substring(4, term.length - 1) + "</h"+ ((baseHeadingDepth||0)+3) +">",
                 context: contexts.BASE,
                 skip: 1
             };
@@ -151,25 +168,15 @@ var contexts = {
             return {};
         }
     },
-    "H4": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
-        if (char == "\n") {
-            return {
-                add: "<h4>" + (keepSyntax ? "#### " : "") + term.substring(5, term.length - 1) + "</h4>",
-                context: contexts.BASE,
-                skip: 1
-            };
-        } else {
-            return {};
-        }
-    },
-    "ESCAPED": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "ESCAPED": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         if (ctxIndex == 1) return {
             add: `<span class="md-escaped">${(keepSyntax ? "\\" : "")}${char}</span>`,
-            context: contexts.BASE
+            context: contexts.BASE,
+            skip: 1
         };
         else return {};
     },
-    "NEWLINE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax) {
+    "NEWLINE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
         return {
             add: `<br>`,
             context: contexts.BASE,
@@ -177,40 +184,106 @@ var contexts = {
         };
     },
     "MATH": 10,
-    "UNDERLINE": 11,
-    "LINK": 12,
-    "LINK_ALT": 13,
-    "STRIKED": 14,
+    "UNDERLINE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        if (ctxIndex > 0 && str.startsWith("__", index)) {
+            return {
+                add: "<u>" + (keepSyntax ? "__" : "") + term.substring(2, term.length - 1) + (keepSyntax ? "__" : "") + "</u>",
+                context: contexts.BASE,
+                skip: 2
+            };
+        } else {
+            return {};
+        }
+    },
+    "LINK": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        if (ctxIndex > 3 && char == ")") {
+            var alt = "";
+            var url = "";
+            
+            var closeSquare = term.indexOf("]");
+            alt = term.substring(1, closeSquare);
+            
+            var openParen = term.indexOf("(");
+            url = term.substring(openParen + 1, term.length - 1);
+            
+            if(closeSquare + 1 == openParen) return {
+                add: "<a target=\"_blank\" rel=\"noopener\" href=\"" + url + "\">" + (keepSyntax ? "[" : "") + alt + (keepSyntax ? "](" + url + ")" : "") + "</a>",
+                context: contexts.BASE,
+                skip: 1
+            };
+        } else {
+            return {};
+        }
+    },
+    "STRIKED": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        if (ctxIndex > 0 && str.startsWith("\~\~", index)) {
+            return {
+                add: "<s>" + (keepSyntax ? "\~\~" : "") + term.substring(2, term.length - 1) + (keepSyntax ? "\~\~" : "") + "</s>",
+                context: contexts.BASE,
+                skip: 2
+            };
+        } else {
+            return {};
+        }
+    },
+    BLOCKQUOTE: function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        if (char == "\n") {
+            return {
+                add: "<blockquote>" + (keepSyntax ? "> " : "") + term.substring(2, term.length - 1) + "</blockquote>",
+                context: contexts.BASE,
+                skip: 1
+            };
+        } else {
+            return {};
+        }
+    },
+    "HORIZONTAL_RULE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        if(char == "\n" && term == "---\n") return {
+            add: `<hr/>`,
+            context: contexts.BASE,
+            skip: 1
+        };
+        else return {}
+    }
 
 }
 
-function lex(src, keepSyntax) {
+function lex(src, keepSyntax, baseHeadingDepth) {
     keepSyntax = !!keepSyntax;
 
     var result = "";
     var context = contexts.BASE;
     var term = "";
 
-    var lineIndex, ctxIndex = 0;
+    var lineIndex, ctxIndex = 0, changedContext = false;
 
     for (var j = 0; j < src.length; j++) {
         var char = src.charAt(j);
+        changedContext = false;
 
         if (char == "\n" || j == 0) lineIndex = 0;
         if (char == "\n") console.log("lI", lineIndex);
         term += char;
 
-        var ctxRes = context(src, j, lineIndex, char, term, ctxIndex, keepSyntax);
+        var ctxRes = context(src, j, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth);
 
         if (ctxRes.context !== context && ctxRes.context !== undefined) {
             context = ctxRes.context;
             term = "";
             ctxIndex = -1;
             j--;
+            changedContext = true;
         }
         if (ctxRes.term !== undefined) term = ctxRes.term;
         if (ctxRes.add !== undefined) result += ctxRes.add;
         if (ctxRes.skip !== undefined) j += ctxRes.skip;
+        
+        //stop at newlines, except for code blocks
+        if(char == "\n" && !changedContext && context != contexts.CODE_BLOCK) {
+            result += term;
+            context = contexts.BASE;
+            term = "";
+        }
 
         if (char != "\n") lineIndex++;
         ctxIndex++;

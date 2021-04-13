@@ -33,7 +33,6 @@
         .part--annotate .code-with-lines th.can-have-annotation {
             cursor: zoom-in;
             vertical-align: bottom;
-            position: relative;
         }
 
         .code-with-lines th.has-annotation {
@@ -99,11 +98,9 @@
         .annotation {
             margin: 0;
             padding: 0;
-            position: relative;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            font-size: 1.4rem;
-            width: 100ch;
             left: -5ch;
+            width: 100%;
+            width: calc(100% + 5ch);
             background: #f7fdfd;
             border-radius: 5px;
             color: #1b1d35;
@@ -155,6 +152,8 @@
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             width: 50%;
             box-sizing: border-box;
+            flex-shrink: 1;
+            flex-grow: 1;
         }
         
         .annotation output {
@@ -165,10 +164,38 @@
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             white-space: pre-line;
             background:hsla(14, 2%, 96%, 1);
+            border-left: 1px solid #474864;
+            flex-shrink: 1;
+            flex-grow: 1;
         }
         
-        .annotation p * {
+        .annotation--buttons {
+            position: absolute;
+            top: 5px;
+            right: 0;
+        }
+        .annotation--buttons button {
+            border: 0;
+            background: #f7fdfd;
+            box-shadow: 0 0 0.5em 0 #b1afaf;
+        }
+        
+        .annotation output * {
             margin: 0;
+        }
+        
+        .annotation output blockquote {
+            border-left:rgb(202, 146, 166) solid 0.25em;
+            padding: 0.25em;
+            background: rgba(202, 146, 166, 0.3);
+        }
+        
+        .annotation output pre {
+            background: #575868;
+            color: #f7f5f5;
+            padding: 5px;
+            border-radius: 5px;
+            overflow-x: auto;
         }
 
         nav#pipeline {
