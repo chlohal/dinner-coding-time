@@ -461,7 +461,7 @@ var getUserStyle;
             var annotation;
             th.addEventListener("click", function() {
                 if(!document.body.classList.contains("part--annotate")) return false;
-                if(!th.classList.contains("can-have-annotation")) return console.log("no can hav");
+                if(!th.classList.contains("can-have-annotation")) return false;
                 if(th.parentElement == undefined) return false;
 
                 if(!annotation) {
@@ -492,14 +492,25 @@ var getUserStyle;
     function createAnnotationParagraph() {
         var paraParent = document.createElement("div");
         paraParent.classList.add("annotation");
+        
+        var output = document.createElement("output");
 
         var para = document.createElement("p");
         para.contentEditable = true;
+        para.addEventListener("input", function() {
+            
+            executeDependencyFunction("light-markdown.js", "lex", [para.innerText, false], function(data) {
+                output.innerHTML = data;
+            });
+        });
         paraParent.appendChild(para);
+        
+        
+        paraParent.appendChild(output);
         
         return paraParent;
     }
-
+    
     function createEditorEditbox(htmlLines, table, tabTitle) {
         var editbox = document.createElement("textarea");
         editbox.classList.add("editbox");
@@ -726,7 +737,7 @@ var getUserStyle;
                 url: document.getElementById("authorUrlInput").value
             },
             html: "",
-            location: window.location.toString()
+            location: window.location.pathname.replace("contribute/", "")
         };
         
         var fileEditors = Array.from(document.querySelectorAll(".code-with-lines--border-parent"));
@@ -740,10 +751,8 @@ var getUserStyle;
         
         var annotationJson = {};
         for(var i = 0; i < result.files.length; i++) {
-            console.log(result.files[i]);
             annotationJson["source" + ((+result.files[i].id)||"")] = result.files[i].annotations;
         }
-        console.warn(annotationJson);
         resultHtml += `<script class="annotation-datascript">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
         
         resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");

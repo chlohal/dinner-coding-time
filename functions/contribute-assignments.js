@@ -2,14 +2,13 @@ exports.handler = function (event, context, callback) {
     var https = require("https");
     
     (function() {
-        var body = event.body;
         
         send({
             hostname: "script.google.com",
             path: "/macros/s/AKfycby2Jm3wkMpqD5FKupwJgTKsrnpj8tCOKZjHlMCLJBqO2SkBtlMyyAfPtuBtSpciD1FA3g/exec",
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body), "Host": "script.google.com", "Transfer-Encoding": "identity" },
-        }, body, function(err, resBody, res) {
+            method: "GET",
+            headers: { "Host": "script.google.com" },
+        }, "", function(err, resBody, res) {
             if(err) callback(null, {
                 statusCode: 500,
                 body: "err",

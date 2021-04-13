@@ -56,7 +56,7 @@
             background-color: #2991ce;
         }
 
-        .code-with-lines code {
+        .code-with-lines > code {
             display: block;
         }
 
@@ -100,7 +100,9 @@
             margin: 0;
             padding: 0;
             position: relative;
-            width: calc(100% + 5ch);
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.4rem;
+            width: 100ch;
             left: -5ch;
             background: #f7fdfd;
             border-radius: 5px;
@@ -110,7 +112,7 @@
         }
 
         .part--annotate .annotation {
-            display: block;
+            display: flex;
         }
 
         .annotation,
@@ -149,8 +151,24 @@
             padding: 0.5em;
             font-size: 1.4rem;
             margin: 0;
-            white-space: normal;
+            white-space: pre-line;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .annotation output {
+            width: 50%;
+            display: block;
+            padding: 0.5em;
+            font-size: 1.4rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            white-space: pre-line;
+            background:hsla(14, 2%, 96%, 1);
+        }
+        
+        .annotation p * {
+            margin: 0;
         }
 
         nav#pipeline {

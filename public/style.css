@@ -822,13 +822,13 @@ code {
     line-height: 1;
 }
 
-.code-with-lines code, .code-with-lines th span {
+.code-with-lines > code, .code-with-lines th span {
     line-height: 1.25;
     display: inline-block;
     font-family: inherit;
 }
 
-.code-with-lines code {
+.code-with-lines > code {
     padding-left: 0.25ch;
     font-variant-ligatures: none;
 }

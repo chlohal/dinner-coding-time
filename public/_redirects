@@ -1,6 +1,6 @@
 /count/* /.netlify/functions/:splat 200
 
-# /codehs/:addr /legal/takedown 451!
+/codehs/:addr /legal/takedown 451!
 /homework/* /legal/takedown 451!
 /classwork/* /legal/takedown 451!
 /about /legal/takedown 451!
@@ -9,3 +9,4 @@
 /contribute/:category/:assignment /contribute/edit 200
 
 /api/contributor/publishes /.netlify/functions/contribute-publish 200
+/api/contributor/assignments /.netlify/functions/contribute-assignments 200
