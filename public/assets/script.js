@@ -91,6 +91,10 @@ function executeDependencyFunction(dep, fn, args, cb) {
             nonce: callbackNonceCount
         });
 
+    } else {
+        loadDep(dep, [], function() {
+            executeDependencyFunction(dep, fn, args, cb);
+        })
     }
 }
 
@@ -104,3 +108,60 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     if(cb) xhr.onload = cb;
     xhr.send();
 }
+
+(function createHelpfulnessFeedbackThing() {
+    if(window.location.pathname == "/" || window.location.pathname.includes("contribute")) return false;
+
+    var main = document.querySelector("main");
+
+    if(!main) return false;
+
+    var parent = document.createElement("form");
+    parent.classList.add("helpfulness-form");
+
+    var heading = document.createElement("h2");
+    heading.textContent = "Was this page helpful?";
+    parent.appendChild(heading);
+
+    var buttons = document.createElement("div");
+    buttons.classList.add("helpfulness-form--buttons");
+
+    var buttonYes = document.createElement("button");
+    buttonYes.textContent = "\u2713";
+    buttons.appendChild(buttonYes);
+
+    var buttonNo = document.createElement("button");
+    buttonNo.textContent = "\u2717";
+    buttons.appendChild(buttonNo);
+
+    parent.appendChild(buttons);
+
+    main.appendChild(parent);
+
+    buttonYes.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        buttonYes.classList.add("helpfulness-form--selected");
+
+        buttonNo.classList.remove("helpfulness-form--selected");
+
+        sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function () {
+            parent.classList.add("submission-completed");
+            parent.setAttribute("aria-hidden", "true");
+        });
+    });
+    buttonNo.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        buttonYes.classList.remove("helpfulness-form--selected");
+
+        buttonNo.classList.add("helpfulness-form--selected");
+
+        sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function () {
+            parent.classList.add("submission-completed");
+            parent.setAttribute("aria-hidden", "true");
+        });
+    });
+})();

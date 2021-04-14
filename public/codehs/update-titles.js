@@ -16,7 +16,7 @@ for(var i = 0; i < files.length; i++) {
     
     var title = text.substring(contentIndexStart + "<h1>".length, contentIndexEnd);
 
-    title += " | Dinneen Coding Time";
+    title += " | Dinner Coding Time";
 
     var result = text.substring(0, replaceIndexStart + "<title>".length) +
         title +

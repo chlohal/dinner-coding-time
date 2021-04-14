@@ -7,7 +7,7 @@ if (typeof importScripts === "function") {
             astToString: function () {
                 return postMessage({
                     nonce: data.nonce,
-                    data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3], data.args[4])
+                    data: astToString(data.args[0], data.args[1], data.args[2], undefined, undefined, undefined, data.args[3], data.args[4], "")
                 });
             },
             clearVariableRegistry: function () {
@@ -58,14 +58,13 @@ function clearVariableRegistry() {
  * @param {Object} ast The AST to stringify.
  * @param {StylingMode} style How the output should be styled.
  */
-function astToString(ast, style, parentScope, nodePath, siblingIndex, address, parent, codeblockId) {
+function astToString(ast, style, parentScope, nodePath, siblingIndex, address, parent, codeblockId, annotationConnectorId) {
     if (!ast) return "";
 
     if (parentScope === undefined) parentScope = [];
     if (style === undefined) style = {};
-    if (codeblockId === undefined) codeblockId = Math.floor(Math.random()*1000) + "-" + Date.now();
+    if (codeblockId === undefined) codeblockId = Math.floor(Math.random() * 1000) + "-" + Date.now();
     if (parent === undefined) parent = {};
-    
 
     if (style.isSnippet && ast.type == "COMPILATION_UNIT") {
         ast = ast.types[0].declaration.body.declarations[0];
@@ -103,7 +102,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     var pairedCharId = 0;
     function createPairedChar(char) {
         if (style.dontHighlightPairedChars) return style.colorize ? encodeCharacterEntities(char) : char;
-        if(!style.colorize) return char;
+        if (!style.colorize) return char;
 
         var inOut = pairedCharId % 2;
         var index = Math.floor(pairedCharId / 2);
@@ -112,6 +111,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         return res;
     }
 
+    var annotationConnectorIdChildIndex = 0;
     function recurse(a, n, sc) {
         if (typeof a === "string") a = [a];
 
@@ -126,10 +126,12 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             if (sc) sc.real = newScope;
         }
 
+        if (typeof n == "number") annotationConnectorIdChildIndex++;
+
         if (typeof a === "object" && a.constructor !== Array) return astToString(
             a, style,
             (sc || newScope),
-            nodePath, isLeaf, address.concat([n]), ast, codeblockId);
+            nodePath, isLeaf, address.concat([n]), ast, codeblockId, annotationConnectorId + "," + (annotationConnectorIdChildIndex));
 
         //find the object indicated by the path passed in
         var target = ast;
@@ -138,10 +140,18 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         if (target) target.__parent__ = ast;
 
 
-
+        if (typeof a[a.length - 1] == "number") annotationConnectorIdChildIndex++;
         isLeaf++;
 
-        return astToString(target, style, sc || newScope, nodePath, isLeaf, address.concat(a), ast, codeblockId);
+        return astToString(target, 
+            style, 
+            sc || newScope, 
+            nodePath, 
+            isLeaf, 
+            address.concat(a), 
+            ast, 
+            codeblockId, 
+            annotationConnectorId + "," + (annotationConnectorIdChildIndex));
     }
 
     function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
@@ -242,7 +252,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "TYPE_LIST":
         case "QUALIFIED_NAME_LIST":
             //firefox bug where arrays sometimes appear as empty slots until manually iterated
-            for(var i = ast.list.length - 1; i >= 0; i--) result += (i >= 1 ? ", " : "") + recurse(["list", i]);
+            for (var i = ast.list.length - 1; i >= 0; i--) result += (i >= 1 ? ", " : "") + recurse(["list", i]);
             break;
         case "CLASS_BODY":
             result += createPairedChar("{") + "\n" +
@@ -307,9 +317,11 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += recurse("expression") + ";";
             break;
         case "OPERATOR_EXPRESSION":
+            var addSubt = ast.operator.operator == "+" || ast.operator.value == "-";
+
             return recurse("left") + style.spaceInExpression +
                 recurse("operator") + style.spaceInExpression +
-                (ast.right ? recurse("right") : "");
+                (ast.right ? recurse("right") : "") ;
             break;
         case "OPERATOR":
             result += ast.operator;
@@ -436,9 +448,9 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += style.colorize ? createPairedChar("[") + recurse("expression") + createPairedChar("]") : `[${recurse("expression")}]`;
             break;
         case "CLASS_OR_INTERFACE_TYPE_ELEMENT":
-            result += recurse("name") + 
+            result += recurse("name") +
                 (ast.typeArguments ? recurse("typeArguments") : "") +
-                (ast.dimensions ? ast.dimensions.map(function(x, i) { return recurse(["dimensions", i]); }).join("") : "");
+                (ast.dimensions ? ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") : "");
             break;
         case "ARRAY_CREATOR_REST":
             result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") +
@@ -465,14 +477,14 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "IDENTIFIER_NAME_ELEMENT":
             result += recurse("id") + style.spaceAfterStatement +
-                (ast.typeArguments === undefined ? "" : recurse("typeArguments") );
+                (ast.typeArguments === undefined ? "" : recurse("typeArguments"));
             break;
         case "TYPE_ARGUMENTS":
             result += createPairedChar("<") + recurse("value") + createPairedChar(">");
             break;
         case "TYPE_ARGUMENT":
             result += recurse("argument") +
-            (ast.extends ? (style.colorize ? " <span class=\"hlast hlast-keyword\">extends</span> " : " extends ") + recurse("extends") : "")
+                (ast.extends ? (style.colorize ? " <span class=\"hlast hlast-keyword\">extends</span> " : " extends ") + recurse("extends") : "")
             break;
         case "CLASS_CREATOR_REST":
             result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
@@ -525,7 +537,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     //only colorize single-line things bc that way it won't get messed up upon table-ifying
     if (style.colorize) {
         formattedRes = result.split("\n").map(function (line) {
-            return `<span class="hlast hlast-${snakeKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-nodepath="${nodePath.map(function (x, i) { return snakeKebab(x.type || x.ast_type || "") }).join(" ")}">${(line)}</span>`;
+            return `<span class="hlast hlast-${snakeKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-annotation-connector-id="0${annotationConnectorId.replace(/,$/, "")}" data-nodepath="${nodePath.map(function (x, i) { return snakeKebab(x.type || x.ast_type || "") }).join(" ")}">${(line)}</span>`;
         }).join("\n");
     }
 
@@ -688,7 +700,7 @@ function getVariableScope(currentScope, varName) {
 }
 
 function encodeCharacterEntities(str) {
-    if(!str) return "";
+    if (!str) return "";
     return str.replace(/&/g, "&amp;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&apos;")

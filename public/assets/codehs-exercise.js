@@ -1,6 +1,6 @@
 var getUserStyle;
 
-var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
+var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
 (function () {
     window._global = this;
@@ -48,7 +48,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "8-2-9", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9","9-5-6","9-5-7","9-5-8","9-5-9","9-6-6","9-6-7","9-6-8","9-6-9","9-7-6","9-7-7","9-7-8","9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
+        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "8-2-9", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9", "9-5-6", "9-5-7", "9-5-8", "9-5-9", "9-6-6", "9-6-7", "9-6-8", "9-6-9", "9-7-6", "9-7-7", "9-7-8", "9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
         var selfIndex = codehsIndex.indexOf(self);
@@ -117,7 +117,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
         if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "codehs/-partials");
+        var partialAddress = path.replace("codehs", "-partials/codehs");
         var originalUrl = window.location.toString();
 
         var xhr = new XMLHttpRequest();
@@ -146,6 +146,9 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             var parsingParent = document.createElement("div");
             parsingParent.innerHTML = xhr.response || data;
 
+            //clean up old data-scripts
+            _global.cleanDataScripts();
+
             //attachment points for the children
             var head1 = document.querySelector("h1");
             if (head1) head1.parentElement.removeChild(head1);
@@ -169,20 +172,72 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             initialTabIdx = -1
             executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
+                _global.findAndExecuteDataScripts();
                 _global.garbageCleanEditors();
                 _global.loadEditors();
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
                 _global.addTopNavigation();
                 _global.registerSpaLinks();
                 _global.createBreadcrumbs();
-                
-                if(typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
+                _global.updateByline();
+
+                if (typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
             });
         }
 
         if (partialCache[partialAddress]) onLoadPartial(true, partialCache[partialAddress]);
         else xhr.send();
     }
+
+    (_global.findAndExecuteDataScripts = function findAndExecuteDataScripts() {
+        var annotationScript = document.querySelector("script.annotation-datascript");
+        if (annotationScript) eval(annotationScript.innerHTML);
+
+        var authorScript = document.querySelector("script.author-datascript");
+        if (authorScript) eval(authorScript.innerHTML);
+    });
+    (_global.cleanDataScripts = function cleanDataScripts() {
+        var annotationScript = Array.from(document.querySelectorAll("script.annotation-datascript"));
+        for (var i = 0; i < annotationScript.length; i++) annotationScript[i].parentElement.removeChild(annotationScript[i]);
+        window.__ANNOTATIONS = null;
+
+        var authorScript = document.querySelectorAll("script.author-datascript");
+        for (var i = 0; i < authorScript.length; i++) authorScript[i].parentElement.removeChild(authorScript[i]);
+        window.__AUTHOR = null;
+    });
+
+    ( _global.updateByline = function() {
+        var author = window.__AUTHOR;
+
+        var byline = document.querySelector("p.byline");
+
+        if(byline && !author) {
+            byline.parentElement.removeChild(byline);
+        }
+        else if(!byline && author) {
+            byline = document.createElement("p");
+            byline.classList.add("byline");
+
+            byline.appendChild(document.createTextNode("Annotated by "));
+
+            var link = document.createElement("a");
+            link.classList.add("external-link");
+            link.target = "_blank";
+            link.rel = "author noopener";
+
+            byline.appendChild(link);
+
+            var title = document.querySelector("h1");
+
+            title.parentElement.insertBefore(byline, title);
+        }
+        
+        if(author) {
+            var bylineLink = byline.firstElementChild;
+            bylineLink.href = author.url;
+            bylineLink.textContent = author.name;
+        }
+    })();
 
 
     (function createTabsParent() {
@@ -233,56 +288,6 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
             if (!isNaN(tIndex)) initialTabIdx = tIndex;;
         }
 
-    })();
-
-    (function createHelpfulnessFeedbackThing() {
-        var main = document.querySelector("main");
-
-        var parent = document.createElement("form");
-        parent.classList.add("helpfulness-form");
-
-        var heading = document.createElement("h2");
-        heading.textContent = "Was this page helpful?";
-        parent.appendChild(heading);
-
-        var buttonYes = document.createElement("button");
-        buttonYes.textContent = "Yes";
-        parent.appendChild(buttonYes);
-
-        var buttonNo = document.createElement("button");
-        buttonNo.textContent = "No";
-        parent.appendChild(buttonNo);
-
-        main.appendChild(parent);
-
-        buttonYes.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            buttonYes.textContent = "...";
-            buttonYes.classList.add("helpfulness-form--selected");
-            
-            buttonNo.textContent = "No";
-            buttonNo.classList.remove("helpfulness-form--selected");
-
-            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function() {
-                buttonYes.textContent = "\u2713";
-            });
-        });
-        buttonNo.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            buttonYes.textContent = "Yes";
-            buttonYes.classList.remove("helpfulness-form--selected");
-            
-            buttonNo.textContent = "...";
-            buttonNo.classList.add("helpfulness-form--selected");
-
-            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function() {
-                buttonNo.textContent = "\u2713";
-            });
-        });
     })();
 
     (function createToolsParent() {
@@ -486,6 +491,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
         var sourceContent = source.textContent;
         var sourceLinesHtml = source.innerHTML.split("\n");
+        var annotations = (window.__ANNOTATIONS||{})[source.id];
 
         var table = makeNumberedLinesTable(sourceLinesHtml);
 
@@ -508,7 +514,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                             for (var i = 0; i < rows.length; i++) {
                                 var range = sel.rangeCount > i ? sel.getRangeAt(i) : document.createRange();
 
-                                var tCell = rows[i].lastElementChild;
+                                var tCell = rows[i].lastElementChild.lastElementChild;
                                 var nextRow = (rows[i + 1] || rows[i]);
                                 range.setStart(tCell, 0);
                                 range.setEnd(nextRow, rows[i + 1] ? 0 : rows[i].children.length);
@@ -600,25 +606,21 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
                     executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
                         ed.loaderMessage.textContent = "Adding formatted code to document object model";
 
-                        setTimeout(function () {
-                            makeNumberedLinesTable(astSource.split("\n"), ed.table);
+                        makeNumberedLinesTable(astSource.split("\n"), ed.table);
+                        addAnnotations(annotations, ed.table);
+                        ed.loaderMessage.textContent = "Adding interactivity hooks";
+                        explainEditor(ed);
 
-                            ed.loaderMessage.textContent = "Adding interactivity hooks";
-                            setTimeout(function () {
-                                explainEditor(ed);
-
-                                ed.astHtmlSource = astSource;
-                                ed.table.hidden = false;
-                                ed.parent.classList.remove("code-with-lines--loading");
-                            }, 10);
-                        }, 10);
+                        ed.astHtmlSource = astSource;
+                        ed.table.hidden = false;
+                        ed.parent.classList.remove("code-with-lines--loading");
                     });
                 }
 
                 ed.loaderMessage.textContent = "Parsing java code";
 
-                if(sourceContent.trim() == "") {
-                    makeNumberedLinesTable(["### If you somehow got to this unlisted page ###","Sorry, this exercise hasn't been done yet.", "All of these are manually filled by one person, so it takes a bit for them to be finished", "I'm doing Chapter 9 right now, so all chapters, 1 to 10, will be done soon, I promise.","I apologize for the delay."], ed.table);
+                if (sourceContent.trim() == "") {
+                    makeNumberedLinesTable(["### If you somehow got to this unlisted page ###", "Sorry, this exercise hasn't been done yet.", "All of these are manually filled by one person, so it takes a bit for them to be finished", "I'm doing Chapter 9 right now, so all chapters, 1 to 10, will be done soon, I promise.", "I apologize for the delay."], ed.table);
                     ed.astHtmlSource = "";
                     ed.table.hidden = false;
                     ed.parent.classList.remove("code-with-lines--loading");
@@ -648,6 +650,7 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
 
                 if (secs == 0) {
                     makeNumberedLinesTable(sourceContent.split("\n"), table);
+                    addAnnotations(annotations, sourceContent, ed.table);
                     table.hidden = false;
                     parent.classList.remove("code-with-lines--loading");
                     clearInterval(loop);
@@ -677,6 +680,40 @@ var SPA_TITLE_SUFFIX = " | Dinneen Coding Time";
         result.isAttached = (function () { return this.tab.parentElement != null; }).bind(result);
 
         return result;
+    }
+
+    function addAnnotations(annotations, table) {
+        if(!annotations) return false;
+        //get content (TD elements' text) of table
+        var source = "";
+        for(var i = 0; i < table.children.length; i++) {
+            source += table.children[i].lastElementChild.lastElementChild.textContent + "\n";
+        }
+        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function(lineAddresses) {
+            var alreadyAdded = [];
+            for(var i = lineAddresses.length - 1; i >= 0; i--) {
+                var annotation = annotations.find(function(x) {
+                    return x.astConstruct == lineAddresses[i];
+                });
+                if(!annotation) continue;
+                
+                //ensure that each annotation is only added once
+                if(alreadyAdded.includes(annotation.astConstruct)) continue;
+                else alreadyAdded.push(annotation.astConstruct);
+
+                //insert _before_ the line's code
+                table.children[i].lastElementChild.insertBefore(createAnnotation(annotation.html), table.children[i].lastElementChild.lastElementChild);
+            }
+        });
+    }
+
+    function createAnnotation(html) {
+        var anno = document.createElement("div")
+        anno.classList.add("annotation");
+
+        anno.innerHTML = html;
+
+        return anno;
     }
 
     function appendTab(tab, tabpanel, parent) {

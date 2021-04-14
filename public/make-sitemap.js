@@ -1,4 +1,4 @@
-var SITE_BASE_URL = "https://dinneencodingtime.com";
+var SITE_BASE_URL = "https://dinnercodingtime.com";
 
 var path = require("path");
 var fs = require("fs");

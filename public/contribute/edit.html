@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Contribute | Dinneen Coding Time</title>
+    <title>Contribute | Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -33,7 +33,6 @@
         .part--annotate .code-with-lines th.can-have-annotation {
             cursor: zoom-in;
             vertical-align: bottom;
-            position: relative;
         }
 
         .code-with-lines th.has-annotation {
@@ -56,7 +55,7 @@
             background-color: #2991ce;
         }
 
-        .code-with-lines code {
+        .code-with-lines>code {
             display: block;
         }
 
@@ -99,9 +98,9 @@
         .annotation {
             margin: 0;
             padding: 0;
-            position: relative;
-            width: calc(100% + 5ch);
             left: -5ch;
+            width: 100%;
+            width: calc(100% + 5ch);
             background: #f7fdfd;
             border-radius: 5px;
             color: #1b1d35;
@@ -110,7 +109,7 @@
         }
 
         .part--annotate .annotation {
-            display: block;
+            display: flex;
         }
 
         .annotation,
@@ -149,8 +148,55 @@
             padding: 0.5em;
             font-size: 1.4rem;
             margin: 0;
-            white-space: normal;
+            white-space: pre-line;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            width: 50%;
+            box-sizing: border-box;
+            flex-shrink: 1;
+            flex-grow: 1;
+        }
+
+        .annotation output {
+            width: 50%;
+            display: block;
+            padding: 0.5em;
+            font-size: 1.4rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            white-space: pre-line;
+            background: hsla(14, 2%, 96%, 1);
+            border-left: 1px solid #474864;
+            flex-shrink: 1;
+            flex-grow: 1;
+        }
+
+        .annotation--buttons {
+            position: absolute;
+            top: 5px;
+            right: 0;
+        }
+
+        .annotation--buttons button {
+            border: 0;
+            background: #f7fdfd;
+            box-shadow: 0 0 0.5em 0 #b1afaf;
+        }
+
+        .annotation output * {
+            margin: 0;
+        }
+
+        .annotation output blockquote {
+            border-left: rgb(202, 146, 166) solid 0.25em;
+            padding: 0.25em;
+            background: rgba(202, 146, 166, 0.3);
+        }
+
+        .annotation output pre {
+            background: #575868;
+            color: #f7f5f5;
+            padding: 5px;
+            border-radius: 5px;
+            overflow-x: auto;
         }
 
         nav#pipeline {
@@ -316,6 +362,7 @@
             text-align: center;
             box-shadow: 0 0 150vmax 0 #000;
         }
+
         .copiable-link {
             border: #575868 1px solid;
             border-radius: 0.25em;
@@ -325,6 +372,7 @@
             max-width: 100%;
             padding: 0 0.1em;
         }
+
         .copiable-link::before {
             content: "Copied!";
             position: absolute;
@@ -341,42 +389,51 @@
             opacity: 0;
             transform: scale(0) translateX(-50%);
         }
+
         .copiable-link.copied::before {
             animation: fade-in-up-out 0.75s;
             transform: scale(1) translateX(-50%);
         }
+
         @keyframes fade-in-up-out {
             from {
                 opacity: 0;
                 transform: translateY(-0.25em) translateX(-50%);
             }
+
             10% {
                 opacity: 1;
                 transform: translateY(-0.25em) translateX(-50%);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-1.25em) translateX(-50%);
             }
 
         }
+
         .copiable-link input {
             background: 0;
             border: 0;
             width: max-content;
             vertical-align: middle;
         }
+
         .copiable-link button {
             background: 0;
             border: 0;
             padding: 0.1em;
         }
+
         .copiable-link button svg {
             width: 1.5em;
         }
+
         .copiable-link--input-wrapper {
             position: relative;
         }
+
         .copiable-link--input-wrapper::after {
             content: "";
             width: 1em;
@@ -389,12 +446,28 @@
             right: 0;
             pointer-events: none;
         }
+
         .center {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+        }
+
+        .creating-file--activity {
+            font-size: 0.85em;
+            font-style: italic;
+        }
+
+        .annotation table {
+            border-collapse: collapse;
+        }
+
+        .annotation td {
+            border: 1px solid #474864;
+            white-space: normal;
+            padding: 0.125em;
         }
     </style>
 </head>
@@ -447,13 +520,37 @@
                         Please send this link in the discord:
                         <span class="copiable-link">
                             <span class="copiable-link--input-wrapper">
-                                <input id="publish-link" readonly> 
+                                <input id="publish-link" readonly>
                             </span>
                             <button aria-label="Copy the link" id="copy-publish-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z"/></svg>
-                            </button> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z" />
+                                </svg>
+                            </button>
                         </span>
                     </p>
+                </div>
+            </dialog>
+        </div>
+        <div class="modal--lightbox" id="creating-new-file-modal" hidden>
+            <dialog class="modal--base">
+                <div class="modal--inner">
+                    <h2>
+                        Creating Assignment...
+                    </h2>
+                    <p class="center">
+                        Please wait; this may take a few seconds.<br>
+                        <span class="creating-file--activity" id="creating-new-file-activity"></span>
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="margin:auto;display:block;height:4em;" width="200px" height="200px"
+                        viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="50" cy="50" fill="none" stroke="#1b1d35" stroke-width="8" r="27"
+                            stroke-dasharray="127.23450247038662 44.411500823462205">
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite"
+                                dur="2.4390243902439024s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                        </circle>
+                    </svg>
                 </div>
             </dialog>
         </div>
@@ -512,7 +609,7 @@
         </div>
     </main>
     <footer>
-        <h3>Dinneen Coding Time</h3>
+        <h3>Dinner Coding Time</h3>
         <div class="footer--links">
             <div class="footer--link-category">
                 <h4>Content</h4>
@@ -523,9 +620,7 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-                    <li>
-                        <a href="/worksheets">Worksheets</a>
-                    </li>
+
                     <li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
@@ -568,7 +663,7 @@
         </div>
         <ul class="footer--socials">
             <li>
-                <a href="https://github.com/coleh2/dinneen-coding-time">
+                <a href="https://github.com/coleh2/dinner-coding-time">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
@@ -577,7 +672,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://discord.gg/m2Zub6EYyp">
+                <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener">
                     <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                         clip-rule="evenodd" viewBox="0 0 24 24">
                         <path
@@ -587,7 +682,7 @@
                 </a>
             </li>
             <li>
-                <a href="mailto:contact@dinneencodingtime.com">
+                <a href="mailto:contact@dinnercodingtime.com">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z" />

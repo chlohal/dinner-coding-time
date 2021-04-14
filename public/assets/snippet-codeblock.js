@@ -18,6 +18,8 @@ var getUserStyle;
     (_global.createBreadcrumbs = function createBreadcrumbs() {
         var header = document.querySelector("header");
         var path = location.pathname.substring(1).split("/");
+
+        if(!header) return false;
         
         var skipOffset = 0;
 
@@ -252,7 +254,7 @@ var getUserStyle;
 
                     ed.loaderMessage.textContent = "Formatting source tree";
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise], editorIndex], function (astSource) {
+                    executeDependencyFunction("hljs-worker.js", "highlightAuto", [ast, userStyle, ["@" + ed.exercise], editorIndex], function (astSource) {
                         ed.loaderMessage.textContent = "Adding formatted code to document object model";
 
                         setTimeout(function () {
@@ -272,7 +274,7 @@ var getUserStyle;
 
                 ed.loaderMessage.textContent = "Parsing java code";
 
-                executeDependencyFunction("java-parser.js", "parse", [sourceContent, ed.entryPoint], printToTable);
+                executeDependencyFunction("hljs-worker.js", "highlightAuto", [sourceContent, ed.entryPoint], printToTable);
             } catch (e) {
                 showAlert({
                     text: `Error in activating Code Intelligence on ${fileName}.`,

@@ -1,0 +1,149 @@
+
+        <script class="author-datascript">window["__AUTHOR"] = { "name": "coleh", "url": "https://coleh.net" }</script>
+        <script
+            class="annotation-datascript">window["__ANNOTATIONS"] = { "source": [], "source1": [{ "html": "<p>This will print an extra padding space on every cell, except for the (2, 0) cell. I have no idea why CodeHS doesn't tolerate a padding space on the first line, but autograder gonna do what autograder gonna do<br></p>", "astConstruct": "0,5,0,0,4" }, { "html": "<p>If there are 3 Xs or 3 Os, then a row is successful<br></p>", "astConstruct": "0,8,0,2,4" }, { "html": "<p>By putting [col] first, the `for` loop will iterate in column order<br></p>", "astConstruct": "0,9,0,2,0" }, { "html": "<p>Unfortunately, there's no quick trick to check the diagonals. You can just add together the `String` values, and then check if they're equal.<br></p>", "astConstruct": "0,10" }, { "html": "<p>The checkWin method combines diagonal, column, and row checks.<br></p>", "astConstruct": "0,11" }] }</script>
+        <h1>8.2.8 Tic Tac Toe Methods</h1><code id="source">public class TicTacToeTester
+            {
+            public static void main(String[] args)
+            {
+            //This is to help you test your methods. Feel free to add code at the end to check
+            //to see if your checkWin method works!
+            TicTacToe game = new TicTacToe();
+            System.out.println(&quot;Initial Game Board:&quot;);
+            game.printBoard();
+            
+            //Prints the first row of turns taken
+            for(int row = 0; row &lt; 3; row++)
+            {
+            if(game.pickLocation(0, row))
+            {
+            game.takeTurn(0, row);
+            }
+            }
+            System.out.println(&quot;\nAfter three turns:&quot;);
+            game.printBoard();
+            
+            
+            
+            }
+            }
+            
+            
+            </code>
+        <code id="source1">public class TicTacToe
+            {
+            //copy over your constructor from the Tic Tac Toe Board activity in the previous lesson!
+            private int turn;
+            private String[][] board;
+            
+            public TicTacToe() {
+            this.board = new String[][] {
+            {&quot;-&quot;, &quot;-&quot;, &quot;-&quot;},
+            {&quot;-&quot;, &quot;-&quot;, &quot;-&quot;},
+            {&quot;-&quot;, &quot;-&quot;, &quot;-&quot;}
+            };
+            this.turn = 0;
+            }
+            
+            public String[][] getBoard() {
+            return this.board;
+            }
+            
+            //this method returns the current turn
+            public int getTurn()
+            {
+            return this.turn;
+            }
+            
+            /*This method prints out the board array on to the console
+            */
+            public void printBoard()
+            {
+            for(int i = -1; i &lt; 3; i++) {
+            for(int j = -1; j &lt; 3; j++) {
+            //leave the top-left corner blank
+            if(i&lt;0 &amp;&amp; j&lt;0) System.out.print(&quot; &quot;);
+            else if(i&lt;0) System.out.print(j);
+            else if(j&lt;0)  System.out.print(i);
+            else System.out.print(board[i][j]);
+            
+            //codehs doesn&apos;t like us having the extra padding on the first row for some reason &gt;:(
+            if(i &gt; -1 || j &lt; 2) System.out.print(&quot; &quot;);
+            }
+            System.out.println();
+            }
+            }
+            
+            //This method returns true if space row, col is a valid space
+            public boolean pickLocation(int row, int col)
+            {
+            return board[row][col].equals(&quot;-&quot;);
+            }
+            
+            //This method places an X or O at location row,col based on the int turn
+            public void takeTurn(int row, int col)
+            {
+            if(turn % 2 == 0) board[row][col] = &quot;X&quot;;
+            else board[row][col] = &quot;O&quot;;
+            
+            turn++;
+            }
+            
+            //This method returns a boolean that returns true if a row has three X or O&apos;s in a row
+            public boolean checkRow()
+            {
+            for(String[] row : board) {
+            int xInRow = 0;
+            int oInRow = 0;
+            for(String space : row) {
+            if(space.equals(&quot;X&quot;)) xInRow++;
+            else xInRow = 0;
+            
+            if(space.equals(&quot;O&quot;)) oInRow++;
+            else oInRow = 0;
+            
+            if(xInRow &gt;= 3 || oInRow &gt;= 3) return true;
+            }
+            }
+            return false;
+            }
+            
+            //This method returns a boolean that returns true if a col has three X or O&apos;s
+            public boolean checkCol()
+            {
+            for(int row = 0; row &lt; 3; row++) {
+            int xInRow = 0;
+            int oInRow = 0;
+            for(int col = 0; col &lt; 3; col++) {
+            if(board[col][row].equals(&quot;X&quot;)) xInRow++;
+            else xInRow = 0;
+            
+            if(board[col][row].equals(&quot;O&quot;)) oInRow++;
+            else oInRow = 0;
+            
+            if(xInRow &gt;= 3 || oInRow &gt;= 3) return true;
+            }
+            }
+            return false;
+            }
+            
+            //This method returns a boolean that returns true if either diagonal has three X or O&apos;s
+            public boolean checkDiag()
+            {
+            String diag1 = board[0][0] + board[1][1] + board[2][2];
+            String diag2 = board[0][2] + board[1][1] + board[0][2];
+            
+            return diag1.equals(&quot;XXX&quot;) || diag1.equals(&quot;OOO&quot;) || diag2.equals(&quot;XXX&quot;) || diag2.equals(&quot;OOO&quot;);
+            }
+            
+            //This method returns a boolean that checks if someone has won the game
+            public boolean checkWin()
+            {
+            return checkDiag() || checkCol() || checkRow();
+            }
+            
+            }
+            
+            
+            </code>
+    

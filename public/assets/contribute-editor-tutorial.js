@@ -29,14 +29,16 @@ var steps = [
         continue: "button,targetClick",
         clickTargetAction: true,
         anchorX: "center",
-        onclick: function(target) {
-            var content = "this is an annotation!", i = 0;
+        onclick: function (target) {
+            //var fullMarkdownExample = "# heading 1\n## heading 2\n### heading 3\n\n*italics*\n**bold**\n***bold & italics***\n\n[a link](https://example.com)\n\n[a link to somewhere on the site](/codehs/)\n\nHere's a line across the page.\n\n---\n\n> and a quote from someone else\n\n`single-line code`\n\n```multi-line code!\nwoo, look at all the lines it has :)\n```\n```java\n// if the first line is only `java`, it'll be highlighted\nSystem.out.println(\"woo, lookit java!\");\n```";
+            var content = "# this is an annotation!\nIt has *some* formatting; [click the question mark](https://www.markdownguide.org/cheat-sheet) to learn more!", i = 0;
             requestAnimationFrame(function anim() {
-                target.firstElementChild.textContent = content.substring(0, i);
-                if(i < content.length) requestAnimationFrame(anim);
+                target.firstElementChild.innerText = content.substring(0, i);
+                target.firstElementChild.dispatchEvent(new Event('input', { bubbles: true }));
+                if (i < content.length) requestAnimationFrame(anim);
                 i++;
             })
-            
+
         }
     },
     {
@@ -57,8 +59,8 @@ var steps = [
         anchorX: "left",
         continue: "button",
         clickTargetAction: true,
-        onclick: function(target) {
-            if(!target.checked) target.click();
+        onclick: function (target) {
+            if (!target.checked) target.click();
         }
     },
     {
@@ -75,7 +77,7 @@ var steps = [
         target: "#publish-button",
         content: "<h3>That's it!</h3> <p>When you're done with everything, click the publish button, and it'll be sent directly to me! I'll review it & put it on the site ASAP :)</p>",
         continue: "button",
-        onclick: function(target) {
+        onclick: function (target) {
             window.location.reload();
         }
     }
@@ -86,17 +88,24 @@ function showModal() {
     modalLightbox = document.createElement("div");
     modalLightbox.classList.add("modal--lightbox");
 
+    modalLightbox.addEventListener("click", function () {
+        if (modalLightbox.parentElement) modalLightbox.parentElement.removeChild(modalLightbox);
+    })
     document.body.appendChild(modalLightbox);
 
     modal = document.createElement("dialog");
     modal.classList.add("modal--base");
 
+    modal.addEventListener("click", function (event) {
+        event.stopPropagation();
+    })
+
     var modalInner = buildModalContent();
     modal.appendChild(modalInner);
 
     document.body.appendChild(modal);
-    
-    requestAnimationFrame(function() {
+
+    requestAnimationFrame(function () {
         showTutorialStep(0);
         window.scrollTo(0, 0);
     });
@@ -158,55 +167,55 @@ function startTutorial() {
 
 function removeStrayTutorialStep() {
     var steps = Array.from(document.querySelectorAll(".edit-tutorial--pulse"));
-    for(var i = 0; i < steps.length; i++) {
+    for (var i = 0; i < steps.length; i++) {
         steps[i].parentElement.removeChild(steps[i]);
     }
 }
 
 function showTutorialStep(index) {
     removeStrayTutorialStep();
-    
+
     var stepObject = steps[index];
     var targets = Array.from(document.querySelectorAll(stepObject.target));
     var target;
-    
+
     target = targets[Math.floor(Math.random() * Math.min(5, targets.length))];
-    
-    setTimeout(function() {
+
+    setTimeout(function () {
         var targetRect = target.getBoundingClientRect();
-        
+
         window.scrollTo(0, (targetRect.y + window.scrollY) - (window.innerHeight * 0.5));
         targetRect = target.getBoundingClientRect();
-        
-        if(stepObject.targetAction) target[stepObject.targetAction]();
+
+        if (stepObject.targetAction) target[stepObject.targetAction]();
 
         var pulse;
-        
-        var xPos = targetRect.x + (stepObject.anchorX === "right" ? targetRect.width : stepObject.anchorX === "center" ? targetRect.width/2 : 0);
-        var yPos = targetRect.y + (stepObject.anchorY === "bottom" ? targetRect.height : stepObject.anchorY === "center" ? targetRect.height/2 : 0);
-        
-        if(stepObject.continue === undefined) stepObject.continue = "";
-        
-        if(stepObject.continue.includes("button")) {
-            pulse = buildTutorialPulse(xPos, yPos, stepObject.content, function() {
+
+        var xPos = targetRect.x + (stepObject.anchorX === "right" ? targetRect.width : stepObject.anchorX === "center" ? targetRect.width / 2 : 0);
+        var yPos = targetRect.y + (stepObject.anchorY === "bottom" ? targetRect.height : stepObject.anchorY === "center" ? targetRect.height / 2 : 0);
+
+        if (stepObject.continue === undefined) stepObject.continue = "";
+
+        if (stepObject.continue.includes("button")) {
+            pulse = buildTutorialPulse(xPos, yPos, stepObject.content, function () {
                 pulse.parentElement.removeChild(pulse);
-                if(stepObject.clickTargetAction) target.click();
-                if(stepObject.onclick) stepObject.onclick(target);
-                
+                if (stepObject.clickTargetAction) target.click();
+                if (stepObject.onclick) stepObject.onclick(target);
+
                 //only continue right away if it's *just* the button
-                if(stepObject.continue == "button") {
-                    if(steps.length-1 > index) showTutorialStep(index + 1);   
-                } 
+                if (stepObject.continue == "button") {
+                    if (steps.length - 1 > index) showTutorialStep(index + 1);
+                }
             });
             document.body.appendChild(pulse);
         } else {
             pulse = buildTutorialPulse(xPos, yPos, stepObject.content);
             document.body.appendChild(pulse);
         }
-        
-        if(stepObject.continue.includes("targetClick")) target.addEventListener("click", function oneTimeListener() {
-            if(pulse.parentElement) pulse.parentElement.removeChild(pulse);
-                if(steps.length-1 > index) showTutorialStep(index + 1);
+
+        if (stepObject.continue.includes("targetClick")) target.addEventListener("click", function oneTimeListener() {
+            if (pulse.parentElement) pulse.parentElement.removeChild(pulse);
+            if (steps.length - 1 > index) showTutorialStep(index + 1);
             target.removeEventListener("click", oneTimeListener);
         });
     }, stepObject.delay || 10);
@@ -220,24 +229,24 @@ function buildTutorialPulse(x, y, html, buttonCb) {
 
     var pulseTip = document.createElement("div");
     pulseTip.classList.add("edit-tutorial--pulse-tip");
-    
-    if(html !== undefined) pulseTip.innerHTML = html;
+
+    if (html !== undefined) pulseTip.innerHTML = html;
     else pulseTip.classList.add("collapsed");
-    
+
     pulse.appendChild(pulseTip);
-    
-    if(buttonCb) {
+
+    if (buttonCb) {
         var button = document.createElement("button");
         button.textContent = "Okay";
         button.addEventListener("click", buttonCb);
         pulseTip.appendChild(button);
     }
-    
-    pulse.addEventListener("mouseenter", function() {
-       var rect = pulseTip.getBoundingClientRect();
-       var distanceFromRightEdge = window.innerWidth - (rect.x + rect.width);
-       
-       if(distanceFromRightEdge < 0) pulseTip.style.transform = `translateX(${distanceFromRightEdge}px)`;
+
+    pulse.addEventListener("mouseenter", function () {
+        var rect = pulseTip.getBoundingClientRect();
+        var distanceFromRightEdge = window.innerWidth - (rect.x + rect.width);
+
+        if (distanceFromRightEdge < 0) pulseTip.style.transform = `translateX(${distanceFromRightEdge}px)`;
     });
 
     return pulse;
@@ -251,7 +260,7 @@ function enableScroll() {
     document.body.parentElement.style.overflow = "";
 }
 
-if(!localStorage.getItem("contribute-editor-tutorialViewed")) {
+if (!localStorage.getItem("contribute-editor-tutorialViewed")) {
     showModal();
     localStorage.setItem("contribute-editor-tutorialViewed", 1);
 }

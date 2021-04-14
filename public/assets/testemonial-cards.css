@@ -1,0 +1,73 @@
+.testemonial-cards {
+    display: flex;
+    min-height: max-content;
+    padding: 0;
+}
+
+.testemonial-cards li {
+    display: flex;
+    background-color: #f7f5f5;
+    border-radius: 10px;
+    position: relative;
+    margin: 18px;
+    padding: 1em;
+    width: max-content;
+    max-width: 10em;
+    flex-shrink: 0;
+    flex-direction: column;
+    font-size: 1.4rem;
+    line-height: 1.6;
+}
+
+.testemonial-cards li span {
+    z-index: 1;
+}
+.testemonial-cards li::after {
+    content: "\201C";
+    color: #ebebeb;
+    display: block;
+    font-weight: 700;
+    font-size: 10em;
+    position: absolute;
+    bottom: 0;
+    line-height: 1;
+    right: 0.1em;
+    transform: rotate(180deg);
+    transition: background-color 0.1s color 0.1s;
+    pointer-events: none;
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+    .testemonial-cards  li:hover::after {
+        background: linear-gradient(90deg, hsla(179, 83%, 64%, 0.1) 0%, hsla(338, 75%, 64%, 0.1) 100%);
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        
+    }
+}
+
+.testemonial-cards li::before {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    z-index: -2;
+    left: -0.2em;
+    right: -0.2em;
+    top: 0.25em;
+    bottom: -0.25em;
+    transform-origin: top center;
+    background: linear-gradient(-90deg, hsla(179, 83%, 64%, 1) 0%, hsla(338, 75%, 64%, 1) 50%, hsla(14, 92%, 86%, 1) 100%);
+    box-shadow: 0 0 0.5em 0 #b1afaf;
+    transition: transform 0.1s ease-out;
+}
+
+.testemonial-cards li:hover::before {
+    transform: scale(0.99);
+}
+
+@media screen and (min-width: 900px) {
+    .testemonial-cards li {
+        max-width: 30em;
+    }
+  }
