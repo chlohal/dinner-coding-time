@@ -41,7 +41,9 @@ var getUserStyle;
             //cmon wait until it's done-- or until we've got the result
             if (xhr.readyState != 4 && force !== true) return;
 
-            //if there's an error, just uhhh do it normally i guess
+            if(xhr.status == 404) return showNewAssignmentCreationDialog();
+
+            //if there's an error, just uhhh barf
             if (xhr.status != 200 && force !== true) return alert("Error loading code");
 
             var loadedFromCache = !!partialCache[partialAddress];
@@ -57,19 +59,19 @@ var getUserStyle;
             for (var i = parsingParent.children.length - 1; i >= 0; i--) {
                 if (parsingParent.children[i].id.startsWith("source")) {
                     main.appendChild(parsingParent.children[i]);
-                } else if(parsingParent.children[i].tagName == "H1") {
+                } else if (parsingParent.children[i].tagName == "H1") {
                     document.querySelector("h1").textContent = parsingParent.children[i].textContent;
-                } else if(parsingParent.children[i].classList.contains("tip")) {
+                } else if (parsingParent.children[i].classList.contains("tip")) {
                     document.getElementById("show-tip-editor-check").checked = true;
-                    
+
                     var tipEditor = document.getElementById("tip-editor");
-                    
+
                     var heading = parsingParent.children[i].querySelector("h2");
                     tipEditor.querySelector("h2").innerHTML = heading.innerHTML;
-                    
+
                     var paragraph = parsingParent.children[i].querySelector("p");
-                    if(paragraph) tipEditor.querySelector("p").innerHTML = paragraph.innerHTML;
-                    else  tipEditor.querySelector("p").innerHTML = parsingParent.children[i].innerHTML.replace(heading.outerHTML, "");
+                    if (paragraph) tipEditor.querySelector("p").innerHTML = paragraph.innerHTML;
+                    else tipEditor.querySelector("p").innerHTML = parsingParent.children[i].innerHTML.replace(heading.outerHTML, "");
                 }
             }
 
@@ -90,9 +92,9 @@ var getUserStyle;
 
         for (var i = 0; i < keys.length; i++) {
             var ed = editors[keys[i]];
-            
-            if(ed.tab.parentElement) ed.tab.parentElement.removeChild(ed.tab);
-            if(ed.border.parentElement) ed.border.parentElement.removeChild(ed.border);
+
+            if (ed.tab.parentElement) ed.tab.parentElement.removeChild(ed.tab);
+            if (ed.border.parentElement) ed.border.parentElement.removeChild(ed.border);
 
             delete editors[keys[i]];
         }
@@ -128,12 +130,41 @@ var getUserStyle;
                 header.appendChild(part);
             }
 
-            if(path[i] == "contribute") {
+            if (path[i] == "contribute") {
                 part.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="emoji" width="24" height="24" viewBox="0 0 24 24"><path d="M7.127 22.562l-7.127 1.438 1.438-7.128 5.689 5.69zm1.414-1.414l11.228-11.225-5.69-5.692-11.227 11.227 5.689 5.69zm9.768-21.148l-2.816 2.817 5.691 5.691 2.816-2.819-5.691-5.689z"/></svg>`;
             }
         }
 
     })();
+
+    function showNewAssignmentCreationDialog() {
+        var dialog = document.getElementById("creating-new-file-modal");
+        var activity = document.getElementById("creating-new-file-activity");
+        dialog.hidden = false;
+
+        document.querySelector("h1").textContent = "New Assignment"
+
+        activity.textContent = "Sending skeleton publish..."
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/api/contributor/publishes");
+
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            dialog.hidden = true;
+        }
+
+        loadReviewer();
+        document.getElementById("reviewer").hidden = true;
+
+        var skeleton = {
+            author: createFullExportFile().author,
+            location: window.location.pathname.replace("contribute/", "")
+        };
+
+        xhr.send(JSON.stringify(skeleton));
+    }
 
 
     (function createTabsParent() {
@@ -185,44 +216,44 @@ var getUserStyle;
         }
 
     })();
-    
+
     (_global.addSkeletonTip = function addSkeletonTip() {
-        
+
     });
-    
+
     (_global.loadPartButtons = function loadPartButtons() {
         var partPipeline = document.getElementById("pipeline");
-        var partButtons = Array.from(partPipeline.children).filter(function(x) { return x.tagName == "BUTTON" } );
-        
-        for(var i = 0; i < partButtons.length; i++) {
+        var partButtons = Array.from(partPipeline.children).filter(function (x) { return x.tagName == "BUTTON" });
+
+        for (var i = 0; i < partButtons.length; i++) {
             initPartButton(partButtons[i], i);
         }
-        
-        
+
+
     })();
-    
+
     function initPartButton(partButton, index) {
-        partButton.addEventListener("click", function() {
+        partButton.addEventListener("click", function () {
             _global.updateCurrentPartTo(index);
         })
     }
-    
+
     (_global.updateCurrentPartTo = function updateCurrentPartTo(partIndex) {
         var partPipeline = document.getElementById("pipeline");
-        var partButtons = Array.from(partPipeline.children).filter(function(x) { return x.tagName == "BUTTON" } );
-        
-        
-        for(var i = 0; i < partButtons.length; i++) partButtons[i].removeAttribute("aria-selected");
+        var partButtons = Array.from(partPipeline.children).filter(function (x) { return x.tagName == "BUTTON" });
+
+
+        for (var i = 0; i < partButtons.length; i++) partButtons[i].removeAttribute("aria-selected");
         partButtons[partIndex].setAttribute("aria-selected", "true");
-        
+
         var completion = document.getElementById("pipeline-completion");
-        completion.style.transform = `scaleX(${0.25*(3 - partIndex)})`;
-        
+        completion.style.transform = `scaleX(${0.25 * (3 - partIndex)})`;
+
         var partNames = ["code", "annotate", "publish"];
-        for(var i = 0; i < partNames.length; i++) document.body.classList.remove("part--" + partNames[i]);
+        for (var i = 0; i < partNames.length; i++) document.body.classList.remove("part--" + partNames[i]);
         document.body.classList.add("part--" + partNames[partIndex]);
-        
-        if(partIndex == 2) loadReviewer();
+
+        if (partIndex == 2) loadReviewer();
         else document.getElementById("reviewer").hidden = true;
     })(0);
 
@@ -241,6 +272,46 @@ var getUserStyle;
         else editorsTablist.lastElementChild.click();
     });
 
+    (_global.createPlusButton = function createPlusButton() {
+
+        var button = document.createElement("button");
+        button.textContent = "+";
+
+        button.addEventListener("click", function () {
+            var source = document.createElement("code");
+            var idx = editorsTablist.children.length - 1;
+            var classname = `NewClass${idx}${Math.floor(Math.random() * 10000)}`;
+
+            source.textContent =
+                `
+public class ${classname} {
+    
+}`;
+            var sourceParent = document.createElement("div");
+            sourceParent.appendChild(source);
+            editors[classname] = makeEditor(source, idx);
+            requestAnimationFrame(function () {
+                editorsTablist.children[editorsTablist.children.length - 1].click();
+            });
+        });
+
+        var createdState = document.createElement("div");
+        createdState.classList.add("created-state");
+
+        var createdStateHeading = document.createElement("h2");
+        createdStateHeading.textContent = "File Created!";
+        createdState.appendChild(createdStateHeading);
+
+        var createdStateSummary = document.createElement("p");
+        createdStateSummary.textContent = "Users will not be able to see this tab. You can rename your new file by editing the name of its first class.";
+        createdState.appendChild(createdStateSummary);
+
+        var csParent = document.createElement("div");
+        csParent.appendChild(createdState);
+
+        appendTab(button, csParent);
+    })();
+
     function makeEditor(source, editorIndex) {
         editorIndex = +editorIndex;
 
@@ -249,7 +320,7 @@ var getUserStyle;
         var sourceLines = sourceContent.split("\n");
         sourceLines.splice(0, 1);
         var overindent = sourceLines[0].match(/^\s*/)[0].length;
-        for(var i = 0; i < sourceLines.length; i++) sourceLines[i] = sourceLines[i].replace(" ".repeat(overindent), "");
+        for (var i = 0; i < sourceLines.length; i++) sourceLines[i] = sourceLines[i].replace(" ".repeat(overindent), "");
 
         var entryPoint = source.getAttribute("data-entry-point");
         var table = makeNumberedLinesTable(sourceLines);
@@ -309,8 +380,8 @@ var getUserStyle;
                 parent.focus();
             })
         });
-        
-        loadDep("hljs-worker.js", [], function() {
+
+        loadDep("hljs-worker.js", [], function () {
             var editbox = createEditorEditbox(sourceLines, table, tabTitle);
             parent.appendChild(editbox);
         });
@@ -396,7 +467,7 @@ var getUserStyle;
             tab.focus();
             if (selectedTabIndex !== undefined) {
                 var selectedTab = editorsTablist.children[selectedTabIndex];
-                if(selectedTab !== undefined) {
+                if (selectedTab !== undefined) {
                     selectedTab.setAttribute("aria-selected", "false");
                     selectedTab.setAttribute("tabindex", "-1");
 
@@ -431,20 +502,20 @@ var getUserStyle;
         table.classList.add("code-with-lines");
 
         for (var i = 0; i < Math.max(table.children.length, htmlLines.length); i++) {
-            if(i >= htmlLines.length) {
+            if (i >= htmlLines.length) {
                 table.removeChild(table.children[i]);
                 i--;
             } else {
                 var line;
-                if(table.children[i]) line = table.children[i];
+                if (table.children[i]) line = table.children[i];
                 else line = document.createElement("tr");
 
                 createAddAnnotationTh(i + 1, line, htmlLines[i].includes("<span class=\"hlast-verification-term"));
 
                 createTableLineContent(htmlLines[i], line);
-                
 
-                if(!table.children[i]) table.appendChild(line);
+
+                if (!table.children[i]) table.appendChild(line);
             }
         }
 
@@ -454,23 +525,23 @@ var getUserStyle;
     function createAddAnnotationTh(index, line, canHaveAnnotation) {
         var th;
 
-        if(line.firstElementChild && line.firstElementChild.tagName == "TH") th = line.firstElementChild;
+        if (line.firstElementChild && line.firstElementChild.tagName == "TH") th = line.firstElementChild;
         else th = document.createElement("th");
 
         th.tabIndex = 0;
-        if(!th.firstElementChild) {
+        if (!th.firstElementChild) {
             var numSpan = document.createElement("span");
             numSpan.textContent = index;
             th.appendChild(numSpan);
-            
+
 
             var annotation;
-            th.addEventListener("click", function() {
-                if(!document.body.classList.contains("part--annotate")) return false;
-                if(!th.classList.contains("can-have-annotation")) return false;
-                if(th.parentElement == undefined) return false;
+            th.addEventListener("click", function () {
+                if (!document.body.classList.contains("part--annotate")) return false;
+                if (!th.classList.contains("can-have-annotation")) return false;
+                if (th.parentElement == undefined) return false;
 
-                if(!annotation) {
+                if (!annotation) {
                     th.parentElement.parentElement.parentElement.classList.add("annotations-open");
                     var dataCell = th.nextElementSibling;
 
@@ -478,7 +549,7 @@ var getUserStyle;
                     dataCell.insertBefore(annotation, dataCell.firstElementChild);
                     th.classList.add("has-annotation");
                 } else {
-                    if(window.confirm("This will delete the annotation on line " + th.textContent +". Are you sure?")) {
+                    if (window.confirm("This will delete the annotation on line " + th.textContent + ". Are you sure?")) {
                         th.classList.remove("has-annotation");
                         annotation.parentElement.removeChild(annotation);
                         annotation = "";
@@ -486,11 +557,11 @@ var getUserStyle;
                 }
             });
         }
-        
-        if(canHaveAnnotation) th.classList.add("can-have-annotation");
+
+        if (canHaveAnnotation) th.classList.add("can-have-annotation");
         else th.classList.remove("can-have-annotation");
-        
-        if(!line.firstElementChild) line.appendChild(th);
+
+        if (!line.firstElementChild) line.appendChild(th);
 
         return th;
     }
@@ -498,37 +569,37 @@ var getUserStyle;
     function createAnnotationParagraph() {
         var paraParent = document.createElement("div");
         paraParent.classList.add("annotation");
-        
+
         var output = document.createElement("output");
 
         var para = document.createElement("p");
         para.contentEditable = true;
-        para.addEventListener("input", function() {
-            
-            executeDependencyFunction("light-markdown.js", "lex", [para.innerText, false, 2], function(data) {
+        para.addEventListener("input", function () {
+
+            executeDependencyFunction("light-markdown.js", "lex", [para.innerText, false, 2], function (data) {
                 output.innerHTML = data;
             });
         });
-        
+
         var buttons = document.createElement("div");
         buttons.classList.add("annotation--buttons");
-        
+
         var helpButton = document.createElement("button");
         helpButton.innerHTML = ICONS.QUESTION_MARK;
         helpButton.title = "Open cheat sheet";
-        helpButton.addEventListener("click", function() {
+        helpButton.addEventListener("click", function () {
             window.open("https://www.markdownguide.org/cheat-sheet");
         });
         buttons.appendChild(helpButton);
-        
+
         var annosHidden = false;
-        
+
         var hideButton = document.createElement("button");
         hideButton.innerHTML = ICONS.CROSS_OUT_EYE;
         hideButton.title = "Show/hide preview";
-        hideButton.addEventListener("click", function() {
+        hideButton.addEventListener("click", function () {
             annosHidden = !annosHidden;
-            if(annosHidden) {
+            if (annosHidden) {
                 hideButton.innerHTML = ICONS.EYE;
                 output.hidden = true;
                 output.style.display = "none";
@@ -539,55 +610,55 @@ var getUserStyle;
             }
         });
         buttons.appendChild(hideButton);
-        
+
         paraParent.appendChild(para);
         paraParent.appendChild(output);
         paraParent.appendChild(buttons);
-        
+
         return paraParent;
     }
-    
+
     function createEditorEditbox(htmlLines, table, tabTitle) {
         var editbox = document.createElement("textarea");
         editbox.classList.add("editbox");
         editbox.setAttribute("spellcheck", "false");
-        for(var i = 0; i < htmlLines.length; i++) {
+        for (var i = 0; i < htmlLines.length; i++) {
             editbox.innerHTML += htmlLines[i] + "\n";
         }
-        
-        editbox.addEventListener("input", function(event) {
+
+        editbox.addEventListener("input", function (event) {
             //floaty enters
-            if(event.inputType === "insertLineBreak" || event.inputType == "insertParagraph") {
+            if (event.inputType === "insertLineBreak" || event.inputType == "insertParagraph") {
                 var value = editbox.value;
                 var selStart = editbox.selectionStart;
                 var indent = 0
-                for(var i = selStart - 2; i >= 0; i--) {
-                    if(value.charAt(i) == "\n") {
-                        for(var j = i + 1; j < selStart; j++) {
-                            if(value.charAt(j) == " ") indent++;
+                for (var i = selStart - 2; i >= 0; i--) {
+                    if (value.charAt(i) == "\n") {
+                        for (var j = i + 1; j < selStart; j++) {
+                            if (value.charAt(j) == " ") indent++;
                             else break;
                         }
                         break;
                     }
                 }
-                editbox.value = editbox.value.substring(0, selStart) +  " ".repeat(indent) + editbox.value.substring(selStart);
+                editbox.value = editbox.value.substring(0, selStart) + " ".repeat(indent) + editbox.value.substring(selStart);
 
                 editbox.selectionStart = selStart + indent;
                 editbox.selectionEnd = selStart + indent;
             }
 
-            
-            executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function(data) {
+
+            executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function (data) {
                 makeNumberedLinesTable(data.split("\n"), table);
             });
-            
-            
+
+
             var titleRegexp = (/class\s+([A-Z]\w+)/).exec(editbox.value);
             var fileName = titleRegexp ? titleRegexp[1] + ".java" : editbox.value.substring(0, 32).replace(/\n/g, " ") + "...";
             tabTitle.firstElementChild.textContent = fileName;
         });
 
-        executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function(data) {
+        executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function (data) {
             makeNumberedLinesTable(data.split("\n"), table);
         });
 
@@ -596,18 +667,18 @@ var getUserStyle;
 
     function createTableLineContent(html, line) {
         var lineContent;
-        if(line.children[1]) lineContent = line.children[1];
+        if (line.children[1]) lineContent = line.children[1];
         else lineContent = document.createElement("td");
 
         createIndentedLineOfCode(html, lineContent);
 
-        if(!line.children[1]) line.appendChild(lineContent);
+        if (!line.children[1]) line.appendChild(lineContent);
         return lineContent;
     }
 
     function createIndentedLineOfCode(html, parent) {
         var code;
-        if(parent.lastElementChild) code = parent.lastElementChild;
+        if (parent.lastElementChild) code = parent.lastElementChild;
         else code = document.createElement("code");
 
         code.innerHTML = html;
@@ -616,7 +687,7 @@ var getUserStyle;
         code.style.textIndent = -1 * indentLevel + "ch";
         code.style.paddingInlineStart = indentLevel + "ch";
 
-        if(!parent.lastElementChild) parent.appendChild(code);
+        if (!parent.lastElementChild) parent.appendChild(code);
 
         return code;
     }
@@ -630,23 +701,23 @@ var getUserStyle;
     }
 
     var __userStyle;
-    
+
     function loadReviewer() {
         document.getElementById("reviewer").hidden = false;
 
         var annotations = loadAllAnnotations();
         var table = document.getElementById("review-annotations");
-        
-        while(table.children[0]) table.removeChild(table.children[0]);
-        
-        for(var i = 0; i < annotations.length; i++) {
+
+        while (table.children[0]) table.removeChild(table.children[0]);
+
+        for (var i = 0; i < annotations.length; i++) {
             table.appendChild(createReviewAnnotationRow(annotations[i]));
         }
-        
+
         var checkbox = document.getElementById("show-tip-editor-check");
         var tipEditor = document.getElementById("tip-editor");
         function updateCheckbox() {
-            if(checkbox.checked) {
+            if (checkbox.checked) {
                 tipEditor.style.display = "block";
             } else {
                 tipEditor.style.display = "none";
@@ -654,41 +725,41 @@ var getUserStyle;
         }
         checkbox.addEventListener("change", updateCheckbox);
         updateCheckbox();
-        
+
         var name = document.getElementById("authorNameInput");
         name.value = localStorage.getItem("contribute-editor-authorNameInput") || "";
-        name.addEventListener("input", function() {
+        name.addEventListener("input", function () {
             localStorage.setItem("contribute-editor-authorNameInput", name.value);
         });
-        
+
         var url = document.getElementById("authorUrlInput");
         url.value = localStorage.getItem("contribute-editor-authorUrlInput") || "";
-        url.addEventListener("input", function() {
+        url.addEventListener("input", function () {
             localStorage.setItem("contribute-editor-authorUrlInput", url.value);
         });
-        
+
         var pubButton = document.getElementById("publish-button");
         var pubTip = document.getElementById("publish-tip");
-        
+
         function updateLegalCheckboxes() {
-            var allApproved = document.getElementById("licenseApproval").checked && 
+            var allApproved = document.getElementById("licenseApproval").checked &&
                 document.getElementById("contentHostingApproval").checked &&
                 document.getElementById("ugcDenialApproval").checked;
-            
+
             pubButton.disabled = !allApproved
-            
-            if(allApproved) pubTip.classList.add("faded");
+
+            if (allApproved) pubTip.classList.add("faded");
             else pubTip.classList.remove("faded");
         }
         updateLegalCheckboxes();
         document.getElementById("licenseApproval").addEventListener("change", updateLegalCheckboxes);
         document.getElementById("contentHostingApproval").addEventListener("change", updateLegalCheckboxes);
         document.getElementById("ugcDenialApproval").addEventListener("change", updateLegalCheckboxes);
-        
+
         var publishing = false;
-        pubButton.addEventListener("click", function() {
-            if(publishing) return;
-            if(pubButton.disabled) {
+        pubButton.addEventListener("click", function () {
+            if (publishing) return;
+            if (pubButton.disabled) {
                 alert("You must accept all the legal things to publish!");
             } else {
                 pubButton.textContent = "...";
@@ -697,34 +768,34 @@ var getUserStyle;
             }
         });
     }
-    
+
     function uploadPublish() {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/api/contributor/publishes");
-        
+
         xhr.setRequestHeader("Content-Type", "application/json");
-        
-        xhr.onload = function() {
+
+        xhr.onload = function () {
             showPublishSuccessModal(JSON.parse(xhr.responseText));
             document.getElementById("publish-button").textContent = "Published!";
         }
-        
+
         xhr.send(JSON.stringify(createFullExportFile()));
     }
-    
+
     function showPublishSuccessModal(publishData) {
         var link = document.getElementById("publish-link");
 
         var modal = document.getElementById("publish-result-modal");
         modal.hidden = false;
-        modal.addEventListener("click", function() {
+        modal.addEventListener("click", function () {
             modal.hidden = true;
         });
-        modal.firstElementChild.addEventListener("click", function(event) {
+        modal.firstElementChild.addEventListener("click", function (event) {
             event.stopPropagation();
         });
-        link.value = "https://api.jsonbin.it/bins/" + publishData.bin;
-        document.getElementById("copy-publish-link").addEventListener("click", function() {
+        link.value = "https://dct.cool/p" + publishData.slug;
+        document.getElementById("copy-publish-link").addEventListener("click", function () {
             link.parentElement.parentElement.classList.remove("copied");
 
             link.select();
@@ -733,39 +804,39 @@ var getUserStyle;
             link.parentElement.parentElement.classList.add("copied");
         });
     }
-    
+
     function createReviewAnnotationRow(annotation) {
         var row = document.createElement("tr");
-        
+
         var astPos = document.createElement("th");
-        astPos.textContent = annotation.astConstruct.split(",").reverse().map(x=> `statement ${x}`).join(" in ");
+        astPos.textContent = annotation.astConstruct.split(",").reverse().map(x => `statement ${x}`).join(" in ");
         row.appendChild(astPos);
-        
+
         var annoContent = document.createElement("td");
         annoContent.innerHTML = annotation.html;
         annoContent.textContent = annoContent.textContent.substring(0, 150) + "[...]";
         row.appendChild(annoContent);
-        
+
         return row;
     }
-    
+
     function loadAllAnnotations(parent) {
         var annotations = (parent || document).querySelectorAll(".annotation");
-        
+
         var result = [];
-        for(var i = 0; i < annotations.length; i++) {
+        for (var i = 0; i < annotations.length; i++) {
             var lineMarkers = annotations[i].parentElement.querySelectorAll(".hlast-linemarker");
             var canonLineMarker = lineMarkers[lineMarkers.length - 1];
             result.push({
                 html: annotations[i].children[1].innerHTML,
                 md: annotations[i].children[0].innerText,
                 astConstruct: canonLineMarker.getAttribute("data-address")
-            }); 
+            });
         }
-        
+
         return result;
     }
-    
+
     _global.createFullExportFile = function createFullExportFile() {
         var result = {
             files: [],
@@ -776,40 +847,40 @@ var getUserStyle;
             html: "",
             location: window.location.pathname.replace("contribute/", "")
         };
-        
+
         var fileEditors = Array.from(document.querySelectorAll(".code-with-lines--border-parent"));
-        for(var i = 0; i < fileEditors.length; i++) {
+        for (var i = 0; i < fileEditors.length; i++) {
             result.files.push(getAnnotationsAndSource(fileEditors[i]));
         }
-        
+
         var resultHtml = "";
-        
+
         resultHtml += `<script class="author-datascript">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
-        
+
         var annotationJson = {};
-        for(var i = 0; i < result.files.length; i++) {
-            annotationJson["source" + ((+result.files[i].id)||"")] = result.files[i].annotations;
+        for (var i = 0; i < result.files.length; i++) {
+            annotationJson["source" + ((+result.files[i].id - 1) || "")] = result.files[i].annotations;
         }
         resultHtml += `<script class="annotation-datascript">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
-        
+
         resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");
-        
-        if(document.getElementById("show-tip-editor-check").checked) {
+
+        if (document.getElementById("show-tip-editor-check").checked) {
             resultHtml += document.getElementById("tip-editor").outerHTML
                 .replace(/ ?contenteditable="(true)?"/g, "")
                 .replace(/style="[^"]+"/g, "")
                 .replace("id=\"tip-editor\"", "");
         }
-        
-        for(var i = 0; i < result.files.length; i++) {
+
+        for (var i = 0; i < result.files.length; i++) {
             resultHtml += `<code id="source${(+result.files[i].id) || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
         }
 
         result.html = resultHtml;
-        
+
         return result;
     }
-    
+
     function getAnnotationsAndSource(elem) {
         var source = elem.querySelector(".editbox").value;
         var annotations = loadAllAnnotations(elem);

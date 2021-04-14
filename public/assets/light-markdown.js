@@ -35,6 +35,10 @@ var contexts = {
         if(lineIndex == 0 && str.startsWith("---", index)) return {
             context: contexts.HORIZONTAL_RULE
         };
+
+        if(lineIndex == 0 && char == "|") return {
+            context: contexts.TABLE
+        };
         
         if(str.startsWith("\~\~", index)) return {
             context: contexts.STRIKED
@@ -244,7 +248,38 @@ var contexts = {
             skip: 1
         };
         else return {}
-    }
+    },
+    "TABLE": function (str, index, lineIndex, char, term, ctxIndex, keepSyntax, baseHeadingDepth) {
+        var add = "";
+        if(ctxIndex == 0) add += "<table>";
+
+        if(lineIndex == 0 && char == "|") add += "<tr><td>";
+        
+        if(char != "|") add += char;
+        
+        
+        if(lineIndex > 0 && char == "|") add += "</td>";
+
+        //if this is not the last character, open the next cell
+        if(lineIndex > 0 && char == "|" && str.charAt(index + 1) != "\n" && index + 1 < str.length) add += "<td>";
+
+        if(str.charAt(index + 1) == "\n") add += "</tr>";
+
+        //if the next line doesn't start with a pipe, table's over
+        if((char == "\n" && str.charAt(index + 1) != "|") || index + 1 == str.length ) {
+            return {
+                context: contexts.BASE,
+                term: "",
+                add: add + "</table>",
+                skip: 1
+            };
+        } else {
+            return {
+                add: add
+            };
+        }
+    },
+
 
 }
 
@@ -272,6 +307,7 @@ function lex(src, keepSyntax, baseHeadingDepth) {
             term = "";
             ctxIndex = -1;
             j--;
+            lineIndex--;
             changedContext = true;
         }
         if (ctxRes.term !== undefined) term = ctxRes.term;
@@ -279,7 +315,7 @@ function lex(src, keepSyntax, baseHeadingDepth) {
         if (ctxRes.skip !== undefined) j += ctxRes.skip;
         
         //stop at newlines, except for code blocks
-        if(char == "\n" && !changedContext && context != contexts.CODE_BLOCK) {
+        if(char == "\n" && !changedContext && (context != contexts.CODE_BLOCK && context != contexts.TABLE)) {
             result += term;
             context = contexts.BASE;
             term = "";

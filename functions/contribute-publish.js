@@ -2,12 +2,12 @@ exports.handler = function (event, context, callback) {
     var https = require("https");
     
     (function() {
-        var body = event.body;
+        var body = event.body || "";
         
         send({
             hostname: "script.google.com",
-            path: "/macros/s/AKfycby2Jm3wkMpqD5FKupwJgTKsrnpj8tCOKZjHlMCLJBqO2SkBtlMyyAfPtuBtSpciD1FA3g/exec",
-            method: "POST",
+            path: "/macros/s/AKfycby2Jm3wkMpqD5FKupwJgTKsrnpj8tCOKZjHlMCLJBqO2SkBtlMyyAfPtuBtSpciD1FA3g/exec" + (body ? "" : "?htmls=true"),
+            method: body ? "POST" : "GET",
             headers: { "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body), "Host": "script.google.com", "Transfer-Encoding": "identity" },
         }, body, function(err, resBody, res) {
             if(err) callback(null, {

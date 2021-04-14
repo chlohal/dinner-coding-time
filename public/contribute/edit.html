@@ -55,7 +55,7 @@
             background-color: #2991ce;
         }
 
-        .code-with-lines > code {
+        .code-with-lines>code {
             display: block;
         }
 
@@ -155,7 +155,7 @@
             flex-shrink: 1;
             flex-grow: 1;
         }
-        
+
         .annotation output {
             width: 50%;
             display: block;
@@ -163,33 +163,34 @@
             font-size: 1.4rem;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             white-space: pre-line;
-            background:hsla(14, 2%, 96%, 1);
+            background: hsla(14, 2%, 96%, 1);
             border-left: 1px solid #474864;
             flex-shrink: 1;
             flex-grow: 1;
         }
-        
+
         .annotation--buttons {
             position: absolute;
             top: 5px;
             right: 0;
         }
+
         .annotation--buttons button {
             border: 0;
             background: #f7fdfd;
             box-shadow: 0 0 0.5em 0 #b1afaf;
         }
-        
+
         .annotation output * {
             margin: 0;
         }
-        
+
         .annotation output blockquote {
-            border-left:rgb(202, 146, 166) solid 0.25em;
+            border-left: rgb(202, 146, 166) solid 0.25em;
             padding: 0.25em;
             background: rgba(202, 146, 166, 0.3);
         }
-        
+
         .annotation output pre {
             background: #575868;
             color: #f7f5f5;
@@ -361,6 +362,7 @@
             text-align: center;
             box-shadow: 0 0 150vmax 0 #000;
         }
+
         .copiable-link {
             border: #575868 1px solid;
             border-radius: 0.25em;
@@ -370,6 +372,7 @@
             max-width: 100%;
             padding: 0 0.1em;
         }
+
         .copiable-link::before {
             content: "Copied!";
             position: absolute;
@@ -386,42 +389,51 @@
             opacity: 0;
             transform: scale(0) translateX(-50%);
         }
+
         .copiable-link.copied::before {
             animation: fade-in-up-out 0.75s;
             transform: scale(1) translateX(-50%);
         }
+
         @keyframes fade-in-up-out {
             from {
                 opacity: 0;
                 transform: translateY(-0.25em) translateX(-50%);
             }
+
             10% {
                 opacity: 1;
                 transform: translateY(-0.25em) translateX(-50%);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-1.25em) translateX(-50%);
             }
 
         }
+
         .copiable-link input {
             background: 0;
             border: 0;
             width: max-content;
             vertical-align: middle;
         }
+
         .copiable-link button {
             background: 0;
             border: 0;
             padding: 0.1em;
         }
+
         .copiable-link button svg {
             width: 1.5em;
         }
+
         .copiable-link--input-wrapper {
             position: relative;
         }
+
         .copiable-link--input-wrapper::after {
             content: "";
             width: 1em;
@@ -434,12 +446,28 @@
             right: 0;
             pointer-events: none;
         }
+
         .center {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+        }
+
+        .creating-file--activity {
+            font-size: 0.85em;
+            font-style: italic;
+        }
+
+        .annotation table {
+            border-collapse: collapse;
+        }
+
+        .annotation td {
+            border: 1px solid #474864;
+            white-space: normal;
+            padding: 0.125em;
         }
     </style>
 </head>
@@ -492,13 +520,37 @@
                         Please send this link in the discord:
                         <span class="copiable-link">
                             <span class="copiable-link--input-wrapper">
-                                <input id="publish-link" readonly> 
+                                <input id="publish-link" readonly>
                             </span>
                             <button aria-label="Copy the link" id="copy-publish-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z"/></svg>
-                            </button> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z" />
+                                </svg>
+                            </button>
                         </span>
                     </p>
+                </div>
+            </dialog>
+        </div>
+        <div class="modal--lightbox" id="creating-new-file-modal" hidden>
+            <dialog class="modal--base">
+                <div class="modal--inner">
+                    <h2>
+                        Creating Assignment...
+                    </h2>
+                    <p class="center">
+                        Please wait; this may take a few seconds.<br>
+                        <span class="creating-file--activity" id="creating-new-file-activity"></span>
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="margin:auto;display:block;height:4em;" width="200px" height="200px"
+                        viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="50" cy="50" fill="none" stroke="#1b1d35" stroke-width="8" r="27"
+                            stroke-dasharray="127.23450247038662 44.411500823462205">
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite"
+                                dur="2.4390243902439024s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                        </circle>
+                    </svg>
                 </div>
             </dialog>
         </div>
@@ -568,7 +620,7 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-                    
+
                     <li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
