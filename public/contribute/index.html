@@ -13,10 +13,108 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <script src="/assets/script.js" defer></script>
+    <script src="/assets/contribute-index.js" defer></script>
     <link rel="preload" href="/assets/highlight.css" as="style">
 
 
+    <style>
+        .modal--lightbox {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 0 0 150vmax 0 #000 inset;
+            background: #0009;
+        }
 
+        .modal--base {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 1000;
+
+            background: 0;
+            border: 0;
+        }
+
+        .modal--inner {
+            background: #f7f7f7;
+            border-radius: 50px;
+            padding: 2em 3em;
+            text-align: center;
+            box-shadow: 0 0 150vmax 0 #000;
+        }
+
+        .submission--input {
+            font: inherit;
+            color: #272727;
+            border-radius: 10px;
+            padding: 0.25em;
+            border: 1px solid #999;
+            margin: 1px;
+            width: 20em;
+        }
+
+        .submission--input:focus {
+            border: 2px solid #44f;
+            outline: none;
+            margin: 0px;
+        }
+
+        .submission--input:invalid {
+            border: 2px solid #c44;
+            box-shadow: none;
+            outline: none;
+            margin: 0px;
+        }
+
+        .submission--error {
+            display: none;
+            color: #c44;
+            font-size: 0.9em;
+        }
+
+        .submission--input:invalid + .submission--error {
+            display: block;
+        }
+        
+        .submission--input:invalid + .submission--error + .submission--info {
+            display: none;
+        }
+
+        .submission--info {
+            display: block;
+            color: #333;
+            font-size: 0.9em;
+            font-weight: lighter;
+            text-align: center;
+        }
+
+        .submission--label {
+            text-align: left;
+            margin-bottom: 0;
+            margin-top: 1em;
+            margin-left: 2px;
+            padding-left: 0.75em;
+            font: inherit;
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            font-weight: bold;
+            letter-spacing: 0.1ch;
+            color: #555;
+        }
+    </style>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -58,14 +156,41 @@
         </path>
     </svg>
     <main>
+
+        <div class="modal--lightbox" id="new-assignment-modal" hidden>
+            <dialog class="modal--base" open>
+                <div class="modal--inner">
+                    <h2>
+                        New Assignment
+                    </h2>
+                    <p class="center">
+                        <label class="submission--label" for="new-assignment-folder-input">Folder</label>
+                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+" title="Should be one word, with no symbols except for dashes"
+                            placeholder="codehs" aria-labelledby="new-assignment-folder-infolabel"
+                            class="submission--input" />
+                        <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with no symbols except for dashes</span>
+                        <span id="new-assignment-folder-infolabel" class="submission--info">The top-level folder, like
+                            "codehs" or "classwork"</span>
+
+                        <label class="submission--label" for="new-assignment-name-input">Name</label>
+                        <input id="new-assignment-name-input" aria-labelledby="new-assignment-name-errorlabel" placeholder="how-to"
+                            class="submission--input" pattern="[/0-9a-zA-Z_-]+" title="May only have letters, numbers, dashes, or slashes"/>
+                        <span id="new-assignment-name-errorlabel" class="submission--error">May only have letters, numbers, dashes, or slashes</span>
+                        <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the assignment; its web address.</span>
+                        <button>Go!</button>
+                    </p>
+                </div>
+            </dialog>
+        </div>
         <h1>Contributing to Dinner Coding Time</h1>
         <div class="contribute-index--actions">
-            <button id="create-assignemnt" class="create-assignment--button">
+            <button id="create-assignment" class="create-assignment--button">
                 Add a New Assignment
             </button>
         </div>
-        <ul id="">
-
+        <h2>Assignments that Need Explanation</h2>
+        <ul id="assignments">
+            <p class="center">Loading Un-Annotated CodeHS Assignments...</p>
         </ul>
     </main>
     <footer>
@@ -80,7 +205,7 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-                    
+
                     <li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>

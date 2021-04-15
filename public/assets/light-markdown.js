@@ -307,7 +307,6 @@ function lex(src, keepSyntax, baseHeadingDepth) {
             term = "";
             ctxIndex = -1;
             j--;
-            lineIndex--;
             changedContext = true;
         }
         if (ctxRes.term !== undefined) term = ctxRes.term;

@@ -13,20 +13,20 @@ var steps = [
     {
         target: "#pipeline button:nth-child(2)",
         content: "<h3>Step 2: Annotate</h3> <p>Click on the '[Add Annotations]' button to go to the next step.</p>",
-        continue: "button",
+        continue: "targetClick",
         clickTargetAction: true
     },
     {
         target: "[aria-hidden=false] th.can-have-annotation",
-        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can't annotate just <em>any</em> line because of technical limitations.</p><p><strong>Click on the line number</strong> to add one.</p>",
-        continue: "button,targetClick",
+        content: "<h3>Adding Annotations</h3> <p>Any row with a grey tab on it can have an annotation. You can only annotate lines with <strong>non-commented text</strong> because of technical limitations.</p><p><strong>Click on this line number</strong> to add an annotation.</p>",
+        continue: "targetClick",
         clickTargetAction: true,
         delay: 10
     },
     {
         target: ".annotation",
-        content: "<h3>Annotating</h3> <p>Write whatever you want! Try to explain the statement or method in a user-friendly way.</p>",
-        continue: "button,targetClick",
+        content: "<h3>Annotating</h3> <p>Write whatever you want! Try to explain the statement or method in a user-friendly way. You can use a version of <a href=\"https://www.markdownguide.org/cheat-sheet\" target=\"_blank\">Markdown</a> to add special formatting; you'll see a formatted preview on the right.</p>",
+        continue: "targetClick",
         clickTargetAction: true,
         anchorX: "center",
         onclick: function (target) {
@@ -44,7 +44,7 @@ var steps = [
     {
         target: "#pipeline button:nth-child(3)",
         content: "<h3>Step 3: Publishing</h3> <p>Click on the '[Review & Publish]' button when finished annotating in order to go to the next step!</p>",
-        continue: "button",
+        continue: "targetClick",
         clickTargetAction: true,
         anchorX: "left"
     },
@@ -75,9 +75,10 @@ var steps = [
     },
     {
         target: "#publish-button",
-        content: "<h3>That's it!</h3> <p>When you're done with everything, click the publish button, and it'll be sent directly to me! I'll review it & put it on the site ASAP :)</p>",
+        content: "<h3>That's it!</h3> <p>When you're done with everything, click the publish button, and it'll be sent directly to me! I'll review it & put it on the site ASAP :)</p><p><strong>When you click \"Okay\", the page will reload.</strong></p>",
         continue: "button",
         onclick: function (target) {
+            localStorage.setItem("contribute-editor-tutorialViewed", 1);
             window.location.reload();
         }
     }
@@ -262,5 +263,4 @@ function enableScroll() {
 
 if (!localStorage.getItem("contribute-editor-tutorialViewed")) {
     showModal();
-    localStorage.setItem("contribute-editor-tutorialViewed", 1);
 }

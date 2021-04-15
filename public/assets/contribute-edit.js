@@ -142,7 +142,7 @@ var getUserStyle;
         var activity = document.getElementById("creating-new-file-activity");
         dialog.hidden = false;
 
-        document.querySelector("h1").textContent = "New Assignment"
+        document.querySelector("h1").textContent = "New Assignment Title"
 
         activity.textContent = "Sending skeleton publish..."
 
