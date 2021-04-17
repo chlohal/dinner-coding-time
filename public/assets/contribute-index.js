@@ -77,27 +77,29 @@
         var folderInputValidityMessage = document.getElementById("new-assignment-folder-errorlabel");
         var nameInputValidityMessage = document.getElementById("new-assignment-name-errorlabel");
 
-        var reservedKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s"];
+        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "about", "legal", "redirect"];
+        
+        var reservedNameKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "partials", "index", "contribute", "login", "pub", "p", "s", "redirect"];
 
         function checkValidity() {
 
             var name = nameInput.value;
             var folder = folderInput.value;
 
-            var nameReservedKeywords = reservedKeywords.filter(function (x) { return containsPathTerm(name, x); });
-            if (nameReservedKeywords.length > 0) {
-                nameInputValidityMessage.textContent = "Reserved keyword" + pluralS(nameReservedKeywords)
-                                                        + " " + sentenceList(quoteEach(nameReservedKeywords)) + " may not be used.";
+            var nameKeywordInstances = reservedNameKeywords.filter(function (x) { return containsPathTerm(name, x); });
+            if (nameKeywordInstances.length > 0) {
+                nameInputValidityMessage.textContent = "Reserved keyword" + pluralS(nameKeywordInstances)
+                                                        + " " + sentenceList(quoteEach(nameKeywordInstances)) + " may not be used as a folder.";
                 nameInput.setCustomValidity(nameInputValidityMessage.textContent);
             } else {
                 nameInput.setCustomValidity("");
             }
             nameInput.reportValidity();
             
-            var folderReservedKeywords = reservedKeywords.filter(function (x) { return containsPathTerm(folder, x); });
-            if (folderReservedKeywords.length > 0) {
-                folderInputValidityMessage.textContent = "Reserved keyword" + pluralS(folderReservedKeywords)
-                                                        + " " + sentenceList(quoteEach(folderReservedKeywords)) + " may not be used.";
+            var folderKeywordInstances = reservedFolderKeywords.filter(function (x) { return containsPathTerm(folder, x); });
+            if (folderKeywordInstances.length > 0) {
+                folderInputValidityMessage.textContent = "Reserved keyword" + pluralS(folderKeywordInstances)
+                                                        + " " + sentenceList(quoteEach(folderKeywordInstances)) + " may not be used in a name.";
                 folderInput.setCustomValidity(folderInputValidityMessage.textContent);
             } else {
                 folderInput.setCustomValidity("");
