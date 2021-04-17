@@ -24,7 +24,7 @@
         var li = document.createElement("li");
 
         var link = document.createElement("a");
-        link.href = "." + href;
+        link.href = "/contribute" + href;
         link.textContent = getTitleFromHref(href);
         li.appendChild(link);
 
