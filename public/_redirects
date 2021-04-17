@@ -1,13 +1,15 @@
-https://dct.cool/pub/* /contribute/status/:splat
+https://dct.cool/p/* /contribute/status/:splat
 
+    
+http://dinneencodingtime.com/* https://dinnercodingtime.com/:splat 301!
+https://dinneencodingtime.com/* https://dinnercodingtime.com/:splat 301!
+
+http://dct.cool/* https://dinnercodingtime.com/:splat 301!
+https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 
 /count/* /.netlify/functions/:splat 200
 
 /codehs/:addr /legal/takedown 451!
-/homework/* /legal/takedown 451!
-/classwork/* /legal/takedown 451!
-/about /legal/takedown 451!
-/report-bug /legal/takedown 451!
 
 /contribute /contribute/index 200
 /contribute/status/* /contribute/status 200

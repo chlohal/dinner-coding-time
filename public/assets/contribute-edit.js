@@ -138,32 +138,7 @@ var getUserStyle;
     })();
 
     function showNewAssignmentCreationDialog() {
-        var dialog = document.getElementById("creating-new-file-modal");
-        var activity = document.getElementById("creating-new-file-activity");
-        dialog.hidden = false;
-
         document.querySelector("h1").textContent = "New Assignment Title"
-
-        activity.textContent = "Sending skeleton publish..."
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/contributor/publishes");
-
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.onload = function () {
-            dialog.hidden = true;
-        }
-
-        loadReviewer();
-        document.getElementById("reviewer").hidden = true;
-
-        var skeleton = {
-            author: createFullExportFile().author,
-            location: window.location.pathname.replace("contribute/", "")
-        };
-
-        xhr.send(JSON.stringify(skeleton));
     }
 
 
@@ -771,16 +746,22 @@ public class ${classname} {
 
     function uploadPublish() {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/contributor/publishes");
-
-        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.open("POST", "https://kvdb.io/GoRCE7NnJGgv7hahoSXDj5/scripts/publish");
 
         xhr.onload = function () {
             showPublishSuccessModal(JSON.parse(xhr.responseText));
             document.getElementById("publish-button").textContent = "Published!";
         }
+        
+        var formData = new FormData();
+        var exportFile = createFullExportFile();
+        
+        formData.append("json", JSON.stringify(exportFile));
+        formData.append("pathname", exportFile.location);
+        formData.append("author", exportFile.author.name);
+        
 
-        xhr.send(JSON.stringify(createFullExportFile()));
+        xhr.send(formData);
     }
 
     function showPublishSuccessModal(publishData) {

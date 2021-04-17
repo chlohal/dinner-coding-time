@@ -84,11 +84,11 @@
             font-size: 0.9em;
         }
 
-        .submission--input:invalid + .submission--error {
+        .submission--input:invalid+.submission--error {
             display: block;
         }
-        
-        .submission--input:invalid + .submission--error + .submission--info {
+
+        .submission--input:invalid+.submission--error+.submission--info {
             display: none;
         }
 
@@ -113,6 +113,30 @@
             font-weight: bold;
             letter-spacing: 0.1ch;
             color: #555;
+        }
+
+        .contribute-index--actions button,
+        dialog button {
+            background: 0;
+            border: 1px solid #5c5d88;
+            border-radius: 999px;
+            padding: .5em .85em;
+            font-size: 1em;
+            font-size: .8em;
+            font-family: 'JetBrains Mono', monospace;
+            flex-grow: 1;
+            margin: 0 1em;
+            cursor: pointer;
+        }
+        
+        dialog button:disabled {
+            border-color: #b1b1b6;
+            color: #87889e;
+            cursor: default;
+        }
+
+        .contribute-index--actions {
+            text-align: right;
         }
     </style>
 
@@ -165,19 +189,25 @@
                     </h2>
                     <p class="center">
                         <label class="submission--label" for="new-assignment-folder-input">Folder</label>
-                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+" title="Should be one word, with no symbols except for dashes"
-                            placeholder="codehs" aria-labelledby="new-assignment-folder-infolabel"
-                            class="submission--input" />
-                        <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with no symbols except for dashes</span>
+                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+"
+                            title="Should be one word, with no symbols except for dashes" placeholder="codehs"
+                            aria-labelledby="new-assignment-folder-infolabel" class="submission--input" />
+                        <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with
+                            no symbols except for dashes</span>
                         <span id="new-assignment-folder-infolabel" class="submission--info">The top-level folder, like
                             "codehs" or "classwork"</span>
 
                         <label class="submission--label" for="new-assignment-name-input">Name</label>
-                        <input id="new-assignment-name-input" aria-labelledby="new-assignment-name-errorlabel" placeholder="how-to"
-                            class="submission--input" pattern="[/0-9a-zA-Z_-]+" title="May only have letters, numbers, dashes, or slashes"/>
-                        <span id="new-assignment-name-errorlabel" class="submission--error">May only have letters, numbers, dashes, or slashes</span>
-                        <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the assignment; its web address.</span>
-                        <button>Go!</button>
+                        <input id="new-assignment-name-input" aria-labelledby="new-assignment-name-errorlabel"
+                            placeholder="how-to" class="submission--input" pattern="[/0-9a-zA-Z_-]+"
+                            title="May only have letters, numbers, dashes, or slashes" />
+                        <span id="new-assignment-name-errorlabel" class="submission--error">May only have letters,
+                            numbers, dashes, or slashes</span>
+                        <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the
+                            assignment; its web address.</span>
+                    </p>
+                    <p>
+                        <button id="new-assignment-submit-button" disabled>Create</button>
                     </p>
                 </div>
             </dialog>
@@ -185,7 +215,7 @@
         <h1>Contributing to Dinner Coding Time</h1>
         <div class="contribute-index--actions">
             <button id="create-assignment" class="create-assignment--button">
-                Add a New Assignment
+                Add New Assignment
             </button>
         </div>
         <h2>Assignments that Need Explanation</h2>

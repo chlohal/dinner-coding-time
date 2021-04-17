@@ -4,7 +4,7 @@
 
     (function loadXHR() {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/api/contributor/assignments");
+        xhr.open("GET", "https://kvdb.io/GoRCE7NnJGgv7hahoSXDj5/scripts/getOpenAssignments");
 
         xhr.onload = function () {
             var resJson = JSON.parse(xhr.response);
@@ -59,13 +59,86 @@
             document.getElementById("new-assignment-modal").removeAttribute("hidden");
         });
 
-        document.getElementById("new-assignment-modal").addEventListener("click", function () {
+        document.getElementById("new-assignment-submit-button").addEventListener("click", function () {
             var folderInput = document.getElementById("new-assignment-folder-input");
             var nameInput = document.getElementById("new-assignment-name-input");
 
             if (!folderInput.validity.patternMismatch && !nameInput.validity.patternMismatch && folderInput.value != "" && nameInput.value != "") {
-                window.location.replace("/contribute/" + folderInput.value + "/" + nameInput.value);
+                window.location = ("/contribute/" + folderInput.value + "/" + nameInput.value);
             }
         });
     })();
+
+    (function addValidityChecker() {
+        var button = document.getElementById("new-assignment-submit-button");
+        var folderInput = document.getElementById("new-assignment-folder-input");
+        var nameInput = document.getElementById("new-assignment-name-input");
+
+        var folderInputValidityMessage = document.getElementById("new-assignment-folder-errorlabel");
+        var nameInputValidityMessage = document.getElementById("new-assignment-name-errorlabel");
+
+        var reservedKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s"];
+
+        function checkValidity() {
+
+            var name = nameInput.value;
+            var folder = folderInput.value;
+
+            var nameReservedKeywords = reservedKeywords.filter(function (x) { return containsPathTerm(name, x); });
+            if (nameReservedKeywords.length > 0) {
+                nameInputValidityMessage.textContent = "Reserved keyword" + pluralS(nameReservedKeywords)
+                                                        + " " + sentenceList(quoteEach(nameReservedKeywords)) + " may not be used.";
+                nameInput.setCustomValidity(nameInputValidityMessage.textContent);
+            } else {
+                nameInput.setCustomValidity("");
+            }
+            nameInput.reportValidity();
+            
+            var folderReservedKeywords = reservedKeywords.filter(function (x) { return containsPathTerm(folder, x); });
+            if (folderReservedKeywords.length > 0) {
+                folderInputValidityMessage.textContent = "Reserved keyword" + pluralS(folderReservedKeywords)
+                                                        + " " + sentenceList(quoteEach(folderReservedKeywords)) + " may not be used.";
+                folderInput.setCustomValidity(folderInputValidityMessage.textContent);
+            } else {
+                folderInput.setCustomValidity("");
+            }
+            folderInput.reportValidity();
+            
+            if(name.trim() == "" || folder.trim() == "") return false; 
+            else if (nameInput.validity.patternMismatch || folderInput.validity.patternMismatch) return false;
+            else if(nameReservedKeywords.length > 0 || folderReservedKeywords.length > 0) return false;
+            else return true;
+        }
+
+        nameInput.addEventListener("input", function () {
+            button.disabled = !checkValidity();
+        });
+        folderInput.addEventListener("input", function () {
+            button.disabled = !checkValidity();
+        });
+        
+        checkValidity();
+    })();
+
+    function containsPathTerm(path, term) {
+        return path.toLowerCase().split("/").includes(term.toLowerCase());
+    }
+    
+    function pluralS(array) {
+        return array.length > 1 ? "s" : "";
+    }
+    
+    /**
+     * Transforms arrays into phrases of the form 'a, b, and c'
+     * @param {Array} array An array to transform into a sentence
+     */
+    function sentenceList(array) {
+        if(array.length == 0) return "";
+        else if(array.length == 1) return array[0];
+        else if(array.length == 2) return array[0] + " and " + array[1];
+        else return array.slice(0, -1).join(", ") + ", and " + array[array.length - 1];
+    }
+    function quoteEach(array) {
+        return array.map(function(x) { return "\"" + x + "\""; });
+    }
 })();
