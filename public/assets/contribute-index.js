@@ -58,6 +58,10 @@
         document.getElementById("create-assignment").addEventListener("click", function () {
             document.getElementById("new-assignment-modal").removeAttribute("hidden");
         });
+        
+        document.getElementById("new-assignment-modal").addEventListener("click", function(e) {
+            if(e.target.id == "new-assignment-modal") e.target.setAttribute("hidden", "true");
+        });
 
         document.getElementById("new-assignment-submit-button").addEventListener("click", function () {
             var folderInput = document.getElementById("new-assignment-folder-input");
@@ -77,7 +81,7 @@
         var folderInputValidityMessage = document.getElementById("new-assignment-folder-errorlabel");
         var nameInputValidityMessage = document.getElementById("new-assignment-name-errorlabel");
 
-        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "about", "legal", "redirect"];
+        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "folder", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "about", "legal", "redirect"];
         
         var reservedNameKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "partials", "index", "contribute", "login", "pub", "p", "s", "redirect"];
 
@@ -89,7 +93,7 @@
             var nameKeywordInstances = reservedNameKeywords.filter(function (x) { return containsPathTerm(name, x); });
             if (nameKeywordInstances.length > 0) {
                 nameInputValidityMessage.textContent = "Reserved keyword" + pluralS(nameKeywordInstances)
-                                                        + " " + sentenceList(quoteEach(nameKeywordInstances)) + " may not be used as a folder.";
+                                                        + " " + sentenceList(quoteEach(nameKeywordInstances)) + " may not be used in a name.";
                 nameInput.setCustomValidity(nameInputValidityMessage.textContent);
             } else {
                 nameInput.setCustomValidity("");
@@ -99,7 +103,7 @@
             var folderKeywordInstances = reservedFolderKeywords.filter(function (x) { return containsPathTerm(folder, x); });
             if (folderKeywordInstances.length > 0) {
                 folderInputValidityMessage.textContent = "Reserved keyword" + pluralS(folderKeywordInstances)
-                                                        + " " + sentenceList(quoteEach(folderKeywordInstances)) + " may not be used in a name.";
+                                                        + " " + sentenceList(quoteEach(folderKeywordInstances)) + " may not be used as a folder.";
                 folderInput.setCustomValidity(folderInputValidityMessage.textContent);
             } else {
                 folderInput.setCustomValidity("");
@@ -108,7 +112,7 @@
             
             if(name.trim() == "" || folder.trim() == "") return false; 
             else if (nameInput.validity.patternMismatch || folderInput.validity.patternMismatch) return false;
-            else if(nameReservedKeywords.length > 0 || folderReservedKeywords.length > 0) return false;
+            else if(nameKeywordInstances.length > 0 || folderKeywordInstances.length > 0) return false;
             else return true;
         }
 
