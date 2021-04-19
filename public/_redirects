@@ -20,6 +20,7 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 # the versioned option comes after the contribute wildcard so it won't get caught in an endless loop if i decide to use a 'version' query param on those
 
 /:folder/* version=:version /preview?version=:version 200!
+/:folder/* version=:version key=:key /preview?version=:version 200!
 
 /api/contributor/publishes /.netlify/functions/contribute-publish 200
 /api/contributor/assignments /.netlify/functions/contribute-assignments 200
