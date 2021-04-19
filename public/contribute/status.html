@@ -67,7 +67,7 @@
         </p>
         <script>
             document.getElementById("revcode").textContent = btoa(window.location.pathname).replace(/=+/, "");
-            document.getElementById("preview-link").href = window.location.pathname.replace("contribute/status/", "").replace("@", "?version=")
+            document.getElementById("preview-link").href = window.location.pathname.replace("contribute/status/", "").replace("@", "?version=") + "&key=" + document.getElementById("revcode").textContent;
         </script>
     </main>
     <footer>
