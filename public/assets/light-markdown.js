@@ -131,7 +131,7 @@ var contexts = {
             else term = term.substring(3, term.length - 1);
             
             return {
-                add: "<pre><code>" + (keepSyntax ? "```" : "") + term + (keepSyntax ? "```" : "") + "</code></pre>",
+                add: "<pre><code>" + (keepSyntax ? "```" : "") + term.replace(/^\n/, "") + (keepSyntax ? "```" : "") + "</code></pre>",
                 context: contexts.BASE,
                 skip: 3
             };  

@@ -60,7 +60,11 @@
         });
         
         document.getElementById("new-assignment-modal").addEventListener("click", function(e) {
-            if(e.target.id == "new-assignment-modal") e.target.setAttribute("hidden", "true");
+            console.log(e.target.tagName == "DIALOG");
+            if(e.target.tagName == "DIALOG") {
+                e.target.parentElement.setAttribute("hidden", "true");
+                document.getElementById("create-assignment").focus();
+            }
         });
 
         document.getElementById("new-assignment-submit-button").addEventListener("click", function () {
@@ -81,7 +85,7 @@
         var folderInputValidityMessage = document.getElementById("new-assignment-folder-errorlabel");
         var nameInputValidityMessage = document.getElementById("new-assignment-name-errorlabel");
 
-        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "well-known", "partials", "folder", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "about", "legal", "redirect"];
+        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "versioned", "well-known", "partials", "folder", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "shorten", "discord", "about", "legal", "redirect"];
         
         var reservedNameKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "partials", "index", "contribute", "login", "pub", "p", "s", "redirect"];
 

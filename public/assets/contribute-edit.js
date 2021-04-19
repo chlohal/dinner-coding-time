@@ -426,7 +426,8 @@ public class ${classname} {
 
     function appendTab(tab, tabpanel) {
         var plainLocalIdentifier = "tab-" + editorsParent.children.length;
-        var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
+        var normalizedSearch = (window.location.search.length > 1) ? window.location.search : "";
+        var generatedId = window.location.pathname + normalizedSearch + "#/" + plainLocalIdentifier;
         var slugifiedId = generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
         var index = editorsParent.children.length;
 
@@ -840,7 +841,12 @@ public class ${classname} {
 
         var annotationJson = {};
         for (var i = 0; i < result.files.length; i++) {
-            annotationJson["source" + ((+result.files[i].id - 1) || "")] = result.files[i].annotations;
+            annotationJson["source" + ((result.files[i].id) || "")] = [];
+            for(var j = 0; j < result.files[i].annotations.length; j++) {
+                annotationJson["source" + ((result.files[i].id) || "")].push({
+                    html: result.files[i].annotations[j].html
+                });
+            }
         }
         resultHtml += `<script class="annotation-datascript">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
 
@@ -854,7 +860,7 @@ public class ${classname} {
         }
 
         for (var i = 0; i < result.files.length; i++) {
-            resultHtml += `<code id="source${(+result.files[i].id) || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
+            resultHtml += `<code id="source${result.files[i].id || ""}">${encodeCharacterEntities(result.files[i].source).replace(/\n +/g, "\n")}</code>\n`;
         }
 
         result.html = resultHtml;
@@ -866,7 +872,7 @@ public class ${classname} {
         var source = elem.querySelector(".editbox").value;
         var annotations = loadAllAnnotations(elem);
         return {
-            id: /tab-(\d+)/.exec(elem.id)[1],
+            id: parseInt(/tab-(\d+)/.exec(elem.id)[1]) - 1,
             source: source,
             annotations: annotations
         }

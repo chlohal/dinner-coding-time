@@ -19,6 +19,15 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         document.head.appendChild(link);
     })();
 
+    (function loadVersion() {
+        var path = window.location.pathname;
+        var searchParams = new URLSearchParams(window.location.search);
+
+        var key = path + "@" + searchParams.get("version");
+
+        navigateToSpaPath("https://kvdb.io/GoRCE7NnJGgv7hahoSXDj5/scripts/get?assignment=" + encodeURIComponent(key) + "&format=html", true);
+    })();
+
     (_global.createBreadcrumbs = function createBreadcrumbs() {
         var header = document.querySelector("header");
         var path = location.pathname.substring(1).split("/");
@@ -67,7 +76,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if (whetherToInitContainer) topNavigationLinks[0] = document.createElement("a");
         topNavigationLinks[0].textContent = previous ? ("Previous: " + previous.replace(/-/g, ".")) : "";
         topNavigationLinks[0].style.cursor = previous ? "" : "default";
-        topNavigationLinks[0].href = previous || "";
+        topNavigationLinks[0].href = previous + "?version=latest" || "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[0]);
 
         if (whetherToInitContainer) {
@@ -81,43 +90,16 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if (whetherToInitContainer) topNavigationLinks[1] = document.createElement("a");
         topNavigationLinks[1].textContent = next ? ("Next: " + next.replace(/-/g, ".")) : "";
         topNavigationLinks[1].style.cursor = next ? "" : "default";
-        topNavigationLinks[1].href = next || "";
+        topNavigationLinks[1].href = next + "?version=latest" || "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[1]);
 
         if (whetherToInitContainer) main.insertBefore(navContainer, main.firstElementChild);
     })();
 
-    (_global.registerSpaLinks = function registerSpaLinks() {
-        var links = document.querySelectorAll("a:link");
-        for (var i = 0; i < links.length; i++) {
-            //wrap in anon function to preserve a scope
-            (function () {
-                var link = links[i];
-                //if the link leads to another codehs page
-                var path = new URL(link.href).pathname;
+    function navigateToSpaPath(path, isAbsolute) {
+        var partialAddress = path;
+        if (!isAbsolute) partialAddress = path.replace("codehs", "-partials/codehs");
 
-                if (path.match(/^\/codehs\/\d+-\d+-\d+/) && !link.hasAttribute("data-is-default-prevented")) {
-                    link.setAttribute("data-is-default-prevented", "true");
-                    link.addEventListener("click", function (event) {
-                        if (link.getAttribute("href") == "") return event.preventDefault();
-
-                        path = new URL(link.href).pathname;
-
-                        if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
-                        event.preventDefault();
-
-                        navigateToSpaPath(path);
-                    });
-                }
-            })();
-        }
-    })();
-
-    window.addEventListener("popstate", function (event) {
-        if (event.state) navigateToSpaPath(event.state);
-    })
-    function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "-partials/codehs");
         var originalUrl = window.location.toString();
 
         var xhr = new XMLHttpRequest();
@@ -135,13 +117,14 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             if (xhr.readyState != 4 && force !== true) return;
 
             //if there's an error, just uhhh do it normally i guess
-            if (xhr.status != 200 && force !== true) return window.location.replace(path);
+            if (xhr.status != 200 && force !== true && !isAbsolute) return window.location.replace(path);
+
+            if (xhr.status != 200 && isAbsolute) return showPreviewGetModal(xhr.status);
 
             var loadedFromCache = !!partialCache[partialAddress];
             partialCache[partialAddress] = xhr.response || data;
 
             window.initialTabIdx = -1;
-            history.pushState(path, "", path);
 
             var parsingParent = document.createElement("div");
             parsingParent.innerHTML = xhr.response || data;
@@ -173,11 +156,8 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
                 _global.findAndExecuteDataScripts();
-                _global.garbageCleanEditors();
                 _global.loadEditors();
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
-                _global.addTopNavigation();
-                _global.registerSpaLinks();
                 _global.createBreadcrumbs();
                 _global.updateByline();
 
@@ -187,6 +167,40 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         if (partialCache[partialAddress]) onLoadPartial(true, partialCache[partialAddress]);
         else xhr.send();
+    }
+
+    function showPreviewGetModal(status) {
+        var explanations = {
+            404: {
+                body: "Could not find the requested resource. Please try:",
+                options: ["Viewing the <a href=\"?version=latest\">latest version</a>",
+                    "Viewing the <a href=\"?\">published version</a>",
+                    "<a href=\"\">Refreshing</a> the page",
+                    "Going back to the <a onclick=\"window.history.back()\" href=\"#\">previous page</a>"]
+            }
+        }
+        var errorModal = document.getElementById("preview-error-modal");
+        var errorModalHeader = document.getElementById("preview-error-modal-header");
+        var errorModalBody = document.getElementById("preview-error-modal-body");
+        var errorModalOptions = document.getElementById("preview-error-modal-options");
+        
+        errorModal.tabIndex = -1;
+        requestAnimationFrame(function() {
+            errorModal.focus();
+        });
+
+        errorModalHeader.textContent = "Error " + status;
+        
+        if(explanations[status]) {
+            errorModalBody.textContent = explanations[status].body;
+            for(var i = 0; i < explanations[status].options.length; i++) {
+                var li = document.createElement("li");
+                li.innerHTML = explanations[status].options[i];
+                errorModalOptions.appendChild(li);
+            }
+        }
+
+        errorModal.hidden = false;
     }
 
     (_global.findAndExecuteDataScripts = function findAndExecuteDataScripts() {
@@ -206,15 +220,15 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         window.__AUTHOR = null;
     });
 
-    ( _global.updateByline = function() {
+    (_global.updateByline = function () {
         var author = window.__AUTHOR;
 
         var byline = document.querySelector("p.byline");
 
-        if(byline && !author) {
+        if (byline && !author) {
             byline.parentElement.removeChild(byline);
         }
-        else if(!byline && author) {
+        else if (!byline && author) {
             byline = document.createElement("p");
             byline.classList.add("byline");
 
@@ -231,8 +245,8 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             title.parentElement.insertBefore(byline, title);
         }
-        
-        if(author) {
+
+        if (author) {
             var bylineLink = byline.firstElementChild;
             bylineLink.href = author.url;
             bylineLink.textContent = author.name;
@@ -384,11 +398,11 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             }
 
             if (source != null) editors[pathWithHash + (i + 1)] = (makeEditor(source, i));
-            else break;
+            else if (i > 0) break;
         }
 
         if (initialTabIdx > -1 && initialTabIdx < editorsTablist.children.length) editorsTablist.children[initialTabIdx].click();
-        else editorsTablist.lastElementChild.click();
+        else if (editorsTablist.lastElementChild) editorsTablist.lastElementChild.click();
     })();
 
     _global.loadCodeIntelligence = function loadCodeIntelligence(override, quiet) {
@@ -492,7 +506,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         var sourceContent = source.textContent;
         var sourceLinesHtml = source.innerHTML.split("\n");
-        var annotations = (window.__ANNOTATIONS||{})[source.id];
+        var annotations = (window.__ANNOTATIONS || {})[source.id];
 
         var table = makeNumberedLinesTable(sourceLinesHtml);
 
@@ -684,22 +698,22 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
     }
 
     function addAnnotations(annotations, table) {
-        if(!annotations) return false;
+        if (!annotations) return false;
         //get content (TD elements' text) of table
         var source = "";
-        for(var i = 0; i < table.children.length; i++) {
+        for (var i = 0; i < table.children.length; i++) {
             source += table.children[i].lastElementChild.lastElementChild.textContent + "\n";
         }
-        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function(lineAddresses) {
+        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function (lineAddresses) {
             var alreadyAdded = [];
-            for(var i = lineAddresses.length - 1; i >= 0; i--) {
-                var annotation = annotations.find(function(x) {
+            for (var i = lineAddresses.length - 1; i >= 0; i--) {
+                var annotation = annotations.find(function (x) {
                     return x.astConstruct == lineAddresses[i];
                 });
-                if(!annotation) continue;
-                
+                if (!annotation) continue;
+
                 //ensure that each annotation is only added once
-                if(alreadyAdded.includes(annotation.astConstruct)) continue;
+                if (alreadyAdded.includes(annotation.astConstruct)) continue;
                 else alreadyAdded.push(annotation.astConstruct);
 
                 //insert _before_ the line's code
@@ -712,14 +726,211 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         var anno = document.createElement("div")
         anno.classList.add("annotation");
 
-        anno.innerHTML = html;
+        anno.innerHTML = "<div>" + html + "</div>";
+
+        var rcsmpc = recieverClientSideMarkupPrelandCheck(anno);
+        if (rcsmpc) {
+            alert("ANNOTATION FAILED RCSMPC BY USING " + rcsmpc + ". THIS INDICATES A MALICIOUS USE OF THE ANNOTATION TOOLS. PLEASE REPORT THIS IMMEDIATELY");
+            anno.innerHTML = "<p style=\"background:red\"><code>FAILED RECIEVER CLIENT SIDE MARKUP PRE-LANDING CHECK. PLEASE REPORT IMMEDIATELY</code></p>";
+        }
 
         return anno;
     }
 
+    /**
+     * Check that only benign elements are used within a parent.
+     * @param {HTMLElement} elem The parent to scan
+     * @return The offending element, or the empty string if the parent is safe
+     */
+    function recieverClientSideMarkupPrelandCheck(elem) {
+        var allowed = [{
+            tagName: "SVG",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "PATH",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "A",
+            attributes: {
+                target: /_blank/,
+                rel: /(\w+ )*\w+/,
+                href: /https?.*/
+            },
+            styles: {}
+        }, {
+            tagName: "P",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "SPAN",
+            attributes: {
+                class: /(hlast|md)-[\w-]+/
+            },
+            styles: {}
+        }, {
+            tagName: "S",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "B",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "STRONG",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "I",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "EM",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "U",
+            attributes: {},
+            styles: {}
+        },{
+            tagName: "CODE",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "PRE",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "DIV",
+            attributes: {
+                class: "annotation"
+            },
+            styles: {}
+        }, {
+            tagName: "TABLE",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "TBODY",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "TH",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "TR",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "TD",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "HR",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H1",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H2",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H3",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H4",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H5",
+            attributes: {},
+            styles: {}
+        }, {
+            tagName: "H6",
+            attributes: {},
+            styles: {}
+        },
+        {
+            tagName: "BR",
+            attributes: {},
+            styles: {}
+        }];
+
+        var COLOR = /(#\w{6}(\w{2})?)|(rgb\(\d+, \d+, \d+\))/;
+
+        var globalAllowedStyle = {
+            "background-color": COLOR,
+            "color": COLOR,
+
+            "border-radius": /\dpx/,
+            "border-top-color": COLOR,
+            "border-top-style": /\w+/,
+            "border-top-width": /\dpx/,
+            "border-right-color": COLOR,
+            "border-right-style": /\w+/,
+            "border-right-width": /\dpx/,
+            "border-bottom-color": COLOR,
+            "border-bottom-style": /\w+/,
+            "border-bottom-width": /\dpx/,
+            "border-left-color": COLOR,
+            "border-left-style": /\w+/,
+            "border-left-width": /\dpx/,
+        };
+
+        var children = elem.children;
+
+        //verify that tagName is allowed
+        var tagSearchRes = allowed.find(function (x) { return x.tagName == elem.tagName });
+        if (!tagSearchRes) {
+            return "ILLEGAL ELEMENT '" + elem.tagName + "'";
+        }
+
+        //verify that all attributes are allowed
+        var attrs = elem.attributes;
+        for (var i = 0; i < attrs.length; i++) {
+            //styles are handled separately
+            if (attrs[i].name == "style") continue;
+
+            if (!tagSearchRes.attributes.hasOwnProperty(attrs[i].name)) {
+                return "ILLEGAL PROPERTY '" + attrs[i].name + "'";
+            }
+            var match = attrs[i].value.match(new RegExp(tagSearchRes.attributes[attrs[i].name]));
+            if (!match || match[0] != attrs[i].value) {
+                return "ILLEGAL PROPERTY VALUE'" + attrs[i].value + "'";
+            }
+        }
+
+        var style = elem.style;
+        for (var i = 0; i < style.length; i++) {
+            var styleProp = style.item(i);
+            if (!tagSearchRes.styles.hasOwnProperty(styleProp) &&
+                !globalAllowedStyle.hasOwnProperty(styleProp)) {
+                return "ILLEGAL CSS PROPERTY '" + styleProp + "'";
+            }
+            var match = style.getPropertyValue(styleProp).match(new RegExp(tagSearchRes.styles[styleProp] || globalAllowedStyle[styleProp]));
+            if (!match || match[0] != style.getPropertyValue(styleProp)) {
+                return "ILLEGAL CSS PROPERTY VALUE'" + styleProp + ":" + style.getPropertyValue(styleProp) + "'";
+            }
+        }
+
+        //scan children
+        for (var i = 0; i < children.length; i++) {
+            var childScanResult = recieverClientSideMarkupPrelandCheck(children[i]);
+            if (childScanResult) return childScanResult;
+        }
+        return "";
+    }
+
     function appendTab(tab, tabpanel, parent) {
         var plainLocalIdentifier = "tab-" + editorsParent.children.length;
-        var generatedId = window.location.pathname + "#/" + plainLocalIdentifier;
+        var normalizedSearch = (window.location.search.length > 1) ? window.location.search : "";
+        var generatedId = window.location.pathname + normalizedSearch + "#/" + plainLocalIdentifier;
         var slugifiedId = generatedId.replace(/[^\w]+/g, "-").replace(/^-+|-+$/g, "");
         var index = editorsParent.children.length;
 

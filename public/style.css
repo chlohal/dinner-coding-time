@@ -217,6 +217,46 @@
     content: "";
 }
 
+.modal--lightbox {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 0 150vmax 0 #000 inset;
+    background: #0009;
+}
+
+.modal--base {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+
+    background: 0;
+    border: 0;
+    margin: 0;
+}
+
+.modal--inner {
+    background: #f7f7f7;
+    border-radius: 50px;
+    padding: 2em 3em;
+    text-align: center;
+    box-shadow: 0 0 150vmax 0 #000;
+}
+
 /* From Animate.css, https://github.com/animate-css/animate.css modified */
 
 @keyframes shakeY {
@@ -1356,10 +1396,45 @@ main article.license {
     user-select: none;
 }
 
-.annotation:focus-within,
-.annotation:focus-within p {
+.annotation:hover {
     user-select: text;
 }
+
+.annotation * {
+    margin: 0;
+}
+
+.annotation > div {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0.5em;
+    font-size: 1.4rem;
+    white-space: pre-line;
+}
+
+.annotation td {
+    border: 1px solid #474864;
+    white-space: normal;
+    padding: 0.125em;
+}
+
+.annotation table {
+    border-collapse: collapse;
+}
+
+.annotation blockquote {
+    border-left: rgb(202, 146, 166) solid 0.25em;
+    padding: 0.25em;
+    background: rgba(202, 146, 166, 0.3);
+}
+
+.annotation pre {
+    background: #575868;
+    color: #f7f5f5;
+    padding: 5px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
 
 .annotation::before {
     content: "";
