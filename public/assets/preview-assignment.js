@@ -248,6 +248,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         if (author) {
             var bylineLink = byline.firstElementChild;
+            if(!author.url.startsWith("http")) author.url = "http://" + author.url;
             bylineLink.href = author.url;
             bylineLink.textContent = author.name;
         }
@@ -743,14 +744,20 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
      * @return The offending element, or the empty string if the parent is safe
      */
     function recieverClientSideMarkupPrelandCheck(elem) {
+        var COLOR_REGEX = /(#\w{6}(\w{2})?)|(rgb\(\d+, \d+, \d+\))/;
         var allowed = [{
             tagName: "SVG",
             attributes: {},
             styles: {}
         }, {
             tagName: "PATH",
-            attributes: {},
-            styles: {}
+            attributes: {
+                "d": ".+"
+            },
+            styles: {
+                fill: COLOR_REGEX,
+                stroke: COLOR_REGEX
+            }
         }, {
             tagName: "A",
             attributes: {
@@ -864,23 +871,21 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             styles: {}
         }];
 
-        var COLOR = /(#\w{6}(\w{2})?)|(rgb\(\d+, \d+, \d+\))/;
-
         var globalAllowedStyle = {
-            "background-color": COLOR,
-            "color": COLOR,
+            "background-color": COLOR_REGEX,
+            "color": COLOR_REGEX,
 
             "border-radius": /\dpx/,
-            "border-top-color": COLOR,
+            "border-top-color": COLOR_REGEX,
             "border-top-style": /\w+/,
             "border-top-width": /\dpx/,
-            "border-right-color": COLOR,
+            "border-right-color": COLOR_REGEX,
             "border-right-style": /\w+/,
             "border-right-width": /\dpx/,
-            "border-bottom-color": COLOR,
+            "border-bottom-color": COLOR_REGEX,
             "border-bottom-style": /\w+/,
             "border-bottom-width": /\dpx/,
-            "border-left-color": COLOR,
+            "border-left-color": COLOR_REGEX,
             "border-left-style": /\w+/,
             "border-left-width": /\dpx/,
         };
