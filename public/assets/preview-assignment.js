@@ -766,7 +766,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }, {
             tagName: "SPAN",
             attributes: {
-                class: /(hlast|md)-[\w-]+/
+                class: /((hlast|md)-[\w-]+)?/
             },
             styles: {}
         }, {
@@ -804,7 +804,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }, {
             tagName: "DIV",
             attributes: {
-                class: "annotation"
+                class: /(annotation)?/
             },
             styles: {}
         }, {
