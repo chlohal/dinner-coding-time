@@ -766,7 +766,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }, {
             tagName: "SPAN",
             attributes: {
-                class: /((hlast|md)-[\w-]+)?/
+                class: /((hlast|md)-[\w-]+)?/,
+                "data-address": /.*/,
+                "data-annotation-connector-id": /.*/
             },
             styles: {}
         }, {
