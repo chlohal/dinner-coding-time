@@ -53,7 +53,10 @@ var keywordContexts = {
     "boolean": "primitive-type",
     "double": "primitive-type",
     "long": "primitive-type",
-    "short": "primitive-type"
+    "short": "primitive-type",
+
+    "true": "boolean-literal",
+    "false": "boolean-literal",
 }
 
 var startingChars = {

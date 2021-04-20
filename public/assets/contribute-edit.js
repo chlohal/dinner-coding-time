@@ -844,7 +844,8 @@ public class ${classname} {
             annotationJson["source" + ((result.files[i].id) || "")] = [];
             for(var j = 0; j < result.files[i].annotations.length; j++) {
                 annotationJson["source" + ((result.files[i].id) || "")].push({
-                    html: result.files[i].annotations[j].html
+                    html: result.files[i].annotations[j].html,
+                    astConstruct: result.files[i].annotations[j].astConstruct
                 });
             }
         }

@@ -998,23 +998,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Float Suffix",
-            name: "leaveOffFloatSuffix",
-            opts: [
-                {
-                    value: false,
-                    checked: !oldStyle.leaveOffFloatSuffix,
-                    label: "<em>Add the <code>f</code> suffix</em> to floats.<blockquote><pre><code>public static void main (String[] args) {\n    System.out.println(0.4f)\n}</code></pre></blockquote>"
-                },
-                {
-                    value: true,
-                    checked: !!oldStyle.leaveOffFloatSuffix,
-                    label: "<em>Don't add the <code>f</code> suffix</em> to floats, implicitly making them doubles.<blockquote><pre><code>public static void main (String[] args) {\n    System.out.println(0.4)\n}</code></pre></blockquote>"
-                }
-            ]
-        }));
-
-        tabPanel.appendChild(createRadioControls({
             heading: "Highlight Paired Characters",
             name: "dontHighlightPairedChars",
             opts: [
@@ -1120,6 +1103,16 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 }
             ]
         }));
+        
+        //use lightweight highlighter 
+        var codeblocks = tabPanel.querySelectorAll("pre code");
+        for(var i = 0; i < codeblocks.length; i++) {
+            (function(i) {
+                executeDependencyFunction("hljs-worker.js", "highlightAuto", [codeblocks[i].innerText], function(data) {
+                    codeblocks[i].innerHTML = data;
+                });
+            })(i);
+        }
 
         var unmovingButtonSection = document.createElement("div");
         unmovingButtonSection.classList.add("editor-settings-tab--button-section");
