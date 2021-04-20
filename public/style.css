@@ -835,6 +835,7 @@ code {
     position: -webkit-sticky;
     position: sticky;
     text-align: right;
+    user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     cursor: default;
