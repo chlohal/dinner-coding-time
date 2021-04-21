@@ -182,7 +182,7 @@ function lexJava(src, markLines) {
         }
 
         if(char == "\n" && context != "BASE") {
-            result += `<span class="hlast-${context.toLowerCase().replace(/_/g, "-")}">${term}</span>`;
+            result += `<span class="hlast-${context.toLowerCase().replace(/_/g, "-")}">${term.substring(0, term.length - 1)}</span>\n`;
             term =  "";
         }
         

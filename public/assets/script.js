@@ -116,8 +116,23 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 
     if(!main) return false;
 
+    var open = true;
+
     var parent = document.createElement("form");
     parent.classList.add("helpfulness-form");
+
+    requestAnimationFrame(function anim() {
+        var mainBottom = main.getClientRects()[0].bottom;
+        var parentBottom = parent.getClientRects()[0].bottom;
+
+        if(mainBottom < parentBottom) {
+            parent.style.transform = "translateY(" + (mainBottom - parentBottom) + "px)";
+        } else {
+            parent.style.transform = "";
+        }
+
+        if(open) requestAnimationFrame(anim);
+    });
 
     var heading = document.createElement("h2");
     heading.textContent = "Was this page helpful?";
@@ -149,6 +164,7 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
         sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function () {
             parent.classList.add("submission-completed");
             parent.setAttribute("aria-hidden", "true");
+            open = false;
         });
     });
     buttonNo.addEventListener("click", function (e) {
@@ -162,6 +178,7 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
         sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function () {
             parent.classList.add("submission-completed");
             parent.setAttribute("aria-hidden", "true");
+            open = false;
         });
     });
 })();

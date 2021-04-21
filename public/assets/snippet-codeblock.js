@@ -64,82 +64,19 @@ var getUserStyle;
         }
     })();
 
-    _global.loadCodeIntelligence = function loadCodeIntelligence(override) {
-        if (navigator.connection || override || codeIntelligenceLoaded) {
-            if (
-                override || codeIntelligenceLoaded ||
-                ((navigator.connection.type != "bluetooth" && navigator.connection.type != "cellular") &&
-                    !navigator.connection.saveData)
-            ) {
-                var editorArray = Object.values(editors);
-                for (var i = 0; i < editorArray.length; i++) {
-                    (function () {
-                        var editor = editorArray[i];
-                        if (editor.onLoadCodeIntelligence) requestAnimationFrame(function () {
-                            editor.onStartLoadingCodeIntelligence();
-                        });
-                    })()
-                }
-                loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js"], function () {
-                    requestAnimationFrame(function () {
-                        startCodeIntelligence();
-                    });
-                    codeIntelligenceLoaded = true;
-                });
-            } else {
-                showAlert({
-                    text: `Because you are in Data Saver mode, Code Intelligence will not be loaded.`,
-                    stopTimeout: true,
-                    color: "war",
-                    exitButton: true,
-                    actions: [
-                        {
-                            text: "Download Anyway",
-                            action: function () {
-                                _global.loadCodeIntelligence(true);
-                            }
-                        }
-                    ]
-                });
-            }
-        } else {
-            showAlert({
-                text: `There was a problem automatically detecting your connection info. Would you like to load Code Intelligence? These files are rather large (285kb), so we recommend that you not download on cell data.`,
-                stopTimeout: true,
-                color: "war",
-                exitButton: true,
-                actions: [
-                    {
-                        text: "Always Download",
-                        action: function () {
-                            localStorage.setItem("override-data-saver", "1")
-                            _global.loadCodeIntelligence(true);
-                        }
-                    },
-                    {
-                        text: "Download",
-                        action: function () {
-                            _global.loadCodeIntelligence(true);
-                        }
-                    }
-                ]
-            });
-        }
-    }
-
-    _global.loadCodeIntelligence(+localStorage.getItem("override-data-saver"));
-
-    function startCodeIntelligence() {
-        var editorArray = Object.values(editors);
-        for (var i = 0; i < editorArray.length; i++) {
-            if (editorArray[i].onLoadCodeIntelligence) editorArray[i].onLoadCodeIntelligence();
-        }
-    }
-
     function makeEditor(source, editorIndex) {
         editorIndex = +editorIndex;
 
         var sourceContent = source.textContent;
+        
+        sourceContent = sourceContent.replace(/\r\n/g, "\n");
+        while(sourceContent.substring(0, sourceContent.indexOf("\n")).trim() == "") sourceContent = sourceContent.substring(sourceContent.indexOf("\n") + 1);
+        var sourceLines = sourceContent.split("\n");
+        var sourceLineFirstPadding = sourceLines[0].match(/^\s*/)[0].length;
+        sourceContent = sourceLines.map(function(x) {
+            return x.replace(" ".repeat(sourceLineFirstPadding), "");
+        }).join("\n").trim();
+
         var entryPoint = source.getAttribute("data-entry-point");
         var sourceLinesHtml = source.innerHTML.split("\n");
 
@@ -231,13 +168,6 @@ var getUserStyle;
         }
 
         var onLoadCodeIntelligence = function () {
-
-            if (this.astHtmlSource) {
-                this.table.hidden = false;
-                this.parent.classList.remove("code-with-lines--loading");
-                return "already intelligent"
-            }
-
             var ed = this;
 
             var userStyle = getUserStyle();
@@ -246,35 +176,13 @@ var getUserStyle;
             else ed.table.classList.remove("line-wrapped");
 
             try {
-                function printToTable(ast) {
-                    if(ast.error) return showErrorAndFallback(ast.error);
-                    
-                    window.ast = ast;
-                    ed.ast = ast;
 
-                    ed.loaderMessage.textContent = "Formatting source tree";
-
-                    executeDependencyFunction("hljs-worker.js", "highlightAuto", [ast, userStyle, ["@" + ed.exercise], editorIndex], function (astSource) {
-                        ed.loaderMessage.textContent = "Adding formatted code to document object model";
-
-                        setTimeout(function () {
-                            makeNumberedLinesTable(astSource.split("\n"), ed.table);
-
-                            ed.loaderMessage.textContent = "Adding interactivity hooks";
-                            setTimeout(function () {
-                                explainEditor(ed);
-
-                                ed.astHtmlSource = astSource;
-                                ed.table.hidden = false;
-                                ed.parent.classList.remove("code-with-lines--loading");
-                            }, 10);
-                        }, 10);
-                    });
-                }
-
-                ed.loaderMessage.textContent = "Parsing java code";
-
-                executeDependencyFunction("hljs-worker.js", "highlightAuto", [sourceContent, ed.entryPoint], printToTable);
+                executeDependencyFunction("hljs-worker.js", "highlightAuto", [sourceContent], function (data) {
+                    makeNumberedLinesTable(data.split("\n"), table);
+                    ed.astHtmlSource = data;
+                    ed.table.hidden = false;
+                    ed.parent.classList.remove("code-with-lines--loading");
+                });
             } catch (e) {
                 showAlert({
                     text: `Error in activating Code Intelligence on ${fileName}.`,
@@ -326,6 +234,8 @@ var getUserStyle;
         result.onStartLoadingCodeIntelligence = onStartLoadingCodeIntelligence.bind(result);
         result.isAttached = (function () { return this.tab.parentElement != null; }).bind(result);
 
+        result.onLoadCodeIntelligence();
+
         return result;
     }
 
@@ -356,7 +266,7 @@ var getUserStyle;
 
             var lineContent = document.createElement("td");
             var lcCode = document.createElement("code");
-            lcCode.innerHTML = htmlLines[i].substring(startPadding);
+            lcCode.innerHTML = htmlLines[i];
 
             var indentLevel = /^\s*/.exec(lcCode.innerText)[0].length;
             lcCode.style.textIndent = -1 * indentLevel + "ch";
