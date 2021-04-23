@@ -122,13 +122,14 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     parent.classList.add("helpfulness-form");
 
     requestAnimationFrame(function anim() {
-        var mainBottom = main.getClientRects()[0].bottom;
+        var mainBox = main.getClientRects()[0];
+        var mainBottom = mainBox.bottom;
         var parentBottom = parent.getClientRects()[0].bottom;
 
-        if(mainBottom < parentBottom) {
+        if(mainBottom + mainBox.height < 0) {
             parent.style.transform = "translateY(" + (mainBottom - parentBottom) + "px)";
         } else {
-            parent.style.transform = "";
+            parent.style.transform = "translateY(0px)";
         }
 
         if(open) requestAnimationFrame(anim);

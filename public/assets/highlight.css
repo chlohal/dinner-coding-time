@@ -51,7 +51,7 @@ span[data-nodepath$="method-declaration identifier"], span[data-nodepath$="const
 }
 
 span[data-nodepath$="method-invocation identifier"] {
-    color: #e46464
+    /*color: #e46464*/
 }
 
 .hljs-attr, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-link, .hljs-symbol, .hlast-primitive-type, .hlast-void {
