@@ -25,4 +25,4 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /api/contributor/publishes /.netlify/functions/contribute-publish 200
 /api/contributor/assignments /.netlify/functions/contribute-assignments 200
 
-/codehs/:addr /legal/takedown 451!
+/codehs/java/* /legal/takedown 451!
