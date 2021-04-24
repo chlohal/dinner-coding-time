@@ -8,7 +8,7 @@ window.addEventListener("load", function() {
     var hoveringSlowCoef = 1;
 
     var triggerCardIndex = Math.floor(cardsParent.children.length/2);
-
+    
     var loopTriggerCard = cardsParent.children[triggerCardIndex];
     var loopTriggerCardBox = loopTriggerCard.getClientRects()[0];
     var loopTriggerCardWidth = loopTriggerCardBox.width;
@@ -19,6 +19,7 @@ window.addEventListener("load", function() {
     var oldMouseX = 0;
 
     var animating = true;
+    var notActualHover = false;
 
     function anim(time) {
         if(oldTime === undefined) oldTime = time;
@@ -56,7 +57,7 @@ window.addEventListener("load", function() {
 
         oldTime = time;
 
-        if(cardsParent[isHover](":hover")) {
+        if(cardsParent[isHover](":hover") && !notActualHover) {
             animatedSlowDown();
 
             if(isFirstFrameMouseMoving) {
@@ -98,5 +99,15 @@ window.addEventListener("load", function() {
 
     cardsParent.addEventListener("mousemove", function(event) {
         mouseX = event.clientX;
-    })
+    });
+    cardsParent.addEventListener("touchmove", function(event) {
+       mouseX = event.touches[0].clientX; 
+       notActualHover = false;
+    });
+    cardsParent.addEventListener("touchend", function(event) {
+        notActualHover = true;
+     });
+     cardsParent.addEventListener("touchcancel", function(event) {
+        notActualHover = true;
+     });
 });

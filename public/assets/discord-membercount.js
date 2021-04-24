@@ -6,7 +6,6 @@
 
     function update() {
         countElem.textContent = "...";
-        console.log(countElem);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://discord.com/api/guilds/826644184567119952/widget.json");
 
