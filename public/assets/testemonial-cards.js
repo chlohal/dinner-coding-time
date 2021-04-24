@@ -26,6 +26,8 @@ window.addEventListener("load", function() {
         
         var elapsed = time - oldTime;
 
+        if(elapsed > 1000) elapsed = 0;
+
         transformX -= window.innerWidth * (elapsed/1000) * SCREENS_PER_SEC * Math.abs(hoveringSlowCoef);
 
         
