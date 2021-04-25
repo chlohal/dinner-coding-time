@@ -2,6 +2,8 @@
     display: flex;
     min-height: max-content;
     padding: 0;
+    width: max-content;
+    background: #f7fdfd;
 }
 
 .testemonial-cards li {

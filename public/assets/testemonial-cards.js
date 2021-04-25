@@ -1,6 +1,6 @@
 window.addEventListener("load", function() {
     var cardsParent = document.getElementById("frontpage-testemonial-cards-parent");
-    var SCREENS_PER_SEC = 0.0625;
+    var SCREENS_PER_SEC = 0.0625 / (window.innerWidth / 1920);
     var MARGIN = 18;
     
     var oldTime = undefined;
@@ -96,18 +96,29 @@ window.addEventListener("load", function() {
     function animatedSpeedUp() {
         if(hoveringSlowCoef < 1) hoveringSlowCoef += 0.02;
     }
+    
+    cardsParent.addEventListener("wheel", function(event) {
+        event.preventDefault();
+        var delta = event.deltaX || event.deltaY;
+        transformX -= event.deltaMode == 1 ? delta/12 : 
+                      event.deltaMode == 2 ? delta * window.innerWidth :
+                      delta;
+    })
 
     cardsParent.addEventListener("mousemove", function(event) {
         mouseX = event.clientX;
     });
+    var touchOldPoint = -1;
     cardsParent.addEventListener("touchmove", function(event) {
-       mouseX = event.touches[0].clientX; 
-       notActualHover = false;
+        if(touchOldPoint == -1) touchOldPoint = event.touches[0].clientX;
+        var delta = event.touches[0].clientX - touchOldPoint;
+        transformX += delta;
+        touchOldPoint = event.touches[0].clientX;
     });
     cardsParent.addEventListener("touchend", function(event) {
-        notActualHover = true;
+        touchOldPoint = -1;
      });
      cardsParent.addEventListener("touchcancel", function(event) {
-        notActualHover = true;
+        touchOldPoint = -1;
      });
 });
