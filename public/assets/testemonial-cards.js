@@ -102,7 +102,7 @@ window.addEventListener("load", function() {
     cardsParent.addEventListener("wheel", function(event) {
         event.preventDefault();
         var delta = event.deltaX || event.deltaY;
-        transformX -= event.deltaMode == 1 ? delta/12 : 
+        transformX -= event.deltaMode == 1 ? delta*12 : 
                       event.deltaMode == 2 ? delta * window.innerWidth :
                       delta;
     })
