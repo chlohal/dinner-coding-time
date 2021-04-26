@@ -1,0 +1,634 @@
+
+        <h1>Battleship: Finishing the Game</h1>
+        <script class="codehsindex-datascript">
+            window.codehsIndex = [["/codehs/java/projects/battleship/the-ship-class", "The Ship Class"], ["/codehs/java/projects/battleship/the-location-class", "The Location Class"], ["/codehs/java/projects/battleship/the-grid-class", "The Grid Class"], ["/codehs/java/projects/battleship/adding-a-ship-to-the-grid", "Adding A Ship To The Grid"], ["/codehs/java/projects/battleship/the-player-class", "The Player Class"], ["/codehs/java/projects/battleship/the-battleship-class", "The Battleship Class"], ["/codehs/java/projects/battleship/finishing-the-game", "Finishing The Game"]];
+        </script>
+        <code id="source">
+            public class Battleship extends ConsoleProgram {
+    
+    
+                private static final int MAX_COL = 10;
+                private static final char MAX_ROW = 'J';
+            
+                private static final int HORIZONTAL = 0;
+                private static final int VERTICAL = 1;
+            
+                public void run() {
+            
+                    Player player = new Player();
+                    Player cpu = new Player();
+            
+                    setUpShips(player, cpu);
+            
+                    readLine("Hit enter to start guessing.");
+            
+                    boolean gameOver = false;
+            
+                    while (!gameOver) gameOver = playRound(player, cpu);
+            
+                    if (player.hasWon()) System.out.println("You won!");
+                    else System.out.println("You lost!");
+            
+                    System.out.println("Thanks for playing!");
+                }
+            
+                private void setUpShips(Player player, Player cpu) {
+                    System.out.println("Time to place your ships.");
+                    //initializeShipsFromInput(player);
+            
+                    readLine("Hit enter for the enemy to choose their ship locations.");
+            
+                    cpu.initializeShipsRandomly();
+            
+                    System.out.println("The enemy has placed their ships.");
+                }
+            
+                public void initializeShipsFromInput(Player player) {
+                    for (int i = 0; i < player.NUM_SHIPS; i++) {
+                        readLine("Hit enter to place the next ship.");
+                        System.out.println("Your current grid of ships.");
+                        player.printMyShips();
+            
+                        int length = player.SHIP_LENGTHS[i];
+                        System.out.println("Now you need to place a ship of length " + length);
+                        int row = readRow();
+                        int col = readCol();
+                        int dir = readDirection();
+            
+                        player.chooseShipLocation(new Ship(length), row, col, dir);
+                    }
+                    System.out.println("Your current grid of ships.");
+                    player.printMyShips();
+                }
+            
+                private int readDirection() {
+                    while (true) {
+                        String dir = readLine("Horizontal or vertical? ");
+                        dir = dir.toUpperCase();
+            
+                        if (dir.length() > 0) {
+                            if (dir.charAt(0) == 'H') {
+                                return HORIZONTAL;
+                            } else if (dir.charAt(0) == 'V') {
+                                return VERTICAL;
+                            }
+                        }
+                        System.out.println("Invalid direction, please try again.");
+                    }
+                }
+            
+                private int readCol() {
+                    while (true) {
+                        int col = readInt("Which column? (1-" + MAX_COL + ") ");
+                        if (col >= 1 && col <= MAX_COL) {
+                            return col - 1;
+                        }
+                        System.out.println("Invalid column, please try again.");
+                    }
+                }
+            
+                private int readRow() {
+                    while (true) {
+                        String row = readLine("Which row? (A-" + MAX_ROW + ") ");
+                        row = row.toUpperCase();
+                        if (row.length() > 0) {
+                            char ch = row.charAt(0);
+                            if (ch >= 'A' && ch <= MAX_ROW) {
+                                return ch - 'A';
+                            }
+                        }
+                        System.out.println("Invalid row, please try again.");
+                    }
+                }
+                private boolean playRound(Player player, Player cpu) {
+                    readLine("Hit enter for your turn.");
+                    humanTurn(player, cpu);
+            
+                    if (player.hasWon()) {
+                        return true;
+                    }
+            
+                    readLine("Hit enter for the cpu turn.");
+                    computerTurn(player, cpu);
+            
+                    return cpu.hasWon();
+                }
+            
+                private void computerTurn(Player player, Player cpu) {
+                    int row = cpu.getRandomRowGuess();
+                    int col = cpu.getRandomColGuess();
+                    System.out.println("Computer player guesses row " + (row + 1) + " and column " + (col + 1));
+            
+                    boolean hit = cpu.makeGuess(row, col, player);
+            
+                    if (hit) {
+                        System.out.println("Computer hit!");
+                    } else {
+                        System.out.println("Computer missed.");
+                    }
+            
+                    cpu.printMyGuesses();
+                }
+            
+                private void humanTurn(Player player, Player cpu) {
+                    System.out.println("Enemy grid");
+                    player.printMyGuesses();
+                    System.out.println("It's your turn to guess.");
+                    int row = readRow();
+                    int col = readCol();
+            
+                    boolean hit = player.makeGuess(row, col, cpu);
+            
+                    if (hit) {
+                        System.out.println("You got a hit!");
+                    } else {
+                        System.out.println("Nope, that was a miss.");
+                    }
+            
+                    player.printMyGuesses();
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            import java.util.*;
+public class Player
+{
+    public static final int[] SHIP_LENGTHS = {2, 3, 3, 4, 5};
+    public static final int NUM_SHIPS = 5;
+    
+    private ArrayList&lt;Ship&gt; ships;
+    
+    private Grid selfGrid;
+    private Grid otherGrid;
+    
+    public Player() {
+        this.ships = new ArrayList&lt;Ship&gt;();
+        this.selfGrid = new Grid();
+        this.otherGrid = new Grid();
+    }
+    
+    public void chooseShipLocation(Ship s, int row, int col, int direction) {
+        if(ships.size() < 5) {
+            s.setDirection(direction);
+            s.setLocation(row, col);
+            selfGrid.addShip(s);
+            ships.add(s);
+        }
+    }
+    
+    public void initializeShipsRandomly() {
+        //chosen by fair dice roll
+        this.chooseShipLocation(new Ship(SHIP_LENGTHS[0]), 0, 0, 0);
+        this.chooseShipLocation(new Ship(SHIP_LENGTHS[1]), 1, 0, 0);
+        this.chooseShipLocation(new Ship(SHIP_LENGTHS[2]), 2, 0, 0);
+        this.chooseShipLocation(new Ship(SHIP_LENGTHS[3]), 3, 0, 0);
+        this.chooseShipLocation(new Ship(SHIP_LENGTHS[4]), 4, 0, 0);
+    }
+    
+    // Print your ships on the grid
+    public void printMyShips() {
+        selfGrid.printShips();
+    }
+    
+    // Print opponent guesses
+    public void printOpponentGuesses() {
+        selfGrid.printStatus();
+    }
+    
+    // Print your guesses
+    public void printMyGuesses() {
+        otherGrid.printStatus();
+    }
+    
+    public int getRandomRowGuess() {
+        return Randomizer.nextInt(0, 10);
+    }
+    public int getRandomColGuess() {
+        return Randomizer.nextInt(0, 10);
+    }
+    
+    public boolean hasWon() {
+        int total = 0;
+        for(int i = 0; i < Grid.NUM_ROWS; i++) {
+            for(int j = 0; j < Grid.NUM_COLS; j++) {
+                if(otherGrid.getStatus(i, j) == Location.HIT) total++;
+            }
+        }
+        return total >= 17;
+    }
+    
+    public boolean makeGuess(int row, int col, Player other) {
+        boolean guessHit = other.recordOpponentGuess(row, col);
+        
+        if(guessHit) {
+            otherGrid.markHit(row, col);
+        } else {
+            otherGrid.markMiss(row, col);
+        }
+        
+        return guessHit;
+    }
+    
+    public void printHitsDelivered() {
+        otherGrid.printStatus();
+    }
+    
+    // Record a guess from the opponent
+    public boolean recordOpponentGuess(int row, int col) {
+        if(selfGrid.hasShip(row, col)) {
+            selfGrid.markHit(row, col);
+            return true;
+        }
+        else {
+            selfGrid.markMiss(row, col);
+            return false;
+        }
+    }
+}
+
+        </code>
+        <code id="source2">
+            import java.util.*;
+
+public class Randomizer{
+
+	public static Random theInstance = null;
+	
+	public Randomizer(){
+		
+	}
+	
+	public static Random getInstance(){
+		if(theInstance == null){
+			theInstance = new Random();
+		}
+		return theInstance;
+	}
+	
+	/**
+	 * Return a random boolean value.
+	 * @return True or false value simulating a coin flip.
+	 */
+	public static boolean nextBoolean(){
+		return Randomizer.getInstance().nextBoolean();
+	}
+
+	/**
+	 * This method simulates a weighted coin flip which will return
+	 * true with the probability passed as a parameter.
+	 * 
+	 * @param	probability	The probability that the method returns true, a value between 0 to 1 inclusive. 
+	 * @return True or false value simulating a weighted coin flip.
+	 */
+	public static boolean nextBoolean(double probability){
+		return Randomizer.nextDouble() < probability;
+	}
+	
+	/**
+	 * This method returns a random integer.
+	 * @return A random integer.
+	 */
+	public static int nextInt(){
+		return Randomizer.getInstance().nextInt();
+	}
+
+	/**
+	 * This method returns a random integer between 0 and n, exclusive.
+	 * @param n	The maximum value for the range.
+	 * @return A random integer between 0 and n, exclusive.
+	 */
+	public static int nextInt(int n){
+		return Randomizer.getInstance().nextInt(n);
+	}
+
+	/**
+	 * Return a number between min and max, inclusive.
+	 * @param min	The minimum integer value of the range, inclusive.
+	 * @param max	The maximum integer value in the range, inclusive.
+	 * @return A random integer between min and max.
+	 */
+	public static int nextInt(int min, int max){
+		return min + Randomizer.nextInt(max - min + 1);
+	}
+
+	/**
+	 * Return a random double between 0 and 1.
+	 * @return A random double between 0 and 1.
+	 */
+	public static double nextDouble(){
+		return Randomizer.getInstance().nextDouble();
+	}
+
+	/**
+	 * Return a random double between min and max.
+	 * @param min The minimum double value in the range.
+	 * @param max The maximum double value in the rang.
+	 * @return A random double between min and max.
+	 */
+	public static double nextDouble(double min, double max){
+		return min + (max - min) * Randomizer.nextDouble();
+	}
+
+	
+}
+
+        </code>
+        <code id="source3">
+            public class Ship
+{
+    public static final int UNSET = -1;
+    public static final int HORIZONTAL = 0;
+    public static final int VERTICAL = 1;
+    
+    private int row;
+    private int col;
+    private int length;
+    private int direction;
+
+    // Constructor. Create a ship and set the length.
+    public Ship(int length) {
+        this.row = -1;
+        this.col = -1;
+        this.direction = UNSET;
+        this.length = length;
+    }
+    
+    // Has the location been initialized
+    public boolean isLocationSet() {
+        return row != -1 && this.col != -1;
+    }
+    
+    // Has the direction been initialized
+    public boolean isDirectionSet() {
+        return direction != UNSET;
+    }
+    
+    // Set the location of the ship 
+    public void setLocation(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+    
+    // Set the direction of the ship
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+    
+    // Getter for the row value
+    public int getRow() {
+        return row;
+    }
+    
+    // Getter for the column value
+    public int getCol() {
+        return col;
+    }
+    
+    // Getter for the length of the ship
+    public int getLength() {
+        return length;
+    }
+    
+    // Getter for the direction
+    public int getDirection() {
+        return direction;
+    }
+    
+    // Helper method to get a string value from the direction
+    private String directionToString() {
+        if(direction == HORIZONTAL) return "horizontal";
+        else if(direction == VERTICAL) return "vertical";
+        else return "unset direction";
+    }
+    
+    // Helper method to get a (row, col) string value from the location
+    private String locationToString() {
+        if(row == -1 && col == -1) return "(unset location)";
+        else return "(" + row + ", " + col + ")";
+    }
+    
+    // toString value for this Ship
+    public String toString() {
+        return directionToString() + " ship of length " + length + " at " + locationToString();
+    }
+}
+
+        </code>
+        <code id="source4">
+            public class Location
+{
+    public static final int UNGUESSED = 0;
+    public static final int HIT = 1;
+    public static final int MISSED = 2;
+    
+    private int status;
+    private boolean hasShip;
+    
+    // Location constructor. 
+    public Location() {
+        this.status = UNGUESSED;
+    }
+    
+    // Was this Location a hit?
+    public boolean checkHit() {
+        return status == HIT;
+    }
+    
+    // Was this location a miss?
+    public boolean checkMiss() {
+        return status == MISSED;
+    }
+    
+    // Was this location unguessed?
+    public boolean isUnguessed() {
+        return status == UNGUESSED;
+    }
+    
+    // Mark this location a hit.
+    public void markHit() {
+        status = HIT;
+    }
+    
+    // Mark this location a miss.
+    public void markMiss() {
+        status = MISSED;
+    }
+    
+    // Return whether or not this location has a ship.
+    public boolean hasShip() {
+        return hasShip;
+    }
+    
+    // Set the value of whether this location has a ship.
+    public void setShip(boolean val) {
+        this.hasShip = val;
+    }
+    
+    // Set the status of this Location.
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
+    // Get the status of this Location.
+    public int getStatus() {
+        return status;
+    }
+}
+
+        </code>
+        <code id="source5">
+            public class Grid
+{
+    private Location[][] grid;
+
+    // Constants for number of rows and columns.
+    public static final int NUM_ROWS = 10;
+    public static final int NUM_COLS = 10;
+    
+    // Create a new Grid. Initialize each Location in the grid
+    // to be a new Location object.
+    public Grid() {
+        this.grid = new Location[NUM_ROWS][NUM_COLS];
+        for(int i = 0; i < NUM_ROWS; i++) {
+            for(int j = 0; j < NUM_COLS; j++) {
+                grid[i][j] = new Location();
+            }
+        }
+    }
+    
+    /**
+     * This method can be called on your own grid. To add a ship
+     * we will go to the ships location and mark a true value
+     * in every location that the ship takes up.
+     */
+    public void addShip(Ship s) {
+        int i = s.getRow(), j = s.getCol(), marked = 0;
+        while(marked < s.getLength()) {
+            setShip(i, j, true);
+            if(s.getDirection() == 1/*Ship.HORIZONTAL*/) i++;
+            else j++;
+            
+            marked++;
+        }
+    }
+    
+    // Mark a hit in this location by calling the markHit method
+    // on the Location object.  
+    public void markHit(int row, int col) {
+        grid[row][col].markHit();
+    }
+    
+    // Mark a miss on this location.    
+    public void markMiss(int row, int col) {
+        grid[row][col].markMiss();
+    }
+    
+    // Set the status of this location object.
+    public void setStatus(int row, int col, int status) {
+        grid[row][col].setStatus(status);
+    }
+    
+    // Get the status of this location in the grid  
+    public int getStatus(int row, int col) {
+        return grid[row][col].getStatus();
+    }
+    
+    // Return whether or not this Location has already been guessed.
+    public boolean alreadyGuessed(int row, int col) {
+        return !grid[row][col].isUnguessed();
+    }
+    
+    // Set whether or not there is a ship at this location to the val   
+    public void setShip(int row, int col, boolean val) {
+        grid[row][col].setShip(val);
+    }
+    
+    // Return whether or not there is a ship here   
+    public boolean hasShip(int row, int col) {
+        return grid[row][col].hasShip();
+    }
+    
+    
+    // Get the Location object at this row and column position
+    public Location get(int row, int col) {
+        return grid[row][col];
+    }
+    
+    // Return the number of rows in the Grid
+    public int numRows() {
+        return NUM_ROWS;
+    }
+    
+    // Return the number of columns in the grid
+    public int numCols() {
+        return NUM_COLS;
+    }
+    
+    
+    // Print the Grid status including a header at the top
+    // that shows the columns 1-10 as well as letters across
+    // the side for A-J
+    // If there is no guess print a -
+    // If it was a miss print a O
+    // If it was a hit, print an X
+    // A sample print out would look something like this:
+    // 
+    //   1 2 3 4 5 6 7 8 9 10 
+    // A - - - - - - - - - - 
+    // B - - - - - - - - - - 
+    // C - - - O - - - - - - 
+    // D - O - - - - - - - - 
+    // E - X - - - - - - - - 
+    // F - X - - - - - - - - 
+    // G - X - - - - - - - - 
+    // H - O - - - - - - - - 
+    // I - - - - - - - - - - 
+    // J - - - - - - - - - - 
+    public void printStatus() {
+        for(int i = -1; i < NUM_ROWS; i++) {
+            for(int j = -1; j < NUM_COLS; j++) {
+                
+                if(i == -1 && j == -1) System.out.print("  ");
+                else if(i == -1 && j == 9) System.out.print((j+1));
+                else if(i == -1) System.out.print((j+1) + " ");
+                else if(j == -1) System.out.print((char)(65 + i) + " ");
+                else System.out.print((getStatus(i, j) == Location.MISSED ? "O" : getStatus(i, j) == Location.HIT ? "X" : "-") + " ");
+            }
+            System.out.println("");
+        }
+    }
+    
+    // Print the grid and whether there is a ship at each location.
+    // If there is no ship, you will print a - and if there is a
+    // ship you will print a X. You can find out if there was a ship
+    // by calling the hasShip method.
+    //
+    //   1 2 3 4 5 6 7 8 9 10 
+    // A - - - - - - - - - - 
+    // B - X - - - - - - - - 
+    // C - X - - - - - - - - 
+    // D - - - - - - - - - - 
+    // E X X X - - - - - - - 
+    // F - - - - - - - - - - 
+    // G - - - - - - - - - - 
+    // H - - - X X X X - X - 
+    // I - - - - - - - - X - 
+    // J - - - - - - - - X - 
+    public void printShips() {
+        for(int i = -1; i < NUM_ROWS; i++) {
+            for(int j = -1; j < NUM_COLS; j++) {
+                
+                if(i == -1 && j == -1) System.out.print("  ");
+                else if(i == -1 && j == 9) System.out.print((j+1));
+                else if(i == -1) System.out.print((j+1) + " ");
+                else if(j == -1) System.out.print((char)(65 + i) + " ");
+                else System.out.print((hasShip(i, j) ? "X" : "-") + " ");
+            }
+            System.out.println("");
+        }
+    }
+}
+
+        </code>
+    
