@@ -5,143 +5,20 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Contribute | Dinner Coding Time</title>
+    <title>10.1.9 Bacteria Cultures | Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
+
     <script src="/assets/script.js" defer></script>
-    <script src="/assets/contribute-index.js" defer></script>
+    <script src="/assets/codehs-exercise.js" defer></script>
     <link rel="preload" href="/assets/highlight.css" as="style">
 
 
-    <style>
-        .modal--lightbox {
-            position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            box-shadow: 0 0 150vmax 0 #000 inset;
-            background: #0009;
-        }
 
-        .modal--base {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100vw;
-            height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            z-index: 1000;
-
-            background: 0;
-            border: 0;
-            margin: 0;
-        }
-
-        .modal--inner {
-            background: #f7f7f7;
-            border-radius: 50px;
-            padding: 2em 3em;
-            text-align: center;
-            box-shadow: 0 0 150vmax 0 #000;
-        }
-
-        .submission--input {
-            font: inherit;
-            color: #272727;
-            border-radius: 10px;
-            padding: 0.25em;
-            border: 1px solid #999;
-            margin: 1px;
-            width: 20em;
-        }
-
-        .submission--input:focus {
-            border: 2px solid #44f;
-            outline: none;
-            margin: 0px;
-        }
-
-        .submission--input:invalid {
-            border: 2px solid #c44;
-            box-shadow: none;
-            outline: none;
-            margin: 0px;
-        }
-
-        .submission--error {
-            display: none;
-            color: #c44;
-            font-size: 0.9em;
-        }
-
-        .submission--input:invalid+.submission--error {
-            display: block;
-        }
-
-        .submission--input:invalid+.submission--error+.submission--info {
-            display: none;
-        }
-
-        .submission--info {
-            display: block;
-            color: #333;
-            font-size: 0.9em;
-            font-weight: lighter;
-            text-align: center;
-        }
-
-        .submission--label {
-            text-align: left;
-            margin-bottom: 0;
-            margin-top: 1em;
-            margin-left: 2px;
-            padding-left: 0.75em;
-            font: inherit;
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            font-weight: bold;
-            letter-spacing: 0.1ch;
-            color: #555;
-        }
-
-        .contribute-index--actions button,
-        dialog button {
-            background: 0;
-            border: 1px solid #5c5d88;
-            border-radius: 999px;
-            padding: .5em .85em;
-            font-size: 1em;
-            font-size: .8em;
-            font-family: 'JetBrains Mono', monospace;
-            flex-grow: 1;
-            margin: 0 1em;
-            cursor: pointer;
-        }
-
-        dialog button:disabled {
-            border-color: #b1b1b6;
-            color: #87889e;
-            cursor: default;
-        }
-
-        .contribute-index--actions {
-            text-align: right;
-        }
-    </style>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -149,7 +26,6 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/assets/tutorial.css">
 </head>
 
 <body class="headerpadding">
@@ -183,53 +59,95 @@
         </path>
     </svg>
     <main>
-
-        <div class="modal--lightbox" id="new-assignment-modal" hidden>
-            <dialog class="modal--base" open>
-                <div class="modal--inner" id="new-assignment-modal-inner">
-                    <h2>
-                        New Assignment
-                    </h2>
-                    <p class="center">
-                        <label class="submission--label" for="new-assignment-folder-input">Folder</label>
-                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+"
-                            title="Should be one word, with no symbols except for dashes" placeholder="codehs"
-                            aria-labelledby="new-assignment-folder-infolabel" class="submission--input" />
-                        <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with
-                            no symbols except for dashes</span>
-                        <span id="new-assignment-folder-infolabel" class="submission--info">The top-level folder, like
-                            "codehs" or "classwork"</span>
-
-                        <label class="submission--label" for="new-assignment-name-input">Name</label>
-                        <input id="new-assignment-name-input" aria-labelledby="new-assignment-name-errorlabel"
-                            placeholder="how-to" class="submission--input" pattern="[/0-9a-zA-Z_-]+"
-                            title="May only have letters, numbers, dashes, or slashes" />
-                        <span id="new-assignment-name-errorlabel" class="submission--error">May only have letters,
-                            numbers, dashes, or slashes</span>
-                        <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the
-                            assignment; its web address.</span>
-                    </p>
-                    <p>
-                        <button id="new-assignment-submit-button" disabled>Create</button>
-                    </p>
-                </div>
-            </dialog>
-        </div>
+        <h1>Battleship: The Ship Class</h1>
+        <script class="codehsindex-datascript">
+            window.codehsIndex = [["/codehs/java/projects/battleship/the-ship-class", "The Ship Class"], ["/codehs/java/projects/battleship/the-location-class", "The Location Class"], ["/codehs/java/projects/battleship/the-grid-class", "The Grid Class"], ["/codehs/java/projects/battleship/adding-a-ship-to-the-grid", "Adding A Ship To The Grid"], ["/codehs/java/projects/battleship/the-player-class", "The Player Class"], ["/codehs/java/projects/battleship/the-battleship-class", "The Battleship Class"], ["/codehs/java/projects/battleship/finishing-the-game", "Finishing The Game"]];
+        </script>
         <aside class="tip">
-            <h2>JSYK</h2>
-            <p>Before you contribute, please review the <a href="/contribute/guidelines">Contribution Guidelines</a>. A
-                lot of these are optional, but please take a look! </p>
+            <h2>BTW</h2>
+            <p>The <code>ShipTester</code> class is ignored by the autograder. You can just leave it how it is!</p>
         </aside>
-        <h1>Contributing to Dinner Coding Time</h1>
-        <div class="contribute-index--actions">
-            <button id="create-assignment" class="create-assignment--button">
-                Add New Assignment
-            </button>
-        </div>
-        <h2>Assignments that Need Explanation</h2>
-        <ul id="assignments">
-            <p class="center">Loading Un-Annotated CodeHS Assignments...</p>
-        </ul>
+        <code id="source">
+            public class Ship
+{
+    public static final int UNSET = -1;
+    public static final int HORIZONTAL = 0;
+    public static final int VERTICAL = 1;
+    
+    private int row;
+    private int col;
+    private int length;
+    private int direction;
+
+    // Constructor. Create a ship and set the length.
+    public Ship(int length) {
+        this.row = -1;
+        this.col = -1;
+        this.direction = UNSET;
+        this.length = length;
+    }
+    
+    // Has the location been initialized
+    public boolean isLocationSet() {
+        return row != -1 && this.col != -1;
+    }
+    
+    // Has the direction been initialized
+    public boolean isDirectionSet() {
+        return direction != UNSET;
+    }
+    
+    // Set the location of the ship 
+    public void setLocation(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+    
+    // Set the direction of the ship
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+    
+    // Getter for the row value
+    public int getRow() {
+        return row;
+    }
+    
+    // Getter for the column value
+    public int getCol() {
+        return col;
+    }
+    
+    // Getter for the length of the ship
+    public int getLength() {
+        return length;
+    }
+    
+    // Getter for the direction
+    public int getDirection() {
+        return direction;
+    }
+    
+    // Helper method to get a string value from the direction
+    private String directionToString() {
+        if(direction == HORIZONTAL) return "horizontal";
+        else if(direction == VERTICAL) return "vertical";
+        else return "unset direction";
+    }
+    
+    // Helper method to get a (row, col) string value from the location
+    private String locationToString() {
+        if(row == -1 && col == -1) return "(unset location)";
+        else return "(" + row + ", " + col + ")";
+    }
+    
+    // toString value for this Ship
+    public String toString() {
+        return directionToString() + " ship of length " + length + " at " + locationToString();
+    }
+}
+
+        </code>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>

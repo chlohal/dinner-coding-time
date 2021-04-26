@@ -5,143 +5,15 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Contribute | Dinner Coding Time</title>
+    <title>It's Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
+
     <script src="/assets/script.js" defer></script>
-    <script src="/assets/contribute-index.js" defer></script>
-    <link rel="preload" href="/assets/highlight.css" as="style">
-
-
-    <style>
-        .modal--lightbox {
-            position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            box-shadow: 0 0 150vmax 0 #000 inset;
-            background: #0009;
-        }
-
-        .modal--base {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100vw;
-            height: 100vh;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            z-index: 1000;
-
-            background: 0;
-            border: 0;
-            margin: 0;
-        }
-
-        .modal--inner {
-            background: #f7f7f7;
-            border-radius: 50px;
-            padding: 2em 3em;
-            text-align: center;
-            box-shadow: 0 0 150vmax 0 #000;
-        }
-
-        .submission--input {
-            font: inherit;
-            color: #272727;
-            border-radius: 10px;
-            padding: 0.25em;
-            border: 1px solid #999;
-            margin: 1px;
-            width: 20em;
-        }
-
-        .submission--input:focus {
-            border: 2px solid #44f;
-            outline: none;
-            margin: 0px;
-        }
-
-        .submission--input:invalid {
-            border: 2px solid #c44;
-            box-shadow: none;
-            outline: none;
-            margin: 0px;
-        }
-
-        .submission--error {
-            display: none;
-            color: #c44;
-            font-size: 0.9em;
-        }
-
-        .submission--input:invalid+.submission--error {
-            display: block;
-        }
-
-        .submission--input:invalid+.submission--error+.submission--info {
-            display: none;
-        }
-
-        .submission--info {
-            display: block;
-            color: #333;
-            font-size: 0.9em;
-            font-weight: lighter;
-            text-align: center;
-        }
-
-        .submission--label {
-            text-align: left;
-            margin-bottom: 0;
-            margin-top: 1em;
-            margin-left: 2px;
-            padding-left: 0.75em;
-            font: inherit;
-            display: block;
-            text-transform: uppercase;
-            font-size: 0.8em;
-            font-weight: bold;
-            letter-spacing: 0.1ch;
-            color: #555;
-        }
-
-        .contribute-index--actions button,
-        dialog button {
-            background: 0;
-            border: 1px solid #5c5d88;
-            border-radius: 999px;
-            padding: .5em .85em;
-            font-size: 1em;
-            font-size: .8em;
-            font-family: 'JetBrains Mono', monospace;
-            flex-grow: 1;
-            margin: 0 1em;
-            cursor: pointer;
-        }
-
-        dialog button:disabled {
-            border-color: #b1b1b6;
-            color: #87889e;
-            cursor: default;
-        }
-
-        .contribute-index--actions {
-            text-align: right;
-        }
-    </style>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -149,7 +21,6 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/assets/tutorial.css">
 </head>
 
 <body class="headerpadding">
@@ -183,53 +54,42 @@
         </path>
     </svg>
     <main>
+        <h1>CodeHS Projects</h1>
+        <ol class="index--lessons" id="lessons">
 
-        <div class="modal--lightbox" id="new-assignment-modal" hidden>
-            <dialog class="modal--base" open>
-                <div class="modal--inner" id="new-assignment-modal-inner">
-                    <h2>
-                        New Assignment
-                    </h2>
-                    <p class="center">
-                        <label class="submission--label" for="new-assignment-folder-input">Folder</label>
-                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+"
-                            title="Should be one word, with no symbols except for dashes" placeholder="codehs"
-                            aria-labelledby="new-assignment-folder-infolabel" class="submission--input" />
-                        <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with
-                            no symbols except for dashes</span>
-                        <span id="new-assignment-folder-infolabel" class="submission--info">The top-level folder, like
-                            "codehs" or "classwork"</span>
-
-                        <label class="submission--label" for="new-assignment-name-input">Name</label>
-                        <input id="new-assignment-name-input" aria-labelledby="new-assignment-name-errorlabel"
-                            placeholder="how-to" class="submission--input" pattern="[/0-9a-zA-Z_-]+"
-                            title="May only have letters, numbers, dashes, or slashes" />
-                        <span id="new-assignment-name-errorlabel" class="submission--error">May only have letters,
-                            numbers, dashes, or slashes</span>
-                        <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the
-                            assignment; its web address.</span>
-                    </p>
-                    <p>
-                        <button id="new-assignment-submit-button" disabled>Create</button>
-                    </p>
-                </div>
-            </dialog>
-        </div>
-        <aside class="tip">
-            <h2>JSYK</h2>
-            <p>Before you contribute, please review the <a href="/contribute/guidelines">Contribution Guidelines</a>. A
-                lot of these are optional, but please take a look! </p>
-        </aside>
-        <h1>Contributing to Dinner Coding Time</h1>
-        <div class="contribute-index--actions">
-            <button id="create-assignment" class="create-assignment--button">
-                Add New Assignment
-            </button>
-        </div>
-        <h2>Assignments that Need Explanation</h2>
-        <ul id="assignments">
-            <p class="center">Loading Un-Annotated CodeHS Assignments...</p>
-        </ul>
+            <li>
+                <h2>Java Projects</h2>
+                <ol>
+                    <li>
+                        <details>
+                            <summary>
+                                <h3>Battleship</h3>
+                            </summary>
+                            <ol>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/the-ship-class">The Ship Class</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/the-location-class">The Location Class</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/the-grid-class">The Grid Class</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/adding-a-ship-to-the-grid">Adding a Ship to the Grid</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/the-player-class">The Player Class</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/java/projects/battleship/finishing-the-game">Finishing the Game</a></p>
+                                </li>
+                            </ol>
+                        </details>
+                    </li>
+                </ol>
+            </li>
+        </ol>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>
@@ -243,8 +103,8 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-
-                    <li>
+                    
+<li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
                 </ul>
@@ -286,7 +146,7 @@
         </div>
         <ul class="footer--socials">
             <li>
-                <a href="https://github.com/coleh2/dinner-coding-time">
+                <a href="https://github.com/coleh2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
