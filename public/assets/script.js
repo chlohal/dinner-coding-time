@@ -121,22 +121,8 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     var parent = document.createElement("form");
     parent.classList.add("helpfulness-form");
 
-    requestAnimationFrame(function anim() {
-        var mainBox = main.getClientRects()[0];
-        var mainBottom = mainBox.bottom;
-        var parentBottom = parent.getClientRects()[0].bottom;
-
-        if(mainBottom + mainBox.height < 0) {
-            parent.style.transform = "translateY(" + (mainBottom - parentBottom) + "px)";
-        } else {
-            parent.style.transform = "translateY(0px)";
-        }
-
-        if(open) requestAnimationFrame(anim);
-    });
-
     var heading = document.createElement("h2");
-    heading.textContent = "Was this page helpful?";
+    heading.textContent = "Was this helpful?";
     parent.appendChild(heading);
 
     var buttons = document.createElement("div");
@@ -152,7 +138,10 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 
     parent.appendChild(buttons);
 
-    main.appendChild(parent);
+    var mParent = document.createElement("div");
+    document.body.insertBefore(mParent, main);
+    mParent.appendChild(main);
+    mParent.appendChild(parent);
 
     buttonYes.addEventListener("click", function (e) {
         e.preventDefault();

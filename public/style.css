@@ -127,7 +127,6 @@
 
 .hero--splash {
     position: absolute;
-    min-width: 600px;
     width: 100%;
     height: 10vmin;
     bottom: 0;   
@@ -146,7 +145,6 @@
 .hero--splash--downcover {
     position: fixed;
     width: 100%;
-    min-width: 600px;
     height: 10vmin;
     top: 4rem;
     z-index: 97;
@@ -475,7 +473,6 @@ header.mobile nav ul {
  }
 
  :root {
-    overflow-x: hidden;
     max-width: 100vw;
  }
  
@@ -485,7 +482,6 @@ header.mobile nav ul {
     background: #f7fdfd;
     color: #1b1d35;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    overflow-x: hidden;
     min-height: 100vh;
     height: max-content;
     display: flex;
@@ -1315,14 +1311,16 @@ main article.license {
     justify-content: space-evenly;
     padding: 1em;
     border-radius: 5px;
-    position: fixed;
-    bottom: 0.5em;
-    right: 0.5em;
     background: #f7fdfd;
-    z-index: 9;
+    z-index: 999999;
     width: min-content;
     transition: transform 0.2s;
     box-shadow: 0 0 0.5em 0 #00000055;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0.5em;
+    margin: 0.5em;
+    margin-left: auto;
 }
 
 .helpfulness-form--buttons {
@@ -1343,7 +1341,7 @@ main article.license {
     background: 0;
     border: 1px solid hsl(239, 19%, 45%);
     border-radius: 999px;
-    padding: 0.5em;
+    padding: 0.5em 1em;
     font-size: 1em;
     font-size: 0.8em;
     font-family: 'JetBrains Mono', monospace;
