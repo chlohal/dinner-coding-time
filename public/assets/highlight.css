@@ -28,7 +28,7 @@
     color: #abcf57
 }
 
-.hlast-decimal-literal, .hlast-float-literal {
+.hlast-decimal-literal, .hlast-float-literal, .hlast-literal {
     color: #6edb9b
 }
 

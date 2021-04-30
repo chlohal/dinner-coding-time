@@ -25,7 +25,7 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /api/contributor/publishes /.netlify/functions/contribute-publish 200
 /api/contributor/assignments /.netlify/functions/contribute-assignments 200
 
-/codehs/:lang/:chapter/:section/:assignment /legal/takedown 451!
+# /codehs/:lang/:chapter/:section/:assignment /legal/takedown 451!
 
 # migrate from old structure
 /codehs/1-2-5 /codehs/java/1/2/welcome-program 301

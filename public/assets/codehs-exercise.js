@@ -171,7 +171,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             selectedTabIndex = undefined;
             initialTabIdx = -1
-            executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
+            executeDependencyFunction("parsers/java/ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
                 _global.findAndExecuteDataScripts();
                 _global.garbageCleanEditors();
@@ -419,7 +419,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                         });
                     })()
                 }
-                loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js", "name-manager.js"], function () {
+                loadDep([], ["explainer.js", "name-manager.js"], function () {
                     requestAnimationFrame(function () {
                         startCodeIntelligence(quiet);
                     });
@@ -502,7 +502,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
     function makeEditor(source, editorIndex) {
         editorIndex = +editorIndex;
 
-        var sourceContent = source.textContent;
+        var language = source.getAttribute("language") || window.defaultEditorLanguage || "java";
+
+        var sourceContent = source.textContent.trim();
         var sourceLinesHtml = source.innerHTML.split("\n");
         var annotations = (window.__ANNOTATIONS || {})[source.id];
 
@@ -609,14 +611,14 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             try {
                 function printToTable(ast) {
-                    if (ast.error) return showErrorAndFallback(ast.error);
+                    if (ast.error) return showErrorAndFallback(ast.error, ed);
 
                     window.ast = ast;
                     ed.ast = ast;
 
                     ed.loaderMessage.textContent = "Formatting source tree";
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
+                    executeDependencyFunction("parsers/" + ed.language + "/ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
                         ed.loaderMessage.textContent = "Adding formatted code to document object model";
 
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
@@ -640,7 +642,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     return;
                 }
                 if (ed.ast) printToTable(ed.ast);
-                else executeDependencyFunction("java-parser.js", "parse", [sourceContent], printToTable);
+                else executeDependencyFunction("parsers/" + language + "/parser.js", "parse", [sourceContent], printToTable);
             } catch (e) {
                 showAlert({
                     text: `Error in activating Code Intelligence on ${fileName}.`,
@@ -654,7 +656,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         }
 
-        function showErrorAndFallback(errorMessage) {
+        function showErrorAndFallback(errorMessage, ed) {
             loader.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code (3)";
             var secs = 3;
             var loop = setInterval(function () {
@@ -684,6 +686,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             lines: sourceLinesHtml,
             border: border,
             tab: tabTitle,
+            language: language,
             loaderMessage: loader.firstElementChild.firstElementChild.firstElementChild
         };
 
