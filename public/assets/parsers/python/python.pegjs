@@ -1,3 +1,5 @@
+// Based on https://github.com/python/cpython/blob/3.9/Grammar/Grammar, available under the Python Software Foundation License v2.
+// Broad changes & additions made to actions in order to ensure compatibility with PEG.js
 /* Python 3.7 Subset Grammar */
 /* https://docs.python.org/3.7/reference/grammar.html */
 
@@ -7,7 +9,7 @@
 
 // ========== Grammar ===========
 
-file_input = (NEWLINE / stmt COMMENT?)* ENDMARKER
+file_input = prog:(NEWLINE / stmt / comment)* ENDMARKER { return { type: "Program", body: prog.filter(x=>x!==null&x!="\n") } }
 eval_input = testlist NEWLINE* ENDMARKER
 
 decorator = AT namedexpr_test NEWLINE
@@ -39,7 +41,7 @@ arguments = head:argument tail:(COMMA TYPE_COMMENT? argument)* {
         var tail = [];
     }
     console.log("ht", head, tail);
-    return { type: "Arguments", arguments: [head].concat(tail.map(x=>x[2])).filter(x=>x.constructor == Object) };
+    return { type: "Arguments", arguments: [head].concat(tail.map(x=>x[2])) };
 }
 kwargs = DOUBLE_ASTERISKS tfpdef COMMA? TYPE_COMMENT?
 args = STAR tfpdef?
@@ -50,10 +52,9 @@ typedargslist_no_posonly  = poskeyword_args_kwonly_kwargs / args_kwonly_kwargs
 typedarglist = (arguments COMMA TYPE_COMMENT? SLASH (COMMA (TYPE_COMMENT? typedargslist_no_posonly)?)?)/(typedargslist_no_posonly)
 typedargslist = t:typedarglist { return t; }
      
-tfpdef = n:NAME (COLON t:test)? {
-	if(typeof t === "undefined") var t = null;
-    if(typeof d === "undefined") var d = null;
-    return { type: "TypedArgument", typeType: t, name: n, initial: d };
+tfpdef = n:NAME t:(COLON test)? {
+    if(t && t.length > 0) return { type: "TypedArgument", typeType: t[1], name: n };
+    else return n;
 }
 
 vararglist_no_posonly = poskeyword_args_kwonly_kwargs / args_kwonly_kwargs
@@ -61,38 +62,67 @@ varargslist = arguments COMMA SLASH (COMMA((vararglist_no_posonly))?)? / (vararg
 
 vfpdef = NAME
 
-stmt = s:(simple_stmt / compound_stmt) COMMENT? { return s; }
-simple_stmt = small_stmt (SEMICOLON small_stmt)* (SEMICOLON)? NEWLINE
-small_stmt = (del_stmt / pass_stmt / flow_stmt /
-             import_stmt / global_stmt / nonlocal_stmt / assert_stmt / exec_stmt / print_stmt / expr_stmt)
-expr_stmt = testlist_star_expr (annassign / augassign (yield_expr/testlist) /
-                     ((EQUALS (yield_expr/testlist_star_expr))+ TYPE_COMMENT?)? )
+stmt = s:(simple_stmt / compound_stmt) com:comment? { if(com) return { type: "CommentedStatement", comment:com, statement: s }; else return s; }
+simple_stmt = head:small_stmt tail:(SEMICOLON small_stmt)* (SEMICOLON)? NEWLINE { 
+	if(tail && tail.length) return { type: "StatementList", list: [head].concat(tail.map(x=>x[1])) }; 
+    else return head 
+}
+small_stmt = s:(del_stmt / pass_stmt / flow_stmt /
+             import_stmt / global_stmt / nonlocal_stmt / assert_stmt / exec_stmt / print_stmt / expr_stmt) { return s; }
+
+expr_stmt = expr:testlist_star_expr asgn:(annassign / augassign (yield_expr/testlist) /
+                     asgn:( ass:(EQUALS y:(yield_expr/testlist_star_expr) { return y; })+ t:TYPE_COMMENT? { if(t) return { type:"TypedAssignment", type: t, assignment: ass }; else return ass;  })? ) {
+                     if(asgn)
+                     return {
+                         type: "AssignmentExpressionStatement",
+                         expr: expr,
+                         asgn: asgn
+                     }
+                     else return {
+                         type: "ExpressionStatement",
+                         expr: expr
+                     }
+                     }
 annassign = COLON test (EQUALS (yield_expr/testlist_star_expr))?
-testlist_star_expr = (test/star_expr) (COMMA (test/star_expr))* COMMA?
-augassign = (PLUSEQUAL / MINEQUAL / STAREQUAL / ATEQUAL / SLASHEQUAL / PERCENTEQUAL / AMPEREQUAL / VBAREQUAL / CIRCUMFLEXEQUAL /
-            LEFTSHIFTEQUAL / RIGHTSHIFTEQUAL / DOUBLESTAREQUAL / DOUBLESLASHEQUAL)
+testlist_star_expr = head:(test/star_expr) tail:(COMMA (test/star_expr))* COMMA? {
+    if(tail && tail.length > 0) return {
+        type: "TestList",
+        list: [head].concat(tail.map(x=>x[1]))
+    };
+	else return head;
+}
+augassign = o:(PLUSEQUAL / MINEQUAL / STAREQUAL / ATEQUAL / SLASHEQUAL / PERCENTEQUAL / AMPEREQUAL / VBAREQUAL / CIRCUMFLEXEQUAL /
+            LEFTSHIFTEQUAL / RIGHTSHIFTEQUAL / DOUBLESTAREQUAL / DOUBLESLASHEQUAL) { return o;  }
+            
 // For normal and annotated assignments, additional restrictions enforced by the interpreter
 del_stmt = DEL e:exprlist { return { type: "DelStatement", exprlist: e } }
 pass_stmt = PASS { return { type: "PassStatement" } }
 flow_stmt = s:(break_stmt / continue_stmt / return_stmt / raise_stmt / yield_stmt) { return s; }
 break_stmt = BREAK { return { type: "BreakStatement" } }
-continue_stmt = CONTINUE
-exec_stmt = EXEC STRING (IN testlist_star_expr)?
-return_stmt = RETURN testlist_star_expr?
-print_stmt = PRINT testlist_star_expr
-yield_stmt = yield_expr
+continue_stmt = CONTINUE { return { type: "ContinueStatement" } }
+exec_stmt = EXEC expr:STRING ctx:(IN testlist_star_expr)? { return { type: "ExecStatement", value: expr, ctx: ctx?ctx[1]:ctx } }
+return_stmt = RETURN expr:testlist_star_expr? { return { type:"ReturnStatement", value: expr }; }
+print_stmt = PRINT expr:testlist_star_expr { return { type:"PrintStatement", value: expr }; }
+yield_stmt = y:yield_expr { return { type: "YieldStatement", yielded: y } }
 raise_stmt = RAISE (test (FROM test)?)?
 
-import_stmt = import_name / import_from
-import_name = IMPORT dotted_as_names
+import_stmt = t:(import_name / import_from) { return t; }
+import_name = IMPORT i:dotted_as_names { return {type: "ImportNameStatement", imports: i}; }
 // note below: the (DOT / ELLIPSIS) is necessary because ELLIPSIS is tokenized as ELLIPSIS
-import_from = FROM (ELLIPSIS / DOT / DOUBLEDOT)* (dotted_name)? IMPORT
-    (import_as_names / STAR / OPEN_PAREN import_as_names CLOSE_PAREN)
-import_as_name = NAME (AS NAME)?
-dotted_as_name = dotted_name (AS NAME)?
-import_as_names = import_as_name (COMMA import_as_name)* COMMA?
-dotted_as_names = dotted_as_name (COMMA dotted_as_name)*
-dotted_name = NAME (DOT NAME)*
+import_from = FROM ellips:(ELLIPSIS / DOT / DOUBLEDOT)* name:dotted_name? IMPORT
+    from:(import_as_names / STAR / OPEN_PAREN import_as_names CLOSE_PAREN) { 
+    if(from.constructor == Array && from.length == 3) from = from[1];
+    return {
+        type: "ImportFromStatement", 
+        name: name,
+        imprt: from,
+        ellips: ellips.join("")
+    } }
+import_as_name = head:NAME tail:(AS NAME)? { if(!tail) return head; else { return { type:"DottedName", head: head, tail: tail.map(x=>x[1]) } }  }
+dotted_as_name = head:dotted_name as:(AS NAME)? { if(!as || !as[0]) return head; else return { type: "AsName", target: head, as: as} }
+import_as_names = head:import_as_name tail:(COMMA import_as_name)* COMMA? { return [head].concat(tail.map(x=>x[1]));  }
+dotted_as_names = head:dotted_as_name tail:(COMMA dotted_as_name)* { return [head].concat(tail.map(x=>x[1]));  }
+dotted_name = head:NAME tail:(DOT NAME)* { if(tail.length == 0) return head; else { return { type:"DottedName", head: head, tail: tail.map(x=>x[1]) } } }
 
 global_stmt = GLOBAL NAME (COMMA NAME)*
 nonlocal_stmt = NONLOCAL NAME (COMMA NAME)*
@@ -248,12 +278,10 @@ power = head:atom_expr tail:(DOUBLE_ASTERISKS factor)? {
         right: tail.map(x=>({ type: "OperatorExpressionTail", operator: x[0], value: x[1]}))
     }
 }
-atom_expr = await:AWAIT? l:atom t:trailer* {
-     return {
-          type: "Value",
-          value: l,
-          rest: t
-     };
+atom_expr = a:AWAIT? l:atom t:trailer* {
+     var ty = a ? "AsyncValue" : "Value";
+     if(t && t.length > 0) return { type: ty,value: l,rest: t};
+     else return {type: ty, value: l};
 }
 atom = l:(OPEN_PAREN (yield_expr/testlist_comp)? CLOSE_PAREN /
        OPEN_SQUARE_BRACKET testlist_comp? CLOSE_SQUARE_BRACKET /
@@ -276,7 +304,7 @@ dictorsetmaker = ( ((test COLON test / DOUBLE_ASTERISKS expr)
                   ((test / star_expr)
                    (comp_for / (COMMA (test / star_expr))* COMMA?)) )
 
-classdef = CLASS NAME (OPEN_PAREN typedargslist? CLOSE_PAREN)? COLON suite
+classdef = CLASS NAME (OPEN_PAREN arglist? CLOSE_PAREN)? COLON suite
 
 arglist = argument (COMMA argument)*  COMMA?
 
@@ -289,18 +317,19 @@ arglist = argument (COMMA argument)*  COMMA?
 // Illegal combinations and orderings are blocked in ast.c:
 // multiple (test comp_for) arguments are blocked; keyword unpackings
 // that precede iterable unpackings are blocked; etc.
-argument = (left:test op:COLONEQUAL right:test { return { type: "ExpressionAssignmentDefaultValueArg", argument: left, defaultVal: right }; } /
-			t:tfpdef { return t; }/
-		    left:test compFor:comp_for? { 
+argument = a:(left:test op:COLONEQUAL right:test { return { type: "ExpressionAssignmentDefaultValueArg", argument: left, defaultVal: right }; } /
+			t:tfpdef { return t; } /
+		    left:test compFor:comp_for { 
 				if(compFor) return { type: "ForInArgument", arg: left, compFor: compFor };
                 else return { type: "Argument", arg: left}; } /
             left:test op:EQUALS right:test { return { type: "DefaultValueArg", argument: left, defaultVal: right }; } /
             op:DOUBLE_ASTERISKS left:tfpdef { return {type: "KwVarArg", argument: left}; } /
             op:STAR left:tfpdef { return {type: "VarArg", argument: left}; } /
-            STAR { return { type: "PositionOnlyArgsMarkerArg" }; } ) (EQUALS test)?
+            STAR { return { type: "PositionOnlyArgsMarkerArg" }; }) d:(EQUALS test)? {
+               if(d && d.length > 0) return { type: "DefaultArgument", default: d[1], arg: a }; else return a; }
             
 
-comp_iter = comp_for / comp_if
+comp_iter = t:comp_for { return t; } / t:comp_if { return t; }
 sync_comp_for = FOR exprlist IN or_test comp_iter?
 comp_for = ASYNC? sync_comp_for
 comp_if = IF __ test_nocond comp_iter?
@@ -310,6 +339,8 @@ encoding_decl = NAME
 
 yield_expr = YIELD yield_arg?
 yield_arg = FROM test / testlist_star_expr
+
+comment = c:COMMENT { return { type: "Comment", comment: c }; }
 
 // the TYPE_COMMENT in suites is only parsed for funcdefs,
 // but can't go elsewhere due to ambiguity
@@ -389,9 +420,9 @@ NUMBER
   }
 
 NEWLINE
-  = COMMENT? ('\r\n' / '\n' / '\r')
+  = com:comment? ('\r\n' / '\n' / '\r') { if(com) return com; else return "\n"; }
 
-COMMENT = '#' [^\n]+ { return ""; }
+COMMENT = '#' com:[^\n]+ { return com.join(""); }
 
 __
   = [ ]+
