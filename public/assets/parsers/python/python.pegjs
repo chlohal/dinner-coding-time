@@ -133,13 +133,29 @@ async_stmt = ASYNC (funcdef / with_stmt / for_stmt)
 if_stmt = IF namedexpr_test COLON suite (ELIF namedexpr_test COLON suite)* (ELSE COLON suite)?
 while_stmt = WHILE namedexpr_test COLON suite (ELSE COLON suite)?
 for_stmt = FOR exprlist IN testlist COLON TYPE_COMMENT? suite (ELSE COLON suite)?
-try_stmt = (TRY COLON suite
-           ((except_clause COLON suite)+
-            (ELSE COLON suite)?
-            (FINALLY COLON suite)? /
-           FINALLY COLON suite))
-with_stmt = WITH (OPEN_PAREN (with_item COMMA)+ with_item CLOSE_PAREN / with_item) COLON TYPE_COMMENT? suite
-with_item = test (AS expr)?
+try_stmt = TRY COLON s:suite
+           e:(x:(except_clause COLON suite)+
+            l:(ELSE COLON suite)?
+            f:(FINALLY COLON suite)? 
+            { return { type: "CatchBlock", finallyBlock: f&&f[2], elseBlock: l&&l[2], exceptBlocks: x.map(x=>x[2])  }}
+            /
+           FINALLY COLON f:suite { return { type: "CatchBlock", finallyBlock: f };} ) {
+               return {
+               	type: "TryStatement",
+                body: s,
+                catchBlock: e
+               }
+           }
+
+with_stmt = WITH w:(with_item_list / with_item) COLON s:suite {
+		return {type: "WithStatement", body: s, withItem: w};
+	}
+with_item_list = OPEN_PAREN !{console.log("fe")} head:with_item !{console.log(head)}  tail:(COMMA with_item )+  &{console.log("with_item_list",head,tail); return true;} CLOSE_PAREN
+with_item = v:test a:(AS expr)? { 
+		if(a && a.length > 0) return { type: "WithAsItem", value: v, as: a[1] } 
+        else return { type: "WithItem", value: v };
+    }
+
 // NB compile.c makes sure that the default except clause is last
 except_clause = EXCEPT (test (AS NAME)?)? (COMMA (test (AS NAME)?)?)*
 suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT stmt)+ DEDENT {
@@ -150,7 +166,10 @@ suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT stmt)+ DEDENT {
     }
 }
 
-namedexpr_test = test (COLONEQUAL test)?
+namedexpr_test = t:test n:(COLONEQUAL test)? { 
+    if(n && n.length > 0) return {type: "NamedExpression", expr: t, value: n[1]}
+    else return t;
+  }
 test = or:or_test conditional:(IF __ or_test ELSE test)? {
 	if(typeof conditional !== "undefined" && conditional != null)
       return { 
@@ -318,24 +337,25 @@ arglist = argument (COMMA argument)*  COMMA?
 // multiple (test comp_for) arguments are blocked; keyword unpackings
 // that precede iterable unpackings are blocked; etc.
 argument = a:(left:test op:COLONEQUAL right:test { return { type: "ExpressionAssignmentDefaultValueArg", argument: left, defaultVal: right }; } /
-			t:tfpdef { return t; } /
-		    left:test compFor:comp_for { 
+		    left:test compFor:comp_for? { 
 				if(compFor) return { type: "ForInArgument", arg: left, compFor: compFor };
                 else return { type: "Argument", arg: left}; } /
             left:test op:EQUALS right:test { return { type: "DefaultValueArg", argument: left, defaultVal: right }; } /
             op:DOUBLE_ASTERISKS left:tfpdef { return {type: "KwVarArg", argument: left}; } /
             op:STAR left:tfpdef { return {type: "VarArg", argument: left}; } /
-            STAR { return { type: "PositionOnlyArgsMarkerArg" }; }) d:(EQUALS test)? {
-               if(d && d.length > 0) return { type: "DefaultArgument", default: d[1], arg: a }; else return a; }
+            STAR { return { type: "PositionOnlyArgsMarkerArg" }; }) t:(COLON test)? d:(EQUALS test)? {
+               var result = a;
+               if(d && d.length > 0) return { type: "DefaultArgument", default: d[1], arg: result }; 
+               if(t && t.length > 0) return { type: "TypedArgument", type: t[1], arg: result };
+               
+               return result;
+              } 
             
 
 comp_iter = t:comp_for { return t; } / t:comp_if { return t; }
 sync_comp_for = FOR exprlist IN or_test comp_iter?
 comp_for = ASYNC? sync_comp_for
 comp_if = IF __ test_nocond comp_iter?
-
-// not used in grammar, but may appear in "node" passed from Parser to Compiler
-encoding_decl = NAME
 
 yield_expr = YIELD yield_arg?
 yield_arg = FROM test / testlist_star_expr

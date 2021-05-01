@@ -20,12 +20,20 @@ from .a import b
 from ..a import b
 
 #=====================================
+# Function calls
+#=====================================
+
+a(b)
+a('d')
+
+#=====================================
 # Future import statements
 #=====================================
 
 from __future__ import print_statement
 from __future__ import python4
 from __future__ import (absolute_import, division, print_function, unicode_literals)
+
 #=====================================
 # Print statements
 #=====================================
@@ -183,6 +191,10 @@ with a as b:
 with (open('d') as d, open('e') as e):
   f
 
+with g:
+  h
+
+
 #=====================================
 # Async Function definitions
 #=====================================
@@ -308,6 +320,9 @@ print a
 print b # bye
 print c
 
+#====================================================
+# Comments at different indentation levels
+#====================================================
 
 #====================================================
 # Comments after dedents
@@ -318,6 +333,15 @@ if a:
 
 # one
 c
+
+#====================================================
+# Comments at the ends of indented blocks
+#====================================================
+
+
+#====================================================
+# Newline tokens followed by comments
+#====================================================
 
 #====================================================
 # Global statements
@@ -334,3 +358,6 @@ exec '1+1'
 exec 'x+=1' in None
 exec 'x+=1' in a, b
 
+#==================================================
+# Extra newlines
+#==================================================
