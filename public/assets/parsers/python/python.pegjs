@@ -12,11 +12,13 @@
 file_input = prog:(NEWLINE / stmt / comment)* ENDMARKER { return { type: "Program", body: prog.filter(x=>x!==null&x!="\n") } }
 eval_input = testlist NEWLINE* ENDMARKER
 
-decorator = AT namedexpr_test NEWLINE
-decorators = decorator+
-decorated = decorators (funcdef / ASYNC funcdef / classdef)
+decorator = AT e:namedexpr_test NEWLINE { return { type: "Decorator", expr: e }; }
+decorators = d:decorator+ { return {type: "Decorators", decorators: d }; }
+decorated = d:decorators s:(funcdef / async_funcdef / classdef) { 
+	return { type: "DecoratedCompoundStatement", decorators: d, stmt: s };
+}
 
-async_funcdef = ASYNC funcdef
+async_funcdef = ASYNC f:funcdef { return { type: "AsyncFunctionDefinition", funcdef: f }; }
 funcdef = DEF NAME p:parameters (LAMBDA_ARROW t:test)? COLON tC:TYPE_COMMENT? b:func_body_suite {
     if(typeof t === "undefined") var t = "";
     return {
@@ -43,13 +45,14 @@ arguments = head:argument tail:(COMMA TYPE_COMMENT? argument)* {
     console.log("ht", head, tail);
     return { type: "Arguments", arguments: [head].concat(tail.map(x=>x[2])) };
 }
-kwargs = DOUBLE_ASTERISKS tfpdef COMMA? TYPE_COMMENT?
-args = STAR tfpdef?
+kwargs = DOUBLE_ASTERISKS a:tfpdef COMMA? TYPE_COMMENT? { return { type: "KwArg", arg: a } }
+args = STAR a:tfpdef? { return { type: "StarArg", arg: a }; }
 kwonly_kwargs = (COMMA TYPE_COMMENT? argument)* (TYPE_COMMENT / (COMMA TYPE_COMMENT? kwargs?)?)
 args_kwonly_kwargs = args kwonly_kwargs / kwargs
 poskeyword_args_kwonly_kwargs = arguments ( TYPE_COMMENT / (COMMA TYPE_COMMENT? args_kwonly_kwargs?)?)
-typedargslist_no_posonly  = poskeyword_args_kwonly_kwargs / args_kwonly_kwargs
-typedarglist = (arguments COMMA TYPE_COMMENT? SLASH (COMMA (TYPE_COMMENT? typedargslist_no_posonly)?)?)/(typedargslist_no_posonly)
+typedargslist_no_posonly  = a:(poskeyword_args_kwonly_kwargs / args_kwonly_kwargs) { return a; }
+typedarglist = arguments COMMA TYPE_COMMENT? SLASH (COMMA (TYPE_COMMENT? typedargslist_no_posonly)?)?
+/ typedargslist_no_posonly
 typedargslist = t:typedarglist { return t; }
      
 tfpdef = n:NAME t:(COLON test)? {
@@ -58,9 +61,14 @@ tfpdef = n:NAME t:(COLON test)? {
 }
 
 vararglist_no_posonly = poskeyword_args_kwonly_kwargs / args_kwonly_kwargs
-varargslist = arguments COMMA SLASH (COMMA((vararglist_no_posonly))?)? / (vararglist_no_posonly)
-
-vfpdef = NAME
+varargslist = a:arguments COMMA SLASH v:(COMMA vararglist_no_posonly)?  { 
+            return {
+                type: "VarArgsList",
+                args: a,
+                varargs: v && v[1]
+            }
+        }
+	/ v:vararglist_no_posonly { return v; }
 
 stmt = s:(simple_stmt / compound_stmt) com:comment? { if(com) return { type: "CommentedStatement", comment:com, statement: s }; else return s; }
 simple_stmt = head:small_stmt tail:(SEMICOLON small_stmt)* (SEMICOLON)? NEWLINE { 
@@ -104,7 +112,7 @@ exec_stmt = EXEC expr:STRING ctx:(IN testlist_star_expr)? { return { type: "Exec
 return_stmt = RETURN expr:testlist_star_expr? { return { type:"ReturnStatement", value: expr }; }
 print_stmt = PRINT expr:testlist_star_expr { return { type:"PrintStatement", value: expr }; }
 yield_stmt = y:yield_expr { return { type: "YieldStatement", yielded: y } }
-raise_stmt = RAISE (test (FROM test)?)?
+raise_stmt = RAISE v:(test (FROM test)?)? { return { type: "RaiseStatement", err: v&&v[0], context: v&&v[1]&&v[1][1] } }
 
 import_stmt = t:(import_name / import_from) { return t; }
 import_name = IMPORT i:dotted_as_names { return {type: "ImportNameStatement", imports: i}; }
@@ -128,11 +136,40 @@ global_stmt = GLOBAL NAME (COMMA NAME)*
 nonlocal_stmt = NONLOCAL NAME (COMMA NAME)*
 assert_stmt = ASSERT test (COMMA test)?
 
-compound_stmt = if_stmt / while_stmt / for_stmt / try_stmt / with_stmt / funcdef / classdef / decorated / async_stmt
-async_stmt = ASYNC (funcdef / with_stmt / for_stmt)
-if_stmt = IF namedexpr_test COLON suite (ELIF namedexpr_test COLON suite)* (ELSE COLON suite)?
-while_stmt = WHILE namedexpr_test COLON suite (ELSE COLON suite)?
-for_stmt = FOR exprlist IN testlist COLON TYPE_COMMENT? suite (ELSE COLON suite)?
+compound_stmt = s:(if_stmt / while_stmt / for_stmt / try_stmt / with_stmt / funcdef / classdef / decorated / async_stmt) { return s; }
+async_stmt = ASYNC s:(funcdef / with_stmt / for_stmt) { return { type: "AsyncStatement", stmt: s }; }
+if_stmt = IF t:namedexpr_test COLON suite l:elif_block* e:(ELSE COLON suite)? {
+    return {
+    	type: "IfStatement",
+        test: t,
+        elifBlocks: l,
+        elseBlock: e  && e[2]
+    };
+}
+elif_block = ELIF t:namedexpr_test COLON b:suite {
+    return {
+    	type: "ElifStatement",
+        test: t,
+        body: b
+    };
+}
+while_stmt = WHILE t:namedexpr_test COLON b:suite e:(ELSE COLON suite)? {
+	return {
+    	type: "WhileStatement",
+        test: t,
+        body: b,
+        elseBlock: e&&e[2]
+    };
+}
+for_stmt = FOR v:exprlist IN l:testlist COLON TYPE_COMMENT? b:suite e:(ELSE COLON suite)? {
+	return {
+    	type: "ForStatement",
+        vars: v,
+        inList: l,
+        body: b,
+        elseBlock: e&&e[2]
+    };
+}
 try_stmt = TRY COLON s:suite
            e:(x:(except_clause COLON suite)+
             l:(ELSE COLON suite)?
@@ -150,14 +187,24 @@ try_stmt = TRY COLON s:suite
 with_stmt = WITH w:(with_item_list / with_item) COLON s:suite {
 		return {type: "WithStatement", body: s, withItem: w};
 	}
-with_item_list = OPEN_PAREN !{console.log("fe")} head:with_item !{console.log(head)}  tail:(COMMA with_item )+  &{console.log("with_item_list",head,tail); return true;} CLOSE_PAREN
+with_item_list = OPEN_PAREN head:with_item tail:(COMMA with_item )+ CLOSE_PAREN { return { type: "WithItemList", list: [head].concat(tail.map(x=>x[1])) } }
 with_item = v:test a:(AS expr)? { 
 		if(a && a.length > 0) return { type: "WithAsItem", value: v, as: a[1] } 
         else return { type: "WithItem", value: v };
     }
-
-// NB compile.c makes sure that the default except clause is last
-except_clause = EXCEPT (test (AS NAME)?)? (COMMA (test (AS NAME)?)?)*
+except_clause = EXCEPT head:except_clause_param? tail:(COMMA except_clause_param?)* {
+    return {
+        type: "ExceptClause",
+        params: head?[head].concat(tail.map(x=>x[1])):[]
+    }
+}
+except_clause_param = t:test a:(AS NAME)? {
+    return {
+        type:"ExceptClauseParam",
+        param: t,
+        as: a&&a[1]
+    }
+}
 suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT stmt)+ DEDENT {
     if(typeof simp !== "undefined") return simp;
     else return {
@@ -299,25 +346,26 @@ power = head:atom_expr tail:(DOUBLE_ASTERISKS factor)? {
 }
 atom_expr = a:AWAIT? l:atom t:trailer* {
      var ty = a ? "AsyncValue" : "Value";
-     if(t && t.length > 0) return { type: ty,value: l,rest: t};
+     if(t && t.length > 0) return { type: ty,value: l,trailer: t};
      else return {type: ty, value: l};
 }
 atom = l:(OPEN_PAREN (yield_expr/testlist_comp)? CLOSE_PAREN /
        OPEN_SQUARE_BRACKET testlist_comp? CLOSE_SQUARE_BRACKET /
        OPEN_CURLY_BRACKET dictorsetmaker? CLOSE_CURLY_BRACKET /
        NAME / NUMBER / STRING+ / ELLIPSIS / NONE_LITERAL / TRUE /FALSE) {
-           return {
-           	  type: "Atom",
-              value: l
-       	   }
+           return l;
        }
 testlist_comp = (namedexpr_test/star_expr) ( comp_for / (COMMA (namedexpr_test/star_expr))* COMMA? )
-trailer = OPEN_PAREN arglist? CLOSE_PAREN / OPEN_SQUARE_BRACKET subscriptlist CLOSE_SQUARE_BRACKET / DOT NAME
+trailer = OPEN_PAREN a:arglist? CLOSE_PAREN { return { type: "FunctionCallerParams", args: a }; } /
+	OPEN_SQUARE_BRACKET s:subscriptlist CLOSE_SQUARE_BRACKET { return { type: "SubscriptParams", subscripts: s }; }
+    / DOT NAME { return { type: "DotProperty", property: n } }
 subscriptlist = subscript (COMMA subscript)* COMMA?
 subscript = test / test? COLON test? sliceop?
 sliceop = COLON test?
 exprlist = (expr/star_expr) (COMMA (expr/star_expr))* COMMA?
-testlist = test (COMMA test)* COMMA?
+testlist = head:test tail:(COMMA test)* COMMA? {
+    return { type: "TestList"}
+}
 dictorsetmaker = ( ((test COLON test / DOUBLE_ASTERISKS expr)
                    (comp_for / (COMMA (test COLON test / DOUBLE_ASTERISKS expr))* COMMA?)) /
                   ((test / star_expr)
@@ -325,17 +373,13 @@ dictorsetmaker = ( ((test COLON test / DOUBLE_ASTERISKS expr)
 
 classdef = CLASS NAME (OPEN_PAREN arglist? CLOSE_PAREN)? COLON suite
 
-arglist = argument (COMMA argument)*  COMMA?
+arglist = head:argument tail:(COMMA argument)*  COMMA? {
+    return {
+        type: "Arglist",
+        args: [head].concat(tail.map(x=>x[1]))
+    };
+}
 
-// The reason that keywords are test nodes instead of NAME is that using NAME
-// results in an ambiguity. ast.c makes sure it's a NAME.
-// "test EQUALS test" is really "keyword EQUALS test", but we have no such token.
-// These need to be in a single rule to avoid grammar that is ambiguous
-// to our LL(1) parser. Even though 'test' includes '*expr' in star_expr,
-// we explicitly match STAR here, too, to give it proper precedence.
-// Illegal combinations and orderings are blocked in ast.c:
-// multiple (test comp_for) arguments are blocked; keyword unpackings
-// that precede iterable unpackings are blocked; etc.
 argument = a:(left:test op:COLONEQUAL right:test { return { type: "ExpressionAssignmentDefaultValueArg", argument: left, defaultVal: right }; } /
 		    left:test compFor:comp_for? { 
 				if(compFor) return { type: "ForInArgument", arg: left, compFor: compFor };
@@ -462,32 +506,32 @@ AWAIT = "await"
 
 EOL
   = "\r\n" / "\n" / "\r"
-  AT = ' '* '@' ' '* { return '@' }
+  AT = _ '@' _ { return '@' }
 ASYNC = _ "async" _ { return "async" }
 DEF = "def" __ { return "def" }
-LAMBDA_ARROW = "->" { return "->" }
-COLON = ' '* ":" ' '* { return ":" }
-OPEN_PAREN = ' '* "(" ' '* { return "(" }
-CLOSE_PAREN = ' '* ")" ' '* { return ")" }
-EQUALS = ' '* "=" ' '* { return "=" }
-COMMA = ' '* "," ' '* { return "," }
-SLASH = ' '* "/" ' '* { return "/" }
-STAR = ' '* "*" ' '* { return "*" }
-DOUBLE_ASTERISKS = ' '* "**" ' '* { return "**" }
-SEMICOLON = ' '* ";" ' '* { return ";" }
-PLUSEQUAL = ' '* "+=" ' '* { return "+=" }
-MINEQUAL = ' '* "-=" ' '* { return "-=" }
-STAREQUAL = ' '* "*=" ' '* { return "*=" }
-ATEQUAL = ' '* "@=" ' '* { return "@=" }
-SLASHEQUAL = ' '* "/=" ' '* { return "/=" }
-PERCENTEQUAL = ' '* "%=" ' '* { return "%=" }
-AMPEREQUAL = ' '* "&=" ' '* { return "&=" }
-VBAREQUAL = ' '* "|=" ' '* { return "|=" }
-CIRCUMFLEXEQUAL = ' '* "^=" ' '* { return "^=" }
-LEFTSHIFTEQUAL = ' '* "<<=" ' '* { return "<<=" }
-RIGHTSHIFTEQUAL = ' '* ">>=" ' '* { return ">>=" }
-DOUBLESTAREQUAL = ' '* "**=" ' '* { return "**=" }
-DOUBLESLASHEQUAL = ' '* "//=" ' '* { return "//=" }
+LAMBDA_ARROW = _ "->" _ { return "->" }
+COLON = _ ":" _ { return ":" }
+OPEN_PAREN = _ "(" _ { return "(" }
+CLOSE_PAREN = _ ")" _ { return ")" }
+EQUALS = _ "=" _ { return "=" }
+COMMA = _ "," _ { return "," }
+SLASH = _ "/" _ { return "/" }
+STAR = _ "*" _ { return "*" }
+DOUBLE_ASTERISKS = _ "**" _ { return "**" }
+SEMICOLON = _ ";" _ { return ";" }
+PLUSEQUAL = _ "+=" _ { return "+=" }
+MINEQUAL = _ "-=" _ { return "-=" }
+STAREQUAL = _ "*=" _ { return "*=" }
+ATEQUAL = _ "@=" _ { return "@=" }
+SLASHEQUAL = _ "/=" _ { return "/=" }
+PERCENTEQUAL = _ "%=" _ { return "%=" }
+AMPEREQUAL = _ "&=" _ { return "&=" }
+VBAREQUAL = _ "|=" _ { return "|=" }
+CIRCUMFLEXEQUAL = _ "^=" _ { return "^=" }
+LEFTSHIFTEQUAL = _ "<<=" _ { return "<<=" }
+RIGHTSHIFTEQUAL = _ ">>=" _ { return ">>=" }
+DOUBLESTAREQUAL = _ "**=" _ { return "**=" }
+DOUBLESLASHEQUAL = _ "//=" _ { return "//=" }
 EXEC = _ "exec" _ { return "exec"; }
 DEL = _ "del" _ { return "del" }
 PASS =  _ "pass" _ { return "pass" }
@@ -507,49 +551,49 @@ ASSERT = _ "assert" _ { return "assert" }
 IF = _ "if" _ { return "if" }
 ELIF = _ "elif" _ { return "elif" }
 ELSE = _ "else" _ { return "else" }
-WHILE = "while" ' '* { return "while" }
-PRINT = "print" ' '* { return "print" }
-FOR = "for" ' '* { return "for" }
-IN = ' '* "in" ' '* { return "in" }
-TRY = "try" ' '* { return "try" }
-FINALLY = "finally" ' '* { return "finally" }
-WITH = "with" ' '* { return "with" }
+WHILE = "while" _ { return "while" }
+PRINT = "print" _ { return "print" }
+FOR = "for" _ { return "for" }
+IN = _ "in" _ { return "in" }
+TRY = "try" _ { return "try" }
+FINALLY = "finally" _ { return "finally" }
+WITH = "with" _ { return "with" }
 EXCEPT = "except" { return "except" }
 COLONEQUAL = ":=" { return ":=" }
 LAMBDA = "lambda" { return "lambda" }
-OR = ' '* "or" ' '* { return "or" }
-AND = ' '* "and" ' '* { return "and" }
-NOT = ' '* "not" ' '* { return "not" }
-LESS = ' '* "<" ' '* { return "<" }
-GREATER = ' '* ">" ' '* { return ">" }
-DOUBLE_EQUALS = ' '* "==" ' '* { return "==" }
-GREATEREQUAL = ' '* ">=" ' '* { return ">=" }
-LESSEQUAL = ' '* "<=" ' '* { return "<=" }
-NOTEQUAL_EXCEL = ' '* "<>" ' '* { return "<>" }
-NOTEQUAL = ' '* "!=" ' '* { return "!=" }
-IS = ' '* "is" ' '* { return "is" }
-VBAR = ' '* "|" ' '* { return "|" }
-CIRCUMFLEX = ' '* "^" ' '* { return "^" }
-AMPER = ' '* "&" ' '* { return "&" }
-LEFTSHIFT = ' '* "<<" ' '* { return "<<" }
-RIGHTSHIFT = ' '* ">>" ' '* { return ">>" }
-PLUS = ' '* "+" ' '* { return "+" }
-MINUS = ' '* "-" ' '* { return "-" }
-PERCENT = ' '* "%" ' '* { return "%" }
-DOUBLESLASH = ' '* "//" ' '* { return "//" }
-TILDE = ' '* "~" ' '* { return "~" }
-OPEN_SQUARE_BRACKET = ' '* "[" ' '* { return "[" }
-CLOSE_SQUARE_BRACKET = ' '* "]" ' '* { return "]" }
-OPEN_CURLY_BRACKET = ' '* "{" ' '* { return "{}".substring(0,1); }
-CLOSE_CURLY_BRACKET = ' '* "}" ' '* { return "{}".substring(1,2); }
-NONE_LITERAL = ' '* "None" ' '* { return "None" }
-TRUE = ' '* "True" ' '* { return "True" }
-FALSE = ' '* "False" ' '* { return "False" }
-CLASS = ' '* "class" ' '* { return "class" }
-YIELD = ' '* "yield" ' '* { return "yield" }
-RARROW = ' '* "->" ' '* { return "->" }
-DOUBLE_QUOTE = ' '* '"' ' '* { return '"'; }
-SINGLE_QUOTE = ' '* "'" ' '* { return "'"; }
+OR = _ "or" _ { return "or" }
+AND = _ "and" _ { return "and" }
+NOT = _ "not" _ { return "not" }
+LESS = _ "<" _ { return "<" }
+GREATER = _ ">" _ { return ">" }
+DOUBLE_EQUALS = _ "==" _ { return "==" }
+GREATEREQUAL = _ ">=" _ { return ">=" }
+LESSEQUAL = _ "<=" _ { return "<=" }
+NOTEQUAL_EXCEL = _ "<>" _ { return "<>" }
+NOTEQUAL = _ "!=" _ { return "!=" }
+IS = _ "is" _ { return "is" }
+VBAR = _ "|" _ { return "|" }
+CIRCUMFLEX = _ "^" _ { return "^" }
+AMPER = _ "&" _ { return "&" }
+LEFTSHIFT = _ "<<" _ { return "<<" }
+RIGHTSHIFT = _ ">>" _ { return ">>" }
+PLUS = _ "+" _ { return "+" }
+MINUS = _ "-" _ { return "-" }
+PERCENT = _ "%" _ { return "%" }
+DOUBLESLASH = _ "//" _ { return "//" }
+TILDE = _ "~" _ { return "~" }
+OPEN_SQUARE_BRACKET = _ "[" _ { return "[" }
+CLOSE_SQUARE_BRACKET = _ "]" _ { return "]" }
+OPEN_CURLY_BRACKET = _ "{" _ { return "{}".substring(0,1); }
+CLOSE_CURLY_BRACKET = _ "}" _ { return "{}".substring(1,2); }
+NONE_LITERAL = _ "None" _ { return "None" }
+TRUE = _ "True" _ { return "True" }
+FALSE = _ "False" _ { return "False" }
+CLASS = _ "class" _ { return "class" }
+YIELD = _ "yield" _ { return "yield" }
+RARROW = _ "->" _ { return "->" }
+DOUBLE_QUOTE = _ '"' _ { return '"'; }
+SINGLE_QUOTE = _ "'" _ { return "'"; }
 
 NAME
   = _ head:[a-zA-Z_] tail:[a-zA-Z0-9_]* _
