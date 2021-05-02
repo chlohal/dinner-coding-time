@@ -15,7 +15,7 @@
     color: #f777ec
 }
 
-.hljs-regexp, .hlast-string-literal, .hljs-string, .hljs-template-variable {
+.hljs-regexp, .hlast-string-literal, .hlast-multiline-string-literal, .hljs-string, .hljs-template-variable {
     color: #badb6e
 }
 

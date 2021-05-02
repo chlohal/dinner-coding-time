@@ -9,7 +9,13 @@
 
 // ========== Grammar ===========
 
-file_input = prog:(NEWLINE / stmt / comment)* ENDMARKER { return { type: "Program", body: prog.filter(x=>x!==null&x!="\n") } }
+file_input = prog:(NEWLINE / stmt / comment)* ENDMARKER { return { 
+    type: "Program", 
+    body: prog
+        .filter(x=>x!==null)
+        .map(x=>x==="\n"?{type:"BLANK_LINE"}:x) 
+  } 
+}
 eval_input = testlist NEWLINE* ENDMARKER
 
 decorator = AT e:namedexpr_test NEWLINE { return { type: "Decorator", expr: e }; }
@@ -346,8 +352,8 @@ power = head:atom_expr tail:(DOUBLE_ASTERISKS factor)? {
 }
 atom_expr = a:AWAIT? l:atom t:trailer* {
      var ty = a ? "AsyncValue" : "Value";
-     if(t && t.length > 0) return { type: ty,value: l,trailers: t};
-     else return {type: ty, value: l};
+     if(t && t.length > 0) return { type: ty,value: l[0]||l, trailers: t};
+     else return {type: ty, value: l[0]||l};
 }
 atom = l:(OPEN_PAREN v:(yield_expr/testlist_comp)? CLOSE_PAREN { return { type: "ParenWrappedValue", value: v }; } /
        OPEN_SQUARE_BRACKET v:testlist_comp? CLOSE_SQUARE_BRACKET { return { type: "ListLiteral", value: v }; } /
@@ -428,7 +434,7 @@ comp_if = IF __ test_nocond comp_iter?
 yield_expr = YIELD yield_arg?
 yield_arg = FROM test / testlist_star_expr
 
-comment = c:COMMENT { return { type: "Comment", comment: c }; }
+comment = c:COMMENT { return { type: "Comment", comment: c}; }
 
 // the TYPE_COMMENT in suites is only parsed for funcdefs,
 // but can't go elsewhere due to ambiguity
@@ -479,13 +485,13 @@ tab
   = t:("\t" / "  ") { return t; }
 
 STRING
-  = l:(DOUBLE_QUOTE stringitem* DOUBLE_QUOTE / SINGLE_QUOTE stringitem* SINGLE_QUOTE) {
+  = l:(DOUBLE_QUOTE stringitem* DOUBLE_QUOTE !DOUBLE_QUOTE / SINGLE_QUOTE stringitem* SINGLE_QUOTE) {
       var val = l[0] + l[1].join("") + l[l.length - 1];
       return {
           type: "StringLiteral",
           value: val
       };
-  }
+  } / m:MULTILINE_STRING { return {type: "MultilineStringLiteral", value: m }; }
 
 stringitem
   = l:(stringchar / escapeseq) {
@@ -498,6 +504,15 @@ stringchar = l:[^\\"'] {
 
 escapeseq
   = l:("\\" [\\'"abfnrtv]) { return l.join(""); }
+
+MULTILINE_STRING = DOUBLE_QUOTE DOUBLE_QUOTE DOUBLE_QUOTE 
+	com:MULTILINE_STRING_CHARACTER+
+	DOUBLE_QUOTE DOUBLE_QUOTE DOUBLE_QUOTE 
+    { return com.join(""); }
+    
+MULTILINE_STRING_BORDER = DOUBLE_QUOTE DOUBLE_QUOTE DOUBLE_QUOTE 
+
+MULTILINE_STRING_CHARACTER = !MULTILINE_STRING_BORDER c:. { return c; }
 
 NUMBER
   = l:('-'? ('0o' / '0x')? [0-9]+) {

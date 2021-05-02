@@ -253,6 +253,17 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "Arglist":
             result += ast.args.map(function(x,i) { return recurse(["args", i]) }).join("," + style.spaceInExpression);
             break;
+        case "ExpressionStatement":
+            result += recurse("expr");
+            break;
+        case "Comment":
+            result += "#" + ast.comment;
+            break;
+        case "MultilineStringLiteral":
+            result += createPairedChar('"""') + ast.value + createPairedChar('"""');
+            break;
+        case "BLANK_LINE":
+            break;
         default:
             console.log("unknown type " + ast.type + " at " + address.join("."));
             console.log(ast);
