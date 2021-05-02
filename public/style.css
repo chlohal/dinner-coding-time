@@ -555,7 +555,8 @@ footer {
     color: #f7f5f5;
     background: #B3295C;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;    
+    z-index: 99999;
 }
 
 footer h3 {
@@ -1316,7 +1317,7 @@ main article.license {
     padding: 1em;
     border-radius: 5px;
     background: #f7fdfd;
-    z-index: 999999;
+    z-index: 99998;
     width: min-content;
     transition: transform 0.2s;
     box-shadow: 0 0 0.5em 0 #00000055;
