@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>It's Dinner Coding Time</title>
+    <title>10.1.9 Bacteria Cultures | Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -14,6 +14,11 @@
 
 
     <script src="/assets/script.js" defer></script>
+    <script src="/assets/codehs-exercise.js" defer></script>
+    <link rel="preload" href="/assets/highlight.css" as="style">
+
+
+
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -54,47 +59,23 @@
         </path>
     </svg>
     <main>
-        <h1>CodeHS</h1>
+        <h1>2.8.4: Beaded Bracelet</h1>
+        <script class="codehslanguage-datascript">
+            window.defaultEditorLanguage = "python";
+        </script>
+        <code id="source">
+def draw_bead():
+    penup();
+    forward(100)
+    pendown()
+    circle(10)
+    penup()
+    backward(100)
 
-        <p>
-            Below are all Java CodeHS lessons on this site. Only <b>exercises</b> are included, so you won't see any videos, examples, or tests-- if you are confused by an example, feel free to ask in <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener">the Discord</a>!
-        </p>
-        <ol class="index--lessons" id="lessons">
-            <li>
-                <h2 id="primitive-types">Primitive Types</h2>
-                <ol>
-                    <li>
-                        <details>
-                            <summary>
-                                <h3>1.2 Why Programming? Why Java?</h3>
-                            </summary>
-                            <ol>
-                                <li>
-                                    <p><a href="/codehs/1-2-5">1.2.5
-                                            Welcome Program</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/1-2-6">1.2.6
-                                            ASCII Art</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/1-2-7">1.2.7
-                                            Fixing a Paragraph</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/1-2-8">1.2.8
-                                            Making Popcorn</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/1-2-9">1.2.9
-                                            Personal Timeline</a></p>
-                                </li>
-                            </ol>
-                        </details>
-                    </li>
-                </ol>
-            </li>
-        </ol>
+for i in range(36):
+    left(10)
+    draw_bead()
+        </code>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>
@@ -108,8 +89,8 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-                    
-<li>
+
+                    <li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
                 </ul>

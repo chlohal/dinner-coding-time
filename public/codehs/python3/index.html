@@ -17,80 +17,18 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,300&family=Fira+Code&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fira+Code&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="/assets/non-editor-page.css">
-    <style>
-        h1 {
-            text-align: center;
-        }
-        .language-blocks {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-        .language-blocks li {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: inline-block;
-        }
-        .language-blocks h2 {
-            display: inline-block;
-            margin: 0;
-        }
-        .language-blocks li a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-radius: 1em;
-            padding: 0.5em;
-            margin: 0.5em;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-        .language-blocks li a:hover {
-            background-color: #f7f5f5;
-        }
-        .language-blocks img {
-            width: 8em;
-            margin: 1em;
-            max-width: 100%;
-            height: auto;
-            text-indent: -9999px;
-            color: transparent;
-        }
-        li a[aria-disabled] img,
-        li a[aria-disabled] h2 {
-            filter: grayscale(1);
-        }
-        li a span {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f7fdfdee;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.8rem;
-        }
-    </style>
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body class="headerpadding">
     <header>
         <a href="/"><img src="/logo.svg" width="36" height="36" alt="DCT logo, a very stylized D"></a>
-        <h1><a href="/codehs">/codehs</a></h1>
     </header>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash--downcover" preserveAspectRatio="none">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash--downcover"
+        preserveAspectRatio="none">
         <defs>
             <linearGradient id="g1" x1="1" x2="0">
                 <stop stop-color="#57efec" />
@@ -116,42 +54,47 @@
         </path>
     </svg>
     <main>
-        <h1>CodeHS Courses</h1>
-        <ul class="language-blocks">
+        <h1>Codehs: Python 3</h1>
+
+        <p>
+            Below are all Python 3 CodeHS lessons on this site. Only <b>exercises</b> are included, so you won't see any videos, examples, or tests-- if you are confused by an example, feel free to ask in <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener">the Discord</a>!
+        </p>
+        <ol class="index--lessons" id="lessons">
             <li>
-                <a href="/codehs/java">
-                    <img src="/assets/java-icon.svg" alt="Java logo, recoloured to match the Dinner Coding Time theme" width="240" height="240">
-                    <h2>Java</h2>
-                </a>
+                <h2 id="primitive-types">Primitive Types</h2>
+                <ol>
+                    <li>
+                        <details>
+                            <summary>
+                                <h3>1.2 Why Programming? Why Java?</h3>
+                            </summary>
+                            <ol>
+                                <li>
+                                    <p><a href="/codehs/1-2-5">1.2.5
+                                            Welcome Program</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/1-2-6">1.2.6
+                                            ASCII Art</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/1-2-7">1.2.7
+                                            Fixing a Paragraph</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/1-2-8">1.2.8
+                                            Making Popcorn</a></p>
+                                </li>
+                                <li>
+                                    <p><a href="/codehs/1-2-9">1.2.9
+                                            Personal Timeline</a></p>
+                                </li>
+                            </ol>
+                        </details>
+                    </li>
+                </ol>
             </li>
-            <li>
-                <a href="/codehs/python3">
-                    <img src="/assets/python-icon.svg" alt="Python logo, recoloured to match the Dinner Coding Time theme" width="240" height="240">
-                    <h2>Python 3</h2>
-                </a>
-            </li>
-            <li>
-                <a aria-disabled="true">
-                    <img src="/assets/python-icon.svg" alt="Javascript logo, recoloured to match the Dinner Coding Time theme" width="240" height="240">
-                    <h2>Python 2</h2>
-                    <span>Coming soon!</span>
-                </a>
-            </li>
-            <li>
-                <a aria-disabled="true">
-                    <img src="/assets/javascript-icon.svg" alt="Javascript logo, recoloured to match the Dinner Coding Time theme" width="240" height="240">
-                    <h2>Javascript</h2>
-                    <span>Coming soon!</span>
-                </a>
-            </li>
-            <li>
-                <a aria-disabled="true">
-                    <img src="/assets/html-icon.svg" alt="HTML5 logo, recoloured to match the Dinner Coding Time theme" width="240" height="240">
-                    <h2>HTML</h2>
-                    <span>Coming soon!</span>
-                </a>
-            </li>
-        </ul>
+        </ol>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>
@@ -191,7 +134,7 @@
                     <li>
                         <a href="/legal/terms">Terms &amp; Conditions</a>
                     </li>
-<li>
+                    <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
                     </li>
                     <li>
