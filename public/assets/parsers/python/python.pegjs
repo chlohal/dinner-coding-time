@@ -1,7 +1,5 @@
 // Based on https://github.com/python/cpython/blob/3.9/Grammar/Grammar, available under the Python Software Foundation License v2.
 // Broad changes & additions made to actions in order to ensure compatibility with PEG.js
-/* Python 3.7 Subset Grammar */
-/* https://docs.python.org/3.7/reference/grammar.html */
 
 {
   var indentLevel = 0
