@@ -859,6 +859,10 @@ code {
     line-height: 1;
 }
 
+.code-with-lines > tr > td {
+    padding-left: 0.125ch;
+}
+
 .code-with-lines > tr > td > code, .code-with-lines > tr > th span {
     line-height: 1.25;
     display: inline-block;
