@@ -410,6 +410,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 ((navigator.connection.type != "bluetooth" && navigator.connection.type != "cellular") &&
                     !navigator.connection.saveData)
             ) {
+                var lang = "java";
                 var editorArray = Object.values(editors);
                 for (var i = 0; i < editorArray.length; i++) {
                     (function () {
@@ -417,9 +418,10 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                         if (editor.onLoadCodeIntelligence) requestAnimationFrame(function () {
                             editor.onStartLoadingCodeIntelligence();
                         });
-                    })()
+                    })();
+                    lang = editorArray[i].language || lang;
                 }
-                loadDep([], ["explainer.js", "name-manager.js"], function () {
+                loadDep([], ["parsers/" + lang + "/explainer.js", "name-manager.js"], function () {
                     requestAnimationFrame(function () {
                         startCodeIntelligence(quiet);
                     });
@@ -632,7 +634,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     });
                 }
 
-                ed.loaderMessage.textContent = "Parsing java code";
+                ed.loaderMessage.textContent = "Parsing " + ed.language + " code";
 
                 if (sourceContent.trim() == "") {
                     makeNumberedLinesTable(["### If you somehow got to this unlisted page ###", "Sorry, this exercise hasn't been done yet.", "All of these are manually filled by one person, so it takes a bit for them to be finished", "I'm doing Chapter 9 right now, so all chapters, 1 to 10, will be done soon, I promise.", "I apologize for the delay."], ed.table);

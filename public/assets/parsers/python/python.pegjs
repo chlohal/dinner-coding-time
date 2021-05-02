@@ -19,13 +19,14 @@ decorated = d:decorators s:(funcdef / async_funcdef / classdef) {
 }
 
 async_funcdef = ASYNC f:funcdef { return { type: "AsyncFunctionDefinition", funcdef: f }; }
-funcdef = DEF NAME p:parameters (LAMBDA_ARROW t:test)? COLON tC:TYPE_COMMENT? b:func_body_suite {
+funcdef = DEF n:NAME p:parameters (LAMBDA_ARROW t:test)? COLON tC:TYPE_COMMENT? b:func_body_suite {
     if(typeof t === "undefined") var t = "";
     return {
         type: "FunctionDefinition",
         parameters: p,
         typeType: t || tC,
-        body: b
+        body: b,
+        name: n
     }
 }
 
@@ -42,7 +43,6 @@ arguments = head:argument tail:(COMMA TYPE_COMMENT? argument)* {
     if(typeof tail === "undefined") {
         var tail = [];
     }
-    console.log("ht", head, tail);
     return { type: "Arguments", arguments: [head].concat(tail.map(x=>x[2])) };
 }
 kwargs = DOUBLE_ASTERISKS a:tfpdef COMMA? TYPE_COMMENT? { return { type: "KwArg", arg: a } }
@@ -84,7 +84,7 @@ expr_stmt = expr:testlist_star_expr asgn:(annassign / augassign (yield_expr/test
                      return {
                          type: "AssignmentExpressionStatement",
                          expr: expr,
-                         asgn: asgn
+                         asgn: asgn[0]
                      }
                      else return {
                          type: "ExpressionStatement",
@@ -132,9 +132,9 @@ import_as_names = head:import_as_name tail:(COMMA import_as_name)* COMMA? { retu
 dotted_as_names = head:dotted_as_name tail:(COMMA dotted_as_name)* { return [head].concat(tail.map(x=>x[1]));  }
 dotted_name = head:NAME tail:(DOT NAME)* { if(tail.length == 0) return head; else { return { type:"DottedName", head: head, tail: tail.map(x=>x[1]) } } }
 
-global_stmt = GLOBAL NAME (COMMA NAME)*
-nonlocal_stmt = NONLOCAL NAME (COMMA NAME)*
-assert_stmt = ASSERT test (COMMA test)?
+global_stmt = GLOBAL head:NAME tail:(COMMA NAME)* { return { type: "GlobalStatement", names: [head].concat(tail.map(x=>x[1])) }; }
+nonlocal_stmt = NONLOCAL head:NAME tail:(COMMA NAME)* { return { type: "NonlocalStatement", names: [head].concat(tail.map(x=>x[1])) }; }
+assert_stmt = ASSERT t:test a:(COMMA test)? { return { type: "AssertStatement", test: t, alt: a&&a[1] }; }
 
 compound_stmt = s:(if_stmt / while_stmt / for_stmt / try_stmt / with_stmt / funcdef / classdef / decorated / async_stmt) { return s; }
 async_stmt = ASYNC s:(funcdef / with_stmt / for_stmt) { return { type: "AsyncStatement", stmt: s }; }
@@ -286,7 +286,7 @@ expr = head:xor_expr tail:(VBAR xor_expr)* {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: "|", value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: "|"}, value: x[1]}))
     }
 }
 xor_expr = head:and_expr tail:(CIRCUMFLEX and_expr)* {
@@ -294,7 +294,7 @@ xor_expr = head:and_expr tail:(CIRCUMFLEX and_expr)* {
     else return {
         type: "OperatorExpression",
         left: left,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: "^", value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: "^"}, value: x[1]}))
     }
 }
 and_expr = head:shift_expr tail:(AMPER shift_expr)* {
@@ -302,7 +302,7 @@ and_expr = head:shift_expr tail:(AMPER shift_expr)* {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: "&", value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: "&"}, value: x[1]}))
     }
 }
 shift_expr = head:arith_expr tail:(( LEFTSHIFT / RIGHTSHIFT) arith_expr)* {
@@ -310,7 +310,7 @@ shift_expr = head:arith_expr tail:(( LEFTSHIFT / RIGHTSHIFT) arith_expr)* {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: x[0], value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: x[0]}, value: x[1]}))
     }
 }
 arith_expr = head:term tail:((PLUS/MINUS) term)* {
@@ -318,7 +318,7 @@ arith_expr = head:term tail:((PLUS/MINUS) term)* {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: x[0], value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: x[0]}, value: x[1]}))
     }
 }
 term = head:factor tail:((STAR/AT/SLASH/PERCENT/DOUBLESLASH) factor)* {
@@ -326,7 +326,7 @@ term = head:factor tail:((STAR/AT/SLASH/PERCENT/DOUBLESLASH) factor)* {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: x[0], value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: x[0]}, value: x[1]}))
     }
 }
 factor = op:(PLUS/MINUS/TILDE) head:factor {
@@ -341,37 +341,61 @@ power = head:atom_expr tail:(DOUBLE_ASTERISKS factor)? {
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: x[0], value: x[1]}))
+        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: x[0]}, value: x[1]}))
     }
 }
 atom_expr = a:AWAIT? l:atom t:trailer* {
      var ty = a ? "AsyncValue" : "Value";
-     if(t && t.length > 0) return { type: ty,value: l,trailer: t};
+     if(t && t.length > 0) return { type: ty,value: l,trailers: t};
      else return {type: ty, value: l};
 }
-atom = l:(OPEN_PAREN (yield_expr/testlist_comp)? CLOSE_PAREN /
-       OPEN_SQUARE_BRACKET testlist_comp? CLOSE_SQUARE_BRACKET /
-       OPEN_CURLY_BRACKET dictorsetmaker? CLOSE_CURLY_BRACKET /
+atom = l:(OPEN_PAREN v:(yield_expr/testlist_comp)? CLOSE_PAREN { return { type: "ParenWrappedValue", value: v }; } /
+       OPEN_SQUARE_BRACKET v:testlist_comp? CLOSE_SQUARE_BRACKET { return { type: "ListLiteral", value: v }; } /
+       OPEN_CURLY_BRACKET v:dictorsetmaker? CLOSE_CURLY_BRACKET { return { type: "DictionaryOrSetLiteral", value: v }; } /
        NAME / NUMBER / STRING+ / ELLIPSIS / NONE_LITERAL / TRUE /FALSE) {
            return l;
        }
-testlist_comp = (namedexpr_test/star_expr) ( comp_for / (COMMA (namedexpr_test/star_expr))* COMMA? )
+testlist_comp = head:(namedexpr_test/star_expr) tail:( comp_for / v:(COMMA f:(namedexpr_test/star_expr) { return f; })* COMMA? { return v }) { 
+    return {
+        type: "ListComp",
+        list: [head].concat(tail)
+    }
+}
+
 trailer = OPEN_PAREN a:arglist? CLOSE_PAREN { return { type: "FunctionCallerParams", args: a }; } /
 	OPEN_SQUARE_BRACKET s:subscriptlist CLOSE_SQUARE_BRACKET { return { type: "SubscriptParams", subscripts: s }; }
-    / DOT NAME { return { type: "DotProperty", property: n } }
-subscriptlist = subscript (COMMA subscript)* COMMA?
-subscript = test / test? COLON test? sliceop?
-sliceop = COLON test?
-exprlist = (expr/star_expr) (COMMA (expr/star_expr))* COMMA?
+    / DOT n:NAME { return { type: "DotProperty", property: n } }
+subscriptlist = head:subscript tail:(COMMA subscript)* COMMA? {
+  return {
+    type: "SubscriptList",
+    list: [head].concat(x=>x[1])
+  };
+}
+subscript = test / l:test? COLON r:test? s:sliceop? { return { type: "Subscript", left: l, right: r, slice: s } }
+sliceop = COLON e:test? { return { type: "SliceOp", expr: e} }
+exprlist = head:(expr/star_expr) tail:(COMMA (expr/star_expr))* COMMA? { return { 
+        type: "ExprList",
+        list: [head].concat(tail.map(x=>x[1]))
+    } }
 testlist = head:test tail:(COMMA test)* COMMA? {
-    return { type: "TestList"}
+    return { 
+        type: "TestList",
+        list: [head].concat(tail.map(x=>x[1]))
+    }
 }
 dictorsetmaker = ( ((test COLON test / DOUBLE_ASTERISKS expr)
                    (comp_for / (COMMA (test COLON test / DOUBLE_ASTERISKS expr))* COMMA?)) /
                   ((test / star_expr)
                    (comp_for / (COMMA (test / star_expr))* COMMA?)) )
 
-classdef = CLASS NAME (OPEN_PAREN arglist? CLOSE_PAREN)? COLON suite
+classdef = CLASS n:NAME p:(OPEN_PAREN arglist? CLOSE_PAREN)? COLON b:suite {
+    return {
+      type: "ClassDefinition",
+      name: n,
+      params: p && p[1],
+      body: b
+    }
+}
 
 arglist = head:argument tail:(COMMA argument)*  COMMA? {
     return {
