@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>2.10.5 Sidewalk | Dinner Coding Time</title>
+    <title>2.9.7: Kid's Shapes Toy | Dinner Coding Time</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -59,26 +59,58 @@
         </path>
     </svg>
     <main>
-        <h1>2.10.5 Sidewalk</h1>
+        <h1>2.9.7: Kid's Shapes Toy</h1>
         <script class="codehslanguage-datascript">
             window.defaultEditorLanguage = "python";
         </script>
         <code id="source">
-def draw_square():
-    for i in range(4):
-        forward(50)
-        left(90)
-def draw_row():
-    for i in range(8):
-        draw_square()
-        forward(50)
-    left(90)
-speed(0)
+def red_diamond():
+    color("red")
+    pendown()
+    begin_fill()
+    circle(60, 360, 4)
+    end_fill()
+    penup()
+
+def blue_circle():
+    pendown()
+    color("blue")
+    begin_fill()
+    circle(60)
+    end_fill()
+    penup()
+
+def green_pentagon():
+    pendown()
+    color("green")
+    begin_fill()
+    circle(60, 360, 5)
+    end_fill()
+    penup()
+
+def yellow_half_circle():
+    pendown()
+    color("yellow")
+    begin_fill()
+    circle(60, 180)
+    end_fill()
+    penup()
+
 penup()
-setposition(-200, -200)
-pendown()
-for i in range(4):
-    draw_row()
+backward(100)
+left(90)
+forward(40)
+right(90)
+
+red_diamond()
+forward(200)
+blue_circle()
+right(90)
+forward(200)
+left(90)
+green_pentagon()
+backward(200)
+yellow_half_circle()
         </code>
     </main>
     <footer>

@@ -64,7 +64,27 @@
             window.defaultEditorLanguage = "python";
         </script>
         <code id="source">
+def triangle():
+    color("red")
+    forward(50)
+    left(120)
+    color("blue")
+    forward(50)
+    left(120)
+    color("green")
+    forward(50)
+    left(120)
 
+penup()
+backward(100)
+pendown()
+pensize(5)
+
+for i in range(4):
+    triangle()
+    penup()
+    forward(50)
+    pendown()
         </code>
     </main>
     <footer>

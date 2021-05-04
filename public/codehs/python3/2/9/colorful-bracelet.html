@@ -64,7 +64,28 @@
             window.defaultEditorLanguage = "python";
         </script>
         <code id="source">
+def draw_bead():
+    penup();
+    forward(100)
+    pendown()
+    begin_fill()
+    circle(10)
+    end_fill()
+    penup()
+    backward(100)
 
+for i in range(12):
+    left(10)
+    color("blue")
+    draw_bead()
+    
+    left(10)
+    color("red")
+    draw_bead()
+    
+    left(10)
+    color("purple")
+    draw_bead()
         </code>
     </main>
     <footer>
