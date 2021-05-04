@@ -60,7 +60,7 @@
         <p>
         <p>To add it to your browser, follow the instructions below. To <em>use</em> it, go to any CodeHS assignment
             page and <u>click</u> on its icon in your favorites bar.</p>
-        <a href="javascript:(function()%7Bfor(const%20file%20of%20document.getElementsByClassName(%22file-list%22)%5B0%5D.children)%20%7B%0A%20%20%20%20file.children%5B0%5D.click()%3B%0A%20%20%20%20const%20fileName%20%3D%20file.children%5B0%5D.getAttribute(%22data-filename%22)%3B%0A%20%20%20%20console.log(fileName)%3B%0A%20%20%20%20const%20solution%20%3D%20Ed.solutionCode%5BfileName%5D%3B%0A%20%20%20%20const%20editor%20%3D%20ace.edit(%22codehs-editor%22)%3B%0A%20%20%20%20editor.setValue(solution)%3B%0A%7D%7D)()%3B"
+        <a href="javascript:(function()%7Bif%20(Ed.solutionCode%20%3D%3D%3D%20undefined%20%7C%7C%20Ed.solutionCode%5BObject.keys(Ed.solutionCode)%5B0%5D%5D%20%3D%3D%3D%20%22%22)%20%7B%0A%20%20%20%20alert(%22No%20solution%20provided.%22)%3B%0A%7D%20else%20%7B%0A%20%20%20%20for%20(const%20file%20of%20document.getElementsByClassName(%22file-list%22)%5B0%5D.children)%20%7B%0A%20%20%20%20%20%20%20%20file.children%5B0%5D.click()%3B%0A%20%20%20%20%20%20%20%20const%20fileName%20%3D%20file.children%5B0%5D.getAttribute(%22data-filename%22)%3B%0A%20%20%20%20%20%20%20%20const%20solution%20%3D%20Ed.solutionCode%5BfileName%5D%3B%0A%20%20%20%20%20%20%20%20const%20editor%20%3D%20ace.edit(%22codehs-editor%22)%3B%0A%20%20%20%20%20%20%20%20editor.setValue(solution)%3B%0A%20%20%20%20%7D%0A%7D%7D)()%3B"
             rel="sidebar">
             CodeHS Bookmarklet Link
         </a>
