@@ -1,0 +1,38 @@
+
+        <h1>2.8.5: Shape Stack</h1>
+        <script class="codehslanguage-datascript">
+            window.defaultEditorLanguage = "python";
+        </script>
+        <code id="source">
+def draw_square():
+    pendown()
+    for i in range(4):
+        forward(50)
+        left(90)
+    penup()
+
+def draw_circle():
+    pendown()
+    forward(25)
+    circle(25)
+    backward(25)
+    penup()
+
+penup()
+right(90)
+forward(200)
+right(90)
+forward(25)
+left(180)
+
+for i in range(4):
+    draw_square()
+    left(90)
+    forward(50)
+    right(90)
+    draw_circle()
+    left(90)
+    forward(50)
+    right(90)
+        </code>
+    
