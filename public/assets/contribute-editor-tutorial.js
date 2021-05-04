@@ -148,6 +148,7 @@ function buildModalButtons() {
     buttonContainer.appendChild(noButton);
     noButton.addEventListener("click", function () {
         closeModal();
+        localStorage.setItem("contribute-editor-tutorialViewed", 1);
         removeStrayTutorialStep();
     });
 

@@ -1,8 +1,11 @@
 var fs = require("fs");
-var files = fs.readdirSync(__dirname);
+var path = require("path");
+
+var files = loadHtmlFilesFromFolder(__dirname);
+
 for(var i = 0; i < files.length; i++) {
-    if(!files[i].match(/\d+-\d+-\d+.html/)) continue;
-    var text = fs.readFileSync(__dirname + "/" + files[i]).toString();
+    if(files[i].match(/index\.html$/)) continue;
+    var text = fs.readFileSync(files[i]).toString();
     
     var contentIndexStart = text.indexOf("<h1>");
     var contentIndexEnd = text.indexOf("</h1>");
@@ -23,5 +26,25 @@ for(var i = 0; i < files.length; i++) {
         text.substring(replaceIndexEnd);
 
 
-    fs.writeFileSync(__dirname + "/" + files[i], result);
+    fs.writeFileSync(files[i], result);
+}
+
+function loadHtmlFilesFromFolder(folder) {
+    let results = [];
+
+    let folderContents = fs.readdirSync(folder, {
+        withFileTypes: true
+    });
+
+    for(var i = 0; i < folderContents.length; i++) {
+        let subfile = folderContents[i];
+
+        if(subfile.isDirectory() && !subfile.name.startsWith("-partials")) {
+            results = results.concat(loadHtmlFilesFromFolder(path.resolve(folder, subfile.name)));
+        } else if(subfile.isFile() && subfile.name.endsWith(".html")) {
+            results.push(path.resolve(folder, subfile.name));
+        }
+    }
+
+    return results;
 }

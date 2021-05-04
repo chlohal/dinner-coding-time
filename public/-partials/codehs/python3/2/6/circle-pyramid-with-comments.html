@@ -1,0 +1,43 @@
+
+        <h1>2.5.7 Circle Pyramid</h1>
+        <script class="codehslanguage-datascript">
+            window.defaultEditorLanguage = "python";
+        </script>
+        <code id="source">
+"""
+    This program makes a pyramid of circles
+"""
+
+# first circle on top
+circle(50)
+
+penup()
+right(90)
+forward(100)
+right(90)
+forward(50)
+left(180)
+pendown()
+
+for i in range(2):
+    circle(50)
+    penup()
+    forward(100)
+    pendown()
+
+# move to start of next row
+penup()
+right(90)
+forward(100)
+right(90)
+forward(250)
+left(180)
+pendown()
+
+for i in range(3):
+    circle(50)
+    penup()
+    forward(100)
+    pendown()
+        </code>
+    
