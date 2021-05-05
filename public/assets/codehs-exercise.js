@@ -19,32 +19,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         document.head.appendChild(link);
     })();
 
-    (_global.createBreadcrumbs = function createBreadcrumbs() {
-        var header = document.querySelector("header");
-        var path = location.pathname.substring(1).split("/");
-
-        for (var i = 0; i < path.length; i++) {
-            var childIndex = i * 2 + 2;
-            var part;
-
-            if (header.children[childIndex]) part = header.children[childIndex];
-            else part = document.createElement("a");
-
-            part.textContent = path[i];
-            part.href = "/" + path.slice(0, i + 1).join("/");
-
-            if (!header.children[childIndex]) {
-                var sep = document.createElement("span");
-                sep.textContent = "/";
-                sep.classList.add("breadcrumb-separator");
-
-                header.appendChild(sep);
-                header.appendChild(part);
-            }
-        }
-
-    })();
-
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
         console.log(window.codehsIndex);
@@ -179,7 +153,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
                 _global.addTopNavigation();
                 _global.registerSpaLinks();
-                _global.createBreadcrumbs();
                 _global.updateByline();
 
                 if (typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
