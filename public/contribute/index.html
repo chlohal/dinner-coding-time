@@ -66,6 +66,10 @@
             border: 1px solid #999;
             margin: 1px;
             width: 20em;
+            overflow: hidden;
+            appearance: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
         }
 
         .submission--input:focus {
@@ -101,6 +105,7 @@
             font-size: 0.9em;
             font-weight: lighter;
             text-align: center;
+            max-width: 20em;
         }
 
         .submission--label {
@@ -192,7 +197,7 @@
                     </h2>
                     <p class="center">
                         <label class="submission--label" for="new-assignment-folder-input">Folder</label>
-                        <input id="new-assignment-folder-input" pattern="[a-zA-Z-]+"
+                        <input id="new-assignment-folder-input" pattern="[a-zA-Z0-9-]+"
                             title="Should be one word, with no symbols except for dashes" placeholder="codehs"
                             aria-labelledby="new-assignment-folder-infolabel" class="submission--input" />
                         <span id="new-assignment-folder-errorlabel" class="submission--error">Should be one word, with
@@ -208,6 +213,13 @@
                             numbers, dashes, or slashes</span>
                         <span id="new-assignment-folder-infolabel" class="submission--info">The unique ID of the
                             assignment; its web address.</span>
+
+                        <label class="submission--label" for="new-assignment-type-input">Type</label>
+                        <select id="new-assignment-type-input" class="submission--input">
+                            <option value="exercise">Exercise</option>
+                            <option value="sheet" disabled>Sheet</option>
+                        </select>
+                        <span id="new-assignment-type-infolabel" class="submission--info"><strong>WORK IN PROGRESS!</strong> The type of page. Exercises look like code editors, while sheets look more like normal webpages.</span>
                     </p>
                     <p>
                         <button id="new-assignment-submit-button" disabled>Create</button>

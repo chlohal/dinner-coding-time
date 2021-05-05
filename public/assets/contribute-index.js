@@ -77,9 +77,10 @@
         document.getElementById("new-assignment-submit-button").addEventListener("click", function () {
             var folderInput = document.getElementById("new-assignment-folder-input");
             var nameInput = document.getElementById("new-assignment-name-input");
+            var typeInput = document.getElementById("new-assignment-type-input");
 
             if (!folderInput.validity.patternMismatch && !nameInput.validity.patternMismatch && folderInput.value != "" && nameInput.value != "") {
-                window.location = ("/contribute/" + folderInput.value + "/" + nameInput.value);
+                window.location = ("/contribute/edit/" + typeInput.options[typeInput.selectedIndex].value + "/" + folderInput.value + "/" + nameInput.value);
             }
         });
     })();
