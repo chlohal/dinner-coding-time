@@ -11,7 +11,7 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 
 /contribute /contribute/index 200
 /contribute/status/* /contribute/status 200
-/contribute/:folder/* /contribute/edit 200
+/contribute/edit/exercise/:folder/* /contribute/edit/exercise 200
 
 
 # legal should NOT have a 'version' query param-- or if it does eventually, it shouldn't be conventional
