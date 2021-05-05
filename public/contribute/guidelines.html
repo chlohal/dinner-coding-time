@@ -81,7 +81,7 @@
             <li>Carol</li>
             <li>Danny</li>
             <li>Otis</li>
-            <li>Simon</li>
+            <li>Sam</li>
             <li>Quin</li>
             <li>Elle</li>
         </ul>
@@ -90,17 +90,17 @@
             <p>Alice, Bob, Carol, and Dan are standard example names. If you go further into the alphabet (e.g. Eve),
                 then they start to have special meanings-- 'Eve' is 'the eavesdropper'. In order to have more names and
                 to have a distinct feel
-                to DCT examples, I came up with Simon, Quin, Otis, and Elle. If you want more information, you can read
+                to DCT examples, I came up with Sam, Quin, Otis, and Elle. If you want more information, you can read
                 about it <a href="https://en.wikipedia.org/wiki/Alice_and_Bob">on Wikipedia here</a> :)</p>
         </details>
         <h3>Grammar</h3>
-        <p>Just... Generally, make sure people can read it. You don't have to adhere to any standard except that :)</p>
+        <p>Just... generally make sure that people can read it. You don't have to adhere to any standard :)</p>
         <h3>Demeaning & Discouraging Language</h3>
         <p>Some words will <u>nearly always</u> be read as patronising or confusing. Implying that an assignment is
             'simple' or 'basic' when someone has been having trouble is incredibly discouraging for them. Please do not
             use these thoughtlessly.</p>
         <p>If you have a usage, please read it through to make sure. These words aren't <em>bad</em>; they're just used
-            a lot. I trust you :)</p>
+            a lot. I trust you to use them well.</p>
         <ul>
             <li>
                 <h4>"Just"</h4>
@@ -129,7 +129,190 @@
                 <p>It might not be self-evident for your reader.</p>
             </li>
         </ul>
+        <h2>Advanced Features</h2>
+        <h3>Markdown!!!</h3>
+        <p>Want formatting in your annotations? You can use Markdown! It's just like the formatting that Discord and
+            Reddit use. For more detail, see <a href="https://www.markdownguide.org/cheat-sheet" target="_blank"
+                rel="noopener">this cheat sheet</a></p>
+        <h3>HTML!</h3>
+        <p>If you want to embed <a
+                href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started"
+                target="_blank" rel="noopener">HTML</a> into your annotations for more control, you <em>can</em> do
+            that. However, the list of tags available is <em>severely</em> limited.</p>
+        <p>When using any illegal elements, your annotations will be rejected by the preview system and trimmed when
+            published.</p>
+        
+        <h4>Globally allowed styles</h4>
+        <p>You can style elements with <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps" target="_blank" rel="noopener">CSS</a>. </p>
+        <p>CSS styles may <em>only</em> be applied by putting them in the <code>style</code> property.</p>
+        <table>
+            <tr><th>Style Attribute</th> <th>Format</th></tr>
+            <tr><th>background-color</th><td>color</td></tr>
+            <tr><th>color</th><td>color</td></tr>
+            <tr><th>border-radius</th><td>pixel units only, 0px-9px</td></tr>
+            <tr><th>border-top-color</th><td>color</td></tr>
+            <tr><th>border-top-style</th><td>word</td></tr>
+            <tr><th>border-top-width</th><td>pixel units only, 0px-9px</td></tr>
+            <tr><th>border-right-color</th><td>color</td></tr>
+            <tr><th>border-right-style</th><td>word</td></tr>
+            <tr><th>border-right-width</th><td>pixel units only, 0px-9px</td></tr>
+            <tr><th>border-bottom-color</th><td>color</td></tr>
+            <tr><th>border-bottom-style</th><td>word</td></tr>
+            <tr><th>border-bottom-width</th><td>pixel units only, 0px-9px</td></tr>
+            <tr><th>border-left-color</th><td>color</td></tr>
+            <tr><th>border-left-style</th><td>word</td></tr>
+            <tr><th>border-left-width</th><td>pixel units only, 0px-9px</td></tr>
+        </table>
+        <p>Some elements have other styles allowed too! See below for all allowed elements.</p>
 
+        <h4>Allowed elements</h4>
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th title="Field #1">Allowed Element</th>
+                    <th title="Field #2">Allowed Attributes</th>
+                    <th title="Field #3">Allowed Styles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>SVG</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>PATH</td>
+                    <td>d</td>
+                    <td>fill, stroke</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>target, rel, href</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>P</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>SPAN</td>
+                    <td>class, data-address, data-annotation-connector-id. AUTO-GENERATED IDs ONLY
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>S</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>B</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>STRONG</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>I</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>EM</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>U</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>CODE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>PRE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>DIV</td>
+                    <td>class -- 'annotation' only</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TABLE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TBODY</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TH</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TR</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TD</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>HR</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H1</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H2</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H3</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H4</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H5</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>H6</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>BR</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>
