@@ -902,7 +902,14 @@ public class ${classname} {
 
     window.addEventListener("load", function loadPathnamePartial() {
         var pathname = window.location.pathname;
-        var partialName = pathname.replace("/contribute", "");
+        var terms = pathname.split("/");
+        if(terms[0] == "") terms.splice(0, 1);
+
+        if(terms[0] != "contribute" || terms[1] != "edit") return alert("It looks like this page is mistakenly marked as an editor. Please report this error.");
+
+        var editType = terms[2];
+        if(editType != "exercise") return alert("Mistaken editor redirect");
+        var partialName = "/" + terms.slice(3).join("/");
 
         _global.navigateToSpaPath(partialName);
     });

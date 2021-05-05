@@ -566,7 +566,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         var tabTitle = document.createElement("button");
         var titleRegexp = (/class\s+(\w+)( extends \w+)?( implements (\w+, *)+)?(\s|\n)*{/).exec(sourceContent);
-        var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
+        var fileName = source.getAttribute("data-filename") || (titleRegexp ? titleRegexp[1] + "." + language : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...");
         tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`;
         tabTitle.addEventListener("mouseup", function (event) {
             requestAnimationFrame(function () {
