@@ -209,11 +209,14 @@ except_clause_param = t:test a:(AS NAME)? {
         as: a&&a[1]
     }
 }
-suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT stmt)+ DEDENT {
+suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT (NEWLINE/stmt))+ DEDENT {
     if(typeof simp !== "undefined") return simp;
     else return {
         type: "Suite",
-        body: body
+        body: body.map(function(x) {
+            if(x[1] == "\n") return {type:"BLANK_LINE"};
+            else return x[1];
+        })
     }
 }
 
@@ -436,12 +439,15 @@ comment = c:COMMENT { return { type: "Comment", comment: c}; }
 
 // the TYPE_COMMENT in suites is only parsed for funcdefs,
 // but can't go elsewhere due to ambiguity
-func_body_suite = simp:simple_stmt / NEWLINE (typeType:TYPE_COMMENT NEWLINE)? INDENT body:(SAMEDENT stmt)+ DEDENT 
+func_body_suite = simp:simple_stmt / NEWLINE (typeType:TYPE_COMMENT NEWLINE)? INDENT body:(SAMEDENT NEWLINE/stmt)+ DEDENT 
 {
     if(typeof simp !== "undefined") return simp;
     else return {
         type: "Suite",
-        body: body
+        body: body.map(function(x) {
+            if(x[1] == "\n") return {type:"BLANK_LINE"};
+            else return x[1];
+        })
     }
 }
 

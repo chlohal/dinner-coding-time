@@ -262,6 +262,9 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "MultilineStringLiteral":
             result += createPairedChar('"""') + ast.value + createPairedChar('"""');
             break;
+        case "UnaryOperator":
+            result += ast.value + recurse("left");
+            break;
         case "BLANK_LINE":
             break;
         default:
