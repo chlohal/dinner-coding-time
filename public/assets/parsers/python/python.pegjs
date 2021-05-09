@@ -11,7 +11,7 @@ file_input = prog:(NEWLINE / stmt / comment)* ENDMARKER { return {
     type: "Program", 
     body: prog
         .filter(x=>x!==null)
-        .map(x=>x==="\n"?{type:"BLANK_LINE"}:x) 
+        .map(x=>x==="\n"?{type:"BlankLine"}:x) 
   } 
 }
 eval_input = testlist NEWLINE* ENDMARKER
@@ -214,7 +214,7 @@ suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT (NEWLINE/stmt))+ DEDENT
     else return {
         type: "Suite",
         body: body.map(function(x) {
-            if(x[1] == "\n") return {type:"BLANK_LINE"};
+            if(x[1] == "\n") return {type:"BlankLine"};
             else return x[1];
         })
     }
@@ -284,8 +284,8 @@ comparison = head:expr tail:(comp_op expr)* {
 }
 // <> isn't actually a valid comparison operator in Python. It's here for the
 // sake of a __future__ import described in PEP 401 (which really works :-)
-comp_op = l:(LESS/GREATER/DOUBLE_EQUALS/GREATEREQUAL/LESSEQUAL/NOTEQUAL_EXCEL/NOTEQUAL/IN/NOT IN/IS/IS NOT) {
-    return l.join("");
+comp_op = l:(DOUBLE_EQUALS/GREATEREQUAL/LESSEQUAL/NOTEQUAL_EXCEL/LESS/GREATER/NOTEQUAL/IN/NOT IN/IS/IS NOT) {
+    return l;
 }
 star_expr = STAR expr:expr { return { type: "StarExpression", expr: expr }; }
 expr = head:xor_expr tail:(VBAR xor_expr)* {
@@ -439,13 +439,13 @@ comment = c:COMMENT { return { type: "Comment", comment: c}; }
 
 // the TYPE_COMMENT in suites is only parsed for funcdefs,
 // but can't go elsewhere due to ambiguity
-func_body_suite = simp:simple_stmt / NEWLINE (typeType:TYPE_COMMENT NEWLINE)? INDENT body:(SAMEDENT NEWLINE/stmt)+ DEDENT 
+func_body_suite = simp:simple_stmt / NEWLINE (typeType:TYPE_COMMENT NEWLINE)? INDENT body:(SAMEDENT (NEWLINE/stmt))+ DEDENT 
 {
     if(typeof simp !== "undefined") return simp;
     else return {
         type: "Suite",
         body: body.map(function(x) {
-            if(x[1] == "\n") return {type:"BLANK_LINE"};
+            if(x[1] == "\n") return {type:"BlankLine"};
             else return x[1];
         })
     }
@@ -463,7 +463,7 @@ typelist = (test (COMMA test)* (COMMA
 
 
 SAMEDENT = i:tabs &{
-      return i.length === indentLevel;
+      return i == 0 || i.length === indentLevel;
     } { return ""; }
 
 INDENT
@@ -489,7 +489,7 @@ tab
   = t:("\t" / "  ") { return t; }
 
 STRING
-  = l:(DOUBLE_QUOTE stringitem* DOUBLE_QUOTE !DOUBLE_QUOTE / SINGLE_QUOTE stringitem* SINGLE_QUOTE) {
+  = l:(DOUBLE_QUOTE doubleqstringitem* DOUBLE_QUOTE !DOUBLE_QUOTE / SINGLE_QUOTE singleqstringitem* SINGLE_QUOTE) {
       var val = l[0] + l[1].join("") + l[l.length - 1];
       return {
           type: "StringLiteral",
@@ -497,17 +497,29 @@ STRING
       };
   } / m:MULTILINE_STRING { return {type: "MultilineStringLiteral", value: m }; }
 
-stringitem
-  = l:(stringchar / escapeseq) {
+doubleqstringitem
+  = l:(doubleqstringchar / escapeseq) {
       return l;
   }
 
-stringchar = l:[^\\"'] {
+singleqstringitem
+  = l:(singleqstringchar / escapeseq) {
+      return l;
+  }
+
+doubleqstringchar = l:[^\\"] {
+    return l;
+}
+
+singleqstringchar = l:[^\\'] {
     return l;
 }
 
 escapeseq
-  = l:("\\" [\\'"abfnrtv]) { return l.join(""); }
+  = l:("\\" [\\'"abfnrtv]) { 
+      if(typeof l.join == "function") return l.join("");
+      else return l;
+    }
 
 MULTILINE_STRING = DOUBLE_QUOTE DOUBLE_QUOTE DOUBLE_QUOTE 
 	com:MULTILINE_STRING_CHARACTER+
@@ -519,10 +531,15 @@ MULTILINE_STRING_BORDER = DOUBLE_QUOTE DOUBLE_QUOTE DOUBLE_QUOTE
 MULTILINE_STRING_CHARACTER = !MULTILINE_STRING_BORDER c:. { return c; }
 
 NUMBER
-  = l:('-'? ('0o' / '0x')? [0-9]+) {
+  = l:('-'? ('0o' / '0x')? (DOT [0-9]+ / [0-9]+ DOT [0-9]+ / [0-9]+)) {
+      function j(arr) {
+          if(arr === null) return "";
+          if(!arr.join) return arr||"";
+          else return arr.map(x=>j(x)).join("");
+      }
       return {
           type: "NumericLiteral",
-          value: (l[0] || "") + (l[1] || "") + l[2].join("")
+          value: j(l)
       }
   }
 

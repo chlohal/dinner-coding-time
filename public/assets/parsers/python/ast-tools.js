@@ -200,12 +200,10 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += createPairedChar("(") + ast.params.map(function (x, i) { return recurse(["params", i]); }).join("") + createPairedChar(")");
             break;
         case "Suite":
-            result += indent(ast.body.map(function (x, i) {
-                var line;
-                if (x.constructor == Array) line = recurse(["body", i, x.length - 1]);
-                else line = recurse(["body", i, x.length - 1]);
+            if(ast.body[0] && ast.body[0].type == "BlankLine") ast.body.splice(0, 1);
 
-                return line;
+            result += indent(ast.body.map(function (x, i) {
+                return recurse(["body", i]);
             }).join("\n"), style.indentBy, false, false);
             break;
         case "Arguments":
@@ -265,7 +263,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "UnaryOperator":
             result += ast.value + recurse("left");
             break;
-        case "BLANK_LINE":
+        case "BlankLine":
             break;
         default:
             console.log("unknown type " + ast.type + " at " + address.join("."));
