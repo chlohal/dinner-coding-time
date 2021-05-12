@@ -40,7 +40,8 @@
             "&pf_tfr=" + transferTime +
             "&pf_dm1=" + domProcessingTime +
             "&pf_dm2=" + domCompletionTime +
-            "&pf_onl=" + onloadTime ));
+            "&pf_onl=" + onloadTime ) +
+            "&dimension1=" + encodeURIComponent(window.DCT_BRANCH || "dev"));
     
     xhr.send();
     
@@ -57,4 +58,5 @@
     }
     
     })();
+    
     
