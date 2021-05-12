@@ -33,6 +33,7 @@ sources.forEach(source => {
 
 
     <script src="/assets/script.js" defer></script>
+<script src="/assets/counter.js" async></script>
     <script src="/assets/classwork.js" defer></script>
 
 <link rel="stylesheet" href="/assets/highlight.css">
