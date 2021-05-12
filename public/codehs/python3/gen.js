@@ -52,6 +52,7 @@ for(var i = 0; i < assignments.length; i++) {
 
     <script src="/assets/script.js" defer></script>
 <script src="/assets/lang/autodetect.js" defer></script>
+<script src="/assets/counter.js" async></script>
     <script src="/assets/codehs-exercise.js" defer></script>
     <link rel="preload" href="/assets/highlight.css" as="style">
 

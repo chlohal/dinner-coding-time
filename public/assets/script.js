@@ -1,3 +1,5 @@
+if(typeof window.DCT_BRANCH === "undefined") window.DCT_BRANCH = "dev";
+
 document.addEventListener("DOMContentLoaded", function () {
     var slide = document.querySelector(".hero--splash.down");
     if (!slide) return false;
@@ -100,10 +102,11 @@ function executeDependencyFunction(dep, fn, args, cb) {
 
 function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/count/page-count?rec=1&idsite=3" +
+    xhr.open("GET", "/count/page-count?rec=1&idsite=1" +
             "&url=" + encodeURIComponent(window.location) +
             "&rand=" + Math.floor(Math.random()*10000) +
-            "&e_c=" + encodeURIComponent(category) + "&e_a=" + encodeURIComponent(action) + "&e_n=" + encodeURIComponent(name)  + "&e_v=" + value
+            "&e_c=" + encodeURIComponent(category) + "&e_a=" + encodeURIComponent(action) + "&e_n=" + encodeURIComponent(name)  + "&e_v=" + value + 
+            "&dimension1=" + encodeURIComponent(window.DCT_BRANCH || "dev")
             );
     if(cb) xhr.onload = cb;
     xhr.send();

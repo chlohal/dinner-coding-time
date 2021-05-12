@@ -4,7 +4,7 @@
     
     var xhr = new XMLHttpRequest(),
     url = "/count/page-count?rec=1&apiv=1&send_image=0",
-    sitecode = "3";
+    sitecode = "1";
     
     var purl = window.location.toString(),
     rand = Math.floor(Math.random()*100000),
@@ -40,7 +40,8 @@
             "&pf_tfr=" + transferTime +
             "&pf_dm1=" + domProcessingTime +
             "&pf_dm2=" + domCompletionTime +
-            "&pf_onl=" + onloadTime ));
+            "&pf_onl=" + onloadTime ) +
+            "&dimension1=" + encodeURIComponent(window.DCT_BRANCH || "dev"));
     
     xhr.send();
     
