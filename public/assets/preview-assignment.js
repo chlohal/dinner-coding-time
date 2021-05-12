@@ -97,8 +97,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             var loadedFromCache = !!partialCache[partialAddress];
             partialCache[partialAddress] = xhr.response || data;
 
-            window.initialTabIdx = -1;
-
             var parsingParent = document.createElement("div");
             parsingParent.innerHTML = xhr.response || data;
 
@@ -125,7 +123,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             }
 
             selectedTabIndex = undefined;
-            initialTabIdx = -1
             executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
                 _global.findAndExecuteDataScripts();
@@ -272,7 +269,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         if (window.location.hash.startsWith("#/tab-")) {
             var tIndex = parseInt(window.location.hash.substring(6));
-            if (!isNaN(tIndex)) initialTabIdx = tIndex;;
+            if (!isNaN(tIndex)) initialTabIdx = tIndex;
         }
 
     })();
@@ -1346,7 +1343,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         //sticky button
         tabButton.addEventListener("click", function () {
-            console.log("ee");
             requestAnimationFrame(function waitForLayoutChangeAnim() {
 
                 var top = getYPos(tabPanel);

@@ -14,20 +14,14 @@
 
 
     <script src="/assets/script.js" defer></script>
-<script src="/assets/lang/autodetect.js" defer></script>
 <script src="/assets/counter.js" async></script>
-    <script src="/assets/codehs-exercise.js" defer></script>
-<link rel="preload" href="/assets/highlight.css" as="style">
-
-
-
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fira+Code&display=swap"
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,300&family=Fira+Code&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/non-editor-page.css">
 </head>
 
 <body class="headerpadding">
@@ -61,42 +55,46 @@
         </path>
     </svg>
     <main>
-        <h1>CodeHS Projects</h1>
-        <ol class="index--lessons" id="lessons">
-
-            <li>
-                <h2>Java Projects</h2>
-                <ol>
-                    <li>
-                        <details>
-                            <summary>
-                                <h3>Battleship</h3>
-                            </summary>
-                            <ol>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/the-ship-class">The Ship Class</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/the-location-class">The Location Class</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/the-grid-class">The Grid Class</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/adding-a-ship-to-the-grid">Adding a Ship to the Grid</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/the-player-class">The Player Class</a></p>
-                                </li>
-                                <li>
-                                    <p><a href="/codehs/java/projects/battleship/finishing-the-game">Finishing the Game</a></p>
-                                </li>
-                            </ol>
-                        </details>
-                    </li>
-                </ol>
-            </li>
-        </ol>
+        <h1>CodeHS Bookmarklet</h1>
+        <p>A bookmarklet is a special bookmark that automatically runs a small snippet of code when you click it. This
+            bookmarklet magically gets the solutions to CodeHS problems and inserts them! <br><strong>All credit for the code goes to ExplosiveNight on the Discord</strong>
+        <p>
+        <p>To add it to your browser, follow the instructions below. To <em>use</em> it, go to any CodeHS assignment
+            page and <u>click</u> on its icon in your favorites bar.</p>
+        <a href="javascript:(function()%7Bif%20(Ed.solutionCode%20%3D%3D%3D%20undefined%20%7C%7C%20Ed.solutionCode%5BObject.keys(Ed.solutionCode)%5B0%5D%5D%20%3D%3D%3D%20%22%22)%20%7B%0A%20%20%20%20alert(%22No%20solution%20provided.%22)%3B%0A%7D%20else%20%7B%0A%20%20%20%20for%20(const%20file%20of%20document.getElementsByClassName(%22file-list%22)%5B0%5D.children)%20%7B%0A%20%20%20%20%20%20%20%20file.children%5B0%5D.click()%3B%0A%20%20%20%20%20%20%20%20const%20fileName%20%3D%20file.children%5B0%5D.getAttribute(%22data-filename%22)%3B%0A%20%20%20%20%20%20%20%20const%20solution%20%3D%20Ed.solutionCode%5BfileName%5D%3B%0A%20%20%20%20%20%20%20%20const%20editor%20%3D%20ace.edit(%22codehs-editor%22)%3B%0A%20%20%20%20%20%20%20%20editor.setValue(solution)%3B%0A%20%20%20%20%7D%0A%7D%7D)()%3B"
+            rel="sidebar">
+            CodeHS Bookmarklet Link
+        </a>
+        <p>Please note that this is not an intended feature of CodeHS. It might get removed at any time. In addition,
+            please be responsible with this power :) We trust you to handle your learning best, but make sure that you understand the concepts behind the <em>annoying</em> problems that CodeHS builds.</p>
+        <aside class="tip red">
+            <h2>JSYK</h2>
+            <p>Some solutions have been written incorrectly. Sadly, we can't fix them, as it's on CodeHS's end. In general,
+                the problem is just a typo or a missing word, but if you need any help, please contact us via <a
+                    href="mailto:contact@dinnercodingtime.com">email</a> or <a target="_blank" rel="noopener"
+                    href="https://discord.gg/m2Zub6EYyp">Discord</a>!</p>
+        </aside>
+        <h2>Chrome</h2>
+        <p>On Chrome, <strong>drag</strong> the CodeHS Bookmarklet Link above into your bookmark bar. If you don't see
+            the bookmark bar, you can press CTRL + SHIFT + B to open it.</p>
+        <a href="https://ibb.co/LYwRqrv" target="_blank" rel="noopener"><img
+                src="https://i.ibb.co/tQfKNz3/Screenshot-2021-05-04-021754.png"
+                alt="Image of a bookmark being dragged to the bookmark bar of a Chrome browser" border="0"></a><br />
+        <h2>Edge</h2>
+        <p>On Chrome, <strong>drag</strong> the CodeHS Bookmarklet Link above into your favorites bar. If you don't see
+            the favorites bar, you can press CTRL + SHIFT + B to open it.</p>
+        <a href="https://ibb.co/LYwRqrv"><img src="https://i.ibb.co/tQfKNz3/Screenshot-2021-05-04-021754.png"
+                alt="Image of a bookmark being dragged to the favorites bar of an Edge browser" border="0"></a>
+        <h2>Firefox</h2>
+        <p>On Firefox, <strong>drag</strong> the CodeHS Bookmarklet Link above into your favorites bar. If you don't see
+            the favorites bar, you can press CTRL + SHIFT + B to open it.</p>
+        <a href="https://ibb.co/xhH4Jgn"><img src="https://i.ibb.co/9ntMs4x/Screenshot-2021-05-04-022817.png"
+                alt="Image of a bookmark being dragged to the favorites bar of a Firefox browser" border="0"></a>
+        <h2>Other Browsers</h2>
+        <p>If you need help and don't see your browser here, please get in touch via <a
+                href="mailto:contact@dinnercodingtime.com">email</a> or <a target="_blank" rel="noopener"
+                href="https://discord.gg/m2Zub6EYyp">Discord</a>
+        </p>
     </main>
     <footer>
         <h3>Dinner Coding Time</h3>
@@ -110,8 +108,8 @@
                     <li>
                         <a href="/classwork">Classwork</a>
                     </li>
-                    
-<li>
+
+                    <li>
                         <a href="/error-almanac">Error Almanac</a>
                     </li>
                 </ul>
@@ -153,7 +151,7 @@
         </div>
         <ul class="footer--socials">
             <li>
-                <a href="https://github.com/coleh2">
+                <a href="https://github.com/coleh2/dinner-coding-time">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path
                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />

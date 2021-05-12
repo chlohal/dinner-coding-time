@@ -490,7 +490,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
             break;
         case "CAST_EXPRESSION":
-            result += createPairedChar("(") + recurse("castType") + createPairedChar(")") + recurse("expression");
+            result += createPairedChar("(") + recurse("castType") + createPairedChar(")") + createPairedChar("(") + recurse("expression") + createPairedChar(")");
             break;
         case "PREFIX_EXPRESSION":
             result += ast.prefix + recurse("expression");

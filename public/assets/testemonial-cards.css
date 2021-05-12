@@ -2,6 +2,8 @@
     display: flex;
     min-height: max-content;
     padding: 0;
+    width: max-content;
+    background: #f7fdfd;
 }
 
 .testemonial-cards li {
@@ -19,8 +21,26 @@
     line-height: 1.6;
 }
 
-.testemonial-cards li span {
+.testemonial-cards li blockquote,
+.testemonial-cards li figure {
     z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+.testemonial-cards li figure {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.testemonial-cards li figcaption::before {
+    content: "\2014 "
+}
+.testemonial-cards li figcaption {
+    margin-top: auto;
+    text-align: end;
+    font-size: 0.75em;
+    font-family: 'JetBrains Mono', monospace;
+    
 }
 .testemonial-cards li::after {
     content: "\201C";
