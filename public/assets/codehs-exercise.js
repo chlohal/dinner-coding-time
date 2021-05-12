@@ -213,10 +213,11 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             byline.innerHTML = DCT_LANG.format("CODE_PAGE_ANNOTATION_AUTHOR_ATTRIBUTION", `<a class="external-link" target="_blank" rel="author noopener"></a>`);
         }
 
-        var title = document.querySelector("h1");
-        title.parentElement.insertBefore(byline, title);
-
         if (author) {
+
+            var title = document.querySelector("h1");
+            title.parentElement.insertBefore(byline, title);
+
             var bylineLink = byline.firstElementChild;
 
             //avoid javascript links
