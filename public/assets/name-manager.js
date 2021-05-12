@@ -3,17 +3,17 @@
 
 //initiate nameManager 
 var nameManagerButton = document.createElement("button");
-nameManagerButton.textContent = "Name Manager";
+nameManagerButton.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_NAME_MANAGER_TAB_LABEL");
 
 var nameManager = document.createElement("div");
 nameManager.classList.add("name-manager-tab");
 
 var nameManagerHeading = document.createElement("h2");
-nameManagerHeading.textContent = "Name Manager";
+nameManagerHeading.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_NAME_MANAGER_TITLE");
 nameManager.appendChild(nameManagerHeading);
 
 var nameManagerDesc = document.createElement("p");
-nameManagerDesc.textContent = "Quickly rename this file's variables";
+nameManagerDesc.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_NAME_MANAGER_SHORT_DESCRIPTION");
 nameManager.appendChild(nameManagerDesc);
 
 appendToolTab(nameManagerButton, nameManager);

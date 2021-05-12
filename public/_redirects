@@ -13,6 +13,10 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /contribute/status/* /contribute/status 200
 /contribute/edit/exercise/:folder/* /contribute/edit/exercise 200
 
+#language redirects
+# others go here
+/assets/lang/autodetect.js /assets/lang/en.js Language=en
+/assets/lang/autodetect.js /assets/lang/en.js 200
 
 # legal should NOT have a 'version' query param-- or if it does eventually, it shouldn't be conventional
 /legal/* version=:version /legal/:splat 302!

@@ -800,7 +800,7 @@ public class ${classname} {
 
         var resultHtml = "";
 
-        resultHtml += `<script class="author-datascript">window["__AUTHOR"] = ${JSON.stringify(result.author)}</script>`;
+        resultHtml += `<script class="author-datascript" type="dct-datascript">window.__AUTHOR = ${JSON.stringify(result.author)}</script>`;
 
         var annotationJson = {};
         for (var i = 0; i < result.files.length; i++) {
@@ -812,7 +812,7 @@ public class ${classname} {
                 });
             }
         }
-        resultHtml += `<script class="annotation-datascript">window["__ANNOTATIONS"] = ${JSON.stringify(annotationJson)}</script>`;
+        resultHtml += `<script class="annotation-datascript" type="dct-datascript">window.__ANNOTATIONS = ${JSON.stringify(annotationJson)}</script>`;
 
         resultHtml += document.querySelector("h1").outerHTML.replace(/ ?contenteditable="(true)?"/g, "");
 

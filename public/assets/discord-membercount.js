@@ -6,7 +6,6 @@
 
     function update() {
         countElem.textContent = "...";
-        console.log(countElem);
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "https://discord.com/api/guilds/826644184567119952/widget.json");
 
@@ -20,7 +19,7 @@
                 } catch(e) {}
             }
             countElem.textContent = memberCount;
-            countElem.setAttribute("title", "Last updated at " + (new Date()).toLocaleTimeString());
+            countElem.setAttribute("title", DCT_LANG.format("HOMEPAGE_SOCIAL_PROOF_CARDS_DISCORD_MEMBERS_TOOLTIP", new Date().toLocaleTimeString()));
         }
 
         xhr.send();

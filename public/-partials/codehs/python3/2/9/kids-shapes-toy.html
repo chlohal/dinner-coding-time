@@ -1,0 +1,55 @@
+
+        <h1>2.9.7: Kid's Shapes Toy</h1>
+        <script class="codehslanguage-datascript">
+            window.__defaultEditorLanguage = "python";
+        </script>
+        <code id="source" data-filename="kids-shapes-toy.py">
+def red_diamond():
+    color("red")
+    pendown()
+    begin_fill()
+    circle(60, 360, 4)
+    end_fill()
+    penup()
+
+def blue_circle():
+    pendown()
+    color("blue")
+    begin_fill()
+    circle(60)
+    end_fill()
+    penup()
+
+def green_pentagon():
+    pendown()
+    color("green")
+    begin_fill()
+    circle(60, 360, 5)
+    end_fill()
+    penup()
+
+def yellow_half_circle():
+    pendown()
+    color("yellow")
+    begin_fill()
+    circle(60, 180)
+    end_fill()
+    penup()
+
+penup()
+backward(100)
+left(90)
+forward(40)
+right(90)
+
+red_diamond()
+forward(200)
+blue_circle()
+right(90)
+forward(200)
+left(90)
+green_pentagon()
+backward(200)
+yellow_half_circle()
+        </code>
+    

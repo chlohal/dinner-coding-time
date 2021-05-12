@@ -1,0 +1,188 @@
+{
+    "CODE_PAGE": {
+        "ANNOTATION": {
+            "AUTHOR": {
+                "ATTRIBUTION": "By ${A}"
+            },
+            "PREVIEW_INVALID_MARKUP_ERROR_MESSAGE": "ANNOTATION FAILED RCSMPC BY USING ${A}. THIS INDICATES A MALICIOUS USE OF THE ANNOTATION TOOLS. PLEASE REPORT THIS IMMEDIATELY"
+        },
+        "TOP_NAVIGATION": {
+            "PREVIOUS_LABEL": "Previous",
+            "NEXT_LABEL": "Next"
+        },
+        "TOOLS": {
+            "NAME_MANAGER": {
+                "TAB_LABEL": "Name Manager",
+                "TITLE": "Name Manager",
+                "SHORT_DESCRIPTION": "Name Manager"
+            },
+            "FORMAT_SETTINGS": {
+                "TAB_LABEL": "Format Settings",
+                "TITLE": "Code Formatting Settings",
+                "SAVE_APPLY_CHANGES_BUTTON_LABEL": "Save & Apply Changes",
+                "SETTING": {
+                    "BRACKET_STYLE": {
+                        "TITLE": "Bracket Style",
+                        "OPTION_JAVA_STYLE_SUMMARY": "Use <em>Java-style</em> brackets, on the same line as their block start.",
+                        "OPTION_C_STYLE_SUMMARY": "Use <em>C-style</em> brackets, which are on a new line from their block start."
+                    },
+                    "INDENTATION": {
+                        "TITLE": "Indentation",
+                        "SUMMARY": "How far to indent each block of code (e.g. function, while-loop body)."
+                    },
+                    "CODE_SPACING_OUT": {
+                        "TITLE": "Code Spacing Out",
+                        "OPTION_LOOSE_SUMMARY": "<em>Loosely</em> space the code. Includes spaces added after for and if statements.",
+                        "OPTION_DEFAULT_SUMMARY": "Space the code out the <em>default</em> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after for and if statements.",
+                        "OPTION_MINIFY_SUMMARY": "<em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. This will not work fully in some languages, such as Python."
+                    },
+                    "EXPRESSION_SPACING": {
+                        "TITLE": "Expression Spacing",
+                        "OPTION_ADD_SPACES_SUMMARY": "<em>Add spaces</em> inside expressions and between arguments.",
+                        "OPTION_DEFAULT_TO_CODE_SPACING_SUMMARY": "<em>Default to using Code Spacing configuration</em> inside expressions and between arguments."
+                    },
+                    "COMMENTS": {
+                        "TITLE": "Comments",
+                        "OPTION_KEEP_SUMMARY": "<em>Keep</em> comments in the code",
+                        "OPTION_REMOVE_SUMMARY": "<em>Remove</em> comments from the code completely"
+                    },
+                    "RICH_FORMATTING": {
+                        "TITLE": "Rich Formatting",
+                        "OPTION_PARSE_SUMMARY": "<em>Parse, analyze, and color</em> the code. This allows features like explainations and automatic refactoring.",
+                        "OPTION_DONT_PARSE_SUMMARY": "<em>Don't tokenize and color</em> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations. This will override most other options."
+                    },
+                    "PAIRED_CHARACTERS": {
+                        "TITLE": "Highlight Paired Characters",
+                        "OPTION_HIGHLIGHT_SUMMARY": "<em>Highlight</em> the counterpart of paired characters (like (, [, or {) when you hover over them.",
+                        "OPTION_DONT_HIGHLIGHT_SUMMARY": "<em>Don't highlight</em> the counterpart of paired characters (like (, [, or {) when you hover over them."
+                    },
+                    "EXPLAIN": {
+                        "TITLE": "Automatic Hover Explanations",
+                        "OPTION_SHOW_TOOLTIPS_SUMMARY": "<em>Show</em> explanation tooltips",
+                        "OPTION_HIDE_TOOLTIPS_SUMMARY": "<em>Hide</em> explanation tooltips"
+                    },
+                    "REGISTER_VARIABLE_SCOPES": {
+                        "TITLE": "Register Variable Scopes",
+                        "OPTION_DONT_REGISTER_SUMMARY": "<em>Don't register variables.</em> This can save memory and make the code viewer faster, but removes features like variable definition finding and some refactoring features.",
+                        "OPTION_REGISTER_SUMMARY": "<em>Register variables.</em> This option will use an internal object to record variables used in the program and link variable usages to their definitions."
+                    },
+                    "IF_ELSE_FORMAT": {
+                        "TITLE": "If/Else Format",
+                        "OPTION_NEXT_LINE_SUMMARY": "The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket.",
+                        "OPTION_SAME_LINE_SUMMARY": "The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket."
+                    },
+                    "SINGLE_STATEMENT_BLOCKS": {
+                        "TITLE": "Single-Statement Blocks",
+                        "OPTION_ALWAYS_NEWLINE_SUMMARY": "Single-statement blocks should <em>always</em> have curly brackets.",
+                        "OPTION_NEVER_NEWLINE_SUMMARY": "Single-statement blocks should <em>never</em> have curly brackets.",
+                        "OPTION_DEFAULT_NEWLINE_SUMMARY": "Just leave it however the example code was written."
+                    },
+                    "LINE_WRAP": {
+                        "TITLE": "Line Wrap",
+                        "OPTION_WRAP_SUMMARY": "Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, your clipboard copy won't have the wrap.",
+                        "OPTION_SCROLL_SIDEWAYS_SUMMARY": "Scroll sideways instead of wrapping lines"
+                    }
+                }
+            }
+        }
+    },
+    "HELPFULNESS_FORM": {
+        "TITLE": "Was this helpful?",
+        "BUTTON_YES_LABEL": "Yes",
+        "BUTTON_NO_LABEL": "No",
+        "FINISH_MESSAGE": "Thanks!"
+    },
+    "FOOTER": {
+        "TITLE": "Dinner Coding Time",
+        "SOCIAL_BUTTONS": {
+            "GITHUB_LABEL": "GitHub",
+            "DISCORD_LABEL": "Discord",
+            "EMAIL_LABEL": "Email"
+        },
+        "CATEGORY": {
+            "CONTENT": {
+                "TITLE": "Content",
+                "ITEM": {
+                    "CODEHS_LABEL": "CodeHS",
+                    "CLASSWORK_LABEL": "Classwork",
+                    "ERROR_ALMANAC_LABEL": "Error Almanac"
+                }
+            },
+            "SITE": {
+                "TITLE": "Site",
+                "ITEM": {
+                    "HOMEPAGE_LABEL": "Homepage",
+                    "ABOUT_US_LABEL": "About Us",
+                    "REPORT_BUG_LABEL": "Report Bug"
+                }
+            },
+            "LEGAL": {
+                "TITLE": "Legal",
+                "ITEM": {
+                    "TERMS_AND_CONDITIONS_LABEL": "Terms & Conditions",
+                    "OPEN_SOURCE_SOFTWARE_LICENSES_LABEL": "OSS Licenses",
+                    "LICENSE_LABEL": "License",
+                    "FAIR_USE_STATEMENT_LABEL": "Fair Use Statement",
+                    "PRIVACY_POLICY_LABEL": "Privacy Policy"
+                }
+            }
+        }
+    },
+    "HOMEPAGE": {
+        "HERO": {
+            "TITLE": "Dinner Coding Time",
+            "SUBTITLE": "Easy help on AP Computer Science",
+            "BUTTON": {
+                "CODEHS_LABEL": "CodeHS",
+                "CLASSWORK_LABEL":"Classwork",
+                "ERRORS_LABEL": "Errors"
+            }
+        },
+        "SOCIAL_PROOF_CARDS": {
+            "DISCORD_MEMBERS_LABEL": "Discord Members Online Now",
+            "DISCORD_MEMBERS_TOOLTIP": "Last updated at ${A}",
+            "CODEHS_LESSON_COUNT_LABEL": "CodeHS Lessons w/ Explanation",
+            "AVERAGE_USER_SCORE_LABEL": " Average User AP CS Score"
+        },
+        "WHY_MAKE_THIS_SITE": {
+            "TITLE": "Why make this site?",
+            "CODEHS_HAS_GAPS": {
+                "TITLE": "CodeHS has gaps.",
+                "CONTENT": "For students who naturally understand computer science, CodeHS is great! Not all of us are like that, though."
+            },
+            "HARD_TO_UNDERSTAND": {
+                "TITLE": "It's hard to understand.",
+                "CONTENT": "If you don't get the right solution on the first time, it is hard to ever arrive at the right solution. Auto-graders offer generic tips that almost never work. At the same time, autograders require exactly the correct output in order to pass the task."
+            },
+            "THEYRE_NOT_BAD": {
+                "TITLE": "They're not \"bad\"",
+                "CONTENT": "CodeHS is definitely 'better' than this site, because they're also more general. They've tutorials on 9 - 14 languages (depending on how you define a 'language'), at all levels. We get frusturated sometimes, but CodeHS is incredible, to be honest!"
+            },
+            "BUT_THIS_CAN_FOCUS": {
+                "TITLE": "but this can be more focused",
+                "CONTENT": "This is <em>not</em> a competitor to CodeHS. It's a companion & a helper site, designed to help you out on confusing assignments. In addition, this site has explanations for how to do the challenges. It helps CodeHS to not be such a just-test-until-you-pass environment by working for <em>the students</em>, not just the teachers."
+            },
+            "AND_HELP_STUDENTS": {
+                "TITLE": "and help students directly.",
+                "CONTENT": "We take pride in being able to help students with every question, because we're students ourselves. If you have a question or something you're confused about, feel free to ask on our Discord or over email!"
+            }
+        }
+    },
+    "CODEHS_INDEX": {
+        "COMING_SOON_LABEL": "Coming Soon",
+        "TITLE": "CodeHS Courses"
+    },
+    "CODEHS_LANGUAGE_INDEX": {
+        "TITLE": "CodeHS: ${A}",
+        "SUMMARY": "Below are all ${A} CodeHS lessons on this site. Only <b>exercises</b> are included, so you won't see any videos, examples, or tests-- if you are confused by an example, feel free to ask in <a href=\"https://discord.gg/m2Zub6EYyp\" target=\"_blank\" rel=\"noopener\">the Discord</a>!"
+    },
+    "ERROR_ALMANAC_INDEX": {
+        "TITLE": "Error Almanac",
+        "SUMMARY": "Some common errors on CodeHS are hard to pin down and fix. To aid with those, here are some easy solutions."
+    },
+    "REPORT_BUG": {
+        "TITLE": "Report a Bug",
+        "SUMMARY": "You can report bugs through <a target=\"_blank\" rel=\"noopener\" href=\"https://forms.gle/evEpBGSUTyY1mijJ7\">this Google Form</a>, email at <a href=\"mailto:bug-report@dinnercodingtime.com\">bug-report@dinnercodingtime.com</a>, or through <a target=\"_blank\" rel=\"noopener\" href=\"https://discord.gg/m2Zub6EYyp\">the Discord</a> in the #cs channel",
+        "TIME_DISCLAIMER": "Everyone working on this is an AP student too, so we might take a bit to respond to bug reports. Don't worry, though, we'll be sure to get to them!"
+    }
+}

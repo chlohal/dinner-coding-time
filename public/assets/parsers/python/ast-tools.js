@@ -51,6 +51,7 @@ function clearVariableRegistry() {
 * @property {boolean} hideExplainations Don't display explaination tooltips on select syntax constructs.
 * @property {string} ifElseNewline A whitespace string to put between the ends of `if` statements and their `else` statements
 * @property {('source' | 'block' | 'line')} singleLineBlockBrackets How to treat single-line blocks that can have their brackets removed.
+* @property {string} languageVersion The version of the language.
 * @property {boolean} dontRegisterVariables
 */
 /**
@@ -86,6 +87,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     if (style.leaveOffFloatSuffix === undefined) style.leaveOffFloatSuffix = true;
     if (style.ifElseNewline === undefined) style.ifElseNewline = "\n";
     if (style.singleLineBlockBrackets === undefined) style.singleLineBlockBrackets = "block"
+    if (style.languageVersion === undefined) style.languageVersion = "";
 
 
     var bracketTypes = ["\n", " "];
@@ -180,6 +182,25 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
     switch (ast.type || ast.ast_type) {
         case "Program":
+
+            //remove duplicated newlines
+            var lastBlankLineIndex = -1;
+            for(var i = 0; i < ast.body.length; i++) {
+                if(ast.body[i] === undefined) {
+                    ast.body[i] = { type: "BlankLine" };
+                }
+
+                if(lastBlankLineIndex > -1 && ast.body[i].type == "BlankLine") {
+                    ast.body.splice(i, 1);
+                    i--;
+                } 
+                if(ast.body[i].type != "BlankLine") {
+                    lastBlankLineIndex = -1;
+                } else if (lastBlankLineIndex == -1) {
+                    lastBlankLineIndex = i;
+                }
+            }
+
             result += ast.body.map(function (x, i) { return recurse(["body", i]); }).join("\n");
             break;
         case "FunctionDefinition":
@@ -201,6 +222,25 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "Suite":
             if(ast.body[0] && ast.body[0].type == "BlankLine") ast.body.splice(0, 1);
+
+
+            //remove duplicated blank lines
+            var lastBlankLineIndex = -1;
+            for(var i = 0; i < ast.body.length; i++) {
+                if(ast.body[i] === undefined) {
+                    ast.body[i] = { type: "BlankLine" };
+                }
+
+                if(lastBlankLineIndex > -1 && ast.body[i].type == "BlankLine") {
+                    ast.body.splice(i, 1);
+                    i--;
+                } 
+                if(ast.body[i].type != "BlankLine") {
+                    lastBlankLineIndex = -1;
+                } else if (lastBlankLineIndex == -1) {
+                    lastBlankLineIndex = i;
+                }
+            }
 
             result += indent(ast.body.map(function (x, i) {
                 return recurse(["body", i]);
@@ -265,10 +305,76 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             break;
         case "BlankLine":
             break;
+        case "StringLiteral":
+            result += ast.value;
+            break;
+        case "PrintStatement":
+            if(style.languageVersion.toString().startsWith("2")) {
+                result += (style.colorize ? "<span class=\"hlast hlast-keyword\">print</span> " : "print ") + recurse("value");
+            } else {
+                //in v3, a PrintStatement's value will ALWAYS be represented as a ParenWrappedValue
+                result += "print" + style.spaceAfterStatement + recurse("value")
+            }
+            break;
+        case "ParenWrappedValue":
+            result += createPairedChar("(") + recurse("value") + createPairedChar(")");
+            break;
+        case "ListComp":
+            result += ast.list.map(function (x, i) { return recurse(["list", i]); }).join("," + style.spaceInExpression);
+            break;
+        case "WhileStatement":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span> " : "while ") + recurse("test") + ":" + "\n" 
+                + recurse("body") + (ast.elseBlock ? 
+                    "\n" + (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + ":" + "\n" + recurse("elseBlock")
+                : "");
+            break;
+        case "BooleanLiteral":
+            result += ast.value;
+            break;
+        case "IfStatement":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span> " : "if ") + recurse("test") + ":" + "\n" 
+                + recurse("body")
+                + ast.elifBlocks.map(
+                    function(x, i) {
+                        return "\n" + recurse(["elifBlocks", i]);
+                    }
+                ).join("\n")
+                + (ast.elseBlock ? 
+                    "\n" + (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") + ":" + "\n" + recurse("elseBlock")
+                : "");
+            break;
+        case "ElifStatement":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">elif</span> " : "elif ") + recurse("test") + ":" + "\n" 
+                + recurse("body");
+            break;
+        case "Comparison":
+            result += recurse("left") 
+                + ast.right.map(
+                    function (x, i) { 
+                        return style.spaceInExpression + recurse({ type: "Operator", value: x.operator }, ["right", i, "operator"]) 
+                            + style.spaceInExpression + recurse(["right", i, "right"]);
+                    }
+                ).join("");
+            break;
+        case "BreakStatement":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">break</span>" : "break");
+        case "DefaultArgument":
+            result += recurse("arg") + style.spaceInExpression + recurse({ type: "Operator", value: "=" }, ["operator"]) + style.spaceInExpression + recurse("default");
+            break;
+        case "CommentedStatement":
+            result += recurse("comment") + "\n" + recurse("statement");
+            break;
+        case "BooleanComparison":
+            result += recurse("left") + style.spaceInExpression + recurse({ type: "Operator", value: ast.operator }, ["operator"]) + style.spaceInExpression + recurse(["right", 0]);
+            break;
+        case "ListLiteral":
+            result += createPairedChar("[") + recurse("value") + createPairedChar("]");
+            break;
         default:
             console.log("unknown type " + ast.type + " at " + address.join("."));
             console.log(ast);
-            result += "";
+            if(typeof ast == "string") result += ast;
+            else result += "";
     }
 
     if (style.isDense) result = result.trim();

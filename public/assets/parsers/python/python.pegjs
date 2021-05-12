@@ -2,7 +2,8 @@
 // Broad changes & additions made to actions in order to ensure compatibility with PEG.js
 
 {
-  var indentLevel = 0
+  var indentLevel = 0;
+  var singleIndentLen = 1;
 }
 
 // ========== Grammar ===========
@@ -23,7 +24,7 @@ decorated = d:decorators s:(funcdef / async_funcdef / classdef) {
 }
 
 async_funcdef = ASYNC f:funcdef { return { type: "AsyncFunctionDefinition", funcdef: f }; }
-funcdef = DEF n:NAME p:parameters (LAMBDA_ARROW t:test)? COLON tC:TYPE_COMMENT? b:func_body_suite {
+funcdef = DEF n:NAME p:parameters (LAMBDA_ARROW t:test)? COLON tC:TYPE_COMMENT? b:suite {
     if(typeof t === "undefined") var t = "";
     return {
         type: "FunctionDefinition",
@@ -49,7 +50,7 @@ arguments = head:argument tail:(COMMA TYPE_COMMENT? argument)* {
     }
     return { type: "Arguments", arguments: [head].concat(tail.map(x=>x[2])) };
 }
-kwargs = DOUBLE_ASTERISKS a:tfpdef COMMA? TYPE_COMMENT? { return { type: "KwArg", arg: a } }
+kwargs = DOUBLESTAR a:tfpdef COMMA? TYPE_COMMENT? { return { type: "KwArg", arg: a } }
 args = STAR a:tfpdef? { return { type: "StarArg", arg: a }; }
 kwonly_kwargs = (COMMA TYPE_COMMENT? argument)* (TYPE_COMMENT / (COMMA TYPE_COMMENT? kwargs?)?)
 args_kwonly_kwargs = args kwonly_kwargs / kwargs
@@ -75,7 +76,7 @@ varargslist = a:arguments COMMA SLASH v:(COMMA vararglist_no_posonly)?  {
 	/ v:vararglist_no_posonly { return v; }
 
 stmt = s:(simple_stmt / compound_stmt) com:comment? { if(com) return { type: "CommentedStatement", comment:com, statement: s }; else return s; }
-simple_stmt = head:small_stmt tail:(SEMICOLON small_stmt)* (SEMICOLON)? NEWLINE { 
+simple_stmt = head:small_stmt tail:(SEMICOLON small_stmt)* (SEMICOLON)? { 
 	if(tail && tail.length) return { type: "StatementList", list: [head].concat(tail.map(x=>x[1])) }; 
     else return head 
 }
@@ -142,9 +143,10 @@ assert_stmt = ASSERT t:test a:(COMMA test)? { return { type: "AssertStatement", 
 
 compound_stmt = s:(if_stmt / while_stmt / for_stmt / try_stmt / with_stmt / funcdef / classdef / decorated / async_stmt) { return s; }
 async_stmt = ASYNC s:(funcdef / with_stmt / for_stmt) { return { type: "AsyncStatement", stmt: s }; }
-if_stmt = IF t:namedexpr_test COLON suite l:elif_block* e:(ELSE COLON suite)? {
+if_stmt = IF t:namedexpr_test COLON b:suite l:elif_block* e:(ELSE COLON suite)? {
     return {
-    	type: "IfStatement",
+        type: "IfStatement",
+        body: b,
         test: t,
         elifBlocks: l,
         elseBlock: e  && e[2]
@@ -209,13 +211,15 @@ except_clause_param = t:test a:(AS NAME)? {
         as: a&&a[1]
     }
 }
-suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT (NEWLINE/stmt))+ DEDENT {
+suite = simp:simple_stmt / NEWLINE INDENT body:(SAMEDENT st:(NEWLINE/stmt NEWLINE?) )+ DEDENT {
+    if(body[0] == "") body = body[1];
+
     if(typeof simp !== "undefined") return simp;
     else return {
         type: "Suite",
         body: body.map(function(x) {
             if(x[1] == "\n") return {type:"BlankLine"};
-            else return x[1];
+            else return x[1][0];
         })
     }
 }
@@ -248,7 +252,7 @@ lambdef_nocond = LAMBDA varargslist? COLON test_nocond
 or_test = head:and_test tail:(OR and_test)* {
     if(tail == null || tail.length == 0) return head;
     else return {
-        type: "Comparison",
+        type: "BooleanComparison",
         left: head,
         operator: "or",
         right: tail.map(x=>x[1])
@@ -257,9 +261,9 @@ or_test = head:and_test tail:(OR and_test)* {
 and_test = head:not_test tail:(AND not_test)* {
     if(tail == null || tail.length == 0) return head;
     else return {
-        type: "Comparison",
+        type: "BooleanComparison",
         left: head,
-        operator: "or",
+        operator: "and",
         right: tail.map(x=>x[1])
     }
 }
@@ -343,12 +347,12 @@ factor = op:(PLUS/MINUS/TILDE) head:factor {
         value: op
     }
 } / p:power { return p; }
-power = head:atom_expr tail:(DOUBLE_ASTERISKS factor)? {
+power = head:atom_expr tail:(DOUBLESTAR factor)? {
     if(tail == null || tail.length == 0) return head;
     else return {
         type: "OperatorExpression",
         left: head,
-        right: tail.map(x=>({ type: "OperatorExpressionTail", operator: {type: "Operator", value: x[0]}, value: x[1]}))
+        right: [{ type: "OperatorExpressionTail", operator: {type: "Operator", value: tail[0]}, value: tail[1]}]
     }
 }
 atom_expr = a:AWAIT? l:atom t:trailer* {
@@ -390,8 +394,8 @@ testlist = head:test tail:(COMMA test)* COMMA? {
         list: [head].concat(tail.map(x=>x[1]))
     }
 }
-dictorsetmaker = ( ((test COLON test / DOUBLE_ASTERISKS expr)
-                   (comp_for / (COMMA (test COLON test / DOUBLE_ASTERISKS expr))* COMMA?)) /
+dictorsetmaker = ( ((test COLON test / DOUBLESTAR expr)
+                   (comp_for / (COMMA (test COLON test / DOUBLESTAR expr))* COMMA?)) /
                   ((test / star_expr)
                    (comp_for / (COMMA (test / star_expr))* COMMA?)) )
 
@@ -416,7 +420,7 @@ argument = a:(left:test op:COLONEQUAL right:test { return { type: "ExpressionAss
 				if(compFor) return { type: "ForInArgument", arg: left, compFor: compFor };
                 else return { type: "Argument", arg: left}; } /
             left:test op:EQUALS right:test { return { type: "DefaultValueArg", argument: left, defaultVal: right }; } /
-            op:DOUBLE_ASTERISKS left:tfpdef { return {type: "KwVarArg", argument: left}; } /
+            op:DOUBLESTAR left:tfpdef { return {type: "KwVarArg", argument: left}; } /
             op:STAR left:tfpdef { return {type: "VarArg", argument: left}; } /
             STAR { return { type: "PositionOnlyArgsMarkerArg" }; }) t:(COLON test)? d:(EQUALS test)? {
                var result = a;
@@ -437,49 +441,37 @@ yield_arg = FROM test / testlist_star_expr
 
 comment = c:COMMENT { return { type: "Comment", comment: c}; }
 
-// the TYPE_COMMENT in suites is only parsed for funcdefs,
-// but can't go elsewhere due to ambiguity
-func_body_suite = simp:simple_stmt / NEWLINE (typeType:TYPE_COMMENT NEWLINE)? INDENT body:(SAMEDENT (NEWLINE/stmt))+ DEDENT 
-{
-    if(typeof simp !== "undefined") return simp;
-    else return {
-        type: "Suite",
-        body: body.map(function(x) {
-            if(x[1] == "\n") return {type:"BlankLine"};
-            else return x[1];
-        })
-    }
-}
-
-func_type_input = func_type NEWLINE* ENDMARKER
-func_type = OPEN_PAREN typelist? CLOSE_PAREN RARROW test
 // typelist is a modified typedargslist (see above)
 typelist = (test (COMMA test)* (COMMA
-       (STAR test? (COMMA test)* (COMMA DOUBLE_ASTERISKS test)? / DOUBLE_ASTERISKS test)?)?
-     /  STAR test? (COMMA test)* (COMMA DOUBLE_ASTERISKS test)? / DOUBLE_ASTERISKS test)
+       (STAR test? (COMMA test)* (COMMA DOUBLESTAR test)? / DOUBLESTAR test)?)?
+     /  STAR test? (COMMA test)* (COMMA DOUBLESTAR test)? / DOUBLESTAR test)
      
      
 // =========== Token ============
 
 
-SAMEDENT = i:tabs &{
-      return i == 0 || i.length === indentLevel;
-    } { return ""; }
+SAMEDENT = (i:tabs &{
+      return i.length == 0 || i.length / singleIndentLen === indentLevel;
+    }) { return ""; }
 
 INDENT
-= &(t: tabs &{
-      var newIndent = t.join("").length/2;
+= &(t:tabs &{
+      if(indentLevel == 0 && t.length > 0) singleIndentLen = t.length
+
+      var newIndent = t.length / singleIndentLen;
       var oldIndent = indentLevel;
-      indentLevel = newIndent; 
+      
+      if(newIndent > oldIndent) indentLevel++; 
       return newIndent > oldIndent;
     } { return ""; })
 
 DEDENT
 = &(t:tabs &{
-	  var newIndent = t.join("").length/2;
+      var newIndent = t.length / singleIndentLen;
       var oldIndent = indentLevel;
-      indentLevel = newIndent; 
-      return true;
+
+      if(newIndent <= oldIndent) indentLevel--; 
+      return newIndent <= oldIndent;
     } { return ""; })
     
 tabs
@@ -490,7 +482,7 @@ tab
 
 STRING
   = l:(DOUBLE_QUOTE doubleqstringitem* DOUBLE_QUOTE !DOUBLE_QUOTE / SINGLE_QUOTE singleqstringitem* SINGLE_QUOTE) {
-      var val = l[0] + l[1].join("") + l[l.length - 1];
+      var val = l[0] + l[1].join("") + l[2];
       return {
           type: "StringLiteral",
           value: val
@@ -577,7 +569,7 @@ EQUALS = _ "=" _ { return "=" }
 COMMA = _ "," _ { return "," }
 SLASH = _ "/" _ { return "/" }
 STAR = _ "*" _ { return "*" }
-DOUBLE_ASTERISKS = _ "**" _ { return "**" }
+DOUBLESTAR = _ "**" _ { return "**" }
 SEMICOLON = _ ";" _ { return ";" }
 PLUSEQUAL = _ "+=" _ { return "+=" }
 MINEQUAL = _ "-=" _ { return "-=" }
@@ -647,8 +639,8 @@ CLOSE_SQUARE_BRACKET = _ "]" _ { return "]" }
 OPEN_CURLY_BRACKET = _ "{" _ { return "{}".substring(0,1); }
 CLOSE_CURLY_BRACKET = _ "}" _ { return "{}".substring(1,2); }
 NONE_LITERAL = _ "None" _ { return "None" }
-TRUE = _ "True" _ { return "True" }
-FALSE = _ "False" _ { return "False" }
+TRUE = _ "True" _ { return {type: "BooleanLiteral", value: "True"}; }
+FALSE = _ "False" _ { return {type: "BooleanLiteral", value: "False"}; }
 CLASS = _ "class" _ { return "class" }
 YIELD = _ "yield" _ { return "yield" }
 RARROW = _ "->" _ { return "->" }

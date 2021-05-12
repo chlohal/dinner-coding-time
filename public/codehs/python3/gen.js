@@ -1,7 +1,13 @@
+var DRY_RUN = false;
+
+var index = require("./index.json");
 var assignments = require("./codehs-assignments.json");
 var fs = require("fs");
 var path = require("path");
 
+var NAME = "Randosa";
+
+//only Basic Python and Console Interaction
 for(var i = 0; i < assignments.length; i++) {
     var unitFolder = path.join(__dirname, i + "");
     if(!fs.existsSync(unitFolder)) fs.mkdirSync(unitFolder);
@@ -15,8 +21,19 @@ for(var i = 0; i < assignments.length; i++) {
             if(assignment.type != "Exercise") continue;
             
             var nameWithoutAddress = assignment.name.replace(/^\d+\.\d+\.\d+/, "").trim();
+
+            console.log(nameWithoutAddress);
+
+            var source = fs.readFileSync(
+                path.join(`C:/Users/coleh/dinneen-coding-time/public/codehs/python3/source/${assignments[i].name}`, 
+                    codehsSlugify(nameWithoutAddress) + ".py"
+                )
+            ).toString();
+
+            console.log(source);
             
             var assignmentFile = path.join(sectionFolder, slugify(nameWithoutAddress) + ".html");
+
             fs.writeFileSync(assignmentFile, 
 `<!DOCTYPE html>
 <html lang="en">
@@ -34,6 +51,7 @@ for(var i = 0; i < assignments.length; i++) {
 
 
     <script src="/assets/script.js" defer></script>
+<script src="/assets/lang/autodetect.js" defer></script>
     <script src="/assets/codehs-exercise.js" defer></script>
     <link rel="preload" href="/assets/highlight.css" as="style">
 
@@ -80,11 +98,17 @@ for(var i = 0; i < assignments.length; i++) {
     </svg>
     <main>
         <h1>${assignment.name}</h1>
-        <script class="codehslanguage-datascript">
-            window.defaultEditorLanguage = "python";
+        <script class="codehslanguage-datascript" type="dct-datascript">
+            window.__defaultEditorLanguage = "python";
+        </script>
+        <script class="paginationindex-datascript" type="dct-datascript">
+            window.__codehsIndex = ${JSON.stringify(index)};
+        </script>
+        <script class="author-datascript" type="dct-datascript">
+            window.__AUTHOR = ${JSON.stringify({name: NAME, url: "/author/" + NAME})};
         </script>
         <code id="source">
-
+${source}
         </code>
     </main>
     <footer>
@@ -184,4 +208,9 @@ function slugify(str) {
         .replace(/^-/, "") //ignore leading dashes
         .replace(/-$/, "") //and trailing dashes
         .toLowerCase(); //lowercase
+}
+
+function codehsSlugify(str) {
+    return str.replace(/[><%$#@?]/g, "_")
+        .replace(/ /g, "");
 }
