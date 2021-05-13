@@ -17,6 +17,8 @@ exports.handler = function(event, context, callback) {
 
     var path = "/counter.php?" + params.toString() + "&token_auth=" + process.env.COUNT_TOKEN + "&cip=" + event.headers["client-ip"];
 
+    console.log("DEBUG", path);
+
     const options = {
         hostname: "counter.clh.sh",
         path: path,
