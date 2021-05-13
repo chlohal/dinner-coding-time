@@ -15,9 +15,14 @@ exports.handler = function(event, context, callback) {
         return;
     }
 
-    var path = "/counter.php?" + params.toString() + "&token_auth=" + process.env.COUNT_TOKEN + "&cip=" + event.headers["client-ip"];
+    var clientIp =  event.headers["x-forwarded-for"] || event.headers["client-ip"];
 
-    console.log("DEBUG", path);
+    var ipv4Regex = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(clientIp);
+    if(ipv4Regex != null) clientIp = ipv4Regex[1];
+
+    var path = "/counter.php?" + params.toString() + "&token_auth=" + process.env.COUNT_TOKEN + "&cip=" + clientIp;
+
+    console.log("DEBUG", path, JSON.stringify(event.headers));
 
     const options = {
         hostname: "counter.clh.sh",
