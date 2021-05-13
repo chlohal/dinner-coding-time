@@ -29,8 +29,6 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /api/contributor/publishes /.netlify/functions/contribute-publish 200
 /api/contributor/assignments /.netlify/functions/contribute-assignments 200
 
-/codehs/:asgnmt /legal/takedown 451!
-
 # migrate from old structure
 /codehs/1-2-5 /codehs/java/1/2/welcome-program 301
 /codehs/1-2-6 /codehs/java/1/2/ascii-art 301
@@ -237,3 +235,6 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /codehs/10-3-7 /codehs/java/10/3/merge-sort-benchmark-testing 301
 /codehs/10-3-8 /codehs/java/10/3/recursive-calls 301
 /codehs/10-3-9 /codehs/java/10/3/sort-benchmark-testing 301
+
+
+/codehs/:asgnmt /legal/takedown 451!
