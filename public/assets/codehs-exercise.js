@@ -753,7 +753,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             setTimeout(function() {
                 //only set the new item if we haven't in the last ~45ms. Avoid causing DOM security 
                 if(location.hash != "#/" + plainLocalIdentifier) {
-                    if(Date.now() - lastTabAppendedTime > 45) location.replace("#/" + plainLocalIdentifier);
+                    if(Date.now() - lastTabAppendedTime > 45) {
+                        if (window.history && window.history.replaceState) window.history.replaceState(window.location.pathname, "", generatedId);
+                    }
                 }
             }, 50);
 
