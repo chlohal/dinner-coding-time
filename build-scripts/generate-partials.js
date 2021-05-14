@@ -1,8 +1,10 @@
 var fs = require("fs");
 var path = require("path");
 
+var codehsDir = path.join(__dirname, "../public/codehs");
+
 function getPartialCounterpart(folder) {
-    return path.normalize(folder.replace(__dirname, __dirname + "/../-partials/codehs/"));
+    return path.normalize(folder.replace(codehsDir, codehsDir + "/../-partials/codehs/"));
 }
 
 function genPartials(folder) {
@@ -39,10 +41,10 @@ function genPartials(folder) {
         }
 
         fs.writeFileSync(
-            path.normalize(path.join(folder, filename).replace(__dirname, __dirname + "/../-partials/codehs/")),
+            getPartialCounterpart(path.join(folder, filename)),
             text.substring(indexStart + "<main>".length, indexEnd)
         );
     }
 }
 
-genPartials(__dirname);
+genPartials(codehsDir);

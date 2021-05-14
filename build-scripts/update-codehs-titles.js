@@ -1,7 +1,9 @@
 var fs = require("fs");
 var path = require("path");
 
-var files = loadHtmlFilesFromFolder(__dirname);
+var codehsDir = path.join(__dirname, "../public/codehs");
+
+var files = loadHtmlFilesFromFolder(codehsDir);
 
 for(var i = 0; i < files.length; i++) {
     if(files[i].match(/index\.html$/)) continue;

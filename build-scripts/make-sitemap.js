@@ -2,16 +2,19 @@ var SITE_BASE_URL = "https://dinnercodingtime.com";
 
 var path = require("path");
 var fs = require("fs");
-var sitemap = require(__dirname + "/build-scripts/sitemapper.js");
 
-var pages = loadHtmlFilesFromFolder(__dirname);
+var siteBase = path.join(__dirname, "..");
+
+var sitemap = require(siteBase + "/build-scripts/sitemapper.js");
+
+var pages = loadHtmlFilesFromFolder(siteBase);
 
 for(var i = 0; i < pages.length; i++) {
-    var url = SITE_BASE_URL + (pages[i].replace(__dirname, "")).replace(new RegExp("\\" + path.sep, "g"), "/").replace(/\.html$/, "");
+    var url = SITE_BASE_URL + (pages[i].replace(siteBase, "")).replace(new RegExp("\\" + path.sep, "g"), "/").replace(/\.html$/, "");
     sitemap.add(url);
 }
 
-fs.writeFileSync(__dirname + "/sitemap.xml", sitemap.toXml());
+fs.writeFileSync(siteBase + "/sitemap.xml", sitemap.toXml());
 
 
 

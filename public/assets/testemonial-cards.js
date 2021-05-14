@@ -100,7 +100,7 @@ window.addEventListener("load", function() {
     }
     
     cardsParent.addEventListener("wheel", function(event) {
-        event.preventDefault();
+        if(event.deltaY == 0) event.preventDefault();
         var delta = event.deltaX || event.deltaY;
         transformX -= event.deltaMode == 1 ? delta*12 : 
                       event.deltaMode == 2 ? delta * window.innerWidth :
