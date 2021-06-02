@@ -19,8 +19,6 @@ if(endRedirectsPoint == -1) throw "No end-redirects point";
 
 var codehsDirectories = fs.readdirSync(codehsDir).filter(x=>x!="index.html");
 
-console.log(codehsDirectories);
-
 var indeces = [];
 indeces.length = codehsDirectories.length;
 
@@ -42,8 +40,6 @@ for(var i = 0; i < indeces.length; i++) {
         redirects.push(`/codehs/${language}/${codes[0]}/${codes[1]}/${codes[2]} ${exercise.path}`);
     }
 }
-
-console.log(redirects);
 
 redirLines.splice(insertionPoint + 1, //add +1 so it'll insert *after* the insertion point.
     endRedirectsPoint - insertionPoint - 1, //remove old redirects between the start and the end

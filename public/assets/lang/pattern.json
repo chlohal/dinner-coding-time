@@ -113,7 +113,8 @@
                 "ITEM": {
                     "HOMEPAGE_LABEL": "Homepage",
                     "ABOUT_US_LABEL": "About Us",
-                    "REPORT_BUG_LABEL": "Report Bug"
+                    "REPORT_BUG_LABEL": "Report Bug",
+                    "DONATE_LABEL": "Donate"
                 }
             },
             "LEGAL": {
@@ -128,6 +129,28 @@
             }
         }
     },
+    "HEADER": {
+        "LOGO_ALT_TEXT": "The Dinner Coding Time logo, a very stylized letter D",
+        "NAV": {
+            "LINKS": {
+                "HOME_LABEL": "Home",
+                "CODEHS_LABEL": "CodeHS",
+                "DISCORD_LABEL": "Discord",
+                "DONATE_LABEL": "Donate"
+            },
+            "TOGGLE_BUTTON": {
+                "OPEN_LABEL": "Open Navigation Menu",
+                "CLOSE_LABEL": "Close Navigation Menu"
+            }
+        },
+        "SEARCH_FORM": {
+            "SEARCH_INPUT_LABEL": "Search keywords",
+            "BUTTON_LABEL": "Search"
+        }
+    },
+    "SEARCH_PAGE": {
+        "TITLE": "Search Results"
+    }
     "HOMEPAGE": {
         "HERO": {
             "TITLE": "Dinner Coding Time",

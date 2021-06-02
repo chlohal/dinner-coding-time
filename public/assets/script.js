@@ -1,13 +1,50 @@
 if(typeof window.DCT_BRANCH === "undefined") window.DCT_BRANCH = "dev";
 
 document.addEventListener("DOMContentLoaded", function () {
-    var slide = document.querySelector(".hero--splash.down");
-    if (!slide) return false;
+    //add sliding to header splash
+    (function() {
+        var slide = document.querySelector(".hero--splash.down");
+        if (!slide) return false;
 
-    window.requestAnimationFrame(function anim() {
-        slide.style.transform = `translateY(${window.scrollY * 0.2}px)`;
-        window.requestAnimationFrame(anim);
-    });
+        window.requestAnimationFrame(function anim() {
+            slide.style.transform = `translateY(${window.scrollY * 0.2}px)`;
+            window.requestAnimationFrame(anim);
+        });
+    })();
+    
+    var header = document.querySelector("header");
+    if(window.innerWidth < 900) {
+        header.classList.add("mobile");
+        
+        var headerNavOpen = false;
+        var opener = document.getElementById("mobile-menu-opener"),
+            lightbox = document.getElementById("menu-lightbox"),
+            openIcon = document.getElementById("mobile-menu-opener-open"),
+            closeIcon = document.getElementById("mobile-menu-opener-close");
+        opener.addEventListener("click", function() {
+            headerNavOpen = !headerNavOpen;
+            if(headerNavOpen) {
+                header.classList.add("open");
+                opener.setAttribute("aria-label", DCT_LANG.format("HEADER_NAV_TOGGLE_BUTTON_CLOSE_LABEL"));
+                
+                closeIcon.style.display = "block";
+                openIcon.style.display = "none";
+            } else {
+                header.classList.remove("open");
+                opener.setAttribute("aria-label", DCT_LANG.format("HEADER_NAV_TOGGLE_BUTTON_OPEN_LABEL"));
+                
+                closeIcon.style.display = "none";
+                openIcon.style.display = "block";
+            }
+        });
+        lightbox.addEventListener("click", function() {
+            header.classList.remove("open");
+            opener.setAttribute("aria-label", DCT_LANG.format("HEADER_NAV_TOGGLE_BUTTON_OPEN_LABEL"));
+            
+            closeIcon.style.display = "none";
+            openIcon.style.display = "block";
+        });
+    } 
 });
 
 var loadedDeps = [], depWorkers = {}, callbackNonces = {}, callbackNonceCount = 0;
