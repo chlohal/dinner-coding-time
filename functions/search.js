@@ -20,7 +20,7 @@ var e, t; e = this, t = function () { "use strict"; function e(t) { return (e = 
 var options = {
     includeMatches: true,
     ignoreLocation: true,
-    minMatchCharLength: 2,
+    minMatchCharLength: 4,
     keys: [
       "title",
       "text",
