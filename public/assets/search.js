@@ -2,11 +2,13 @@
     if(window.location.search.indexOf("q=") == -1) return console.warn("no search");
     
     var searchResults = document.getElementById("search-results");
+
+    var query = decodeURIComponent(window.location.search.replace("?q=", "").replace(/\+/g, " "));
     
-    document.getElementById("search-form-input").value = decodeURIComponent(window.location.search.replace("?q=", ""))
+    document.getElementById("search-form-input").value = query;
     
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/search" + window.location.search);
+    xhr.open("GET", "/api/search?q=" + encodeURIComponent(query));
     xhr.onload = function() {
         var response = JSON.parse(xhr.responseText);
         if(response.errorMessage) {
