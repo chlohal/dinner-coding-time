@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Contribute | Dinner Coding Time</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <script src="/assets/script.js" defer></script>
+<script src="/assets/lang/autodetect.js" defer></script>
+<script src="/assets/counter.js" async></script>
+    <script src="/assets/edit-sheet.js" defer></script>
+    <link rel="preload" href="/assets/highlight.css" as="style">
+
+
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/assets/edit-sheet.css">
+
+    <style>
+        .part--annotate .code-with-lines th.can-have-annotation {
+            cursor: zoom-in;
+            vertical-align: bottom;
+        }
+
+        .code-with-lines th.has-annotation {
+            cursor: zoom-out;
+        }
+
+        .part--annotate .code-with-lines th.can-have-annotation::before {
+            content: "";
+            background-color: #dbdbdb;
+            position: absolute;
+            width: 0.5em;
+            height: 1em;
+        }
+
+        body.part--annotate .code-with-lines th.has-annotation::before {
+            content: "";
+            position: absolute;
+            width: 0.5em;
+            height: 1em;
+            background-color: #2991ce;
+        }
+
+        .code-with-lines>code {
+            display: block;
+        }
+
+        .code-with-lines code:focus {
+            outline: 0;
+        }
+
+        .part--annotate .editbox {
+            display: none;
+        }
+
+        .editbox {
+            font: inherit;
+            border: 0;
+            background: #0000;
+            caret-color: #f7f7f7;
+            color: transparent;
+            resize: none;
+            left: 5ch;
+            top: 0;
+            height: 1000%;
+            width: 1000%;
+            position: absolute;
+            line-height: 1.25;
+            padding: 0;
+            margin: 0;
+            white-space: pre;
+        }
+
+        .editbox ::selection,
+        .editbox ::-moz-selection {
+            background-color: #474864;
+            color: #eee;
+        }
+
+        .editbox:focus {
+            outline: none;
+        }
+
+        .annotation {
+            margin: 0;
+            padding: 0;
+            left: -5ch;
+            width: 100%;
+            width: calc(100% + 5ch);
+            background: #f7fdfd;
+            border-radius: 5px;
+            color: #1b1d35;
+            z-index: 2;
+            display: none;
+        }
+
+        .part--annotate .annotation {
+            display: flex;
+        }
+
+        .annotation,
+        .annotation p {
+            user-select: none;
+        }
+
+        .annotation:focus-within,
+        .annotation:focus-within p {
+            user-select: text;
+        }
+
+        .annotation::before {
+            content: "";
+            width: 100%;
+            top: 0;
+            height: 5px;
+            display: block;
+            position: absolute;
+            pointer-events: none;
+            background: linear-gradient(180deg, #1b1d35, transparent);
+        }
+
+        .annotation::after {
+            content: "";
+            width: 100%;
+            bottom: 0;
+            height: 5px;
+            display: block;
+            position: absolute;
+            pointer-events: none;
+            background: linear-gradient(0deg, #1b1d35, transparent);
+        }
+
+        .annotation p {
+            padding: 0.5em;
+            font-size: 1.4rem;
+            margin: 0;
+            white-space: pre-line;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            width: 50%;
+            box-sizing: border-box;
+            flex-shrink: 1;
+            flex-grow: 1;
+        }
+
+        .annotation output {
+            width: 50%;
+            display: block;
+            padding: 0.5em;
+            font-size: 1.4rem;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            white-space: pre-line;
+            background: hsla(14, 2%, 96%, 1);
+            border-left: 1px solid #474864;
+            flex-shrink: 1;
+            flex-grow: 1;
+        }
+
+        .annotation--buttons {
+            position: absolute;
+            top: 5px;
+            right: 0;
+        }
+
+        .annotation--buttons button {
+            border: 0;
+            background: #f7fdfd;
+            box-shadow: 0 0 0.5em 0 #b1afaf;
+        }
+
+        .annotation output * {
+            margin: 0;
+        }
+
+        .annotation output blockquote {
+            border-left: rgb(202, 146, 166) solid 0.25em;
+            padding: 0.25em;
+            background: rgba(202, 146, 166, 0.3);
+        }
+
+        .annotation output pre {
+            background: #575868;
+            color: #f7f5f5;
+            padding: 5px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        nav#pipeline {
+            display: flex;
+            justify-content: space-evenly;
+            position: relative;
+            margin: 0 2em;
+        }
+
+        nav#pipeline::before {
+            content: "";
+            position: absolute;
+            background: linear-gradient(270deg, hsla(179, 83%, 64%, 1) 0%, hsla(338, 75%, 64%, 1) 50%, hsla(14, 92%, 86%, 1) 100%);
+            display: block;
+            left: 0;
+            right: 0;
+            height: 2px;
+            top: 50%;
+            bottom: 50%;
+            z-index: 0;
+        }
+
+        nav#pipeline button {
+            background: #f7f7f7;
+            border: 0;
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            z-index: 1;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
+
+        nav#pipeline button::before {
+            content: "["
+        }
+
+        nav#pipeline button::after {
+            content: "]"
+        }
+
+        nav#pipeline button[aria-selected] {
+            color: hsla(338, 75%, 64%, 1);
+        }
+
+        nav#pipeline #pipeline-completion {
+            content: "";
+            position: absolute;
+            background: #1b1d35;
+            display: block;
+            right: 0;
+            height: 2px;
+            top: 50%;
+            bottom: 50%;
+            width: 100%;
+            z-index: 0;
+            transform-origin: right;
+            transition: transform 0.2s;
+        }
+
+        .created-state {
+            display: flex;
+            color: #f7f7f7;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .editor-tabs--tablist button .exit-button {
+            border: 0;
+        }
+
+        .exit-button:hover {
+            color: #f7f5f5;
+        }
+
+        .part--publish #editor-tabs {
+            display: none;
+        }
+
+        #reviewer {
+            display: none
+        }
+
+        .part--publish #reviewer {
+            display: block;
+        }
+
+        #reviewer em {
+            font-style: normal;
+            color: #793cbe;
+        }
+
+        .publish--parent {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .publish--button {
+            background: hsla(338, 75%, 64%, 1);
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            width: max-content;
+            max-width: 80vw;
+            color: #f7f7f7;
+            font-size: 1.4em;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .publish--button[disabled] {
+            background: rgb(202, 146, 166);
+            cursor: default;
+        }
+
+        .publish--tip {
+            color: #575868;
+            letter-spacing: -0.1ch;
+            font-size: 0.9em;
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .publish--tip.faded {
+            opacity: 0;
+        }
+
+        .modal--lightbox {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 0 0 150vmax 0 #000 inset;
+            background: #0009;
+        }
+
+        .modal--base {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 1000;
+
+            background: 0;
+            border: 0;
+        }
+
+        .modal--inner {
+            background: #f7f7f7;
+            border-radius: 50px;
+            padding: 2em 3em;
+            text-align: center;
+            box-shadow: 0 0 150vmax 0 #000;
+        }
+
+        .copiable-link {
+            border: #575868 1px solid;
+            border-radius: 0.25em;
+            display: flex;
+            overflow: hidden;
+            width: max-content;
+            max-width: 100%;
+            padding: 0 0.1em;
+        }
+
+        .copiable-link::before {
+            content: "Copied!";
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            width: min-content;
+            background: #474864;
+            border-radius: 0.25em;
+            padding: 0.125em;
+            z-index: 1;
+            font-size: 0.85em;
+            pointer-events: none;
+            color: #f7f7f7;
+            opacity: 0;
+            transform: scale(0) translateX(-50%);
+        }
+
+        .copiable-link.copied::before {
+            animation: fade-in-up-out 0.75s;
+            transform: scale(1) translateX(-50%);
+        }
+
+        @keyframes fade-in-up-out {
+            from {
+                opacity: 0;
+                transform: translateY(-0.25em) translateX(-50%);
+            }
+
+            10% {
+                opacity: 1;
+                transform: translateY(-0.25em) translateX(-50%);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-1.25em) translateX(-50%);
+            }
+
+        }
+
+        .copiable-link input {
+            background: 0;
+            border: 0;
+            width: max-content;
+            vertical-align: middle;
+        }
+
+        .copiable-link button {
+            background: 0;
+            border: 0;
+            padding: 0.1em;
+        }
+
+        .copiable-link button svg {
+            width: 1.5em;
+        }
+
+        .copiable-link--input-wrapper {
+            position: relative;
+        }
+
+        .copiable-link--input-wrapper::after {
+            content: "";
+            width: 1em;
+            height: 100%;
+            display: inline-block;
+            background: linear-gradient(-90deg, #f7f7f7, transparent);
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            pointer-events: none;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .creating-file--activity {
+            font-size: 0.85em;
+            font-style: italic;
+        }
+
+        .annotation table {
+            border-collapse: collapse;
+        }
+
+        .annotation td {
+            border: 1px solid #474864;
+            white-space: normal;
+            padding: 0.125em;
+        }
+    </style>
+</head>
+
+<body class="headerpadding">
+        <header>
+        <a class="header--homelink" localization-attribute="alt" localization-string="HEADER_LOGO_ALT_TEXT" href="/"><img src="/logo.svg"
+                width="36" height="36" alt="Dinner Coding Time logo, a very stylized D"></a>
+        <button id="mobile-menu-opener" localization-string="HEADER_NAV_TOGGLE_BUTTON_OPEN_LABEL" localization-attribute="aria-label" aria-label="Open Navigation Menu">
+            <svg id="mobile-menu-opener-open" aria-hidden="true" version="1.1" viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg"><path d="m4.5 5c-.831 0-1.5.669-1.5 1.5s.669 1.5 1.5 1.5h24c.831 0 1.5-.669 1.5-1.5s-.669-1.5-1.5-1.5h-24zm0 10c-.831 0-1.5.669-1.5 1.5s.669 1.5 1.5 1.5h24c.831 0 1.5-.669 1.5-1.5s-.669-1.5-1.5-1.5h-24zm0 10c-.831 0-1.5.669-1.5 1.5s.669 1.5 1.5 1.5h24c.831 0 1.5-.669 1.5-1.5s-.669-1.5-1.5-1.5h-24z"/></svg>
+            <svg id="mobile-menu-opener-close" style="display:none" aria-hidden="true" version="1.1" viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg"><path d="m5.9844 4.4844a1.5002 1.5002 0 00-1.0449 2.5762l9.4434 9.4434-9.4375 9.4355a1.5002 1.5002 0 102.1211 2.1211l9.4375-9.4355 9.4355 9.4355a1.5002 1.5002 0 102.1211-2.1211l-9.4355-9.4355 9.4414-9.4434a1.5002 1.5002 0 00-1.0449-2.5762 1.5002 1.5002 0 00-1.0762.45508l-9.4414 9.4434-9.4434-9.4434a1.5002 1.5002 0 00-1.0762-.45508z"/></svg>
+        </button>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/codehs" localization-string="HEADER_NAV_LINKS_CODEHS_LABEL">CodeHS</a>
+                </li>
+                <li>
+                    <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener"
+                        localization-string="HEADER_NAV_LINKS_DISCORD_LABEL">Join Discord</a>
+                </li>
+                <li>
+                    <a href="/donate" localization-string="HEADER_NAV_LINKS_DONATE_LABEL">Donate</a>
+                </li>
+            </ul>
+            <form class="search-form--parent" action="/search" role="search">
+                <label class="search-form">
+                    <input name="q" type="search" id="search-form-input" aria-label="Search keywords" autocapitalize="none" autocomplete="off" localization-attribute="aria-label" localization-string="HEADER_SEARCH_FORM_SEARCH_INPUT_LABEL">
+                    <button type="submit" localization-string="HEADER_SEARCH_FORM_BUTTON_LABEL" localization-attribute="aria-label">
+                        <svg version="1.1" aria-hidden="true" viewBox="0 0 33 33" xmlns="http://www.w3.org/2000/svg"><path d="m13.901 4.3362a9.5657 9.5657 0 00-9.5645 9.5645 9.5657 9.5657 0 009.5645 9.5672 9.5657 9.5657 0 009.5671-9.5672 9.5657 9.5657 0 00-9.5671-9.5645zm7.1375 16.702 8.017 8.017z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6723"/></svg>
+                    </button>
+                </label>
+            </form>
+        </nav>
+        <div id="menu-lightbox"></div>
+    </header>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash--downcover"
+        preserveAspectRatio="none">
+        <defs>
+            <linearGradient id="g1" x1="1" x2="0">
+                <stop stop-color="#57efec" />
+                <stop offset=".5" stop-color="#e85e90" />
+                <stop offset="1" stop-color="#fcc9ba" />
+            </linearGradient>
+        </defs>
+        <rect class="" width="1440" height="36"></rect>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="hero--splash down" preserveAspectRatio="none">
+        <defs>
+            <linearGradient id="g1" x1="1" x2="0">
+                <stop stop-color="#57efec" />
+                <stop offset=".5" stop-color="#e85e90" />
+                <stop offset="1" stop-color="#fcc9ba" />
+            </linearGradient>
+        </defs>
+        <path class="stroked"
+            d="M0,64L16,90.7C32,117,64,171,96,170.7C128,171,160,117,192,101.3C224,85,256,107,288,101.3C320,96,352,64,384,74.7C416,85,448,139,480,149.3C512,160,544,128,576,117.3C608,107,640,117,672,122.7C704,128,736,128,768,112C800,96,832,64,864,64C896,64,928,96,960,138.7C992,181,1024,235,1056,250.7C1088,267,1120,245,1152,224C1184,203,1216,181,1248,170.7C1280,160,1312,160,1344,160C1376,160,1408,160,1424,160L1440,160L1440,0L1424,0C1408,0,1376,0,1344,0C1312,0,1280,0,1248,0C1216,0,1184,0,1152,0C1120,0,1088,0,1056,0C1024,0,992,0,960,0C928,0,896,0,864,0C832,0,800,0,768,0C736,0,704,0,672,0C640,0,608,0,576,0C544,0,512,0,480,0C448,0,416,0,384,0C352,0,320,0,288,0C256,0,224,0,192,0C160,0,128,0,96,0C64,0,32,0,16,0L0,0Z">
+        </path>
+        <path class="filled"
+            d="M0,64L16,90.7C32,117,64,171,96,170.7C128,171,160,117,192,101.3C224,85,256,107,288,101.3C320,96,352,64,384,74.7C416,85,448,139,480,149.3C512,160,544,128,576,117.3C608,107,640,117,672,122.7C704,128,736,128,768,112C800,96,832,64,864,64C896,64,928,96,960,138.7C992,181,1024,235,1056,250.7C1088,267,1120,245,1152,224C1184,203,1216,181,1248,170.7C1280,160,1312,160,1344,160C1376,160,1408,160,1424,160L1440,160L1440,0L1424,0C1408,0,1376,0,1344,0C1312,0,1280,0,1248,0C1216,0,1184,0,1152,0C1120,0,1088,0,1056,0C1024,0,992,0,960,0C928,0,896,0,864,0C832,0,800,0,768,0C736,0,704,0,672,0C640,0,608,0,576,0C544,0,512,0,480,0C448,0,416,0,384,0C352,0,320,0,288,0C256,0,224,0,192,0C160,0,128,0,96,0C64,0,32,0,16,0L0,0Z">
+        </path>
+    </svg>
+    <main>
+        <nav id="pipeline">
+            <button>Edit</button>
+            <button>Review & Publish</button>
+            <span aria-hidden="true" id="pipeline-completion"></span>
+        </nav>
+        <h1 contenteditable="">Loading, please wait...</h1>
+        <div class="modal--lightbox" id="publish-result-modal" hidden>
+            <dialog class="modal--base" open>
+                <div class="modal--inner">
+                    <h2>
+                        🎉 Published! 🎉
+                    </h2>
+                    <p class="center">
+                        Please send this link in the Discord. You can also visit this link to preview the final assignment.
+                        <span class="copiable-link">
+                            <span class="copiable-link--input-wrapper">
+                                <input id="publish-link" readonly>
+                            </span>
+                            <button aria-label="Copy the link" id="copy-publish-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z" />
+                                </svg>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </dialog>
+        </div>
+        <div class="modal--lightbox" id="creating-new-file-modal" hidden>
+            <dialog class="modal--base" open>
+                <div class="modal--inner">
+                    <h2>
+                        Creating Assignment...
+                    </h2>
+                    <p class="center">
+                        Please wait; this may take a few seconds.<br>
+                        <span class="creating-file--activity" id="creating-new-file-activity"></span>
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="margin:auto;display:block;height:4em;" width="200px" height="200px"
+                        viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="50" cy="50" fill="none" stroke="#1b1d35" stroke-width="8" r="27"
+                            stroke-dasharray="127.23450247038662 44.411500823462205">
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite"
+                                dur="2.4390243902439024s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                        </circle>
+                    </svg>
+                </div>
+            </dialog>
+        </div>
+        <div id="reviewer" hidden>
+            <section>
+                <h3>Export & Publish</h3>
+                <h4>Input your name</h4>
+                <p>I want to give you credit! This doesn't have to be your real name-- it could be your Discord username
+                    or your Twitter handle. Whatever you want! (as long as it's appropriate, ofc).</p>
+                <p>If you would prefer an air of mystery, you can also leave this blank.</p>
+                <label>Name: <input id="authorNameInput" placeholder="Jen Doe"></label>
+                <p>If you'd like to link to your website, Twitter, GitHub, or whatever, feel free to do that here! This
+                    is completely optional.</p>
+                <label>Website: <input id="authorUrlInput" placeholder="https://example.com"></label>
+
+                <h3>Legal Junk</h3>
+                <p>In order to legally host your work, you technically need to agree to grant the site a license.</p>
+                <p>
+                    <label><input type="checkbox" id="licenseApproval">I agree to grant an exclusive <a
+                            href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative
+                            Commons Attribution 4.0 International</a> license to host my content.</label>
+                    <br>
+                    <label><input type="checkbox" id="contentHostingApproval">I agree that the site is
+                        not obligated to host any content that may be seen as objectionable or inappropriate.</label>
+                    <br>
+                    <label><input type="checkbox" id="ugcDenialApproval">I affirm that this should not qualify as
+                        user-generated content, and that I am acting as a volunteer</label>
+                </p>
+            </section>
+            <div class="publish--parent">
+                <button class="publish--button" id="publish-button" disabled>Submit for Publication</button>
+                <span class="publish--tip" id="publish-tip">Please accept all legal items before publishing!</span>
+            </div>
+
+        </div>
+    </main>
+    <footer>
+        <h3>Dinner Coding Time</h3>
+        <div class="footer--links">
+            <div class="footer--link-category">
+                <h4>Content</h4>
+                <ul>
+                    <li>
+                        <a href="/codehs">CodeHS</a>
+                    </li>
+                    <li>
+                        <a href="/classwork">Classwork</a>
+                    </li>
+
+                    <li>
+                        <a href="/error-almanac">Error Almanac</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer--link-category">
+                <h4>Site</h4>
+                <ul>
+                    <li>
+                        <a href="/">Homepage</a>
+                    </li>
+                    <li>
+                        <a href="/about">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/report-bug">Report Bug</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer--link-category">
+                <h4>Legal</h4>
+                <ul>
+                    <li>
+                        <a href="/legal/terms">Terms &amp; Conditions</a>
+                    </li>
+                    <li>
+                        <a href="/legal/foss-usage">OSS Licenses</a>
+                    </li>
+                    <li>
+                        <a href="/legal/license">License</a>
+                    </li>
+                    <li>
+                        <a href="/legal/fairuse">Fair Use Statement</a>
+                    </li>
+                    <li>
+                        <a href="/legal/privacy">Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul class="footer--socials">
+            <li>
+                <a href="https://github.com/coleh2/dinner-coding-time">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span class="visually-hidden">GitHub</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.gg/m2Zub6EYyp" target="_blank" rel="noopener">
+                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd" viewBox="0 0 24 24">
+                        <path
+                            d="M19.54 0c1.356 0 2.46 1.104 2.46 2.472v21.528l-2.58-2.28-1.452-1.344-1.536-1.428.636 2.22h-13.608c-1.356 0-2.46-1.104-2.46-2.472v-16.224c0-1.368 1.104-2.472 2.46-2.472h16.08zm-4.632 15.672c2.652-.084 3.672-1.824 3.672-1.824 0-3.864-1.728-6.996-1.728-6.996-1.728-1.296-3.372-1.26-3.372-1.26l-.168.192c2.04.624 2.988 1.524 2.988 1.524-1.248-.684-2.472-1.02-3.612-1.152-.864-.096-1.692-.072-2.424.024l-.204.024c-.42.036-1.44.192-2.724.756-.444.204-.708.348-.708.348s.996-.948 3.156-1.572l-.12-.144s-1.644-.036-3.372 1.26c0 0-1.728 3.132-1.728 6.996 0 0 1.008 1.74 3.66 1.824 0 0 .444-.54.804-.996-1.524-.456-2.1-1.416-2.1-1.416l.336.204.048.036.047.027.014.006.047.027c.3.168.6.3.876.408.492.192 1.08.384 1.764.516.9.168 1.956.228 3.108.012.564-.096 1.14-.264 1.74-.516.42-.156.888-.384 1.38-.708 0 0-.6.984-2.172 1.428.36.456.792.972.792.972zm-5.58-5.604c-.684 0-1.224.6-1.224 1.332 0 .732.552 1.332 1.224 1.332.684 0 1.224-.6 1.224-1.332.012-.732-.54-1.332-1.224-1.332zm4.38 0c-.684 0-1.224.6-1.224 1.332 0 .732.552 1.332 1.224 1.332.684 0 1.224-.6 1.224-1.332 0-.732-.54-1.332-1.224-1.332z" />
+                    </svg>
+                    <span class="visually-hidden">Discord</span>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:contact@dinnercodingtime.com">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path
+                            d="M12 12.713l-11.985-9.713h23.971l-11.986 9.713zm-5.425-1.822l-6.575-5.329v12.501l6.575-7.172zm10.85 0l6.575 7.172v-12.501l-6.575 5.329zm-1.557 1.261l-3.868 3.135-3.868-3.135-8.11 8.848h23.956l-8.11-8.848z" />
+                    </svg>
+                    <span class="visually-hidden">Email</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</body>
+
+</html>

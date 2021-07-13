@@ -12,6 +12,7 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /contribute /contribute/index 200
 /contribute/status/* /contribute/status 200
 /contribute/edit/exercise/:folder/* /contribute/edit/exercise 200
+/contribute/edit/sheet/:folder/* /contribute/edit/sheet 200
 
 # authors!
 /author/:author /author 200
