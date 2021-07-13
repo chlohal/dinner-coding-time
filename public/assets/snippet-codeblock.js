@@ -142,7 +142,7 @@ var getUserStyle;
 
             try {
 
-                executeDependencyFunction("hljs-worker.js", "highlightAuto", [sourceContent], function (data) {
+                executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [sourceContent], function (data) {
                     makeNumberedLinesTable(data.split("\n"), table);
                     ed.astHtmlSource = data;
                     ed.table.hidden = false;

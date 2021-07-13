@@ -319,7 +319,7 @@ public class ${classname} {
             })
         });
 
-        loadDep("hljs-worker.js", [], function () {
+        loadDep("lightweight-java-highlighter.js", [], function () {
             var editbox = createEditorEditbox(sourceLines, table, tabTitle);
             parent.appendChild(editbox);
         });
@@ -587,7 +587,7 @@ public class ${classname} {
             }
 
 
-            executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function (data) {
+            executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [editbox.value], function (data) {
                 makeNumberedLinesTable(data.split("\n"), table);
             });
 
@@ -597,7 +597,7 @@ public class ${classname} {
             tabTitle.firstElementChild.textContent = fileName;
         });
 
-        executeDependencyFunction("hljs-worker.js", "highlightAuto", [editbox.value], function (data) {
+        executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [editbox.value], function (data) {
             makeNumberedLinesTable(data.split("\n"), table);
         });
 

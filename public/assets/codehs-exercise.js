@@ -693,7 +693,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         for (var i = 0; i < table.children.length; i++) {
             source += table.children[i].lastElementChild.lastElementChild.textContent + "\n";
         }
-        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function (lineAddresses) {
+        executeDependencyFunction("lightweight-java-highlighter.js", "getLineAddresses", [source], function (lineAddresses) {
             var alreadyAdded = [];
             for (var i = lineAddresses.length - 1; i >= 0; i--) {
                 var annotation = annotations.find(function (x) {
@@ -1121,7 +1121,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         var codeblocks = tabPanel.querySelectorAll("pre code");
         for (var i = 0; i < codeblocks.length; i++) {
             (function (i) {
-                executeDependencyFunction("hljs-worker.js", "highlightAuto", [codeblocks[i].innerText], function (data) {
+                executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [codeblocks[i].innerText], function (data) {
                     codeblocks[i].innerHTML = data;
                 });
             })(i);

@@ -155,16 +155,16 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     }
 
     function conditionallyRemoveBracketsFromSingleLineBlocks(block) {
-        var blockNorm = (block.type == "BLOCK" && block.statements.length == 1) ? block.statements[0] : block;
+        var blockNorm = (block.type == "Block" && block.statements.length == 1) ? block.statements[0] : block;
 
         //if-in-for, while-in-for, etc. should *always* be blocks for clarity.
         if ((blockNorm.type.includes("FOR") || blockNorm.type.includes("WHILE") || blockNorm.type.includes("IF"))
             && (ast.type.includes("FOR") || ast.type.includes("WHILE") || ast.type.includes("IF"))
-            && ast.type != blockNorm.type) return { type: "BLOCK", statements: [blockNorm] };
+            && ast.type != blockNorm.type) return { type: "Block", statements: [blockNorm] };
 
 
-        if (style.singleLineBlockBrackets == "source" || block.type == "IF_STATEMENT" || block.type == "FOR_STATEMENT" || block.type == "WHILE_STATEMENT") return block;
-        else if (block.type != "BLOCK" && (style.singleLineBlockBrackets == "block")) return { type: "BLOCK", statements: [block] };
+        if (style.singleLineBlockBrackets == "source" || block.type == "IfStatement" || block.type == "ForStatement" || block.type == "WHILE_STATEMENT") return block;
+        else if (block.type != "Block" && (style.singleLineBlockBrackets == "block")) return { type: "Block", statements: [block] };
         else if ((block.statements && block.statements.length == 1) && style.singleLineBlockBrackets == "line") return block.statements[0];
         else return block;
     }
@@ -179,7 +179,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     var result = "";
 
     switch (ast.type || ast.ast_type) {
-        case "COMPILATION_UNIT":
+        case "CompilationUnit":
             result += recurse("package") +
                 ast.imports.map(function (x, i) { return recurse(["imports", i]) + ";\n" }).join("") +
                 (ast.imports.length ? style.linesAfterImport : "") +
@@ -195,30 +195,32 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
 
             result += "package " + recurse("name") + ";\n";
             break;
-        case "QUALIFIED_NAME":
-            result += ast.name.map(function (x, i) { return recurse(["name", i]); }).join(".");
+        case "FieldAccess":
+            result += recurse("expression") + "." + recurse("name");
             break;
-        case "TYPE_DECLARATION":
-        case "CLASS_BODY_MEMBER_DECLARATION":
-            ast.declaration.followedEmptyLine = false;
-            result += ast.modifiers.map(function (x, i) { return recurse(["modifiers", i]) }).join("") +
-                recurse("declaration");
+        case "QualifiedName":
+            result += recurse("qualifier") + "." + recurse("name");
             break;
-        case "CLASS_DECLARATION":
-            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">class</span> " : "class ") + recurse("name") +
-                (ast.extends ? (style.colorize ? "<span class=\"hlast hlast-keyword\"> extends </span>" : " extends ") + recurse("extends") : "") +
-                (ast.implements ? recurse("implements") : "") +
+        case "TypeDeclaration":
+            var typeyKeyword = ast.interface ? "interface" : "class";
+
+            result += ast.modifiers.map((x, i) => recurse(["modifiers", i])).join("") +
+                (style.colorize ? "<span class=\"hlast hlast-keyword\">" + typeyKeyword + "</span> " : typeyKeyword + " ") + recurse("name") +
+                (ast.superclassType ? (style.colorize ? "<span class=\"hlast hlast-keyword\"> extends </span>" : " extends ") + recurse("superclassType") : "") +
+                (ast.superInterfaceTypes.length ? (style.colorize ? "<span class=\"hlast hlast-keyword\"> implements </span>" : " implements ") + ast.superInterfaceTypes.map((x, i) => recurse(["superInterfaceTypes", i])).join(", ") : "") +
                 (bracketTypes[+!!style.javaBracketsStyle]) +
-                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
+                indent(recurse("bodyDeclarations"), style.indentBy, style.javaBracketsStyle, true); //never indent last line, maybe indent first line depending on bracket style
             break;
         case "COMMENT_STANDALONE":
             if (style.removeComments || style.isDense) break;
             result += indent(undent(ast.value), " ", false, false);
             break;
-        case "MODIFIER":
-            result += ast.value + " ";
+        case "Modifier":
+            result += ast.keyword + " ";
             break;
-        case "IDENTIFIER":
+        case "SimpleName":
+            if(!ast.value) ast.value = ast.identifier;
+
             if (!style.dontRegisterVariables) {
                 if (parent.type === "CLASS_DECLARATION") {
                     //register classes
@@ -239,11 +241,16 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 }
             }
         case "PRIMITIVE_TYPE":
-        case "STRING_LITERAL":
-        case "BOOLEAN_LITERAL":
-        case "DECIMAL_LITERAL":
-        case "CHAR_LITERAL":
-            result += style.colorize ? encodeCharacterEntities(ast.value) : ast.value;
+            break;
+        case "BooleanLiteral":
+            result += ast.booleanValue;
+            break;
+        case "StringLiteral":
+        case "CharacterLiteral":
+            result += style.colorize ? encodeCharacterEntities(ast.escapedValue) : ast.escapedValue;
+            break;
+        case "NumberLiteral":
+            result += style.colorize ? encodeCharacterEntities(ast.token) : ast.token;
             break;
         case "FLOAT_LITERAL":
             result += ast.value;
@@ -259,15 +266,27 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 ast.declarations.map(function (x, i) { return recurse(["declarations", i]); }).join("\n") + "\n" +
                 createPairedChar("}");
             break;
-        case "FIELD_DECLARATION":
-            result += recurse("typeType") + " " + recurse("variableDeclarators") + ";";
+        case "VariableDeclarationExpression":
+            result += ast.modifiers.map((x, i) => recurse(["modifiers", i])).join("") +
+                recurse("typeType") + " " + 
+                ast.fragments.map((x,i)=>recurse(["fragments", i])).join("," + style.spaceInExpression);
             break;
-        case "VARIABLE_DECLARATORS":
-            result += ast.list.map(function (x, i) { return recurse(["list", i]); }).join(", ");
+        case "SingleVariableDeclaration":
+            result += ast.modifiers.map((x, i) => recurse(["modifiers", i])).join("") +
+            recurse("typeType") + "[]".repeat(ast.extraDimensions) +
+            " " + recurse("name") +
+            (ast.initializer ? style.spaceInExpression + recurse({ type: "Operator", operator: "=" }) + style.spaceInExpression + recurse("initializer") : "");
             break;
-        case "VARIABLE_DECLARATOR":
-            result += recurse("id") +
-                (ast.init ? style.spaceInExpression + recurse({ type: "OPERATOR", operator: "=" }) + style.spaceInExpression + recurse("init") : "");
+        case "VariableDeclarationFragment":
+            result += recurse("name") + "[]".repeat(ast.extraDimensions) +
+            (ast.initializer ? style.spaceInExpression + recurse({ type: "Operator", operator: "=" }) + style.spaceInExpression + recurse("initializer") : "");
+            break;
+        case "FieldDeclaration":
+        case "VariableDeclarationStatement":
+            result += ast.modifiers.map((x, i) => recurse(["modifiers", i])).join("") +
+            recurse("typeType") + "[]".repeat(ast.extraDimensions) +
+            " " + ast.fragments.map((x,i)=>recurse(["fragments", i])).join("," + style.spaceInExpression) +
+            (ast.initializer ? style.spaceInExpression + recurse({ type: "Operator", operator: "=" }) + style.spaceInExpression + recurse("initializer") : "") + ";";
             break;
         case "VARIABLE_DECLARATOR_ID":
             var varNameUnformatted = ast.id.value;
@@ -290,10 +309,16 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 bracketTypes[+!!style.javaBracketsStyle] +
                 recurse("body");
             break;
-        case "METHOD_DECLARATION":
-            result += recurse("typeType") +
-                " " + recurse("name") + style.spaceAfterStatement + recurse("parameters") +
-                (ast.throws ? " throws " + recurse("throws") : "") +
+        case "MethodDeclaration":
+            result += ast.modifiers.map((x, i) => recurse(["modifiers", i])).join("");
+
+            if(ast.typeParameters.length > 0) throw "type parameters used!";
+            
+            result += recurse("returnType2") + ("[]").repeat(ast.extraDimensions) +
+                (ast.constructor ? "" : " ") + recurse("name") + 
+                style.spaceAfterStatement +
+                createPairedChar("(") + ast.parameters.map((x, i) => recurse(["parameters", i])).join("," + style.spaceInExpression) + createPairedChar(")") +
+                (ast.throws ? " throws " + ast.thrownExceptions.map((x,i)=>recurse(["thrownExceptions", i])) : "") +
                 bracketTypes[+!!style.javaBracketsStyle] +
                 recurse("body");
             break;
@@ -301,10 +326,10 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += createPairedChar("(") + ast.parameters.map(function (x, i) { return recurse(["parameters", i]); }).join("," + style.spaceInExpression) + createPairedChar(")");
             break;
         case "FORMAL_PARAMETER":
-            result += ast.modifiers.map(function (x, i) { return recurse(["modifiers", i]) + " " }).join("") +
+            result += ast.modifiers.map(function (x, i) { return recurse(["modifiers", i]) }).join("") +
                 recurse("typeType") + " " + recurse("id");
             break;
-        case "BLOCK":
+        case "Block":
             result += indent(
                 createPairedChar("{") +
                 (ast.statements.length ? ("\n" +
@@ -313,35 +338,42 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 createPairedChar("}")
                 , style.indentBy, style.javaBracketsStyle, true);
             break;
-        case "EXPRESSION_STATEMENT":
+        case "ExpressionStatement":
             result += recurse("expression") + ";";
             break;
-        case "OPERATOR_EXPRESSION":
-            var addSubt = ast.operator.operator == "+" || ast.operator.value == "-";
-
-            return recurse("left") + style.spaceInExpression +
-                recurse("operator") + style.spaceInExpression +
-                (ast.right ? recurse("right") : "") ;
+        case "PostfixExpression":
+            result += recurse("operand") +
+                recurse({type: "Operator", operator: ast.operator});
             break;
-        case "OPERATOR":
+        case "InfixExpression":
+            result += recurse("leftOperand") + style.spaceInExpression +
+                recurse({type: "Operator", operator: ast.operator}) + style.spaceInExpression +
+                (ast.rightOperand ? recurse("rightOperand") : "") ;
+            break;
+        case "Assignment":
+            result += recurse("leftHandSide") + style.spaceInExpression +
+                recurse({type: "Operator", operator: ast.operator}) + style.spaceInExpression +
+                (ast.rightHandSide ? recurse("rightHandSide") : "") ;
+            break;
+        case "Operator":
             result += ast.operator;
             break;
         case "SEMI_COLON_STATEMENT":
             result += ";"
             break;
-        case "LOCAL_VARIABLE_DECLARATION":
-            result += ast.modifiers.map(function (x, i) { return recurse(["modifiers", i]) + " " }).join("") +
-                recurse("typeType") + " " + recurse("declarators");
-            break;
-        case "RETURN_STATEMENT":
+        case "ReturnStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">return</span> " : "return ") + recurse("expression") + ";";
             break;
-        case "THROW_STATEMENT":
+        case "ThrowStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">throw</span> " : "throw ") + recurse("expression") + ";";
             break;
-        case "FOR_STATEMENT":
+        case "ForStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
-                (style.spaceAfterStatement) + createPairedChar("(") + recurse("forControl") + createPairedChar(")") +
+                (style.spaceAfterStatement) + createPairedChar("(") + 
+                ast.initializers.map((x,i) => recurse(["initializers", i])).join("," + style.spaceInExpression) + ";" + style.spaceInExpression +
+                recurse("expression") + ";" + style.spaceInExpression +
+                ast.updaters.map((x,i) => recurse(["updaters", i])).join("," + style.spaceInExpression) +
+                createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] +
                 recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body");
             break;
@@ -350,17 +382,19 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 recurse("expression") + ";" + style.spaceInExpression +
                 recurse("expressionList");
             break;
-        case "ENHANCED_FOR_CONTROL":
-            result += recurse("declaration") + style.spaceInExpression +
-                recurse({ type: "OPERATOR", operator: ":" }) + style.spaceInExpression +
-                recurse("expression");
+        case "EnhancedForStatement":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">for</span>" : "for") +
+                (style.spaceAfterStatement) + createPairedChar("(") + 
+                recurse("parameter") + style.spaceInExpression + 
+                recurse({ type: "Operator", operator: ":" }) + style.spaceInExpression + 
+                recurse("expression") +
+                createPairedChar(")") +
+                bracketTypes[+!!style.javaBracketsStyle] +
+                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body");
             break;
         case "EXPRESSION_LIST":
         case "CATCH_TYPE":
             result += ast.list.map(function (x, i) { return recurse(["list", i]) }).join("," + style.spaceInExpression);
-            break;
-        case "POSTFIX_EXPRESSION":
-            result += recurse("expression") + ast.postfix;
             break;
         case "QUALIFIED_EXPRESSION":
             var varScope;
@@ -372,77 +406,96 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             //override the scope to go to the indicated area!            
             result += recurse("expression") + "." + recurse("rest", "rest", varScope && varScope.scope);
             break;
-        case "METHOD_INVOCATION":
-            var paramTypes = (ast.parameters ? "~~not-known~~" : "");
-            var thisMethodName = `${ast.name.value}(${paramTypes})`;
+        case "MethodInvocation":
 
-            result += recurse("name") + createPairedChar("(") +
-                recurse("parameters") + createPairedChar(")");
+            result += (ast.expression ? recurse("expression") + "." : "") +
+                recurse("name") + createPairedChar("(") +
+                ast.arguments.map((x,i)=>recurse(["arguments",i])).join(","+style.spaceInExpression) + createPairedChar(")");
             break;
-        case "IF_STATEMENT":
+        case "IfStatement":
             function isSingleLinesAllTheWayDown(st) {
-                if (!st || !st.body) return true;
-                else return st.body.type != "BLOCK" && isSingleLinesAllTheWayDown(st.else);
+                if (!st || !st.thenStatement) return true;
+                else return st.thenStatement.type != "Block" && isSingleLinesAllTheWayDown(st.elseStatement);
             }
             var isSingleLines = isSingleLinesAllTheWayDown(ast);
 
             var indenter = isSingleLines ? "" : style.indentBy;
 
             var lineSep = bracketTypes[+!!style.javaBracketsStyle];
-            if (style.singleLineBlockBrackets == "line" || ast.body.type != "BLOCK") lineSep = " ";
+            if (style.singleLineBlockBrackets == "line" || ast.thenStatement.type != "Block") lineSep = " ";
 
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">if</span>" : "if") +
-                style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") +
+                style.spaceAfterStatement + createPairedChar("(") + recurse("expression") + createPairedChar(")") +
                 lineSep +
-                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body") +
+                recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.thenStatement), "thenStatement") +
                 (ast.else ?
-                    (style.singleLineBlockBrackets == "block" || (ast.body.type == "BLOCK" && ast.body.statements.length > 1) ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
+                    (style.singleLineBlockBrackets == "block" || (ast.body.type == "Block" && ast.thenStatement.statements.length > 1) ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") +
-                    lineSep + recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.else), "else")
+                    lineSep + recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.elseStatement), "elseStatement")
                     : "");
             break;
-        case "TRY_STATEMENT":
+        case "TryStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">try</span>" : "try") +
                 bracketTypes[+!!style.javaBracketsStyle] +
                 recurse("body") +
                 style.ifElseNewline +
-                (ast.catchClauses.map(function (x, i) { return recurse(["catchClauses", i]) }).join(style.ifElseNewline))
+                (ast.catchClauses.map(function (x, i) { return recurse(["catchClauses", i]) }).join(style.ifElseNewline)) +
+                recurse("finally");
             break;
-        case "CATCH_CLAUSE":
+        case "CatchClause":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">catch</span>" : "catch") +
-                createPairedChar("(") + recurse("catchType") + " " + recurse("id") + createPairedChar(")") +
+                createPairedChar("(") + recurse("exception") + createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] +
-                indent(recurse("block"), style.indentBy, style.javaBracketsStyle, true);
+                indent(recurse("body"), style.indentBy, style.javaBracketsStyle, true);
             break;
-        case "IF_ELSE_EXPRESSION":
-            result += recurse("condition") + " ? " + recurse("if") + " : " + recurse("else");
+        case "ConditionalExpression":
+            result += recurse("expression") + style.spaceInExpression + recurse({type: "Operator", operator: "?"}) +
+            style.spaceInExpression + recurse("thenExpression") + style.spaceInExpression + recurse({type: "Operator", operator: ":"}) +
+            style.spaceInExpression + recurse("elseExpression");
             break;
-        case "VOID":
-            result += "void";
+        case "PrimitiveType":
+            result += ast.primitiveTypeCode;
             break;
-        case "THIS":
+        case "ThisExpression":
+            if(ast.qualifier != null) throw "this.qualifier isn't null!! ! !!";
+
+            result += style.colorize ? "<span class=\"hlast hlast-keyword\">this</span>" : "this";
+            break;
+        case "ConstructorInvocation":
+            console.log("Use of ConstructorInvocation. Make sure it's a statement!");
+
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">this</span>" : "this") +
-                style.spaceAfterStatement +
-                (ast.arguments ? createPairedChar("(") + recurse("arguments") + createPairedChar(")") : "");
+                createPairedChar("(") + 
+                ast.arguments.map((x,i)=>recurse(["arguments",i])).join("," + style.spaceInExpression) + createPairedChar(")") + ";";
+
             break;
-        case "SUPER":
+        case "SuperConstructorInvocation":
+            if(ast.expression || ast.typeArguments.length) throw "unexpected expression or typeArguments in a SuperConstructorInvocation!";
+
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">super</span>" : "super") +
                 style.spaceAfterStatement +
-                (ast.arguments ? createPairedChar("(") + recurse("arguments") + createPairedChar(")") : "");
+                (ast.arguments ? createPairedChar("(") + 
+                    ast.arguments.map((x,i)=>recurse(["arguments",i])).join("," + style.spaceInExpression)
+                    + createPairedChar(")") 
+                : "");
             break;
-        case "NULL":
+        case "SuperMethodInvocation":
+            if(ast.qualifier) throw "unknown 'qualifier' in a SuperMethodInvocation";
+
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">super</span>" : "super") + "." + recurse("name") +
+            createPairedChar("(") + 
+            ast.arguments.map((x,i)=>recurse(["arguments",i])).join("," + style.spaceInExpression) + createPairedChar(")");
+
+            break;
+        case "NullLiteral":
             result += "null";
             break;
-        case "CONTINUE_STATEMENT":
+        case "ContinueStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">continue</span>" : "continue") +
-                (ast.identifier ? " " + recurse("identifier") : "") + ";";
+                (ast.label ? " " + recurse("label") : "") + ";";
             break;
-        case "ARRAY_GETTER":
-        case "TYPE_TYPE":
-            if (ast.dimensions.length > 0) ast.type = "ARRAY_GETTER";
-
-            result += recurse("value") +
-                (ast.dimensions ? ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") : "");
+        case "ArrayAccess":
+            result += recurse("array") + createPairedChar("[") + recurse("index") + createPairedChar("]");
             break;
         case "DIMENSION":
             result += style.colorize ? createPairedChar("[") + recurse("expression") + createPairedChar("]") : `[${recurse("expression")}]`;
@@ -452,25 +505,50 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 (ast.typeArguments ? recurse("typeArguments") : "") +
                 (ast.dimensions ? ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") : "");
             break;
+        case "SimpleType":
+            result += recurse("name");
+            break;
+        case "ArrayType":
+            result += recurse("componentType") + createPairedChar("[") + createPairedChar("]");
+            break;
         case "ARRAY_CREATOR_REST":
             result += ast.dimensions.map(function (x, i) { return recurse(["dimensions", i]); }).join("") +
                 (ast.arrayInitializer ? style.spaceInExpression + recurse("arrayInitializer") : "");
             break;
-        case "ARRAY_INITIALIZER":
+        case "ArrayInitializer":
             result += createPairedChar("{") + style.spaceAfterStatement +
-                ast.variableInitializers.map(function (x, i) { return recurse(["variableInitializers", i]); }).join("," + style.spaceInExpression) +
+                ast.expressions.map(function (x, i) { return recurse(["expressions", i]); }).join("," + style.spaceInExpression) +
                 style.spaceAfterStatement + createPairedChar("}");
             break;
-        case "IMPORT_DECLARATION":
+        case "ImportDeclaration":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">import</span> " : "import ") +
                 (ast.static ? "static " : "") +
-                recurse("name");
+                recurse("name") +
+                (ast.onDemand ? ".*" : "");
             break;
         case "CLASS_OR_INTERFACE_TYPE":
             result += ast.elements.map(function (x, i) { return recurse(["elements", i]); }).join(".");
             break;
-        case "SIMPLE_CREATOR":
-            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse("name") + recurse("rest");
+        case "ClassInstanceCreation":
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse("typeType") + 
+                (ast.typeArguments.length ? 
+                    createPairedChar("<") + ast.typeArguments.map((x,i)=>recurse(["typeArguments", i])).join("," + style.spaceInExpression) + createPairedChar(">") 
+                    : "") +
+                createPairedChar("(") + ast.arguments.map((x,i)=>recurse(["arguments", i])).join("," + style.spaceInExpression) + createPairedChar(")");
+            break;
+        case "ParameterizedType":
+            result += recurse("typeType") + createPairedChar("<") + 
+                (ast.typeArguments.length ? ast.typeArguments.map((x,i)=>recurse(["typeArguments", i])).join("," + style.spaceInExpression) : "") + 
+                createPairedChar(">");
+            break;
+        case "ArrayCreation":
+            if(ast.initializer && ast.dimensions.length > 0) {
+                console.log(ast);
+                throw "unexpected initializer";
+            }
+            result += (style.colorize ? "<span class=\"hlast hlast-keyword\">new</span> " : "new ") + recurse(["typeType", "componentType"]) + 
+                (ast.initializer ? " " + recurse("initializer") : "") +
+                ast.dimensions.map((x,i)=>createPairedChar("[") + recurse(["dimensions", i]) + createPairedChar("]"));
             break;
         case "IDENTIFIER_NAME":
             result += ast.elements.map(function (x, i) { return recurse(["elements", i]) }).join("," + style.spaceAfterStatement);
@@ -479,9 +557,6 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += recurse("id") + style.spaceAfterStatement +
                 (ast.typeArguments === undefined ? "" : recurse("typeArguments"));
             break;
-        case "TYPE_ARGUMENTS":
-            result += createPairedChar("<") + recurse("value") + createPairedChar(">");
-            break;
         case "TYPE_ARGUMENT":
             result += recurse("argument") +
                 (ast.extends ? (style.colorize ? " <span class=\"hlast hlast-keyword\">extends</span> " : " extends ") + recurse("extends") : "")
@@ -489,13 +564,13 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
         case "CLASS_CREATOR_REST":
             result += createPairedChar("(") + recurse("arguments") + createPairedChar(")");
             break;
-        case "CAST_EXPRESSION":
-            result += createPairedChar("(") + recurse("castType") + createPairedChar(")") + createPairedChar("(") + recurse("expression") + createPairedChar(")");
+        case "CastExpression":
+            result += createPairedChar("(") + recurse("typeType") + createPairedChar(")") + recurse("expression");
             break;
-        case "PREFIX_EXPRESSION":
-            result += ast.prefix + recurse("expression");
+        case "PrefixExpression":
+            result += ast.operator + recurse("operand");
             break;
-        case "PAR_EXPRESSION":
+        case "ParenthesizedExpression":
             result += createPairedChar("(") + recurse("expression") + createPairedChar(")");
             break;
         case "comment":
@@ -506,19 +581,19 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
             result += recurse("argument") +
                 (ast.extends ? " " + ((style.colorize ? "<span class=\"hlast hlast-keyword\">extends</span> " : "extends ") + recurse("extends")) : "")
             break;
-        case "WHILE_STATEMENT":
+        case "WhileStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">while</span>" : "while") +
-                style.spaceAfterStatement + createPairedChar("(") + recurse("condition") + createPairedChar(")") +
+                style.spaceAfterStatement + createPairedChar("(") + recurse("expression") + createPairedChar(")") +
                 bracketTypes[+!!style.javaBracketsStyle] +
                 recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.body), "body");
             break;
-        case "BREAK_STATEMENT":
+        case "BreakStatement":
             result += (style.colorize ? "<span class=\"hlast hlast-keyword\">break</span>" : "break") +
-                (ast.identifier ? (" " + recurse("identifier")) : "") +
+                (ast.label ? (" " + recurse("label")) : "") +
                 ";";
             break;
-        case "ANNOTATION":
-            result += "@" + recurse("name") + "\n";
+        case "MarkerAnnotation":
+            result += "@" + recurse("typeName") + "\n";
             break;
         default:
             console.log("unknown type " + ast.type + " at " + address.join("."));
@@ -537,7 +612,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
     //only colorize single-line things bc that way it won't get messed up upon table-ifying
     if (style.colorize) {
         formattedRes = result.split("\n").map(function (line) {
-            return `<span class="hlast hlast-${snakeKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-annotation-connector-id="0${annotationConnectorId.replace(/,$/, "")}" data-nodepath="${nodePath.map(function (x, i) { return snakeKebab(x.type || x.ast_type || "") }).join(" ")}">${(line)}</span>`;
+            return `<span class="hlast hlast-${camelKebab(ast.type || ast.ast_type || "")}${generateDescribingClasses(result, siblingIndex)}" data-address=${address.join(".")} data-annotation-connector-id="0${annotationConnectorId.replace(/,$/, "")}" data-nodepath="${nodePath.map(function (x, i) { return camelKebab(x.type || x.ast_type || "") }).join(" ")}">${(line)}</span>`;
         }).join("\n");
     }
 
@@ -571,8 +646,29 @@ function generateDescribingClasses(str, idx) {
     return classes;
 }
 
-function snakeKebab(snake) {
-    return snake.split("_").join("-").toLowerCase();
+/**
+ * Convert a camelCase (or CamelCase) string to kebab-case
+ * @param {String} camel The camelCase string to be converted
+ */
+function camelKebab(camel) {
+    var r = "", lengthGoneWithoutNewWord = 0;
+    for(var i = 0; i < camel.length; i++) {
+        var nowChar = camel.charAt(i);
+        var nowCharLower = nowChar.toLowerCase();
+
+        var isUpperCase = nowChar != nowCharLower;
+
+        //add a new word
+        if(isUpperCase && lengthGoneWithoutNewWord > 0) {
+            lengthGoneWithoutNewWord = 0;
+            r += "-" + nowCharLower;
+        } else {
+            //or just add the next letter
+            r += nowCharLower;
+            lengthGoneWithoutNewWord++;
+        }
+    }
+    return r;
 }
 
 function indent(indentText, indentBy, dontIndentFirst, dontIndentLast) {
@@ -588,15 +684,15 @@ function undent(text) {
 
 function getScopeComponent(ast, address) {
     switch (ast.type) {
-        case "TYPE_DECLARATION":
-            return "$" + ast.declaration.name.value;
+        case "TypeDeclaration":
+            return "$" + ast.name.identifier;
         case "CONSTRUCTOR_DECLARATION":
             return "[constructor]" + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
-        case "METHOD_DECLARATION":
+        case "MethodDeclaration":
             return "." +
-                ast.name.value + "(" + ast.parameters.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
-        case "FOR_STATEMENT":
-        case "IF_STATEMENT":
+                astToString(ast.name) + "(" + ast.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
+        case "ForStatement":
+        case "IfStatement":
         case "WHILE_STATEMENT":
             var statementInsideBodyIndex = "";
             //start after type defs

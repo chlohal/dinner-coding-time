@@ -53,7 +53,7 @@
             description: "A <b>cast</b>, where you put <code>(aTypeInParentheses)</code> in front of another value, converts the value into the specified type. Here, it's converting to <code>{{content}}</code>."
         },
         {
-            path: "if-else-expression",
+            path: "conditional-expression",
             description: function(content, element) {
                 var isBoolStart = content.match(/^\d/) == null;
                 
