@@ -1,8 +1,10 @@
-var parserTools = require("./parser-tools.js");
+if (typeof require === "function") var parserTools = require("./parser-tools.js");
+
+if (typeof module !== "function") var module = {};
 
 module.exports = {
     createTextNode(content) {
-        return new Node("#text", content===undefined?"undefined":content.toString());
+        return new Node("#text", content === undefined ? "undefined" : content.toString());
     },
     createElement: function (tag) {
         return new Node(tag);
@@ -33,8 +35,9 @@ function Node(tag, value) {
                 let trimmed = styles[i].trim();
                 if (!trimmed) continue;
 
-                let styleName = trimmed.split(":")[0];
-                let styleVal = trimmed.substring(styleName.length, trimmed.length - 1);
+                let styleKv = trimmed.split(":");
+                let styleName = styleKv[0];
+                let styleVal = styleKv[1];
 
                 self.style.setProperty(styleName, styleVal);
             }
@@ -54,11 +57,10 @@ function Node(tag, value) {
         __buildAsAttribute: function () {
             let styles = Object.keys(this).map(style => {
                 if (typeof this[style] == "function") return "";
-                return `${camelToKebab(style)}: ${encodeCharacterEntities(this[style].toString())};`;
-                return "";
+                return `${camelToKebab(style)}: ${encodeCharacterEntities(this[style].toString())}`;
             });
 
-            return styles.join("");
+            return styles.filter(x=>x!="").join(";");
         },
         clear: function () {
             let keys = Object.keys(this);
@@ -84,14 +86,14 @@ Node.prototype.hideCircular = function () {
     }
 }
 Node.prototype.appendChild = function (child) {
-    if(child == this) throw "You cannot append a node to itself";
+    if (child == this) throw "You cannot append a node to itself";
     this.childNodes.push(child);
     child.parentNode = this;
 
     return child;
 };
 Node.prototype.insertBefore = function (newChild, reference) {
-    if(newChild == this) throw "You cannot append a node to itself";
+    if (newChild == this) throw "You cannot append a node to itself";
     let index = this.childNodes.indexOf(reference);
     if (index == -1) index = this.childNodes.length;
 
@@ -111,13 +113,13 @@ Object.defineProperty(Node.prototype, "offsetWidth", {
     get: function () {
         return this.attributes.width ||
             10 * Math.max(arrayMax(this.textContent.split("\n")).length,
-            (this.attributes.text || "").length);
+                (this.attributes.text || "").length);
     }
 });
 
 Object.defineProperty(Node.prototype, "offsetHeight", {
     get: function () {
-        return this.attributes.height || this.textContent.split("\n").length*20;
+        return this.attributes.height || this.textContent.split("\n").length * 20;
     }
 });
 
@@ -182,7 +184,7 @@ Object.defineProperty(Node.prototype, "innerHTML", {
         return this.__buildInnerHTML(true);
     },
     set: function (val) {
-        if(val === "") {
+        if (val === "") {
             this.childNodes = [];
         }
         let parsed = parseHTML(val);
@@ -196,7 +198,7 @@ Object.defineProperty(Node.prototype, "outerHTML", {
         return this.__buildOuterHTML(true);
     }
 });
-Node.prototype.__buildInnerHTML = function(includeStyles) {
+Node.prototype.__buildInnerHTML = function (includeStyles) {
     return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
 };
 
@@ -205,15 +207,20 @@ Node.prototype.__buildOuterHTML = function (includeStyles) {
     let attrs = Object.keys(this.attributes).map(attribute => {
         if (attribute == "style" && !includeStyles) return "";
         //since getters are defined, it always has style; drop it if not needed
-        if (attribute == "style" && this.attributes.style == "") return "";
-
+        else if (attribute == "style" && this.attributes.style == "") return "";
+        //if it's truly `true`, then treat it as boolean
+        else if(this.attributes[attribute] === true) return ` ${attribute}`;
 
         else return ` ${attribute}="${this.attributes[attribute]}"`
     });
 
-    return "<" + this.nodeName + attrs.join("") + ">" +
-        this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("") +
-        "</" + this.nodeName + ">";
+    if(isSelfClosingTag(this.nodeName)) {
+        return "<" + this.nodeName + attrs.join("") + " />";
+    } else {
+        return "<" + this.nodeName + attrs.join("") + ">" +
+            this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("") +
+            "</" + this.nodeName + ">";
+    }
 };
 Node.prototype.getElementsByTagName = function (tagName) {
     let children = this.childNodes.filter(node => {
@@ -279,79 +286,153 @@ function arrayMax(arr) {
 }
 
 function parseHTML(str) {
-    //remove leading/trailing whitespace and comments
-    str = parserTools.stripComments(str.trim(), { start: "<!--", end: "-->" });
+    var elements = [], context = "base", content = "", currentTag = "", currentAttribute = "", currentAttributeValue = "", currentQuotesUsed = "",
+        attributes = {}, depth = 0, stack = [], currentCloseTag = "";
+    for (var i = 0; i < str.length; i++) {
+        switch (context) {
+            case "base":
+                if (str[i] == "<") {
+                    if (isLetter(str[i + 1])) {
+                        add(new Node("#text", parseCharacterEntities(content)));
+                        content = "";
 
-    let elemHtmls = parserTools.groupAwareSplit(str, ">", { doGroups: true, doQuotes: false, groupEnter: ["<"], groupExit: ["</"] });
+                        context = "open_tag";
+                    } else if (str[i + 1] == "/") {
+                        add(new Node("#text", parseCharacterEntities(content)));
+                        content = "";
 
-    let elements = [];
-    for (var i = 0; i < elemHtmls.length; i++) {
+                        currentCloseTag = "";
+                        context = "close_tag";
+                    } else {
+                        content += str[i];
+                    }
+                } else {
+                    content += str[i];
+                }
+                break;
+            case "open_tag":
+                if (context == "open_tag") {
+                    currentTag += str[i];
+                    if(isWhitespace(str[i + 1]) || 
+                        str[i + 1] == ">" || 
+                        str[i + 1] == "/") {
+                        attributes = {};
+                        currentAttribute = "";
+                        currentAttributeValue = "";
+                        context = "attributes";
+                    }
+                }
+                break;
+            case "attributes":
+                currentQuotesUsed = "";
+                if (!isWhitespace(str[i])) {
+                    if (str[i] == "=") {
+                        currentAttributeValue = "";
+                        context = "attribute_value";
+                    } else {
+                        if(str[i] != "/" && str[i] != ">") currentAttribute += str[i];
+                    }
+                } else {
+                    if(currentAttribute) attributes[currentAttribute] = true;
+                    currentAttribute = "";
+                }
+                //treat as self-closing
+                if (str[i] == "/") {
 
-        //handle parsing error when there's a text node that isn't split
-        if (elemHtmls[i].trim()[0] != "<" && elemHtmls[i].indexOf("<") > 0) {
-            let actualStart = elemHtmls[i].indexOf("<");
+                    if(currentAttribute) attributes[currentAttribute] = true;
 
-            let firstTextNodeText = elemHtmls[i].substring(0, actualStart - 1);
-            elemHtmls[i] = elemHtmls[i].substring(actualStart);
+                    var node = new Node(currentTag);
+                    var attrs = Object.keys(attributes);
+                    for (var j = 0; j < attrs.length; j++) node.setAttribute(attrs[j], attributes[attrs[j]]);
+                    add(node, true);
+                    if(stack[stack.length - 1].nodeName == currentTag) stack.splice(stack.length - 1, 1);
+                    context = "base";
+                    currentTag = "";
 
-            elemHtmls.splice(i, 0, firstTextNodeText);
-        }
+                    //skip ahead & past the `>` closer
+                    while(str[i] && str[i] != ">") i++;
+                    break;
+                }
 
-        if (elemHtmls[i].indexOf("<") == -1) {
-            let cleanedText = elemHtmls[i].replace(/>/g, "").trim();
-            if (cleanedText == "") continue;
+                if (str[i] == ">") {
 
-            elements.push(module.exports.createTextNode(parseCharacterEntities(cleanedText)));
-        } else {
-            let openTagEndIndex = elemHtmls[i].indexOf(">");
-            let openTag = elemHtmls[i].substring(0, openTagEndIndex);
-            if (openTag == "") continue;
+                    if(currentAttribute) attributes[currentAttribute] = true;
 
-            let tagName = /<(\w+)/.exec(openTag)[1];
-
-            let elem = module.exports.createElement(tagName);
-            let attrList = openTag.substring(tagName.length + 2);
-
-            let attrs = parserTools.groupAwareSplit(attrList, " ", { doGroups: false, doQuotes: true });
-
-            for (var j = 0; j < attrs.length; j++) {
-                let attr = attrs[j].trim();
-
-                //for self-closing tags, if there isn't an optional space between the close and the last attr
-                if (attr.endsWith("/")) attr = attr.substring(0, attr.length - 1);
-
-                //attributes must start with an alphabetical char
-                if (!attr.match(/^\w/)) continue;
-
-                let attrName = /^(\w+)/.exec(attr)[1];
-                let attrValue = parserTools.unQuote(attr.substring(attrName.length + 1));
-
-                elem.setAttribute(attrName, attrValue);
-            }
-
-            //if there's a self-closing tag, close it by moving its "children" up one level
-            if (isSelfClosingTag(tagName)) {
-                elemHtmls = elemHtmls.concat(
-                    elemHtmls,
-                    parserTools.groupAwareSplit(elemHtmls[i].substring(openTagEndIndex), ">", { doGroups: true, doQuotes: true, groupEnter: ["<"], groupExit: ["</", "/>"] })
-                );
-                continue;
-            }
-
-            let closingTagIndex = elemHtmls[i].indexOf("</" + tagName);
-            if (closingTagIndex < 0) closingTagIndex = elemHtmls[i].length - 2;
-
-            elem.innerHTML = elemHtmls[i].substring(openTagEndIndex, closingTagIndex);
-
-            elements.push(elem);
+                    var node = new Node(currentTag);
+                    var attrs = Object.keys(attributes);
+                    for (var j = 0; j < attrs.length; j++) node.setAttribute(attrs[j], attributes[attrs[j]]);
+                    add(node);
+                    context = "base";
+                    currentTag = "";
+                }
+                break;
+            case "attribute_value":
+                if (!currentQuotesUsed) {
+                    if (str[i] == "'") currentQuotesUsed = "'";
+                    if (str[i] == '"') currentQuotesUsed = '"';
+                } else {
+                    if (str[i] == currentQuotesUsed) {
+                        attributes[currentAttribute] = parseCharacterEntities(currentAttributeValue);
+                        currentAttribute = "";
+                        context = "attributes";
+                    } else {
+                        currentAttributeValue += str[i];
+                    }
+                }
+                break;
+            case "close_tag":
+                if (str[i] == ">") {
+                    var latestStackElemIndex = -1;
+                    for (var j = stack.length - 1; j >= 0; j--) {
+                        if (stack[j].nodeName == currentCloseTag) {
+                            latestStackElemIndex = j;
+                            break;
+                        }
+                    }
+                    
+                    if (latestStackElemIndex != -1) {
+                        stack.splice(latestStackElemIndex, stack.length);
+                        if(!isSelfClosingTag(currentCloseTag)) depth--;
+                    }
+                    context = "base";
+                }
+                if (str[i] != "/" && !isWhitespace(str[i])) currentCloseTag += str[i];
+                break;
         }
     }
+    function add(elem, selfClosing) {
+        if(elem.nodeName == "#text" && elem.value == "") return false;
 
+        if (depth == 0) {
+            elements.push(elem);
+        }
+        else {
+            stack[stack.length - 1].appendChild(elem);
+        }
+
+        if (elem.nodeName[0] != "#" && !(selfClosing || isSelfClosingTag(elem.nodeName))) {
+            stack.push(elem);
+            
+            depth++;
+        }
+    }
+    add(new Node("#text", parseCharacterEntities(content)))
     return elements;
 }
 
+function isWhitespace(c) {
+    return c == " " || c == "\t" || c == "\n" || c == "\r";
+}
+
+function isLetter(c) {
+    var code = c.charAt(0).toLowerCase().charCodeAt(0);
+    return code >= 97 && code <= 122;
+}
+
 function isSelfClosingTag(tagName) {
-    return ["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
+    return [
+        "circle", "ellipse", "line", "path", "polygon", "polyline", "rect", "stop", "use",
+        "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
         "param", "source", "track", "wbr", "command", "keygen",
         "menuitem"].includes(tagName.toLowerCase());
 }
