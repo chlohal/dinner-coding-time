@@ -1443,6 +1443,24 @@ main article.license {
     margin-left: auto;
 }
 
+.helpfulness-form textarea {
+    width: 100%;
+    resize: none;
+    position: relative;
+    font: inherit;
+}
+
+.helpfulness-form--why-input {
+    position: relative;
+}
+.helpfulness-form--why-input-char-limit {
+    margin-left: auto;
+    display: block;
+    float: right;
+    pointer-events: none;
+    font-size: 0.8em;
+}
+
 .helpfulness-form--buttons {
     display: flex;
     width: min-content;

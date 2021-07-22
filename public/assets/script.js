@@ -156,14 +156,31 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 
     if(!main) return false;
 
-    var open = true;
+    var sentYesno = false;
 
     var parent = document.createElement("form");
     parent.classList.add("helpfulness-form");
 
     var heading = document.createElement("h2");
-    heading.textContent = "Was this helpful?";
+    heading.textContent = DCT_LANG.format("HELPFULNESS_FORM_TITLE") || "Was this helpful?";
     parent.appendChild(heading);
+
+    var why = document.createElement("div");
+    why.classList.add("helpfulness-form--why-input");
+    why.style.display = "none";
+    why.setAttribute("aria-hidden", "true");
+    parent.appendChild(why);
+
+    var whyInput = document.createElement("textarea");
+    why.appendChild(whyInput);
+    whyInput.addEventListener("keypress", function() {
+        whyCharLimitDisplay.textContent = whyInput.value.length + " / 250";
+    });
+
+    var whyCharLimitDisplay = document.createElement("span");
+    whyCharLimitDisplay.classList.add("helpfulness-form--why-input-char-limit");
+    whyCharLimitDisplay.textContent = "0 / 250"
+    why.appendChild(whyCharLimitDisplay);
 
     var buttons = document.createElement("div");
     buttons.classList.add("helpfulness-form--buttons");
@@ -186,29 +203,52 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     buttonYes.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
+        
+        if(sentYesno) {
+            buttonYes.classList.add("helpfulness-form--selected");
 
-        buttonYes.classList.add("helpfulness-form--selected");
+            buttonNo.classList.remove("helpfulness-form--selected");
 
-        buttonNo.classList.remove("helpfulness-form--selected");
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/count/page-count?rec=1&idsite=1" +
+                    "&url=" + encodeURIComponent(window.location) +
+                    "&rand=" + Math.floor(Math.random()*10000) +
+                    "&dimension2=" + encodeURIComponent(whyInput.value)
+                    );
+            xhr.send();
+        } else {
 
-        sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function () {
-            parent.classList.add("submission-completed");
-            parent.setAttribute("aria-hidden", "true");
-            open = false;
-        });
+            
+
+            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function () {
+                sentYesno = true;
+                addWhy();
+            });
+        }
     });
     buttonNo.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
-        buttonYes.classList.remove("helpfulness-form--selected");
+        if(sentYesno) {
+            buttonYes.classList.remove("helpfulness-form--selected");
 
-        buttonNo.classList.add("helpfulness-form--selected");
-
-        sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function () {
+            buttonNo.classList.add("helpfulness-form--selected");
             parent.classList.add("submission-completed");
             parent.setAttribute("aria-hidden", "true");
-            open = false;
-        });
+        } else {
+
+            
+
+            sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Not Helpful", -1, function () {
+                sentYesno = true;
+                addWhy();
+            });
+        }
     });
+    function addWhy() {
+        heading.textContent = "Why?";
+        why.style.display = "";
+        why.setAttribute("aria-hidden", "false");
+    }
 })();
