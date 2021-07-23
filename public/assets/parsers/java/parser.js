@@ -14018,3 +14018,5 @@ window.parser = /*
     parse:       peg$parse
   };
 })();
+
+if(typeof module == "object") module.exports = window.parser;

@@ -10,7 +10,8 @@ module.exports = {
         return new Node(tag);
     },
 
-    parseHTML: parseHTML
+    parseHTML: parseHTML,
+    makeDocument: makeDocument
 };
 
 function Node(tag, value) {
@@ -246,6 +247,17 @@ Node.prototype.getElementsByClassName = function (className) {
 
     return children;
 };
+Node.prototype.getElementsByPropertyValue = function (property, value) {
+    let children = this.childNodes.filter(node => {
+        return (node.attributes[property]||"") == value;
+    });
+
+    this.childNodes.forEach(node => {
+        children = children.concat(node.getElementsByPropertyValue(property, value));
+    });
+
+    return children;
+};
 Node.prototype.getElementById = function (id) {
     let child = this.childNodes.find(node => {
         return node.attributes.id == id;
@@ -309,6 +321,14 @@ function arrayMax(arr) {
 
     return max;
 }
+
+function makeDocument(elems) {
+    var document = new Node("#root");
+    for(var i = 0; i < elems.length; i++) document.appendChild(elems[i]);
+    document.createElement = module.exports.createElement;
+    return document;
+}
+
 /**
  * Parse HTML into elements
  * @param {string} str HTML source
