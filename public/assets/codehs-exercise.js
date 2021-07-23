@@ -485,6 +485,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         var language = source.getAttribute("language") || window.__defaultEditorLanguage || "java";
 
+        var sourceElementId = source.getAttribute("id");
         var sourceContent = source.textContent.trim();
         var sourceLinesHtml = source.innerHTML.split("\n");
         var annotations = (window.__ANNOTATIONS || {})[source.id];
@@ -630,7 +631,8 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     ed.parent.classList.remove("code-with-lines--loading");
                     return;
                 }
-                if (ed.ast) printToTable(ed.ast);
+                if(window.__preparsed && window.__preparsed[sourceElementId]) printToTable(window.__preparsed[sourceElementId]);
+                else if (ed.ast) printToTable(ed.ast);
                 else executeDependencyFunction("parsers/" + language + "/parser.js", "parse", [sourceContent], printToTable);
             } catch (e) {
                 showAlert({
@@ -668,6 +670,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             ast: null,
             parent: parent,
             source: sourceContent,
+            sourceElementId: sourceElementId,
             index: editorIndex,
             table: table,
             exercise: exercise,

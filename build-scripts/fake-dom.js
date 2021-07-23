@@ -75,6 +75,9 @@ function Node(tag, value) {
 }
 
 Node.prototype.childNodes = [];
+/**
+ * @type {Node}
+ */
 Node.prototype.parentNode = undefined;
 Node.prototype.nodeName = undefined;
 Node.prototype.value = undefined;
@@ -227,6 +230,11 @@ Node.prototype.__buildOuterHTML = function (includeStyles) {
             "</" + this.nodeName + ">";
     }
 };
+/**
+ * Search and retrieve an array of nodes with the specified tag name
+ * @param {string} tagName Tag name to retrieve elements by
+ * @returns {Node[]} Array of nodes matching the tag name
+ */
 Node.prototype.getElementsByTagName = function (tagName) {
     let children = this.childNodes.filter(node => {
         return node.nodeName == tagName;
@@ -238,6 +246,11 @@ Node.prototype.getElementsByTagName = function (tagName) {
 
     return children;
 };
+/**
+ * Search and retrieve an array of nodes with the specified class name
+ * @param {string} className Class name to retrieve elements by
+ * @returns {Node[]} Array of nodes matching the class name
+ */
 Node.prototype.getElementsByClassName = function (className) {
     let children = this.childNodes.filter(node => {
         return (node.attributes.class||"").split(" ").includes(className);

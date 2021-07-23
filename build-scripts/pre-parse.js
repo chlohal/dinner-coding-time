@@ -54,15 +54,17 @@ for(var i = 0; i < files.length; i++) {
         var datascript = document.createElement("script");
         datascript.textContent = datascriptContent;
         datascript.setAttribute("type", "dct-datascript");
-        datascript.setAttribute("class", "codehslanguage-datascript");
+        datascript.setAttribute("class", "preparsedcode-datascript");
 
+        var oldDatascript = main.getElementsByClassName("preparsedcode-datascript")[0];
+        if(oldDatascript) oldDatascript.parentNode.removeChild(oldDatascript);
         main.appendChild(datascript);
 
         var htmlContent = "";
         for(var j = 0; j < html.length; j++) {
-            htmlContent += html[j].__buildOuterHTML();
+            htmlContent += html[j].outerHTML;
         }
-        console.log(htmlContent);
+        fs.writeFileSync(files[i], htmlContent);
     })();
 }
 
