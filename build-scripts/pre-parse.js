@@ -2,22 +2,30 @@ var fs = require("fs");
 var path = require("path");
 var fakeDom = require("./fake-dom.js");
 
+console.log(fakeDom);
+
 var codehsDir = path.join(__dirname, "../public/codehs");
-var files = loadHtmlFilesFromFolder(codehsDir).slice(0,1);
+var files = loadHtmlFilesFromFolder(codehsDir);
+
+console.log("File count: " + files.length);
+
+var before = Date.now();
 
 for(var i = 0; i < files.length; i++) {
     (function() {
         var fileContent = fs.readFileSync(files[i]).toString();
-        console.log(fileContent);
         var html = fakeDom.parseHTML(fileContent);
-        console.log(html);
         var htmlContent = "";
         for(var j = 0; j < html.length; j++) {
             htmlContent += html[j].__buildOuterHTML();
         }
-        //console.log(htmlContent);
     })();
 }
+
+var time = Date.now() - before;
+
+console.log("Total time: " + time + "ms");
+console.log("Average time: " + (time/files.length) + "ms");
 
 
 function loadHtmlFilesFromFolder(folder) {

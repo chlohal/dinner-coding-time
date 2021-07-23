@@ -1,6 +1,6 @@
 if (typeof require === "function") var parserTools = require("./parser-tools.js");
 
-if (typeof module !== "function") var module = {};
+if (typeof module !== "object") var module = {};
 
 module.exports = {
     createTextNode(content) {
@@ -84,7 +84,7 @@ Node.prototype.hideCircular = function () {
         nodeName: this.nodeName,
         attributes: this.attributes
     }
-}
+};
 Node.prototype.appendChild = function (child) {
     if (child == this) throw "You cannot append a node to itself";
     this.childNodes.push(child);
@@ -157,11 +157,10 @@ Node.prototype.cloneNode = function () {
     return copy;
 };
 Node.prototype.setAttribute = function (attr, val) {
-    if (val.toString() == "NaN") throw problem;
     this.attributes[attr] = val;
 };
 Node.prototype.setAttributeNS = function (ns, attr, val) {
-    this.setAttribute(attr, val);
+    this.setAttribute(ns + ":" + attr, val);
 };
 
 
@@ -214,7 +213,10 @@ Node.prototype.__buildOuterHTML = function (includeStyles) {
         else return ` ${attribute}="${this.attributes[attribute]}"`
     });
 
-    if(isSelfClosingTag(this.nodeName)) {
+    if(this.nodeName == "!DOCTYPE") {
+        return "<" + this.nodeName + attrs.join("") + ">"; 
+    }
+    else if(isSelfClosingTag(this.nodeName)) {
         return "<" + this.nodeName + attrs.join("") + " />";
     } else {
         return "<" + this.nodeName + attrs.join("") + ">" +
@@ -232,6 +234,29 @@ Node.prototype.getElementsByTagName = function (tagName) {
     });
 
     return children;
+};
+Node.prototype.getElementsByClassName = function (className) {
+    let children = this.childNodes.filter(node => {
+        return (node.attributes.class||"").split(" ").includes(className);
+    });
+
+    this.childNodes.forEach(node => {
+        children = children.concat(node.getElementsByClassName(className));
+    });
+
+    return children;
+};
+Node.prototype.getElementById = function (id) {
+    let child = this.childNodes.find(node => {
+        return node.attributes.id == id;
+    });
+
+    if(child) return child;
+
+    for(var i = this.childNodes.length - 1; i >= 0; i--) {
+        var search = this.childNodes[i].getElementById(id);
+        if(search) return search;
+    }
 };
 Node.prototype.getAttribute = function (attr) {
     return this.attributes[attr];
@@ -284,7 +309,11 @@ function arrayMax(arr) {
 
     return max;
 }
-
+/**
+ * Parse HTML into elements
+ * @param {string} str HTML source
+ * @returns {Node[]} An array of HTML elements represented by the source
+ */
 function parseHTML(str) {
     var elements = [], context = "base", content = "", currentTag = "", currentAttribute = "", currentAttributeValue = "", currentQuotesUsed = "",
         attributes = {}, depth = 0, stack = [], currentCloseTag = "";
@@ -292,7 +321,7 @@ function parseHTML(str) {
         switch (context) {
             case "base":
                 if (str[i] == "<") {
-                    if (isLetter(str[i + 1])) {
+                    if (isLetter(str[i + 1]) || str[i + 1] == "!") {
                         add(new Node("#text", parseCharacterEntities(content)));
                         content = "";
 
@@ -434,5 +463,5 @@ function isSelfClosingTag(tagName) {
         "circle", "ellipse", "line", "path", "polygon", "polyline", "rect", "stop", "use",
         "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
         "param", "source", "track", "wbr", "command", "keygen",
-        "menuitem"].includes(tagName.toLowerCase());
+        "menuitem", "!doctype"].includes(tagName.toLowerCase());
 }
