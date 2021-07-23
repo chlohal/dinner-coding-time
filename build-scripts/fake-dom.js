@@ -199,6 +199,8 @@ Object.defineProperty(Node.prototype, "outerHTML", {
     }
 });
 Node.prototype.__buildInnerHTML = function (includeStyles) {
+    if(this.nodeName == "script") return this.textContent;
+    if(this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
     return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
 };
 
@@ -221,7 +223,7 @@ Node.prototype.__buildOuterHTML = function (includeStyles) {
         return "<" + this.nodeName + attrs.join("") + " />";
     } else {
         return "<" + this.nodeName + attrs.join("") + ">" +
-            this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("") +
+            this.__buildInnerHTML(includeStyles) +
             "</" + this.nodeName + ">";
     }
 };

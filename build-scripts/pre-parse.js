@@ -62,6 +62,7 @@ for(var i = 0; i < files.length; i++) {
         for(var j = 0; j < html.length; j++) {
             htmlContent += html[j].__buildOuterHTML();
         }
+        console.log(htmlContent);
     })();
 }
 
