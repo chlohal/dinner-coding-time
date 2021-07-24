@@ -428,7 +428,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 style.spaceAfterStatement + createPairedChar("(") + recurse("expression") + createPairedChar(")") +
                 lineSep +
                 recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.thenStatement), "thenStatement") +
-                (ast.else ?
+                (ast.elseStatement ?
                     (style.singleLineBlockBrackets == "block" || (ast.body.type == "Block" && ast.thenStatement.statements.length > 1) ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") +
                     lineSep + recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.elseStatement), "elseStatement")
@@ -693,7 +693,7 @@ function getScopeComponent(ast, address) {
                 astToString(ast.name) + "(" + ast.parameters.map(function (x) { return astToString(x.typeType, {}); }).join(",") + ")";
         case "ForStatement":
         case "IfStatement":
-        case "WHILE_STATEMENT":
+        case "WhileStatement":
             var statementInsideBodyIndex = "";
             //start after type defs
             for (i = address.indexOf("statements"); i < address.length - 1; i++) {
