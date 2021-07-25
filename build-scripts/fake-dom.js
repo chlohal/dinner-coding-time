@@ -4,17 +4,23 @@ if (typeof module !== "object") var module = {};
 
 module.exports = {
     createTextNode(content) {
-        return new Node("#text", content === undefined ? "undefined" : content.toString());
+        return new FakeDomNode("#text", content === undefined ? "undefined" : content.toString());
     },
     createElement: function (tag) {
-        return new Node(tag);
+        return new FakeDomNode(tag);
     },
 
     parseHTML: parseHTML,
     makeDocument: makeDocument
 };
 
-function Node(tag, value) {
+/**
+ * @typedef FakeDomNode
+ * @property 
+ * 
+ */
+
+function FakeDomNode(tag, value) {
     let self = this;
 
     this.nodeName = tag;
@@ -74,29 +80,29 @@ function Node(tag, value) {
     return this;
 }
 
-Node.prototype.childNodes = [];
+FakeDomNode.prototype.childNodes = [];
 /**
- * @type {Node}
+ * @type {FakeDomNode}
  */
-Node.prototype.parentNode = undefined;
-Node.prototype.nodeName = undefined;
-Node.prototype.value = undefined;
+FakeDomNode.prototype.parentNode = undefined;
+FakeDomNode.prototype.nodeName = undefined;
+FakeDomNode.prototype.value = undefined;
 
-Node.prototype.hideCircular = function () {
+FakeDomNode.prototype.hideCircular = function () {
     return {
         childNodes: this.childNodes.map(x => x.hideCircular()),
         nodeName: this.nodeName,
         attributes: this.attributes
     }
 };
-Node.prototype.appendChild = function (child) {
+FakeDomNode.prototype.appendChild = function (child) {
     if (child == this) throw "You cannot append a node to itself";
     this.childNodes.push(child);
     child.parentNode = this;
 
     return child;
 };
-Node.prototype.insertBefore = function (newChild, reference) {
+FakeDomNode.prototype.insertBefore = function (newChild, reference) {
     if (newChild == this) throw "You cannot append a node to itself";
     let index = this.childNodes.indexOf(reference);
     if (index == -1) index = this.childNodes.length;
@@ -106,14 +112,14 @@ Node.prototype.insertBefore = function (newChild, reference) {
 
     return newChild;
 };
-Node.prototype.removeChild = function (child) {
+FakeDomNode.prototype.removeChild = function (child) {
     this.childNodes.splice(this.childNodes.indexOf(child), 1);
     child.parentNode = null;
 
     return child;
 };
 
-Object.defineProperty(Node.prototype, "offsetWidth", {
+Object.defineProperty(FakeDomNode.prototype, "offsetWidth", {
     get: function () {
         return this.attributes.width ||
             10 * Math.max(arrayMax(this.textContent.split("\n")).length,
@@ -121,31 +127,31 @@ Object.defineProperty(Node.prototype, "offsetWidth", {
     }
 });
 
-Object.defineProperty(Node.prototype, "offsetHeight", {
+Object.defineProperty(FakeDomNode.prototype, "offsetHeight", {
     get: function () {
         return this.attributes.height || this.textContent.split("\n").length * 20;
     }
 });
 
-Object.defineProperty(Node.prototype, "offsetLeft", {
+Object.defineProperty(FakeDomNode.prototype, "offsetLeft", {
     get: function () {
         return this.attributes.x || this.attributes.left || 0;
     }
 });
 
-Object.defineProperty(Node.prototype, "offsetTop", {
+Object.defineProperty(FakeDomNode.prototype, "offsetTop", {
     get: function () {
         return this.attributes.y || this.attributes.top || 0;
     }
 });
 
-Object.defineProperty(Node.prototype, "offsetParent", {
+Object.defineProperty(FakeDomNode.prototype, "offsetParent", {
     get: function () {
         return this.parentNode;
     }
 });
 
-Node.prototype.getBoundingClientRect = function () {
+FakeDomNode.prototype.getBoundingClientRect = function () {
     return {
         top: this.offsetTop,
         left: this.offsetLeft,
@@ -155,20 +161,20 @@ Node.prototype.getBoundingClientRect = function () {
         y: this.offsetTop
     };
 };
-Node.prototype.cloneNode = function () {
+FakeDomNode.prototype.cloneNode = function () {
     let copy = H.merge({}, this);
     copy.parentNode = null;
     return copy;
 };
-Node.prototype.setAttribute = function (attr, val) {
+FakeDomNode.prototype.setAttribute = function (attr, val) {
     this.attributes[attr] = val;
 };
-Node.prototype.setAttributeNS = function (ns, attr, val) {
+FakeDomNode.prototype.setAttributeNS = function (ns, attr, val) {
     this.setAttribute(ns + ":" + attr, val);
 };
 
 
-Object.defineProperty(Node.prototype, "textContent", {
+Object.defineProperty(FakeDomNode.prototype, "textContent", {
     get: function () {
         if (this.nodeName == "#text") return this.value;
 
@@ -182,7 +188,7 @@ Object.defineProperty(Node.prototype, "textContent", {
         ];
     }
 });
-Object.defineProperty(Node.prototype, "innerHTML", {
+Object.defineProperty(FakeDomNode.prototype, "innerHTML", {
     get: function () {
         return this.__buildInnerHTML(true);
     },
@@ -196,18 +202,18 @@ Object.defineProperty(Node.prototype, "innerHTML", {
         }
     }
 });
-Object.defineProperty(Node.prototype, "outerHTML", {
+Object.defineProperty(FakeDomNode.prototype, "outerHTML", {
     get: function () {
         return this.__buildOuterHTML(true);
     }
 });
-Node.prototype.__buildInnerHTML = function (includeStyles) {
+FakeDomNode.prototype.__buildInnerHTML = function (includeStyles) {
     if(this.nodeName == "script") return this.textContent;
     if(this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
     return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
 };
 
-Node.prototype.__buildOuterHTML = function (includeStyles) {
+FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
     if (this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
     else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles);
 
@@ -235,9 +241,9 @@ Node.prototype.__buildOuterHTML = function (includeStyles) {
 /**
  * Search and retrieve an array of nodes with the specified tag name
  * @param {string} tagName Tag name to retrieve elements by
- * @returns {Node[]} Array of nodes matching the tag name
+ * @returns {FakeDomNode[]} Array of nodes matching the tag name
  */
-Node.prototype.getElementsByTagName = function (tagName) {
+FakeDomNode.prototype.getElementsByTagName = function (tagName) {
     let children = this.childNodes.filter(node => {
         return node.nodeName == tagName;
     });
@@ -251,9 +257,9 @@ Node.prototype.getElementsByTagName = function (tagName) {
 /**
  * Search and retrieve an array of nodes with the specified class name
  * @param {string} className Class name to retrieve elements by
- * @returns {Node[]} Array of nodes matching the class name
+ * @returns {FakeDomNode[]} Array of nodes matching the class name
  */
-Node.prototype.getElementsByClassName = function (className) {
+FakeDomNode.prototype.getElementsByClassName = function (className) {
     let children = this.childNodes.filter(node => {
         return (node.attributes.class||"").split(" ").includes(className);
     });
@@ -264,7 +270,7 @@ Node.prototype.getElementsByClassName = function (className) {
 
     return children;
 };
-Node.prototype.getElementsByPropertyValue = function (property, value) {
+FakeDomNode.prototype.getElementsByPropertyValue = function (property, value) {
     let children = this.childNodes.filter(node => {
         return (node.attributes[property]||"") == value;
     });
@@ -275,7 +281,7 @@ Node.prototype.getElementsByPropertyValue = function (property, value) {
 
     return children;
 };
-Node.prototype.getElementById = function (id) {
+FakeDomNode.prototype.getElementById = function (id) {
     let child = this.childNodes.find(node => {
         return node.attributes.id == id;
     });
@@ -287,13 +293,13 @@ Node.prototype.getElementById = function (id) {
         if(search) return search;
     }
 };
-Node.prototype.getAttribute = function (attr) {
+FakeDomNode.prototype.getAttribute = function (attr) {
     return this.attributes[attr];
 };
-Node.prototype.removeAttribute = function (attr) {
+FakeDomNode.prototype.removeAttribute = function (attr) {
     delete this.attributes[attr];
 };
-Node.prototype.isConnected = function () {
+FakeDomNode.prototype.isConnected = function () {
     return this.parentNode == true;
 };
 
@@ -340,7 +346,7 @@ function arrayMax(arr) {
 }
 
 function makeDocument(elems) {
-    var document = new Node("#root");
+    var document = new FakeDomNode("#root");
     for(var i = 0; i < elems.length; i++) document.appendChild(elems[i]);
     document.createElement = module.exports.createElement;
     return document;
@@ -349,7 +355,7 @@ function makeDocument(elems) {
 /**
  * Parse HTML into elements
  * @param {string} str HTML source
- * @returns {Node[]} An array of HTML elements represented by the source
+ * @returns {FakeDomNode[]} An array of HTML elements represented by the source
  */
 function parseHTML(str) {
     var elements = [], context = "base", content = "", currentTag = "", currentAttribute = "", currentAttributeValue = "", currentQuotesUsed = "",
@@ -359,12 +365,12 @@ function parseHTML(str) {
             case "base":
                 if (str[i] == "<") {
                     if (isLetter(str[i + 1]) || str[i + 1] == "!") {
-                        add(new Node("#text", parseCharacterEntities(content)));
+                        add(new FakeDomNode("#text", parseCharacterEntities(content)));
                         content = "";
 
                         context = "open_tag";
                     } else if (str[i + 1] == "/") {
-                        add(new Node("#text", parseCharacterEntities(content)));
+                        add(new FakeDomNode("#text", parseCharacterEntities(content)));
                         content = "";
 
                         currentCloseTag = "";
@@ -407,7 +413,7 @@ function parseHTML(str) {
 
                     if(currentAttribute) attributes[currentAttribute] = true;
 
-                    var node = new Node(currentTag);
+                    var node = new FakeDomNode(currentTag);
                     var attrs = Object.keys(attributes);
                     for (var j = 0; j < attrs.length; j++) node.setAttribute(attrs[j], attributes[attrs[j]]);
                     add(node, true);
@@ -424,7 +430,7 @@ function parseHTML(str) {
 
                     if(currentAttribute) attributes[currentAttribute] = true;
 
-                    var node = new Node(currentTag);
+                    var node = new FakeDomNode(currentTag);
                     var attrs = Object.keys(attributes);
                     for (var j = 0; j < attrs.length; j++) node.setAttribute(attrs[j], attributes[attrs[j]]);
                     add(node);
@@ -482,7 +488,7 @@ function parseHTML(str) {
             depth++;
         }
     }
-    add(new Node("#text", parseCharacterEntities(content)))
+    add(new FakeDomNode("#text", parseCharacterEntities(content)))
     return elements;
 }
 
