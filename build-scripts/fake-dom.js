@@ -209,6 +209,8 @@ Node.prototype.__buildInnerHTML = function (includeStyles) {
 
 Node.prototype.__buildOuterHTML = function (includeStyles) {
     if (this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
+    else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles);
+
     let attrs = Object.keys(this.attributes).map(attribute => {
         if (attribute == "style" && !includeStyles) return "";
         //since getters are defined, it always has style; drop it if not needed
@@ -494,7 +496,7 @@ function isLetter(c) {
 }
 
 function isSelfClosingTag(tagName) {
-    return [
+    return tagName.startsWith("?") || [
         "circle", "ellipse", "line", "path", "polygon", "polyline", "rect", "stop", "use",
         "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
         "param", "source", "track", "wbr", "command", "keygen",
