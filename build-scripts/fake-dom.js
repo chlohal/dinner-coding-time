@@ -336,7 +336,7 @@ function camelToKebab(str) {
     }
     words.push(str.substring(wordStartIndex).toLowerCase())
 
-    return words.join("-");
+    return words.join("-").replace(/-+/g, "-");
 }
 
 function encodeCharacterEntities(str) {

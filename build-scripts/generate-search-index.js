@@ -32,7 +32,7 @@ module.exports = {
 
         var main = page.document.getElementsByTagName("main")[0];
         //remove datascripts when making the <main>'s content
-        var mainContent = main ? main.childNodes.filter(x=>x.nodeName != "script").map(x=>x.textContent.trim()).join("") : "";
+        var mainContent = main ? main.childNodes.filter(x=>x.nodeName != "script").map(x=>x.textContent.trim()).join("").replace(/\r?\n\s+/g, " ") : "";
 
         var titleElem = page.document.getElementsByTagName("h1")[0];
         var title = titleElem ? titleElem.textContent.trim() : "";
