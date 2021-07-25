@@ -1,0 +1,79 @@
+
+        <nav id="pipeline">
+            <button>Edit</button>
+            <button>Review &amp; Publish</button>
+            <span aria-hidden="true" id="pipeline-completion"></span>
+        </nav>
+        <h1 contenteditable="">Loading, please wait...</h1>
+        <div class="modal--lightbox" id="publish-result-modal" hidden>
+            <dialog class="modal--base" open>
+                <div class="modal--inner">
+                    <h2>
+                        🎉 Published! 🎉
+                    </h2>
+                    <p class="center">
+                        Please send this link in the Discord. You can also visit this link to preview the final assignment.
+                        <span class="copiable-link">
+                            <span class="copiable-link--input-wrapper">
+                                <input id="publish-link" readonly />
+                            </span>
+                            <button aria-label="Copy the link" id="copy-publish-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M22 6v16h-16v-16h16zm2-2h-20v20h20v-20zm-24 17v-21h21v2h-19v19h-2z" />
+                                </svg>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </dialog>
+        </div>
+        <div class="modal--lightbox" id="creating-new-file-modal" hidden>
+            <dialog class="modal--base" open>
+                <div class="modal--inner">
+                    <h2>
+                        Creating Assignment...
+                    </h2>
+                    <p class="center">
+                        Please wait; this may take a few seconds.<br />
+                        <span class="creating-file--activity" id="creating-new-file-activity"></span>
+                    </p>
+                    <svg style="margin: auto;display: block;height: 4em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                        <circle cx="50" cy="50" fill="none" stroke="#1b1d35" stroke-width="8" r="27" stroke-dasharray="127.23450247038662 44.411500823462205" />
+                            <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="2.4390243902439024s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                        
+                    </svg>
+                </div>
+            </dialog>
+        </div>
+        <div id="reviewer" hidden>
+            <section>
+                <h3>Export &amp; Publish</h3>
+                <h4>Input your name</h4>
+                <p>I want to give you credit! This doesn&apos;t have to be your real name-- it could be your Discord username
+                    or your Twitter handle. Whatever you want! (as long as it&apos;s appropriate, ofc).</p>
+                <p>If you would prefer an air of mystery, you can also leave this blank.</p>
+                <label>Name: <input id="authorNameInput" placeholder="Jen Doe" /></label>
+                <p>If you&apos;d like to link to your website, Twitter, GitHub, or whatever, feel free to do that here! This
+                    is completely optional.</p>
+                <label>Website: <input id="authorUrlInput" placeholder="https://example.com" /></label>
+
+                <h3>Legal Junk</h3>
+                <p>In order to legally host your work, you technically need to agree to grant the site a license.</p>
+                <p>
+                    <label><input type="checkbox" id="licenseApproval" />I agree to grant an exclusive <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative
+                            Commons Attribution 4.0 International</a> license to host my content.</label>
+                    <br />
+                    <label><input type="checkbox" id="contentHostingApproval" />I agree that the site is
+                        not obligated to host any content that may be seen as objectionable or inappropriate.</label>
+                    <br />
+                    <label><input type="checkbox" id="ugcDenialApproval" />I affirm that this should not qualify as
+                        user-generated content, and that I am acting as a volunteer</label>
+                </p>
+            </section>
+            <div class="publish--parent">
+                <button class="publish--button" id="publish-button" disabled>Submit for Publication</button>
+                <span class="publish--tip" id="publish-tip">Please accept all legal items before publishing!</span>
+            </div>
+
+        </div>
+    

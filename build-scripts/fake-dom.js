@@ -3,21 +3,29 @@ if (typeof require === "function") var parserTools = require("./parser-tools.js"
 if (typeof module !== "object") var module = {};
 
 module.exports = {
+    /**
+     * Create a text node
+     * @param {string} content The content of the text node
+     * @returns {FakeDomNode} A #text node 
+     */
     createTextNode(content) {
         return new FakeDomNode("#text", content === undefined ? "undefined" : content.toString());
     },
+    /**
+     * Create a given HTML node
+     * @param {string} tag The tagName of the object to be created.
+     * @returns {FakeDomNode} A node. 
+     */
     createElement: function (tag) {
         return new FakeDomNode(tag);
     },
 
     parseHTML: parseHTML,
-    makeDocument: makeDocument
+    makeDocument: makeDocument,
 };
 
 /**
- * @typedef FakeDomNode
- * @property 
- * 
+ * @typedef {FakeDomNode} FakeDomNode
  */
 
 function FakeDomNode(tag, value) {
@@ -27,6 +35,7 @@ function FakeDomNode(tag, value) {
     if (tag == "#text") this.value = value;
 
     this.parentNode = null;
+    /**@type {FakeDomNode[]} */
     this.childNodes = [];
     this.attributes = {
         get style() {
@@ -270,6 +279,12 @@ FakeDomNode.prototype.getElementsByClassName = function (className) {
 
     return children;
 };
+/**
+ * 
+ * @param {string} property A property
+ * @param {string} value A value 
+ * @returns {FakeDomNode[]} All child nodes with the specified value in the specified property.
+ */
 FakeDomNode.prototype.getElementsByPropertyValue = function (property, value) {
     let children = this.childNodes.filter(node => {
         return (node.attributes[property]||"") == value;
@@ -281,6 +296,11 @@ FakeDomNode.prototype.getElementsByPropertyValue = function (property, value) {
 
     return children;
 };
+/**
+ * Find an element by its ID
+ * @param {string} id ID to search for
+ * @returns {FakeDomNode} The node with the specified ID, or `null`
+ */
 FakeDomNode.prototype.getElementById = function (id) {
     let child = this.childNodes.find(node => {
         return node.attributes.id == id;
@@ -292,6 +312,7 @@ FakeDomNode.prototype.getElementById = function (id) {
         var search = this.childNodes[i].getElementById(id);
         if(search) return search;
     }
+    return null;
 };
 FakeDomNode.prototype.getAttribute = function (attr) {
     return this.attributes[attr];
@@ -364,20 +385,34 @@ function parseHTML(str) {
         switch (context) {
             case "base":
                 if (str[i] == "<") {
-                    if (isLetter(str[i + 1]) || str[i + 1] == "!") {
-                        add(new FakeDomNode("#text", parseCharacterEntities(content)));
-                        content = "";
+                    //if it's an unsyntaxed element, it *cannot* have children. The only working closing tag is itself
+                    if(stack.length && isUnsyntaxedElement(stack[stack.length - 1].nodeName)) {
+                        var closer = `</${stack[stack.length - 1].nodeName}`;
+                        if(str.startsWith(closer, i)) {
+                            add(new FakeDomNode("#text", parseCharacterEntities(content)));
+                            content = "";
 
-                        context = "open_tag";
-                    } else if (str[i + 1] == "/") {
-                        add(new FakeDomNode("#text", parseCharacterEntities(content)));
-                        content = "";
-
-                        currentCloseTag = "";
-                        context = "close_tag";
+                            currentCloseTag = "";
+                            context = "close_tag";
+                        } else {
+                            content += str[i];
+                        }
                     } else {
-                        content += str[i];
-                    }
+                        if (isLetter(str[i + 1]) || str[i + 1] == "!") {
+                            add(new FakeDomNode("#text", parseCharacterEntities(content)));
+                            content = "";
+
+                            context = "open_tag";
+                        } else if (str[i + 1] == "/") {
+                            add(new FakeDomNode("#text", parseCharacterEntities(content)));
+                            content = "";
+
+                            currentCloseTag = "";
+                            context = "close_tag";
+                        } else {
+                            content += str[i];
+                        }
+                    } 
                 } else {
                     content += str[i];
                 }
@@ -507,4 +542,8 @@ function isSelfClosingTag(tagName) {
         "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta",
         "param", "source", "track", "wbr", "command", "keygen",
         "menuitem", "!doctype"].includes(tagName.toLowerCase());
+}
+
+function isUnsyntaxedElement(tagName) {
+    return ["style", "script"].includes(tagName.toLowerCase());
 }

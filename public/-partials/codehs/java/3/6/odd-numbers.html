@@ -10,13 +10,13 @@
                 {
                     //Ask user to enter 2 positive integers
                     Scanner input  = new Scanner(System.in);
-                    System.out.println("Enter 2 positive integers");
+                    System.out.println(&quot;Enter 2 positive integers&quot;);
                     int num1 = input.nextInt();
                     int num2 = input.nextInt();
                     
                     //Determine if both numbers are odd with bothOdd boolean
                     // Do NOT remove this line!
-                    boolean bothOdd = num1 % 2 != 0 && num2 % 2 != 0;
+                    boolean bothOdd = num1 % 2 != 0 &amp;&amp; num2 % 2 != 0;
                     
                     //ADD THE NEW LINE HERE
                     boolean bothOddDeMorgan = !(num1 % 2 == 0 || num2 % 2 == 0);
@@ -24,29 +24,29 @@
                     //Print out if both numbers are odd or not both odd
                     if (bothOdd)
                     {
-                       System.out.println("Both numbers are odd");
+                       System.out.println(&quot;Both numbers are odd&quot;);
                     }
                     else
                     {
-                        System.out.println("Both numbers are NOT odd.");
+                        System.out.println(&quot;Both numbers are NOT odd.&quot;);
                     }
                     
                     //Print out if both numbers are odd or not both odd
                     if (bothOddDeMorgan)
                     {
-                       System.out.println("Both numbers are odd with De Morgan's Laws.");
+                       System.out.println(&quot;Both numbers are odd with De Morgan&apos;s Laws.&quot;);
                     }
                     else
                     {
-                        System.out.println("Both numbers are NOT odd with DeMorgan's Laws.");
+                        System.out.println(&quot;Both numbers are NOT odd with DeMorgan&apos;s Laws.&quot;);
                     }
                     
                     //Check that both Boolean values evaluate to the same value
                     if(bothOdd == bothOddDeMorgan)
                     {
-                        System.out.println("DeMorgan was right, again!");
+                        System.out.println(&quot;DeMorgan was right, again!&quot;);
                     }
                }
             }
         </code>
-    
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"OddNumbers","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"input","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"in","type":"SimpleName"}}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Enter 2 positive integers\""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"num1","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"input","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"num2","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"input","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"bothOdd","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"InfixExpression","operator":"&&","leftOperand":{"type":"InfixExpression","operator":"!=","leftOperand":{"type":"InfixExpression","operator":"%","leftOperand":{"identifier":"num1","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"2"}},"rightOperand":{"type":"NumberLiteral","token":"0"}},"rightOperand":{"type":"InfixExpression","operator":"!=","leftOperand":{"type":"InfixExpression","operator":"%","leftOperand":{"identifier":"num2","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"2"}},"rightOperand":{"type":"NumberLiteral","token":"0"}}}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"bothOddDeMorgan","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"PrefixExpression","operator":"!","operand":{"type":"ParenthesizedExpression","expression":{"type":"InfixExpression","operator":"||","leftOperand":{"type":"InfixExpression","operator":"==","leftOperand":{"type":"InfixExpression","operator":"%","leftOperand":{"identifier":"num1","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"2"}},"rightOperand":{"type":"NumberLiteral","token":"0"}},"rightOperand":{"type":"InfixExpression","operator":"==","leftOperand":{"type":"InfixExpression","operator":"%","leftOperand":{"identifier":"num2","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"2"}},"rightOperand":{"type":"NumberLiteral","token":"0"}}}}}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"}},{"type":"IfStatement","elseStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Both numbers are NOT odd.\""}],"typeArguments":[]}}]},"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Both numbers are odd\""}],"typeArguments":[]}}]},"expression":{"identifier":"bothOdd","type":"SimpleName"}},{"type":"IfStatement","elseStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Both numbers are NOT odd with DeMorgan's Laws.\""}],"typeArguments":[]}}]},"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Both numbers are odd with De Morgan's Laws.\""}],"typeArguments":[]}}]},"expression":{"identifier":"bothOddDeMorgan","type":"SimpleName"}},{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"DeMorgan was right, again!\""}],"typeArguments":[]}}]},"expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"bothOdd","type":"SimpleName"},"rightOperand":{"identifier":"bothOddDeMorgan","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"util","type":"SimpleName"}},"name":{"identifier":"Scanner","type":"SimpleName"}},"static":false,"onDemand":false}]}};</script>

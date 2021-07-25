@@ -10,7 +10,7 @@ var sitemap = require(siteBase + "/build-scripts/sitemapper.js");
 var pages = loadHtmlFilesFromFolder(siteBase);
 
 for(var i = 0; i < pages.length; i++) {
-    var url = SITE_BASE_URL + (pages[i].replace(siteBase, "")).replace(new RegExp("\\" + path.sep, "g"), "/").replace(/\.html$/, "");
+    var url = SITE_BASE_URL + (pages[i].replace(siteBase, "")).replace(new RegExp("\\" + path.sep, "g"), "/").replace(/(index)?\.html$/, "");
     sitemap.add(url);
 }
 

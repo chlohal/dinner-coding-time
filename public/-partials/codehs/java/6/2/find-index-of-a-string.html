@@ -6,7 +6,7 @@
             {
                public static void main(String[] args)
                {
-                 System.out.println(MatchingString.findString("Karel"));
+                 System.out.println(MatchingString.findString(&quot;Karel&quot;));
                  
                }
             }
@@ -16,15 +16,15 @@
             public class MatchingString
             {
             
-                private static String[] arr = {"Hello", "Karel", "CodeHS!"};
+                private static String[] arr = {&quot;Hello&quot;, &quot;Karel&quot;, &quot;CodeHS!&quot;};
                 
                 public static int findString(String myString)
                 {
-                    for(int i = 0; i < arr.length; i++) {
+                    for(int i = 0; i &lt; arr.length; i++) {
                         if(arr[i].equals(myString)) return i;
                     }
                     return -1;
                 }
             }
         </code>
-    
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"MatchingStringTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"findString","type":"SimpleName"},"expression":{"identifier":"MatchingString","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Karel\""}],"typeArguments":[]}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"MatchingString","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"arr","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"ArrayInitializer","expressions":[{"type":"StringLiteral","escapedValue":"\"Hello\""},{"type":"StringLiteral","escapedValue":"\"Karel\""},{"type":"StringLiteral","escapedValue":"\"CodeHS!\""}]}}],"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[{"type":"Modifier","keyword":"private"},{"type":"Modifier","keyword":"static"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"myString","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"i","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"0"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":"<","leftOperand":{"identifier":"i","type":"SimpleName"},"rightOperand":{"type":"QualifiedName","qualifier":{"identifier":"arr","type":"SimpleName"},"name":{"identifier":"length","type":"SimpleName"}}},"updaters":[{"type":"PostfixExpression","operator":"++","operand":{"identifier":"i","type":"SimpleName"}}],"body":{"type":"Block","statements":[{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"ReturnStatement","expression":{"identifier":"i","type":"SimpleName"}},"expression":{"type":"MethodInvocation","arguments":[{"identifier":"myString","type":"SimpleName"}],"name":{"identifier":"equals","type":"SimpleName"},"typeArguments":[],"expression":{"type":"ArrayAccess","array":{"identifier":"arr","type":"SimpleName"},"index":{"identifier":"i","type":"SimpleName"}}}}]}},{"type":"ReturnStatement","expression":{"type":"PrefixExpression","operator":"-","operand":{"type":"NumberLiteral","token":"1"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"findString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

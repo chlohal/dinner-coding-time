@@ -11,7 +11,7 @@
         </script>
         <code id="source">
 
-user_number= int(input("Pick a number from 1-10?:"))
+user_number= int(input(&quot;Pick a number from 1-10?:&quot;))
 secret_number=7
 def draw_checkmark():
     penup()
@@ -19,18 +19,18 @@ def draw_checkmark():
     right(90)
     pendown()
     pensize(15)
-    color("green")
+    color(&quot;green&quot;)
     left(45)
     forward(50)
     left(90)
     forward(100)
     penup()
 draw_checkmark()
-if user_number < 5:
+if user_number &lt; 5:
     circle(50)
-elif count > 5:
+elif count &gt; 5:
     circle(50,360,4)
 else:
     forward(50)
         </code>
-    
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"Program","body":[{"type":"BlankLine"},{"type":"BlankLine"},{"type":"AssignmentExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"user_number"}},"asgn":{"type":"Value","value":{"type":"Identifier","value":"int"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"Identifier","value":"input"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"StringLiteral","value":"\"Pick a number from 1-10?:\""}}}]}}]}}]}}]}},{"type":"BlankLine"},{"type":"AssignmentExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"secret_number"}},"asgn":{"type":"Value","value":{"type":"NumericLiteral","value":"7"}}},{"type":"BlankLine"},{"type":"FunctionDefinition","parameters":{"type":"Parameters","params":[]},"typeType":null,"body":{"type":"Suite","body":[{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"penup"},"trailers":[{"type":"FunctionCallerParams","args":null}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"backward"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"50"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"right"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"90"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"pendown"},"trailers":[{"type":"FunctionCallerParams","args":null}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"pensize"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"15"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"color"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"StringLiteral","value":"\"green\""}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"left"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"45"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"forward"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"50"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"left"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"90"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"forward"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"100"}}}]}}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"penup"},"trailers":[{"type":"FunctionCallerParams","args":null}]}},{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"draw_checkmark"},"trailers":[{"type":"FunctionCallerParams","args":null}]}}]},"name":{"type":"Identifier","value":"draw_checkmark"}},{"type":"IfStatement","body":{"type":"Suite","body":[{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"circle"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"50"}}}]}}]}}]},"test":{"type":"Comparison","left":{"type":"Value","value":{"type":"Identifier","value":"user_number"}},"right":[{"operator":"<","right":{"type":"Value","value":{"type":"NumericLiteral","value":"5"}}}]},"elifBlocks":[{"type":"ElifStatement","test":{"type":"Comparison","left":{"type":"Value","value":{"type":"Identifier","value":"count"}},"right":[{"operator":">","right":{"type":"Value","value":{"type":"NumericLiteral","value":"5"}}}]},"body":{"type":"Suite","body":[{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"circle"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"50"}}},{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"360"}}},{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"4"}}}]}}]}}]}}],"elseBlock":{"type":"Suite","body":[{"type":"ExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"forward"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"NumericLiteral","value":"50"}}}]}}]}},{"type":"BlankLine"}]}}]}};</script>

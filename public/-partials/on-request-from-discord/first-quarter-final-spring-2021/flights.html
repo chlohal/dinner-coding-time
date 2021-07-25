@@ -1,0 +1,67 @@
+
+<h1>Flights Miles and Points</h1>
+
+        <code id="source">
+            public class Flight {
+                private String departureCity;
+                private String destinationCity;
+                private double miles;
+                
+                public Flight(String departureCity, String destinationCity, double miles) {
+                    this.departureCity = departureCity;
+                    this.destinationCity = destinationCity;
+                    this.miles = miles;
+                }
+                
+                public double getMiles() {
+                    return miles;
+                }
+                public double creditCardPointsEarned() {
+                    double points = 0;
+                    
+                    if(miles &lt;= 500) {
+                        //for the first 500 miles, you just get 1 point per mile.
+                        points = miles;
+                    }
+                    else if(miles &lt;= 1500) {
+                        //here&apos;s where it starts getting tricky-- you need 500 (from the first 500 miles), plus 2*the remaining miles (so miles - 500)
+                        points = 500 + 2 * (miles - 500);
+                    }
+                    else {
+                        //same theory, just with 5 and 1500 instead of 2 and 500. add (500+((1500-500)*2))
+                        points = (500+1000*2) + 5 * (miles - 1500);
+                    }
+                    
+                    //maximum of 10000 points per flight; use Math.min method for that.
+                    return Math.min(10000, points);
+                }
+            }
+        </code>
+        <code id="source1">
+            public class FlightTester {
+                public static void main(String[] args) {
+                    //idk geography, idec if these are accurate
+                    Flight flight1 = new Flight(&quot;Boston&quot;, &quot;Tokyo&quot;, 3000);
+                    Flight flight2 = new Flight(&quot;New York City&quot;, &quot;Vancouver&quot;, 100);
+                    Flight flight3 = new Flight(&quot;Austin&quot;, &quot;San Diego&quot;, 700);
+                    
+                    //compute total flight miles &amp; points
+                    double totalMiles = 0;
+                    double totalPoints = 0;
+                    
+                    totalMiles += flight1.getMiles();
+                    totalPoints += flight1.creditCardPointsEarned();
+                    
+                    totalMiles += flight2.getMiles();
+                    totalPoints += flight2.creditCardPointsEarned();
+                    
+                    totalMiles += flight3.getMiles();
+                    totalPoints += flight3.creditCardPointsEarned();
+                    
+                    //print out totals
+                    System.out.println(&quot;Total Miles: &quot; + totalMiles);
+                    System.out.println(&quot;Total Points: &quot; + totalPoints);
+                }
+            }
+        </code>
+    
