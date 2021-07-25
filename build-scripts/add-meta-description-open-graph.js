@@ -11,6 +11,11 @@ module.exports = function(page) {
     if(source) {
         var text = source.textContent;
         description = text.substring(0, 160);
+    } else {
+        var paragraph = page.document.getElementsByTagName("p")[0];
+        if(paragraph) {
+            description = paragraph.textContent.substring(0, 160);
+        }
     }
 
     description = description.replace(/\r?\n\s+/, " ");
