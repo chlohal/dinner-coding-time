@@ -55,7 +55,7 @@ function FakeDomNode(tag, value) {
                 let styleName = styleKv[0];
                 let styleVal = styleKv[1];
 
-                self.style.setProperty(styleName, styleVal);
+                self.style.setProperty(styleName.trim(), styleVal.trim());
             }
         }
     };
