@@ -31,8 +31,6 @@ function loadObject(sha) {
 
     var shaPath = path.join(gitDirectory, "objects", folder, file);
 
-    if(!fs.existsSync(shaPath)) return {}
-
     var object = fs.readFileSync(shaPath);
 
     var objectData = zlib.inflateSync(object);
@@ -128,7 +126,7 @@ function treediff(newTree, oldTree, parentPath) {
             if (oldTree[oldTreeEqualIndex].sha != newTree[i].sha) {
                 if (newTree[i].isFile) {
                     differences.push(path.join(parentPath, name));
-                } else if (newTree[i].isDirectory) {
+                } else if (newTree[i].isDirectory && oldTree[oldTreeEqualIndex].isDirectory) {
                     var newChildTree = loadObject(newTree[i].sha);
                     var oldChildTree = loadObject(oldTree[oldTreeEqualIndex].sha);
                     var childPath = path.join(parentPath, newTree[i].name);
