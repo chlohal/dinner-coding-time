@@ -1,0 +1,19 @@
+
+<h1>5.1.5 Access for Employee Class</h1>
+
+        <code id="source">
+            public class Employee
+            {
+                private String name;
+                private int id;
+                private double salary;
+                
+                
+                public Employee(String _name, int _id, double _salary) {
+                    this.name = _name;
+                    this.id = (short)_id;
+                    this.salary = _salary;
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Employee","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"name","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"id","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"salary","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"double"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"_name","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"_id","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"_salary","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"double"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"_name","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"id","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"type":"CastExpression","typeType":{"type":"PrimitiveType","primitiveTypeCode":"short"},"expression":{"identifier":"_id","type":"SimpleName"}}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"salary","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"_salary","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Employee","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

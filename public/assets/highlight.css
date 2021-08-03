@@ -15,7 +15,7 @@
     color: #f777ec
 }
 
-.hljs-regexp, .hlast-string-literal, .hljs-string, .hljs-template-variable {
+.hljs-regexp, .hlast-string-literal, .hlast-multiline-string-literal, .hljs-string, .hljs-template-variable {
     color: #badb6e
 }
 
@@ -28,7 +28,7 @@
     color: #abcf57
 }
 
-.hlast-decimal-literal, .hlast-float-literal {
+.hlast-decimal-literal, .hlast-numeric-literal, .hlast-float-literal, .hlast-literal {
     color: #6edb9b
 }
 
@@ -51,13 +51,12 @@ span[data-nodepath$="method-declaration identifier"], span[data-nodepath$="const
 }
 
 span[data-nodepath$="method-invocation identifier"] {
-    color: #e46464
+    /*color: #e46464*/
 }
 
 .hljs-attr, .hljs-built_in, .hljs-builtin-name, .hljs-bullet, .hljs-link, .hljs-symbol, .hlast-primitive-type, .hlast-void {
     color: #6d9cbe
 }
-
 
 
 span[data-nodepath$="qualified-expression identifier"].capitalized {
@@ -138,11 +137,12 @@ span[data-nodepath$="class-or-interface-type-element identifier"] {
     background: #171825;
 }
 
-.hlast-block {
+.hlast-block, .hlast-suite {
     position: relative;
 }
 
-.hlast-block > .hlast[data-nodepath]::before {
+.hlast-block > .hlast[data-nodepath]::before,
+.hlast-suite > .hlast[data-nodepath]::before {
     position: absolute;
     content: "";
     top: 0;
@@ -151,6 +151,21 @@ span[data-nodepath$="class-or-interface-type-element identifier"] {
     width: 2ch;
     border-left:#4e5074 solid 1px;
     pointer-events: none;
+    z-index: 1;
+}
+
+.hlast-suite > .hlast-blank-line[data-nodepath]::after {
+    content: "⇒";
+    opacity: 0.65;
+    color: #32355c;
+    left: 0;
+    text-align: right;
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    border-right: #32355c 1px dotted;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #explain-tooltip {

@@ -15,41 +15,6 @@ var getUserStyle;
         document.head.appendChild(link);
     })();
 
-    (_global.createBreadcrumbs = function createBreadcrumbs() {
-        var header = document.querySelector("header");
-        var path = location.pathname.substring(1).split("/");
-
-        if(!header) return false;
-        
-        var skipOffset = 0;
-
-        for (var i = 0; i < path.length; i++) {
-            var childIndex = i * 2 + 2 - skipOffset;
-            var part;
-            
-            if(path[i] == "codingbat" || path[i-1] == "codingbat" || path[i] == "on-request-from-discord") {
-                skipOffset += 2;
-                continue;
-            }
-
-            if (header.children[childIndex]) part = header.children[childIndex];
-            else part = document.createElement("a");
-
-            part.textContent = path[i];
-            part.href = "/" + path.slice(0, i + 1).join("/");
-
-            if (!header.children[childIndex]) {
-                var sep = document.createElement("span");
-                sep.textContent = "/";
-                sep.classList.add("breadcrumb-separator");
-
-                header.appendChild(sep);
-                header.appendChild(part);
-            }
-        }
-
-    })();
-
     (_global.loadEditors = function loadEditors() {
         var pathWithHash = window.location.pathname + "#/tab-";
         
@@ -177,7 +142,7 @@ var getUserStyle;
 
             try {
 
-                executeDependencyFunction("hljs-worker.js", "highlightAuto", [sourceContent], function (data) {
+                executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [sourceContent], function (data) {
                     makeNumberedLinesTable(data.split("\n"), table);
                     ed.astHtmlSource = data;
                     ed.table.hidden = false;

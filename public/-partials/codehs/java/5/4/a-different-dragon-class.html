@@ -1,0 +1,60 @@
+
+<h1>5.4.7 A Different Dragon Class</h1>
+
+        
+<aside class="tip">
+    <h2>Tip</h2> You don&apos;t have to fill <code>DragonTester.java</code>; the autograder doesn&apos;t care about it.
+    You&apos;ll get a Completed mark either way.
+</aside>
+<code id="source">
+    public class DragonTester
+    {
+        public static void main(String[] args)
+        {
+            // Start here!
+        }
+    }
+    
+</code>
+<code id="source1">
+    public class Dragon 
+    {
+        private String name;
+        private int level;
+        private boolean canBreatheFire;
+        
+        public Dragon(String _name, int _level) {
+            this.level = _level;
+            this.name = _name;
+            this.canBreatheFire = level &gt;= 70;
+        }
+        
+        public String getName() {
+            return this.name;
+        }
+        
+        public int getLevel() {
+            return this.level;
+        }
+        
+        public boolean isFireBreather() {
+            return this.canBreatheFire;
+        }
+        
+        public void attack() {
+            System.out.println(canBreatheFire ? &quot;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;\n&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;\n&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;\n&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&quot; : &quot;~ ~ ~&quot;);
+        }
+        
+        public void gainExperience() {
+            this.canBreatheFire = (level+=10) &gt;= 70;
+        }
+        
+    
+        // String representation of the object
+        public String toString()
+        {
+            return &quot;Dragon is at level &quot; + level + &quot; and is named &quot; + name;
+        }
+    }
+</code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"DragonTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Dragon","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"name","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"level","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"canBreatheFire","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"_name","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"_level","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"level","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"_level","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"_name","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"canBreatheFire","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"level","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"70"}}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Dragon","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getName","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"level","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getLevel","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"canBreatheFire","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"isFireBreather","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"ConditionalExpression","expression":{"identifier":"canBreatheFire","type":"SimpleName"},"thenExpression":{"type":"StringLiteral","escapedValue":"\">>>>>>>>>>\\n>>>>>>>>>>>>>>\\n>>>>>>>>>>>>>>\\n>>>>>>>>>>\""},"elseExpression":{"type":"StringLiteral","escapedValue":"\"~ ~ ~\""}}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"attack","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"canBreatheFire","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"type":"InfixExpression","operator":">=","leftOperand":{"type":"ParenthesizedExpression","expression":{"type":"Assignment","operator":"+=","leftHandSide":{"identifier":"level","type":"SimpleName"},"rightHandSide":{"type":"NumberLiteral","token":"10"}}},"rightOperand":{"type":"NumberLiteral","token":"70"}}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"gainExperience","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Dragon is at level \""},"rightOperand":{"identifier":"level","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" and is named \""}},"rightOperand":{"identifier":"name","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

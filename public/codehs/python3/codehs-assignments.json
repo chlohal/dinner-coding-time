@@ -1,0 +1,2019 @@
+[
+    {
+        "name": "Intro to CS: Python Pretest",
+        "children": [
+            {
+                "name": "Intro to CS: Python 3 Pretest",
+                "children": [
+                    {
+                        "name": "About the Pretest",
+                        "type": "Notes"
+                    },
+                    {
+                        "name": "Mindsets",
+                        "type": "Survey"
+                    },
+                    {
+                        "name": "Knowledge & Skills: Python",
+                        "type": "Quiz"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Welcome",
+        "children": [
+            {
+                "name": "Welcome",
+                "children": [
+                    {
+                        "name": "1.1.1 Welcome",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "1.1.2 Welcome",
+                        "type": "Free Response"
+                    },
+                    {
+                        "name": "1.1.3 Course Content Overview",
+                        "type": "Video"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Introduction to Programming with Turtle Graphics",
+        "children": [
+            {
+                "name": "Intro to Python with Tracy the Turtle",
+                "children": [
+                    {
+                        "name": "2.1.1 Intro to Tracy",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.1.2 Intro to Tracy",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.1.3 Slinky",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.1.4 Stretched Slinky",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Tracy's Grid World",
+                "children": [
+                    {
+                        "name": "2.2.1 Tracy's Grid World",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.2.2 Tracy's Grid World",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.2.3 Dashed Line",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.2.4 Shorter Dashed Line",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.2.5 Caterpillar",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.2.6 Grid World Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Turning Tracy",
+                "children": [
+                    {
+                        "name": "2.3.1 Turning Tracy",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.3.2 Turning Tracy",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.3.3 Square",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.3.4 X and Y Axes",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.3.5 Rectangle",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.3.6 4 Columns",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "For Loops",
+                "children": [
+                    {
+                        "name": "2.4.1 For Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.4.2 For Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.4.3 Square Using Loops",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.4.4 Dotted Line",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.4.5 Row of Circles",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.4.6 4 Columns 2.0",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.4.7 Looping Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Turning Tracy Using Angles",
+                "children": [
+                    {
+                        "name": "2.5.1 Turning Tracy Using Angles",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.5.2 Turning Tracy Using Angles",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.5.3 Asterisk",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.5.4 Four Circles",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.5.5 Hexagon",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.5.6 'X' Marks the Spot",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.5.7 Circle Pyramid",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Comments",
+                "children": [
+                    {
+                        "name": "2.6.1 Comments",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.6.2 Comments",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.6.3 Four Circles with Comments",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.6.4 Circle Pyramid with Comments",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Naming Guidelines",
+                "children": [
+                    {
+                        "name": "2.7.1 Naming Guidelines",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.7.2 Naming Guidelines",
+                        "type": "Check for Understanding"
+                    }
+                ]
+            },
+            {
+                "name": "Functions",
+                "children": [
+                    {
+                        "name": "2.8.1 Functions",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.8.2 Functions",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.8.3 X and Y Axes with Hash Marks",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.8.4 Beaded Bracelet",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.8.5 Shape Stack",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.8.6 Functions Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Artistic Effects",
+                "children": [
+                    {
+                        "name": "2.9.1 Artistic Effects",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.9.2 Artistic Effects",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.9.3 Rainbow Octagon",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.9.4 Circle Square Triangle",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.9.5 Four Colored Triangles",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.9.6 Colorful Bracelet",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.9.7 Kid's Shapes Toy",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "Top Down Design",
+                "children": [
+                    {
+                        "name": "2.10.1 Top Down Design",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.10.2 Top Down Design",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.10.3 Bubble Wrap",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.10.4 Bubble Wrap 2.0",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.10.5 Sidewalk",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Variables",
+                "children": [
+                    {
+                        "name": "2.11.1 Variables",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.11.2 Variables",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.11.3 Increasing Length",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.11.4 Dartboard",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.11.5 Line of Increasing Blocks",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "User Input",
+                "children": [
+                    {
+                        "name": "2.12.1 User Input",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.12.2 User Input",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.12.3 Color Coded Increasing Length",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.12.4 Colored Dartboard",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.12.5 Four Corners",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.12.6 User Input Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Parameters",
+                "children": [
+                    {
+                        "name": "2.13.1 Parameters",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.13.2 Parameters",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.13.3 Concentric Circles",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.13.4 Colorful Caterpillar",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.13.5 Circle in a Square",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.13.6 Snowman",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Using i in For Loops",
+                "children": [
+                    {
+                        "name": "2.14.1 Using i in For Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.14.2 Using i in For Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.14.3 Geometry",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.14.4 Geometry 2.0",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Extended Loop Control",
+                "children": [
+                    {
+                        "name": "2.15.1 Extended Loop Control",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.15.2 Extended Loop Control",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.15.3 Square Swirl",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.15.4 Dartboard using i",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.15.5 Phone Signal",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.15.6 Master of i Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "If Statements",
+                "children": [
+                    {
+                        "name": "2.16.1 If Statements",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.16.2 If Statements",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.16.3 X and Y Axis with Bolded Marks",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.16.4 Happy Face",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.16.5 Black and White Squares",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "If/ Else Statements",
+                "children": [
+                    {
+                        "name": "2.17.1 If/Else Statements",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.17.2 If/Else Statements",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.17.3 Positive, Negative, Zero",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.17.4 Rating",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.17.5 Happy/ Sad Face",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "While Loops",
+                "children": [
+                    {
+                        "name": "2.18.1 While Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.18.2 While Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.18.3 Increasing Circles",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.18.4 Increasing Squares",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.18.5 Guess a Number",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.18.6 Conditionals Badge",
+                        "type": "Badge"
+                    },
+                    {
+                        "name": "2.18.7 Mindset Survey 1",
+                        "type": "Survey"
+                    }
+                ]
+            },
+            {
+                "name": "Putting Together Control Structures",
+                "children": [
+                    {
+                        "name": "2.19.1 Putting Together Control Structures",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "2.19.2 Putting Together Control Structures",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "2.19.3 Block Pyramid",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "2.19.4 Guess a Number 2.0",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.19.5 Circle Pyramid 2.0",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "2.19.6 Checkerboard",
+                        "type": "Challenge"
+                    },
+                    {
+                        "name": "2.19.7 Tracy the Turtle Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Intro to Programming with Turtle Graphics Quiz",
+                "children": [
+                    {
+                        "name": "2.20.1 Intro to Programming with Turtle Graphics Quiz",
+                        "type": "Quiz"
+                    },
+                    {
+                        "name": "2.20.2 Intro to Programming with Turtle Graphics Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Basic Python and Console Interaction",
+        "children": [
+            {
+                "name": "Printing in Python",
+                "children": [
+                    {
+                        "name": "3.1.1 Printing in Python",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.1.2 Printing in Python",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.1.3 Hello, world!",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.1.4 Printing Multiple Lines",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.1.5 Introduce Yourself",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.1.6 Fix This Program!",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "3.1.7 Vertical name",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Variables and Types",
+                "children": [
+                    {
+                        "name": "3.2.1 Variables and Types",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.2.2 Variables and Types",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.2.3 Variables in Action",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.2.4 Variable Types",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.2.5 Variable Naming",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.2.6 Make Some Variables!",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.2.7 Undefined Variables",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "3.2.8 Variables Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "User Input",
+                "children": [
+                    {
+                        "name": "3.3.1 User Input",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.3.2 User Input",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.3.3 Basic User Input",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.3.4 Type Conversion",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.3.5 Type Conversion, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.3.6 Hello <name>",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.3.7 Age",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Mathematical Operators",
+                "children": [
+                    {
+                        "name": "3.4.1 Mathematical Operators",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.4.2 Mathematical Operators",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.4.3 Operators and Integers",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.4.4 Operator Precedence",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.4.5 Add Parentheses",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.4.6 Division in Python",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.4.7 Operators and Floats",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.4.8 Rectangle",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "String Operators",
+                "children": [
+                    {
+                        "name": "3.5.1 String Operators",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.5.2 String Operators",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.5.3 Operators and Strings",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.5.4 Fix This Program",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "3.5.5 Team Sizes",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.5.6 Introduce Yourself, Part 2",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.5.7 Rectangle, Part 2",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.5.8 Rectangle, Part 3",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "3.5.9 Recipe",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "Comments",
+                "children": [
+                    {
+                        "name": "3.6.1 Comments",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "3.6.2 Comments",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "3.6.3 Commented Program",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.6.4 Trapezoid",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "3.6.5 Add Comments!",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Basic Python and Console Interaction Quiz",
+                "children": [
+                    {
+                        "name": "3.7.1 Basic Python and Console Interaction Quiz",
+                        "type": "Unit Quiz"
+                    },
+                    {
+                        "name": "3.7.2 Basic Python and Console Interaction Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Conditionals",
+        "children": [
+            {
+                "name": "Booleans",
+                "children": [
+                    {
+                        "name": "4.1.1 Booleans",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "4.1.2 Booleans",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "4.1.3 Boolean Variables",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.1.4 Fix This Program",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "4.1.5 Plants",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "If Statements",
+                "children": [
+                    {
+                        "name": "4.2.1 If Statements",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "4.2.2 If Statements",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "4.2.3 Your First If Statement",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.2.4 If/Else Statement",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.2.5 Fix This Program",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "4.2.6 Is It Raining?",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.2.7 Conditional Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Comparison Operators",
+                "children": [
+                    {
+                        "name": "4.3.1 Comparison Operators",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "4.3.2 Comparison Operators",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "4.3.3 Comparison Operators",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.3.4 High Jump",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.3.5 Roller Coaster",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.3.6 Old Enough to Vote?",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.3.7 Positive, Zero, or Negative?",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.3.8 Age Group",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.3.9 Table Reservation",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.3.10 Transaction",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "Logical Operators",
+                "children": [
+                    {
+                        "name": "4.4.1 Logical Operators",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "4.4.2 Logical Operators",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "4.4.3 Logical Operators",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.4.4 Administrators, Teachers, and Students",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.4.5 Presidential Eligibility",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "4.4.6 Presidential Eligibility- Extended",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "Floating Point Numbers and Rounding",
+                "children": [
+                    {
+                        "name": "4.5.1 Floating Point Numbers and Rounding",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "4.5.2 Floating Point Numbers and Rounding",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "4.5.3 Rounding Error",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "4.5.4 Correct Portion",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Conditionals Quiz",
+                "children": [
+                    {
+                        "name": "4.6.1 Conditionals Quiz",
+                        "type": "Unit Quiz"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Looping",
+        "children": [
+            {
+                "name": "While Loops",
+                "children": [
+                    {
+                        "name": "5.1.1 While Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "5.1.2 While Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "5.1.3 Guess My Number",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.1.4 Program Tracing",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.1.5 Program Tracing, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.1.6 2 Through 20 Even",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.1.7 Divisibility",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "For Loops",
+                "children": [
+                    {
+                        "name": "5.2.1 For Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "5.2.2 For Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "5.2.3 Print 10 Numbers",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.2.4 1 Through 10, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.2.5 Counting 10 to 100 by Tens",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.2.6 Running Total",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.2.7 Running Total, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.2.8 Average Test Score",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.2.9 How Many Names?",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.2.10 Loops Badge",
+                        "type": "Badge"
+                    },
+                    {
+                        "name": "5.2.11 Mindset Survey 2",
+                        "type": "Survey"
+                    }
+                ]
+            },
+            {
+                "name": "Break and Continue",
+                "children": [
+                    {
+                        "name": "5.3.1 Break and Continue",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "5.3.2 Break and Continue",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "5.3.3 Break",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.3.4 Continue",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.3.5 Bike Frame Size",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.3.6 Loop and a Half",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.3.7 Higher/ Lower",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.3.8 Higher / Lower 2.0",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "Nested Control Structures",
+                "children": [
+                    {
+                        "name": "5.4.1 Nested Control Structures",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "5.4.2 Nested Control Structures",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "5.4.3 Double For Loop",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.4.4 Average Test Score, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.4.5 For Loop + While Loop",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "5.4.6 Rolling Dice",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "5.4.7 Categories",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Looping Quiz",
+                "children": [
+                    {
+                        "name": "5.5.1 Looping Unit Test",
+                        "type": "Unit Quiz"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Functions and Exceptions",
+        "children": [
+            {
+                "name": "Functions",
+                "children": [
+                    {
+                        "name": "6.1.1 Functions",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "6.1.2 Functions",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "6.1.3 Greeting",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.1.4 Extended Greeting",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.1.5 Weather",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Functions and Parameters",
+                "children": [
+                    {
+                        "name": "6.2.1 Functions and Parameters",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "6.2.2 Functions and Parameters",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "6.2.3 Print a Value",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.2.4 Name and Age",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.2.5 Print Product",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.2.6 Print Multiple Times",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.2.7 Default Parameter Values",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.2.8 Area of a Square with Default Parameters",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Namespaces in Functions",
+                "children": [
+                    {
+                        "name": "6.3.1 Namespaces in Functions",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "6.3.2 Namespaces in Functions",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "6.3.3 Functions and Variables",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.3.4 Functions and Variables, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.3.5 Fix This Program!",
+                        "type": "Debugging"
+                    },
+                    {
+                        "name": "6.3.6 Adding to a Value",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.3.7 Add, Subtract, or Multiply",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Functions and Return Values",
+                "children": [
+                    {
+                        "name": "6.4.1 Functions and Return Values",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "6.4.2 Functions and Return Values",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "6.4.3 Return 10",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.4.4 Add One",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.4.5 Negate",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.4.6 Functions Calling Functions",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.4.7 Function Calls As Parameters",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.4.8 Sum Two Numbers",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.4.9 Temperature Converter",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.4.10 Functions Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Exceptions",
+                "children": [
+                    {
+                        "name": "6.5.1 Exceptions",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "6.5.2 Exceptions",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "6.5.3 Enter a Number",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.5.4 Enter Name and Age",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "6.5.5 Temperature Converter, Part 2",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "6.5.6 Enter a Positive Number",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Functions & Exceptions Quiz",
+                "children": [
+                    {
+                        "name": "6.6.1 Functions and Exceptions Quiz",
+                        "type": "Unit Quiz"
+                    },
+                    {
+                        "name": "6.6.2 Control Flow Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Strings",
+        "children": [
+            {
+                "name": "Indexing",
+                "children": [
+                    {
+                        "name": "7.1.1 Indexing",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.1.2 Indexing",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.1.3 Characters in a String",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.1.4 Unit Tests",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.1.5 Initials",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.1.6 Sandwich Sandwiches",
+                        "type": "Practice"
+                    }
+                ]
+            },
+            {
+                "name": "Slicing",
+                "children": [
+                    {
+                        "name": "7.2.1 Slicing",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.2.2 Slicing",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.2.3 Groups of Characters",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.2.4 String Collage",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.2.5 Room Names",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.2.6 If You're Not First, You're Last",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.2.7 Part 1, Replace a Letter",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.2.8 Part 2, Replace a Letter",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.2.9 Slicing Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Immutability",
+                "children": [
+                    {
+                        "name": "7.3.1 Immutability",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.3.2 Immutability",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.3.3 String Immutability",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.3.4 Find the Error",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Strings and For Loops",
+                "children": [
+                    {
+                        "name": "7.4.1 Strings and For Loops",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.4.2 Strings and For Loops",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.4.3 The len Function",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.4.4 Length of User's Name",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.4.5 String For Loop with Indices",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.4.6 String For Loop with Characters",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.4.7 Spelling Bee",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "7.4.8 Keeping Count",
+                        "type": "Practice"
+                    }
+                ]
+            },
+            {
+                "name": "The in Keyword",
+                "children": [
+                    {
+                        "name": "7.5.1 The in Keyword",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.5.2 The in Keyword",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.5.3 Contains a Letter",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.5.4 Contains a Substring",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.5.5 Contains a Vowel",
+                        "type": "Practice"
+                    }
+                ]
+            },
+            {
+                "name": "String Methods",
+                "children": [
+                    {
+                        "name": "7.6.1 String Methods",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "7.6.2 String Methods",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "7.6.3 upper and lower",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.6.4 ENTHUSIASM!",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.6.5 swapcase",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.6.6 strip",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.6.7 find",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "7.6.8 What's in a Name?",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.6.9 Part 1, Remove All From String",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "7.6.10 Part 2, Remove All From String",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "7.6.11 Mindset Survey 3",
+                        "type": "Survey"
+                    }
+                ]
+            },
+            {
+                "name": "Strings Quiz",
+                "children": [
+                    {
+                        "name": "7.7.1 Strings Quiz",
+                        "type": "Unit Quiz"
+                    },
+                    {
+                        "name": "7.7.2 Strings Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Creating and Altering Data Structures",
+        "children": [
+            {
+                "name": "Tuples",
+                "children": [
+                    {
+                        "name": "8.1.1 Tuples",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "8.1.2 Tuples",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "8.1.3 A Tuple Is a Sequence",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.1.4 A Tuple is Heterogenous",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.1.5 Tuples With a Single Element",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.1.6 Concatenating Tuples",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.1.7 Fix This Tuple",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "8.1.8 Citation",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.1.9 Diving Contest",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.1.10 Coordinate Pairs",
+                        "type": "Practice"
+                    }
+                ]
+            },
+            {
+                "name": "Lists",
+                "children": [
+                    {
+                        "name": "8.2.1 Lists",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "8.2.2 Lists",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "8.2.3 A List Is Like a Mutable Tuple",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.2.4 String <--> List",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.2.5 Spell It Out",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.2.6 Splitting a String",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.2.7 Listed Greeting",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.2.8 List of Tuples, Tuples of Lists",
+                        "type": "Example"
+                    }
+                ]
+            },
+            {
+                "name": "For Loops and Lists",
+                "children": [
+                    {
+                        "name": "8.3.1 For Loops and Lists",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "8.3.2 For Loops and Lists",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "8.3.3 For Loops and Lists",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.3.4 For Loops and Lists, Part 2",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.3.5 Max In List",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.3.6 Owls",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.3.7 Exclamat!on Po!nts",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.3.8 Word Ladder",
+                        "type": "Challenge"
+                    },
+                    {
+                        "name": "8.3.9 Owls, Part 2",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "List Methods",
+                "children": [
+                    {
+                        "name": "8.4.1 List Methods",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "8.4.2 List Methods",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "8.4.3 append and extend",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.4.4 How Many Names?",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "8.4.5 Five Numbers",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "8.4.6 sort",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.4.7 Librarian",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "8.4.8 reverse",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.4.9 count",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.4.10 remove",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "8.4.11 Take a Thing Out, Sort It and Reverse It",
+                        "type": "Practice"
+                    },
+                    {
+                        "name": "8.4.12 Librarian, Part 2",
+                        "type": "Challenge"
+                    },
+                    {
+                        "name": "8.4.13 Lists Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Creating and Altering Data Structures Quiz",
+                "children": [
+                    {
+                        "name": "8.5.1 Creating and Altering Data Structures Quiz",
+                        "type": "Unit Quiz"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extending Data Structures",
+        "children": [
+            {
+                "name": "2d Lists",
+                "children": [
+                    {
+                        "name": "9.1.1 2d Lists",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "9.1.2 2d Lists",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "9.1.3 A List of Lists",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.1.4 Grid",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.1.5 2d Lists and Slices",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.1.6 Checkerboard, v1",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.1.7 Checkerboard, v2",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.1.8 Checkerboard, v3",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.1.9 Tic Tac Toe",
+                        "type": "Challenge"
+                    }
+                ]
+            },
+            {
+                "name": "List Comprehensions",
+                "children": [
+                    {
+                        "name": "9.2.1 List Comprehensions",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "9.2.2 List Comprehensions",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "9.2.3 List of Consecutive Numbers",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.2.4 List of Squares",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.2.5 Divisible by 3",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.2.6 Digits of Pi",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.2.7 List of Booleans",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.2.8 Last Names",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.2.9 Strings To Integers",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.2.10 Mindset Survey 4",
+                        "type": "Survey"
+                    }
+                ]
+            },
+            {
+                "name": "Packing and Unpacking",
+                "children": [
+                    {
+                        "name": "9.3.1 Packing and Unpacking",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "9.3.2 Packing and Unpacking",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "9.3.3 Packing",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.3.4 Unpacking",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.3.5 Unpacking Parameters",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.3.6 Coordinate Pair",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.3.7 Slopes",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.3.8 Swapping",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.3.9 Full Name & Citation",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.3.10 Packing Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Dictionaries",
+                "children": [
+                    {
+                        "name": "9.4.1 Dictionaries",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "9.4.2 Dictionaries",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "9.4.3 Keys and Values",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.4.4 The in Keyword",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.4.5 Phone Book",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.4.6 Word Counts",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Equivalence vs. Identity",
+                "children": [
+                    {
+                        "name": "9.5.1 Equivalence vs. Identity",
+                        "type": "Video"
+                    },
+                    {
+                        "name": "9.5.2 Equivalence vs. Identity",
+                        "type": "Check for Understanding"
+                    },
+                    {
+                        "name": "9.5.3 Equivalence vs. Identity - Mutables",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.5.4 Equivalence vs. Identity - Immutables",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.5.5 Identity and Parameters",
+                        "type": "Example"
+                    },
+                    {
+                        "name": "9.5.6 Swapping",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "9.5.7 Word Counts, Part 2",
+                        "type": "Exercise"
+                    }
+                ]
+            },
+            {
+                "name": "Extending Data Structures Quiz",
+                "children": [
+                    {
+                        "name": "9.6.1 Extending Data Structures Quiz",
+                        "type": "Unit Quiz"
+                    },
+                    {
+                        "name": "9.6.2 Data Structures Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Project: Guess the Word",
+        "children": [
+            {
+                "name": "Project: Guess the Word",
+                "children": [
+                    {
+                        "name": "10.1.1 Guess the Word Demo",
+                        "type": "Demo"
+                    },
+                    {
+                        "name": "10.1.2 Guess the Word, Part 1",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "10.1.3 Guess the Word, Part 2",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "10.1.4 Guess the Word, Part 3",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "10.1.5 Guess the Word, Part 4",
+                        "type": "Exercise"
+                    },
+                    {
+                        "name": "10.1.6 Guess the Word Badge",
+                        "type": "Badge"
+                    }
+                ]
+            },
+            {
+                "name": "Intro to Computer Science in Python Completed",
+                "children": [
+                    {
+                        "name": "10.2.1 Intro to Computer Science in Python Badge",
+                        "type": "Badge"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Final Exam",
+        "children": [
+            {
+                "name": "Final Exam",
+                "children": [
+                    {
+                        "name": "11.1.1 Final Exam Pt 1: Multiple Choice",
+                        "type": "Midterm"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Intro to CS: Python Posttest",
+        "children": [
+            {
+                "name": "Intro to CS: Python Posttest",
+                "children": [
+                    {
+                        "name": "About the Posttest",
+                        "type": "Notes"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,44 @@
+
+<h1>5.7.5 Randomizer Class</h1>
+
+        <code id="source">
+            public class RandomizerTester
+{
+    public static void main(String[] args)
+    {
+    
+        System.out.println(&quot;Results of Randomizer.nextInt()&quot;);
+        for(int i = 0; i &lt; 10; i++)
+        {
+            System.out.println(Randomizer.nextInt());
+        }
+       
+        //Initialize min and max for Randomizer.nextInt(min,max)
+        int min = 5;
+        int max = 10;
+        System.out.println(&quot;\nResults of Randomizer.nextInt(5,10)&quot;);
+        for(int i = 0; i &lt; 10; i++)
+        {
+            System.out.println(Randomizer.nextInt(min ,max));
+        }
+        
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class Randomizer
+            {
+                public static int nextInt()
+                {
+                    //Implement this method to return a random number from 1-10
+                    return (int) (Math.random() * 10) + 1;
+                }
+                
+                public static int nextInt(int min, int max)
+                {
+                    return (int) (Math.random() * (max - min + 1)) + min;
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"RandomizerTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Results of Randomizer.nextInt()\""}],"typeArguments":[]}},{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"i","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"0"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":"<","leftOperand":{"identifier":"i","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"10"}},"updaters":[{"type":"PostfixExpression","operator":"++","operand":{"identifier":"i","type":"SimpleName"}}],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"Randomizer","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"typeArguments":[]}}]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"min","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"5"}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"max","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"10"}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"\\nResults of Randomizer.nextInt(5,10)\""}],"typeArguments":[]}},{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"i","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"0"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":"<","leftOperand":{"identifier":"i","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"10"}},"updaters":[{"type":"PostfixExpression","operator":"++","operand":{"identifier":"i","type":"SimpleName"}}],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"Randomizer","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"min","type":"SimpleName"},{"identifier":"max","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}}]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Randomizer","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"CastExpression","typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"expression":{"type":"ParenthesizedExpression","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"name":{"identifier":"random","type":"SimpleName"},"expression":{"identifier":"Math","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]},"rightOperand":{"type":"NumberLiteral","token":"10"}}}},"rightOperand":{"type":"NumberLiteral","token":"1"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"nextInt","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"min","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"max","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"CastExpression","typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"expression":{"type":"ParenthesizedExpression","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"name":{"identifier":"random","type":"SimpleName"},"expression":{"identifier":"Math","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]},"rightOperand":{"type":"ParenthesizedExpression","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"-","leftOperand":{"identifier":"max","type":"SimpleName"},"rightOperand":{"identifier":"min","type":"SimpleName"}},"rightOperand":{"type":"NumberLiteral","token":"1"}}}}}},"rightOperand":{"identifier":"min","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"nextInt","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

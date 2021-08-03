@@ -1,0 +1,38 @@
+
+<h1>5.7.7 How Many Players in the Game?</h1>
+
+        <aside class="tip">
+            <h2>JSYK</h2>
+            <p>You don&apos;t have to fill in <code>PlayerTester</code> at all; the auto-grader doesn&apos;t care about it. You&apos;ll be approved either way!</p>
+        </aside>
+
+        <code id="source">
+            public class PlayerTester
+            {
+                public static void main(String[] args)
+                {
+                    // Test out the Player class here!
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Player 
+            {
+                // Static Variables
+                // ...
+                public static int totalPlayers = 0;
+                public static int maxPlayers = 10;
+                
+                // Public Methods
+                public Player() 
+                {
+                    totalPlayers++;
+                }
+                
+                public static boolean gameFull() {
+                    return totalPlayers &gt;= maxPlayers;
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"PlayerTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Player","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"totalPlayers","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"0"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"maxPlayers","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"10"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"PostfixExpression","operator":"++","operand":{"identifier":"totalPlayers","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Player","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"totalPlayers","type":"SimpleName"},"rightOperand":{"identifier":"maxPlayers","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"gameFull","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

@@ -1,0 +1,17 @@
+
+<h1>4.2.8 Replace WHILE with FOR Loop</h1>
+
+        <code id="source">
+            public class Countdown
+            {
+                public static void main(String[] args)
+                {
+                    // Run this code first to see what is does. 
+                    // Replace the while loop with an equivalent for loop.
+                    for(int x = 10; x &gt; 0; x--) {
+                        System.out.println(x);
+                    }
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Countdown","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"x","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"10"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":">","leftOperand":{"identifier":"x","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"0"}},"updaters":[{"type":"PostfixExpression","operator":"--","operand":{"identifier":"x","type":"SimpleName"}}],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"x","type":"SimpleName"}],"typeArguments":[]}}]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

@@ -24,14 +24,21 @@
         var li = document.createElement("li");
 
         var link = document.createElement("a");
-        link.href = "/contribute" + href;
+        link.href = "/contribute/edit/exercise" + href;
         link.textContent = getTitleFromHref(href);
         li.appendChild(link);
 
         return li;
     }
     function getTitleFromHref(href) {
-        return /\d+-\d+-\d+$/.exec(href)[0].replace(/-/g, ".");
+        var terms = href.split("/");
+        return "Chapter " + terms[3] + ", section " + terms[4] + ": " + snakeToTitle(terms[terms.length - 1]);
+    }
+
+    function snakeToTitle(str) {
+        return str.split("-").map(function(x) {
+            return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
+        }).join(" ");
     }
 
     (function randomizeNewNamePlaceholder() {
@@ -70,9 +77,10 @@
         document.getElementById("new-assignment-submit-button").addEventListener("click", function () {
             var folderInput = document.getElementById("new-assignment-folder-input");
             var nameInput = document.getElementById("new-assignment-name-input");
+            var typeInput = document.getElementById("new-assignment-type-input");
 
             if (!folderInput.validity.patternMismatch && !nameInput.validity.patternMismatch && folderInput.value != "" && nameInput.value != "") {
-                window.location = ("/contribute/" + folderInput.value + "/" + nameInput.value);
+                window.location = ("/contribute/edit/" + typeInput.options[typeInput.selectedIndex].value + "/" + folderInput.value + "/" + nameInput.value);
             }
         });
     })();
@@ -85,9 +93,9 @@
         var folderInputValidityMessage = document.getElementById("new-assignment-folder-errorlabel");
         var nameInputValidityMessage = document.getElementById("new-assignment-name-errorlabel");
 
-        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "versioned", "well-known", "partials", "folder", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "shorten", "discord", "about", "legal", "redirect"];
+        var reservedFolderKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "versioned", "well-known", "partials", "-partials", "folder", "public", "netlify", "robots", "index", "api", "contribute", "login", "private", "count", "pub", "p", "s", "shorten", "discord", "about", "legal", "redirect"];
         
-        var reservedNameKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "partials", "index", "contribute", "login", "pub", "p", "s", "redirect"];
+        var reservedNameKeywords = ["di" + "n".repeat(2) + "ee" + "n", "assets", "index", "contribute", "login", "pub", "p", "s", "redirect"];
 
         function checkValidity() {
 

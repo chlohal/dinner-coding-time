@@ -1,0 +1,47 @@
+
+<h1>5.6.5 Distance Conversions</h1>
+
+        <code id="source">
+            public class DistanceTester
+            {
+                public static void main(String[] args)   
+                {
+                    Distance milesFromSchool = new Distance(5.0);
+                    Distance milesFromPark = new Distance(10.0);
+                    Distance milesFromFriend = new Distance(12.0);
+                    
+                    System.out.println(milesFromSchool.toYards());
+                    System.out.println(milesFromPark.toKilometers());
+                    System.out.println(milesFromFriend.toFeet());
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Distance
+{
+    private double miles;
+    
+    public Distance(double startMiles) {
+        this.miles = startMiles;
+    }
+    
+    public double toKilometers() {
+        return miles / 0.62137;
+    }
+    
+    public double toYards() {
+        return miles * 1760;
+    }
+    
+    public double toFeet() {
+        return miles * 5280;
+    }
+    
+    public double getMiles() {
+        return miles;
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"DistanceTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"milesFromSchool","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"NumberLiteral","token":"5.0"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"milesFromPark","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"NumberLiteral","token":"10.0"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"milesFromFriend","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"NumberLiteral","token":"12.0"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Distance","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"toYards","type":"SimpleName"},"expression":{"identifier":"milesFromSchool","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"toKilometers","type":"SimpleName"},"expression":{"identifier":"milesFromPark","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"toFeet","type":"SimpleName"},"expression":{"identifier":"milesFromFriend","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Distance","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"miles","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"double"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"startMiles","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"double"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"miles","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"startMiles","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Distance","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"/","leftOperand":{"identifier":"miles","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"0.62137"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"double"},"name":{"identifier":"toKilometers","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"identifier":"miles","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"1760"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"double"},"name":{"identifier":"toYards","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"identifier":"miles","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"5280"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"double"},"name":{"identifier":"toFeet","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"miles","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"double"},"name":{"identifier":"getMiles","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

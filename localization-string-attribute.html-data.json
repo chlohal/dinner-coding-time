@@ -1,0 +1,399 @@
+{
+    "version": 1.1,
+    "globalAttributes": [
+        {
+            "name": "localization-string",
+            "description": "The string to localize this element's innerHTML to (v2",
+            "values": [
+                {
+                    "name": "CODE_PAGE_ANNOTATION_AUTHOR_ATTRIBUTION",
+                    "description": "default: By ${A}"
+                },
+                {
+                    "name": "CODE_PAGE_ANNOTATION_PREVIEW_INVALID_MARKUP_ERROR_MESSAGE",
+                    "description": "default: ANNOTATION FAILED RCSMPC BY USING ${A}. THIS INDICATES A MALICIOUS USE OF THE ANNOTATION TOOLS. PLEASE REPORT THIS IMMEDIATELY"
+                },
+                {
+                    "name": "CODE_PAGE_TOP_NAVIGATION_PREVIOUS_LABEL",
+                    "description": "default: Previous"
+                },
+                {
+                    "name": "CODE_PAGE_TOP_NAVIGATION_NEXT_LABEL",
+                    "description": "default: Next"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_NAME_MANAGER_TAB_LABEL",
+                    "description": "default: Name Manager"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_NAME_MANAGER_TITLE",
+                    "description": "default: Name Manager"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_NAME_MANAGER_SHORT_DESCRIPTION",
+                    "description": "default: Name Manager"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_TAB_LABEL",
+                    "description": "default: Format Settings"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_TITLE",
+                    "description": "default: Code Formatting Settings"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SAVE_APPLY_CHANGES_BUTTON_LABEL",
+                    "description": "default: Save & Apply Changes"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_TITLE",
+                    "description": "default: Bracket Style"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_OPTION_JAVA_STYLE_SUMMARY",
+                    "description": "default: Use <em>Java-style</em> brackets, on the same line as their block start."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_OPTION_C_STYLE_SUMMARY",
+                    "description": "default: Use <em>C-style</em> brackets, which are on a new line from their block start."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_INDENTATION_TITLE",
+                    "description": "default: Indentation"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_INDENTATION_SUMMARY",
+                    "description": "default: How far to indent each block of code (e.g. function, while-loop body)."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_TITLE",
+                    "description": "default: Code Spacing Out"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_LOOSE_SUMMARY",
+                    "description": "default: <em>Loosely</em> space the code. Includes spaces added after for and if statements."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_DEFAULT_SUMMARY",
+                    "description": "default: Space the code out the <em>default</em> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after for and if statements."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_MINIFY_SUMMARY",
+                    "description": "default: <em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. This will not work fully in some languages, such as Python."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_TITLE",
+                    "description": "default: Expression Spacing"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_OPTION_ADD_SPACES_SUMMARY",
+                    "description": "default: <em>Add spaces</em> inside expressions and between arguments."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_OPTION_DEFAULT_TO_CODE_SPACING_SUMMARY",
+                    "description": "default: <em>Default to using Code Spacing configuration</em> inside expressions and between arguments."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_TITLE",
+                    "description": "default: Comments"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_OPTION_KEEP_SUMMARY",
+                    "description": "default: <em>Keep</em> comments in the code"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_OPTION_REMOVE_SUMMARY",
+                    "description": "default: <em>Remove</em> comments from the code completely"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_TITLE",
+                    "description": "default: Rich Formatting"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_OPTION_PARSE_SUMMARY",
+                    "description": "default: <em>Parse, analyze, and color</em> the code. This allows features like explainations and automatic refactoring."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_OPTION_DONT_PARSE_SUMMARY",
+                    "description": "default: <em>Don't tokenize and color</em> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations. This will override most other options."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_TITLE",
+                    "description": "default: Highlight Paired Characters"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_OPTION_HIGHLIGHT_SUMMARY",
+                    "description": "default: <em>Highlight</em> the counterpart of paired characters (like (, [, or {) when you hover over them."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_OPTION_DONT_HIGHLIGHT_SUMMARY",
+                    "description": "default: <em>Don't highlight</em> the counterpart of paired characters (like (, [, or {) when you hover over them."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_TITLE",
+                    "description": "default: Automatic Hover Explanations"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_OPTION_SHOW_TOOLTIPS_SUMMARY",
+                    "description": "default: <em>Show</em> explanation tooltips"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_OPTION_HIDE_TOOLTIPS_SUMMARY",
+                    "description": "default: <em>Hide</em> explanation tooltips"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_TITLE",
+                    "description": "default: Register Variable Scopes"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_OPTION_DONT_REGISTER_SUMMARY",
+                    "description": "default: <em>Don't register variables.</em> This can save memory and make the code viewer faster, but removes features like variable definition finding and some refactoring features."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_OPTION_REGISTER_SUMMARY",
+                    "description": "default: <em>Register variables.</em> This option will use an internal object to record variables used in the program and link variable usages to their definitions."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_TITLE",
+                    "description": "default: If/Else Format"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_OPTION_NEXT_LINE_SUMMARY",
+                    "description": "default: The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_OPTION_SAME_LINE_SUMMARY",
+                    "description": "default: The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_TITLE",
+                    "description": "default: Single-Statement Blocks"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_ALWAYS_NEWLINE_SUMMARY",
+                    "description": "default: Single-statement blocks should <em>always</em> have curly brackets."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_NEVER_NEWLINE_SUMMARY",
+                    "description": "default: Single-statement blocks should <em>never</em> have curly brackets."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_DEFAULT_NEWLINE_SUMMARY",
+                    "description": "default: Just leave it however the example code was written."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_TITLE",
+                    "description": "default: Line Wrap"
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_OPTION_WRAP_SUMMARY",
+                    "description": "default: Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, your clipboard copy won't have the wrap."
+                },
+                {
+                    "name": "CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_OPTION_SCROLL_SIDEWAYS_SUMMARY",
+                    "description": "default: Scroll sideways instead of wrapping lines"
+                },
+                {
+                    "name": "HELPFULNESS_FORM_TITLE",
+                    "description": "default: Was this helpful?"
+                },
+                {
+                    "name": "HELPFULNESS_FORM_BUTTON_YES_LABEL",
+                    "description": "default: Yes"
+                },
+                {
+                    "name": "HELPFULNESS_FORM_BUTTON_NO_LABEL",
+                    "description": "default: No"
+                },
+                {
+                    "name": "HELPFULNESS_FORM_FINISH_MESSAGE",
+                    "description": "default: Thanks!"
+                },
+                {
+                    "name": "FOOTER_TITLE",
+                    "description": "default: Dinner Coding Time"
+                },
+                {
+                    "name": "FOOTER_SOCIAL_BUTTONS_GITHUB_LABEL",
+                    "description": "default: GitHub"
+                },
+                {
+                    "name": "FOOTER_SOCIAL_BUTTONS_DISCORD_LABEL",
+                    "description": "default: Discord"
+                },
+                {
+                    "name": "FOOTER_SOCIAL_BUTTONS_EMAIL_LABEL",
+                    "description": "default: Email"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_CONTENT_TITLE",
+                    "description": "default: Content"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_CONTENT_ITEM_CODEHS_LABEL",
+                    "description": "default: CodeHS"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_CONTENT_ITEM_CLASSWORK_LABEL",
+                    "description": "default: Classwork"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_CONTENT_ITEM_ERROR_ALMANAC_LABEL",
+                    "description": "default: Error Almanac"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_SITE_TITLE",
+                    "description": "default: Site"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_SITE_ITEM_HOMEPAGE_LABEL",
+                    "description": "default: Homepage"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_SITE_ITEM_ABOUT_US_LABEL",
+                    "description": "default: About Us"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_SITE_ITEM_REPORT_BUG_LABEL",
+                    "description": "default: Report Bug"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_TITLE",
+                    "description": "default: Legal"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL",
+                    "description": "default: Terms & Conditions"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_ITEM_OPEN_SOURCE_SOFTWARE_LICENSES_LABEL",
+                    "description": "default: OSS Licenses"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_ITEM_LICENSE_LABEL",
+                    "description": "default: License"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_ITEM_FAIR_USE_STATEMENT_LABEL",
+                    "description": "default: Fair Use Statement"
+                },
+                {
+                    "name": "FOOTER_CATEGORY_LEGAL_ITEM_PRIVACY_POLICY_LABEL",
+                    "description": "default: Privacy Policy"
+                },
+                {
+                    "name": "HOMEPAGE_HERO_TITLE",
+                    "description": "default: Dinner Coding Time"
+                },
+                {
+                    "name": "HOMEPAGE_HERO_SUBTITLE",
+                    "description": "default: Easy help on AP Computer Science"
+                },
+                {
+                    "name": "HOMEPAGE_HERO_BUTTON_CODEHS_LABEL",
+                    "description": "default: CodeHS"
+                },
+                {
+                    "name": "HOMEPAGE_HERO_BUTTON_CLASSWORK_LABEL",
+                    "description": "default: Classwork"
+                },
+                {
+                    "name": "HOMEPAGE_HERO_BUTTON_ERRORS_LABEL",
+                    "description": "default: Errors"
+                },
+                {
+                    "name": "HOMEPAGE_SOCIAL_PROOF_CARDS_DISCORD_MEMBERS_LABEL",
+                    "description": "default: Discord Members Online Now"
+                },
+                {
+                    "name": "HOMEPAGE_SOCIAL_PROOF_CARDS_DISCORD_MEMBERS_TOOLTIP",
+                    "description": "default: Last updated at ${A}"
+                },
+                {
+                    "name": "HOMEPAGE_SOCIAL_PROOF_CARDS_CODEHS_LESSON_COUNT_LABEL",
+                    "description": "default: CodeHS Lessons w/ Explanation"
+                },
+                {
+                    "name": "HOMEPAGE_SOCIAL_PROOF_CARDS_AVERAGE_USER_SCORE_LABEL",
+                    "description": "default:  Average User AP CS Score"
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_TITLE",
+                    "description": "default: Why make this site?"
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_CODEHS_HAS_GAPS_TITLE",
+                    "description": "default: CodeHS has gaps."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_CODEHS_HAS_GAPS_CONTENT",
+                    "description": "default: For students who naturally understand computer science, CodeHS is great! Not all of us are like that, though."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_HARD_TO_UNDERSTAND_TITLE",
+                    "description": "default: It's hard to understand."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_HARD_TO_UNDERSTAND_CONTENT",
+                    "description": "default: If you don't get the right solution on the first time, it is hard to ever arrive at the right solution. Auto-graders offer generic tips that almost never work. At the same time, autograders require exactly the correct output in order to pass the task."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_THEYRE_NOT_BAD_TITLE",
+                    "description": "default: They're not \"bad\""
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_THEYRE_NOT_BAD_CONTENT",
+                    "description": "default: CodeHS is definitely 'better' than this site, because they're also more general. They've tutorials on 9 - 14 languages (depending on how you define a 'language'), at all levels. We get frusturated sometimes, but CodeHS is incredible, to be honest!"
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_BUT_THIS_CAN_FOCUS_TITLE",
+                    "description": "default: but this can be more focused"
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_BUT_THIS_CAN_FOCUS_CONTENT",
+                    "description": "default: This is <em>not</em> a competitor to CodeHS. It's a companion & a helper site, designed to help you out on confusing assignments. In addition, this site has explanations for how to do the challenges. It helps CodeHS to not be such a just-test-until-you-pass environment by working for <em>the students</em>, not just the teachers."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_AND_HELP_STUDENTS_TITLE",
+                    "description": "default: and help students directly."
+                },
+                {
+                    "name": "HOMEPAGE_WHY_MAKE_THIS_SITE_AND_HELP_STUDENTS_CONTENT",
+                    "description": "default: We take pride in being able to help students with every question, because we're students ourselves. If you have a question or something you're confused about, feel free to ask on our Discord or over email!"
+                },
+                {
+                    "name": "CODEHS_INDEX_COMING_SOON_LABEL",
+                    "description": "default: Coming Soon"
+                },
+                {
+                    "name": "CODEHS_LANGUAGE_INDEX_TITLE",
+                    "description": "default: CodeHS: ${A}"
+                },
+                {
+                    "name": "CODEHS_LANGUAGE_INDEX_SUMMARY",
+                    "description": "default: Below are all ${A} CodeHS lessons on this site. Only <b>exercises</b> are included, so you won't see any videos, examples, or tests-- if you are confused by an example, feel free to ask in <a href=\"https://discord.gg/m2Zub6EYyp\" target=\"_blank\" rel=\"noopener\">the Discord</a>!"
+                },
+                {
+                    "name": "ERROR_ALMANAC_INDEX_TITLE",
+                    "description": "default: Error Almanac"
+                },
+                {
+                    "name": "ERROR_ALMANAC_INDEX_SUMMARY",
+                    "description": "default: Some common errors on CodeHS are hard to pin down and fix. To aid with those, here are some easy solutions."
+                },
+                {
+                    "name": "REPORT_BUG_TITLE",
+                    "description": "default: Report a Bug"
+                },
+                {
+                    "name": "REPORT_BUG_SUMMARY",
+                    "description": "default: You can report bugs through <a target=\"_blank\" rel=\"noopener\" href=\"https://forms.gle/evEpBGSUTyY1mijJ7\">this Google Form</a>, email at <a href=\"mailto:bug-report@dinnercodingtime.com\">bug-report@dinnercodingtime.com</a>, or through <a target=\"_blank\" rel=\"noopener\" href=\"https://discord.gg/m2Zub6EYyp\">the Discord</a> in the #cs channel"
+                },
+                {
+                    "name": "REPORT_BUG_TIME_DISCLAIMER",
+                    "description": "default: Everyone working on this is an AP student too, so we might take a bit to respond to bug reports. Don't worry, though, we'll be sure to get to them!"
+                }
+            ]
+        }
+    ]
+}

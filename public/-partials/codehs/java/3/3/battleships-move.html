@@ -1,0 +1,69 @@
+
+<h1>3.3.6 Battleships Move</h1>
+
+        <code id="source">
+            public class BattleshipTester
+            {
+                public static void main(String[] args)
+                {
+                    // Create objects
+                    Battleship submarine = new Battleship(&quot;Submarine&quot;, 4);
+                    Battleship carrier = new Battleship(&quot;Carrier&quot;, 10);
+                    
+                    // Check initial positions
+                    System.out.println(submarine);
+                    System.out.println(carrier);
+                    
+                    
+                    // Test: Safely move submarine
+                    System.out.println(&quot;Submarine cleared to proceed&quot;);
+                    submarine.move(true);
+                    System.out.println(submarine);
+                    
+                    
+                    // Test unsafe to move carrier
+                    System.out.println(&quot;Carrier NOT cleared to proceed&quot;);
+                    carrier.move(false);
+                    System.out.println(carrier);
+                    
+                    
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class Battleship
+{
+    private String shipType;
+    private int position;
+    
+    public Battleship(String type, int shipPosition)
+    {
+        shipType = type;
+        position = shipPosition;
+    }
+    
+    // Moves the ship
+    // If safeToMove is true, add 5 to position
+    // else subtract 5 from position
+    public void move (boolean safeToMove)
+    {
+       if(safeToMove) position += 5;
+       else position -= 5;
+
+    }
+    
+    // Returns the position of the ship
+    public int getPosition()
+    {
+        return position;
+    }
+    
+    // String representation of the object
+    public String toString()
+    {
+        return shipType + &quot; at &quot; + position;
+    }
+}
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"BattleshipTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"submarine","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Submarine\""},{"type":"NumberLiteral","token":"4"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Battleship","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Battleship","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"carrier","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Carrier\""},{"type":"NumberLiteral","token":"10"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Battleship","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Battleship","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"submarine","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"carrier","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Submarine cleared to proceed\""}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"move","type":"SimpleName"},"expression":{"identifier":"submarine","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"BooleanLiteral","booleanValue":true}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"submarine","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Carrier NOT cleared to proceed\""}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"move","type":"SimpleName"},"expression":{"identifier":"carrier","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"BooleanLiteral","booleanValue":false}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"carrier","type":"SimpleName"}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Battleship","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"shipType","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"position","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"type","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"shipPosition","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"shipType","type":"SimpleName"},"rightHandSide":{"identifier":"type","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"position","type":"SimpleName"},"rightHandSide":{"identifier":"shipPosition","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Battleship","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"safeToMove","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"IfStatement","elseStatement":{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"-=","leftHandSide":{"identifier":"position","type":"SimpleName"},"rightHandSide":{"type":"NumberLiteral","token":"5"}}},"thenStatement":{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"+=","leftHandSide":{"identifier":"position","type":"SimpleName"},"rightHandSide":{"type":"NumberLiteral","token":"5"}}},"expression":{"identifier":"safeToMove","type":"SimpleName"}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"move","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"position","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getPosition","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"identifier":"shipType","type":"SimpleName"},"rightOperand":{"type":"StringLiteral","escapedValue":"\" at \""}},"rightOperand":{"identifier":"position","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

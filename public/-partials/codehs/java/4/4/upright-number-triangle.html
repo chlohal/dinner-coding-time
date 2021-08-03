@@ -1,0 +1,23 @@
+
+<h1>4.4.6 Upright Number Triangle</h1>
+
+        <code id="source">
+            public class NumberTriangle
+            {
+                public static void main(String[] args)
+                {
+                   // Call makeNumberTriangle 
+                   makeNumberTriangle();
+                }
+                
+                // Makes an upright triangle with the numbers 1-5
+                public static void makeNumberTriangle()
+                {
+                    for(int i = 1; i &lt;= 5; i++) {
+                        for(int j = 1; j &lt;= i; j++) System.out.print(j + &quot; &quot;);
+                        System.out.println();
+                    }
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"NumberTriangle","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"makeNumberTriangle","type":"SimpleName"},"expression":null,"type":"MethodInvocation","arguments":[],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"i","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"1"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":"<=","leftOperand":{"identifier":"i","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"5"}},"updaters":[{"type":"PostfixExpression","operator":"++","operand":{"identifier":"i","type":"SimpleName"}}],"body":{"type":"Block","statements":[{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"j","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"1"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":"<=","leftOperand":{"identifier":"j","type":"SimpleName"},"rightOperand":{"identifier":"i","type":"SimpleName"}},"updaters":[{"type":"PostfixExpression","operator":"++","operand":{"identifier":"j","type":"SimpleName"}}],"body":{"type":"ExpressionStatement","expression":{"name":{"identifier":"print","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"identifier":"j","type":"SimpleName"},"rightOperand":{"type":"StringLiteral","escapedValue":"\" \""}}],"typeArguments":[]}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"makeNumberTriangle","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

@@ -27,43 +27,16 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         navigateToSpaPath("https://kvdb.io/GoRCE7NnJGgv7hahoSXDj5/scripts/get?assignment=" + encodeURIComponent(key) + "&format=html", true);
     })();
-
-    (_global.createBreadcrumbs = function createBreadcrumbs() {
-        var header = document.querySelector("header");
-        var path = location.pathname.substring(1).split("/");
-
-        for (var i = 0; i < path.length; i++) {
-            var childIndex = i * 2 + 2;
-            var part;
-
-            if (header.children[childIndex]) part = header.children[childIndex];
-            else part = document.createElement("a");
-
-            part.textContent = path[i];
-            part.href = "/" + path.slice(0, i + 1).join("/");
-
-            if (!header.children[childIndex]) {
-                var sep = document.createElement("span");
-                sep.textContent = "/";
-                sep.classList.add("breadcrumb-separator");
-
-                header.appendChild(sep);
-                header.appendChild(part);
-            }
-        }
-
-    })();
-
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "8-2-9", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9", "9-5-6", "9-5-7", "9-5-8", "9-5-9", "9-6-6", "9-6-7", "9-6-8", "9-6-9", "9-7-6", "9-7-7", "9-7-8", "9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
+        var __codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "8-2-9", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9", "9-5-6", "9-5-7", "9-5-8", "9-5-9", "9-6-6", "9-6-7", "9-6-8", "9-6-9", "9-7-6", "9-7-7", "9-7-8", "9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
 
         var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
-        var selfIndex = codehsIndex.indexOf(self);
+        var selfIndex = __codehsIndex.indexOf(self);
 
-        var previous = codehsIndex[selfIndex - 1];
-        var next = codehsIndex[selfIndex + 1];
+        var previous = __codehsIndex[selfIndex - 1];
+        var next = __codehsIndex[selfIndex + 1];
 
 
 
@@ -155,7 +128,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 _global.findAndExecuteDataScripts();
                 _global.loadEditors();
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
-                _global.createBreadcrumbs();
                 _global.updateByline();
 
                 if (typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
@@ -229,7 +201,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             byline = document.createElement("p");
             byline.classList.add("byline");
 
-            byline.appendChild(document.createTextNode("Annotated by "));
+            byline.appendChild(document.createTextNode("By"));
 
             var link = document.createElement("a");
             link.classList.add("external-link");
@@ -702,7 +674,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         for (var i = 0; i < table.children.length; i++) {
             source += table.children[i].lastElementChild.lastElementChild.textContent + "\n";
         }
-        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function (lineAddresses) {
+        executeDependencyFunction("lightweight-java-highlighter.js", "getLineAddresses", [source], function (lineAddresses) {
             var alreadyAdded = [];
             for (var i = lineAddresses.length - 1; i >= 0; i--) {
                 var annotation = annotations.find(function (x) {

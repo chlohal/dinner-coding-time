@@ -1,0 +1,76 @@
+
+<h1>9.2.8 Foods</h1>
+
+        <code id="source">
+            public class Fruit extends HealthyFood
+            {
+                private boolean isLocal;
+                private String color;
+                
+                public Fruit(String foodName, int calories, boolean isLocal, String foodColor) {
+                    super(foodName, calories, &quot;Fruit&quot;);
+                    this.isLocal = isLocal;
+                    this.color = foodColor;
+                }
+                
+                public boolean isLocal() {
+                    return this.isLocal;
+                    }
+                public String getColor() {
+                    return this.color;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class FoodTester
+{
+    public static void main(String[] args)
+    {
+        System.out.println(new Food(&quot;Apple&quot;, 2000));
+        System.out.println(new HealthyFood(&quot;Cake&quot;, 2000, &quot;Meat&quot;));
+    }
+}
+
+        </code>
+        <code id="source2">
+            public class HealthyFood extends Food
+{
+    private String group;
+    
+    public HealthyFood(String foodName, int calories, String foodGroup) {
+        super(foodName, calories);
+        this.group = foodGroup;
+    }
+    
+    public String getGroup() {
+        return this.group;
+    }
+}
+
+        </code>
+        <code id="source3">
+            public class Food
+{
+    private String name;
+    private int calories;
+    
+    public Food (String foodName, int calories) {
+        this.name = foodName;
+        this.calories = calories;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    public int getCal() {
+        return this.calories;
+    }
+    
+    public String toString() {
+        return name + &quot; has &quot; + calories + &quot; calories&quot;;
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Fruit","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":{"type":"SimpleType","name":{"identifier":"HealthyFood","type":"SimpleName"}},"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"isLocal","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"color","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"foodName","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"calories","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"isLocal","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"foodColor","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"SuperConstructorInvocation","arguments":[{"identifier":"foodName","type":"SimpleName"},{"identifier":"calories","type":"SimpleName"},{"type":"StringLiteral","escapedValue":"\"Fruit\""}],"expression":null,"typeArguments":[]},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"isLocal","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"isLocal","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"color","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"foodColor","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Fruit","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"isLocal","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"isLocal","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"color","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getColor","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"FoodTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[{"type":"StringLiteral","escapedValue":"\"Apple\""},{"type":"NumberLiteral","token":"2000"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Food","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[{"type":"StringLiteral","escapedValue":"\"Cake\""},{"type":"NumberLiteral","token":"2000"},{"type":"StringLiteral","escapedValue":"\"Meat\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"HealthyFood","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source2":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"HealthyFood","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":{"type":"SimpleType","name":{"identifier":"Food","type":"SimpleName"}},"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"group","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"foodName","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"calories","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"foodGroup","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"SuperConstructorInvocation","arguments":[{"identifier":"foodName","type":"SimpleName"},{"identifier":"calories","type":"SimpleName"}],"expression":null,"typeArguments":[]},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"group","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"foodGroup","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"HealthyFood","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"group","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getGroup","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source3":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Food","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"name","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"calories","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"foodName","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"calories","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"foodName","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"calories","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"calories","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Food","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getName","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"calories","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getCal","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"identifier":"name","type":"SimpleName"},"rightOperand":{"type":"StringLiteral","escapedValue":"\" has \""}},"rightOperand":{"identifier":"calories","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" calories\""}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

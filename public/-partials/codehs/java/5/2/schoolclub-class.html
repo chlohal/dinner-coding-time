@@ -1,0 +1,98 @@
+
+<h1>5.2.8 SchoolClub Class</h1>
+
+        <code id="source">
+            public class Student
+{
+    private String firstName;
+    private String lastName;
+    private int gradeLevel;
+    private String school;
+
+    /**
+     * Constructors go here.
+     * Check out StudentTester.java for an example of how to use
+     * this constructor. Make sure your code matches the call in the
+     * tester.
+     */
+     
+     public Student(String fN, String lN, int grd, String schl) {
+         this.firstName = fN;
+         this.lastName = lN;
+         this.gradeLevel = grd;
+         this.school = schl;
+     }
+     
+     public Student(String fN, String lN, int grd) {
+         this.firstName = fN;
+         this.lastName = lN;
+         this.gradeLevel = grd;
+         this.school = grd &gt;= 9 ? &quot;high school&quot; : grd &gt;= 6 ? &quot;middle school&quot; : &quot;elementary school&quot;;
+     }
+   
+   
+    
+    /**
+     * This is a toString for the Student class. It returns a String
+     * representation of the object, which includes the fields
+     * in that object.
+     * 
+     * Modify the to string to add &apos;and goes to _____&apos; at the end
+     */
+    public String toString()
+    {
+        return firstName + &quot; &quot; + lastName + &quot; is in grade &quot; + gradeLevel + &quot; and goes to &quot; + school;
+    }
+    
+    public String getFirstName(){
+        return firstName;
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class StudentTester
+            {
+                public static void main(String[] args)
+                {
+                    Student alan = new Student(&quot;Alan&quot;, &quot;Turing&quot;, 11, &quot;Liberty High School&quot;);
+                    Student ada = new Student(&quot;Ada&quot;, &quot;Lovelace&quot;, 5);
+                    
+                    System.out.println(alan);
+                    System.out.println(ada);
+                    
+                    System.out.println(new SchoolClub(alan, &quot;dnd club&quot;));
+                    
+                }
+            }            
+        </code>
+        <code id="source2">
+            public class SchoolClub
+            {
+            
+                private Student leader;
+                private String name;
+                private int numMembers;
+            
+                /* Add your constructor here
+                 * Constructor should take a leader and club name, then set
+                 * numMembers to 0.
+                 */
+                 
+                public SchoolClub(Student ldr, String n) {
+                    this.leader = ldr;
+                    this.name = n;
+                    this.numMembers = 0;
+                }
+            
+                public void addMember() {
+                    numMembers ++;
+                }
+            
+                public String toString(){
+                    return leader.getFirstName() + &quot; is the leader of the &quot; + name + &quot; club.&quot;;
+                }
+            }
+            
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Student","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"firstName","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"lastName","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"gradeLevel","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"school","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"fN","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"lN","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"grd","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"schl","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"firstName","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"fN","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"lastName","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"lN","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"gradeLevel","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"grd","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"school","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"schl","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Student","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"fN","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"lN","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"grd","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"firstName","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"fN","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"lastName","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"lN","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"gradeLevel","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"grd","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"school","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"type":"ConditionalExpression","expression":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"grd","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"9"}},"thenExpression":{"type":"StringLiteral","escapedValue":"\"high school\""},"elseExpression":{"type":"ConditionalExpression","expression":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"grd","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"6"}},"thenExpression":{"type":"StringLiteral","escapedValue":"\"middle school\""},"elseExpression":{"type":"StringLiteral","escapedValue":"\"elementary school\""}}}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Student","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"identifier":"firstName","type":"SimpleName"},"rightOperand":{"type":"StringLiteral","escapedValue":"\" \""}},"rightOperand":{"identifier":"lastName","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" is in grade \""}},"rightOperand":{"identifier":"gradeLevel","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" and goes to \""}},"rightOperand":{"identifier":"school","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"firstName","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getFirstName","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"StudentTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"alan","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Alan\""},{"type":"StringLiteral","escapedValue":"\"Turing\""},{"type":"NumberLiteral","token":"11"},{"type":"StringLiteral","escapedValue":"\"Liberty High School\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"ada","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Ada\""},{"type":"StringLiteral","escapedValue":"\"Lovelace\""},{"type":"NumberLiteral","token":"5"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"alan","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"ada","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[{"identifier":"alan","type":"SimpleName"},{"type":"StringLiteral","escapedValue":"\"dnd club\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"SchoolClub","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source2":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"SchoolClub","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"leader","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"name","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"numMembers","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"ldr","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Student","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"n","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"leader","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"ldr","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"name","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"n","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"numMembers","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"type":"NumberLiteral","token":"0"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"SchoolClub","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"PostfixExpression","operator":"++","operand":{"identifier":"numMembers","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"addMember","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"name":{"identifier":"getFirstName","type":"SimpleName"},"expression":{"identifier":"leader","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]},"rightOperand":{"type":"StringLiteral","escapedValue":"\" is the leader of the \""}},"rightOperand":{"identifier":"name","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" club.\""}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

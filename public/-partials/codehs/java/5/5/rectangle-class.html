@@ -1,0 +1,79 @@
+
+<h1>5.5.5 Rectangle class</h1>
+
+<aside class="tip">
+    <h2>Tip</h2> You don&apos;t have to fill <code>RectangleTester.java</code>; the autograder doesn&apos;t care about it.
+    You&apos;ll get a Completed mark either way.
+</aside>
+        <code id="source">
+            public class RectangleTester
+{
+    public static void main(String[] args)
+    {
+        // Make some objects and print out their
+        // areas and perimeters
+    }
+}
+
+        </code>
+        <code id="source1">
+            public class Rectangle
+            {
+                private int width;
+                private int height;
+                
+                /**
+                 * This is the constructor to create a Rectangle.
+                 * To create a Rectangle we need to know its width
+                 * and height.
+                 */
+                public Rectangle(int rectWidth, int rectHeight)
+                {
+                    width = rectWidth;
+                    height = rectHeight;
+                }
+                
+            
+                public int getHeight() { return this.height; }
+                public int getWidth() { return this.width; }
+                public int getArea() { return this.height * this.width; }
+                public int getPerimeter() { return this.height * 2 + this.width * 2; }
+                
+                public void setWidth(int w) { this.width = w; }
+                public void setHeight(int h) { this.height = h; }
+            
+            
+                /**
+                 * This method computes and prints the
+                 * area of the Rectangle.
+                 * Note it will print the area of the
+                 * Rectangle object that called it using
+                 * the dot operator!
+                 */ 
+                public void printArea()
+                {
+                    int area = width * height;
+                    System.out.println(area);
+                }
+                
+                /**
+                 * This method computes and prints the
+                 * perimeter of the Rectangle.
+                 */ 
+                public void printPerimeter()
+                {
+                    int perimeter = 2 * width + 2 * height;
+                    System.out.println(perimeter);
+                }
+                
+                /**
+                 * This is the toString method. It returns a String
+                 * representation of the object. 
+                 */
+                public String toString()
+                {
+                    return &quot;Rectangle width: &quot; + width + &quot;, Rectangle height: &quot; + height;
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"RectangleTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Rectangle","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"width","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"height","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"rectWidth","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"rectHeight","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"width","type":"SimpleName"},"rightHandSide":{"identifier":"rectWidth","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"height","type":"SimpleName"},"rightHandSide":{"identifier":"rectHeight","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Rectangle","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"height","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getHeight","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"FieldAccess","name":{"identifier":"width","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getWidth","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"type":"FieldAccess","name":{"identifier":"height","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightOperand":{"type":"FieldAccess","name":{"identifier":"width","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getArea","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"*","leftOperand":{"type":"FieldAccess","name":{"identifier":"height","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightOperand":{"type":"NumberLiteral","token":"2"}},"rightOperand":{"type":"InfixExpression","operator":"*","leftOperand":{"type":"FieldAccess","name":{"identifier":"width","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightOperand":{"type":"NumberLiteral","token":"2"}}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getPerimeter","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"w","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"width","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"w","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"setWidth","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"h","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"height","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"h","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"setHeight","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"area","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"InfixExpression","operator":"*","leftOperand":{"identifier":"width","type":"SimpleName"},"rightOperand":{"identifier":"height","type":"SimpleName"}}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"area","type":"SimpleName"}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"printArea","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"perimeter","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"*","leftOperand":{"type":"NumberLiteral","token":"2"},"rightOperand":{"identifier":"width","type":"SimpleName"}},"rightOperand":{"type":"InfixExpression","operator":"*","leftOperand":{"type":"NumberLiteral","token":"2"},"rightOperand":{"identifier":"height","type":"SimpleName"}}}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"perimeter","type":"SimpleName"}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"printPerimeter","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Rectangle width: \""},"rightOperand":{"identifier":"width","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\", Rectangle height: \""}},"rightOperand":{"identifier":"height","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

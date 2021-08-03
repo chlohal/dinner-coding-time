@@ -1,0 +1,84 @@
+
+<h1>9.7.7 Equals? - Part 2</h1>
+
+        <code id="source">
+            public class Ball
+            {
+               private String color;
+               
+               public Ball(String color){
+                   this.color = color;
+               }
+               
+               public String getColor(){
+                   return color;
+               }
+               
+               public boolean equals(Ball other) {
+                   return color.equals(other.getColor());
+               }
+               
+               public String toString() {
+                    return &quot;Color: &quot; + color;
+               }
+               
+               
+            }
+              
+        </code>
+        <code id="source1">
+            public class TestEquals
+            {
+                public static void main(String[] args)
+                {
+                    System.out.println(&quot;** Object **&quot;);
+                    Object obj1 = new Object();
+                    Object obj2 = new Object();
+                    Object obj3 = obj1;
+                    
+                    // Print out all three objects
+                    System.out.println(obj1);
+                    System.out.println(obj2);
+                    System.out.println(obj3);
+                    
+                    // Print a true statement using 2 objects and ==
+                    System.out.println(obj1 == obj3);
+                    
+                    // Print a false statement using 2 objects and ==
+                    System.out.println(obj1 == obj2);
+                    
+                    // Print a true statement using 2 objects and .equals()
+                    System.out.println(obj1.equals(obj3));
+                    
+                    // Print a false statement using 2 objects and .equals()
+                    System.out.println(obj1.equals(obj2));
+                    
+                    System.out.println(&quot;** Ball **&quot;);
+                    
+                    
+                    Ball ball1 = new Ball(&quot;Red&quot;);
+                    Ball ball2 = new Ball(&quot;Red&quot;);
+                    Ball ball3 = ball1;
+                    
+                    // Print out all three objects
+                    System.out.println(ball1);
+                    System.out.println(ball2);
+                    System.out.println(ball3);
+                    
+                     // Print a true statement using 2 objects and ==
+                    System.out.println(ball1 == ball3);
+                    
+                    // Print a false statement using 2 objects and ==
+                    System.out.println(ball1 == ball2);
+                    
+                    // Print a true statement using 2 objects and .equals()
+                    System.out.println(ball1.equals(ball3));
+                    
+                    // Print a false statement using 2 objects and .equals()
+                    System.out.println(ball1.equals(ball2));
+            
+                }
+            }
+            
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Ball","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"color","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"color","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"color","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"color","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Ball","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"color","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getColor","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"other","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"color","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"name":{"identifier":"getColor","type":"SimpleName"},"expression":{"identifier":"other","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"typeArguments":[]}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"equals","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Color: \""},"rightOperand":{"identifier":"color","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"TestEquals","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"** Object **\""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"obj1","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Object","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Object","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"obj2","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Object","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Object","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"obj3","type":"SimpleName"},"extraDimensions":0,"initializer":{"identifier":"obj1","type":"SimpleName"}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Object","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"obj1","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"obj2","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"obj3","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"obj1","type":"SimpleName"},"rightOperand":{"identifier":"obj3","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"obj1","type":"SimpleName"},"rightOperand":{"identifier":"obj2","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"obj1","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"obj3","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"obj1","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"obj2","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"** Ball **\""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"ball1","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Red\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"ball2","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Red\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"ball3","type":"SimpleName"},"extraDimensions":0,"initializer":{"identifier":"ball1","type":"SimpleName"}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Ball","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"ball1","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"ball2","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"identifier":"ball3","type":"SimpleName"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"ball1","type":"SimpleName"},"rightOperand":{"identifier":"ball3","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"ball1","type":"SimpleName"},"rightOperand":{"identifier":"ball2","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"ball1","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"ball3","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"ball1","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"ball2","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

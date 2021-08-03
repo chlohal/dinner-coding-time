@@ -1,0 +1,77 @@
+
+<h1>2.9.8 Guess the number!</h1>
+
+        <code id="source">
+            public class Extremes
+            {
+                Integer min;
+                Integer max;
+                
+                // Constructor
+                public Extremes()
+                {
+                    min = Integer.MIN_VALUE;
+                    max = Integer.MAX_VALUE;
+                }
+                
+                // Returns the difference
+                // max - number
+                public Integer maxDiff(Integer number)
+                {
+                    return max - number;
+                }
+            
+                // Returns the difference
+                // min - number
+                public Integer minDiff(Integer number)
+                {
+                    return min - number;
+                }
+                
+                // Returns a String representation
+                // in the form
+                // [min, max]
+                public String toString()
+                {
+                    return &quot;[&quot; + min + &quot;, &quot; + max + &quot;]&quot;;   
+                }
+            }
+        </code>
+        <code id="source1">
+            import java.util.Scanner;
+import java.lang.*;
+
+public class ExtremeMain
+{
+    public static void main(String[] args)
+    {
+        // Create a Scanner object
+        Scanner input = new Scanner(System.in);
+        
+        // Create an Extremes object
+        Extremes extremes = new Extremes();
+        
+        // Ask the user to guess the maximum value of an Integer
+        System.out.println(&quot;Guess the maximum Integer value: &quot;);
+        Integer guessMax = new Integer(input.nextInt());
+        System.out.println(&quot;You were off by &quot; + extremes.maxDiff(guessMax));
+        System.out.println(&quot;Guess the minimum Integer value: &quot;);
+        Integer guessMin = new Integer(input.nextInt());
+        System.out.println(&quot;You were off by &quot; + extremes.minDiff(guessMin));
+        
+        // Compute and display the difference
+        // between the max and the guess
+        
+        
+        // Ask the user to guess the minimum value of an Integer
+        
+        
+        // Compute and display the difference 
+        // between the min and the guess
+        
+        
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Extremes","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"min","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"modifiers":[]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"max","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"modifiers":[]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"min","type":"SimpleName"},"rightHandSide":{"type":"QualifiedName","qualifier":{"identifier":"Integer","type":"SimpleName"},"name":{"identifier":"MIN_VALUE","type":"SimpleName"}}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"max","type":"SimpleName"},"rightHandSide":{"type":"QualifiedName","qualifier":{"identifier":"Integer","type":"SimpleName"},"name":{"identifier":"MAX_VALUE","type":"SimpleName"}}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Extremes","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"number","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"-","leftOperand":{"identifier":"max","type":"SimpleName"},"rightOperand":{"identifier":"number","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"name":{"identifier":"maxDiff","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"number","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"-","leftOperand":{"identifier":"min","type":"SimpleName"},"rightOperand":{"identifier":"number","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"name":{"identifier":"minDiff","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"[\""},"rightOperand":{"identifier":"min","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\", \""}},"rightOperand":{"identifier":"max","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\"]\""}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"ExtremeMain","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"input","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"in","type":"SimpleName"}}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"extremes","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Extremes","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Extremes","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Guess the maximum Integer value: \""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"guessMax","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"input","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"You were off by \""},"rightOperand":{"name":{"identifier":"maxDiff","type":"SimpleName"},"expression":{"identifier":"extremes","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"guessMax","type":"SimpleName"}],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Guess the minimum Integer value: \""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"guessMin","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"input","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"You were off by \""},"rightOperand":{"name":{"identifier":"minDiff","type":"SimpleName"},"expression":{"identifier":"extremes","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"guessMin","type":"SimpleName"}],"typeArguments":[]}}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"util","type":"SimpleName"}},"name":{"identifier":"Scanner","type":"SimpleName"}},"static":false,"onDemand":false},{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"lang","type":"SimpleName"}},"static":false,"onDemand":true}]}};</script>

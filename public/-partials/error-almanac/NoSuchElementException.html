@@ -1,0 +1,81 @@
+
+    <h1>NoSuchElementException on CodeHS</h1>
+        
+        <p>NoSuchElementException is an error typically caused by the <code>Scanner</code> class. It shows up consistently on some activities, inconsistently on others-- there&apos;s really no way to tell until you see it.</p>
+        
+        <figure>
+            <code class="snippet" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+                    
+                    String inputLine = scanner.nextLine();
+                }
+            </code>
+            <figcaption class="caption">On some assignments, this code snippet can cause a <code>NoSuchElementException</code>.</figcaption>
+        </figure>
+        
+        <p><strong>This isn&apos;t your fault.</strong> As far as I can tell, it happens when the <code>Grader.java</code> doesn&apos;t correctly send the test input to your code. However, there are some <em>annoyingly</em> esoteric ways to fix it.</p>
+        
+        <h2>Try/Catch</h2>
+        <p><code>try</code> &amp; <code>catch</code> tell Java to ignore specific errors. It&apos;s not good coding practice to use this <em>too</em> much, but for this problem, there&apos;s not much else you can do.</p>
+        <figure>
+            <code class="snippet" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+                    
+                    String inputLine = &quot;&quot;; 
+                    try {
+                        inputLine = scanner.nextLine();
+                    }
+                    catch(Exception e) {
+                    /* 
+                    if you want to include some intelligent error handling, you can do that here.
+                        otherwise, just leave this block empty
+                    */
+                    }
+                }
+            </code>
+            <figcaption>
+                Using <code>try</code>/<code>catch</code> will have the runtime ignore the error.
+                <br />Note that the <code>inputLine</code> variable is declared <strong>outside</strong> the <code>try</code>. This makes sure it&apos;ll be accessible later in the method.</figcaption>
+        </figure>
+        
+        <h2>Scanner Checking Methods</h2>
+        <p>The <code>Scanner</code> class includes some methods for when you can&apos;t be sure about the user&apos;s input. This is better practice, but doesn&apos;t work on CodeHS sometimes.</p>
+        <figure>
+            <code class="snippet" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+                    
+                    String inputLine = &quot;&quot;; 
+                    if(scanner.hasNextLine()) {
+                        inputLine = scanner.nextLine();
+                    }
+                }
+            </code>
+            <figcaption>
+                Using <code>hasNextLine()</code> to avoid the error.
+                <br />Note that the <code>inputLine</code> variable is declared <strong>outside</strong> the <code>if</code>. This makes sure it&apos;ll be accessible later in the method.</figcaption>
+        </figure>
+        
+        <h2>Combining Solutions</h2>
+        <p>If you&apos;re still having the error or your code isn&apos;t working the way it&apos;s supposed to, try combining both solutions. This is a bit overkill, but it shows your teacher that you know both the proper solution <em>and</em> the practical one!</p>
+        <figure>
+            <code class="snippet" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+                    
+                    String inputLine = &quot;&quot;; 
+                    try {
+                        if(scanner.hasNextLine()) {
+                            inputLine = scanner.nextLine();
+                        }
+                    }
+                    //this time, i just left the `catch` block empty
+                    catch(Exception e) {}
+                }
+            </code>
+            <figcaption>
+                Combining <code>try</code>/<code>catch</code> with <code>hasNextLine()</code> to avoid the error.
+        </figcaption></figure>
+    

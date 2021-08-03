@@ -1,0 +1,62 @@
+
+<h1>2.3.9 Website Class</h1>
+
+        <code id="source">
+            public class WebsiteTester
+            {
+                public static void main(String[] args)
+                {
+                    System.out.println(new Website());
+                    System.out.println(new Website(&quot;mass&quot;,&quot;edu&quot;));
+                    System.out.println(new Website(&quot;code&quot;,&quot;edu&quot;, 10));
+                }
+            }
+        </code>
+        <code id="source1">
+            public class Website
+{
+    // Put your code here
+    
+    String domain;
+    String topLevelDomain;
+    int numUsers;
+    
+    
+    //Default constructor
+    public Website() {
+        domain = &quot;&quot;;
+        topLevelDomain = &quot;com&quot;;
+        numUsers = 0;
+    }
+    
+    // Specify website URL
+    // Register a new website
+    public Website(String domainName, String topDomain) {
+        domain = domainName;
+        topLevelDomain = topDomain;
+        numUsers = 0;
+    }
+    
+    // Specify website URL
+    // Register an old website
+    public Website(String domainName, String topDomain, int numPeople) {
+        domain = domainName;
+        topLevelDomain = topDomain;
+        numUsers = numPeople;
+    }
+    
+    
+    
+    // String representation for printing
+    // Do not modify this method
+    public String toString()
+    {
+        String res =  &quot;https://www.&quot; + domain + &quot;.&quot; + topLevelDomain;
+        res += &quot; has &quot; + numUsers + &quot; users&quot;;
+        
+        return res;
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"WebsiteTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Website","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[{"type":"StringLiteral","escapedValue":"\"mass\""},{"type":"StringLiteral","escapedValue":"\"edu\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Website","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"arguments":[{"type":"StringLiteral","escapedValue":"\"code\""},{"type":"StringLiteral","escapedValue":"\"edu\""},{"type":"NumberLiteral","token":"10"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Website","type":"SimpleName"}},"typeArguments":[],"expression":null}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Website","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"domain","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"topLevelDomain","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"numUsers","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"domain","type":"SimpleName"},"rightHandSide":{"type":"StringLiteral","escapedValue":"\"\""}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"topLevelDomain","type":"SimpleName"},"rightHandSide":{"type":"StringLiteral","escapedValue":"\"com\""}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"numUsers","type":"SimpleName"},"rightHandSide":{"type":"NumberLiteral","token":"0"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Website","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"domainName","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"topDomain","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"domain","type":"SimpleName"},"rightHandSide":{"identifier":"domainName","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"topLevelDomain","type":"SimpleName"},"rightHandSide":{"identifier":"topDomain","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"numUsers","type":"SimpleName"},"rightHandSide":{"type":"NumberLiteral","token":"0"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Website","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"domainName","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"topDomain","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"numPeople","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"domain","type":"SimpleName"},"rightHandSide":{"identifier":"domainName","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"topLevelDomain","type":"SimpleName"},"rightHandSide":{"identifier":"topDomain","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"numUsers","type":"SimpleName"},"rightHandSide":{"identifier":"numPeople","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Website","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"res","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"https://www.\""},"rightOperand":{"identifier":"domain","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\".\""}},"rightOperand":{"identifier":"topLevelDomain","type":"SimpleName"}}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"+=","leftHandSide":{"identifier":"res","type":"SimpleName"},"rightHandSide":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\" has \""},"rightOperand":{"identifier":"numUsers","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" users\""}}}},{"type":"ReturnStatement","expression":{"identifier":"res","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

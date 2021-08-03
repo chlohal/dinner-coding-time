@@ -1,0 +1,19 @@
+
+<h1>3.3.5 Positive or Negative</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+
+            public class Numbers
+            {
+                public static void main(String[] args)
+                {
+                    Scanner in = new Scanner(System.in);
+                    int input = in.nextInt();
+                    
+                    if(input &gt;= 0) System.out.println(&quot;The number is positive!&quot;);
+                    else System.out.println(&quot;The number is negative!&quot;);
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Numbers","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"in","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"in","type":"SimpleName"}}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"input","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextInt","type":"SimpleName"},"expression":{"identifier":"in","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}},{"type":"IfStatement","elseStatement":{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"The number is negative!\""}],"typeArguments":[]}},"thenStatement":{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"The number is positive!\""}],"typeArguments":[]}},"expression":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"input","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"0"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"util","type":"SimpleName"}},"name":{"identifier":"Scanner","type":"SimpleName"}},"static":false,"onDemand":false}]}};</script>

@@ -1,0 +1,100 @@
+
+<h1>9.6.7 Cars</h1>
+
+        <code id="source">
+            public class Car {
+
+                //This code is complete
+                private String model;
+                private String mpg;
+            
+                public Car(String model, String mpg){
+                    this.model = model;
+                    this.mpg = mpg;
+                }
+            
+                public String getModel(){
+                    return model;
+                }
+            
+                public String getMPG(){
+                    return mpg;
+                }
+            
+                public String toString(){
+                    return model + &quot; gets &quot; + mpg + &quot; mpg.&quot;;
+                }
+            }
+            
+        </code>
+        <code id="source1">
+            public class ElectricCar extends Car {
+
+                // Complete the constructor
+                public ElectricCar(String model){
+                   super(model, &quot;Electric cars do not calculate MPG.&quot;);
+                }
+            
+                // Override the getMPG here.
+                // It should return: &quot;Electric cars do not calculate MPG.
+                @Override 
+                public String getMPG() {
+                    return &quot;Electric cars do not calculate MPG&quot;;
+                }
+                
+            
+                // Override the toString() here.
+                // (model) is an  electric car.
+                @Override
+                public String toString() {
+                    return super.getModel() + &quot; is an electric car.&quot;;
+                }
+                
+            }
+            
+        </code>
+        <code id="source2">
+            import java.util.*;
+
+public class CarTester
+{
+    public static void main(String[] args)
+    {
+        ArrayList&lt;Car&gt; cars = new ArrayList&lt;Car&gt;();
+        
+        Scanner sc = new Scanner(System.in);
+        
+        //keep looping until the user exits with the `break;` statement
+        while(true) {
+            System.out.println(&quot;Please enter a car model name(exit to quit): &quot;);
+            String name = sc.nextLine();
+            if(name.equals(&quot;exit&quot;)) break;
+            
+            System.out.println(&quot;Is this car electric? (y or n) &quot;);
+            String electric = sc.nextLine();
+            
+            if(electric.equals(&quot;y&quot;)) {
+                ElectricCar electricCar = new ElectricCar(name);
+                cars.add(electricCar);
+            } else {
+                System.out.println(&quot;How many miles per gallon: &quot;);
+                //you&apos;d think you&apos;d want a double, but it represents it as strings for some reason. idk.
+                String mpg = sc.nextLine();
+                
+                Car car = new Car(name, mpg);
+                cars.add(car);
+            }
+        }
+        
+        //print out each car
+        
+        for(Car c : cars) {
+            System.out.println(&quot;Car: &quot; + c.getModel());
+            System.out.println(&quot;MPG: &quot; + c.getMPG());
+            System.out.println(&quot;&quot;);
+        }
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Car","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"model","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"mpg","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"model","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},{"type":"SingleVariableDeclaration","name":{"identifier":"mpg","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"model","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"model","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"mpg","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"mpg","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Car","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"model","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getModel","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"mpg","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getMPG","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"identifier":"model","type":"SimpleName"},"rightOperand":{"type":"StringLiteral","escapedValue":"\" gets \""}},"rightOperand":{"identifier":"mpg","type":"SimpleName"}},"rightOperand":{"type":"StringLiteral","escapedValue":"\" mpg.\""}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"ElectricCar","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}},"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"model","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"SuperConstructorInvocation","arguments":[{"identifier":"model","type":"SimpleName"},{"type":"StringLiteral","escapedValue":"\"Electric cars do not calculate MPG.\""}],"expression":null,"typeArguments":[]}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"ElectricCar","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"StringLiteral","escapedValue":"\"Electric cars do not calculate MPG\""}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"getMPG","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"MarkerAnnotation","typeName":{"identifier":"Override","type":"SimpleName"}},{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"SuperMethodInvocation","typeArguments":[],"name":{"identifier":"getModel","type":"SimpleName"},"arguments":[],"qualifier":null},"rightOperand":{"type":"StringLiteral","escapedValue":"\" is an electric car.\""}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"MarkerAnnotation","typeName":{"identifier":"Override","type":"SimpleName"}},{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source2":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"CarTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"cars","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"ParameterizedType","typeType":{"type":"SimpleType","name":{"identifier":"ArrayList","type":"SimpleName"}},"typeArguments":[{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}}]},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"ParameterizedType","typeType":{"type":"SimpleType","name":{"identifier":"ArrayList","type":"SimpleName"}},"typeArguments":[{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}}]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"sc","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"in","type":"SimpleName"}}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}}},{"type":"WhileStatement","expression":{"type":"BooleanLiteral","booleanValue":true},"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Please enter a car model name(exit to quit): \""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"name","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextLine","type":"SimpleName"},"expression":{"identifier":"sc","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"BreakStatement","label":null},"expression":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"name","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"exit\""}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"Is this car electric? (y or n) \""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"electric","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextLine","type":"SimpleName"},"expression":{"identifier":"sc","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"IfStatement","elseStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"How many miles per gallon: \""}],"typeArguments":[]}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"mpg","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextLine","type":"SimpleName"},"expression":{"identifier":"sc","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"car","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"identifier":"name","type":"SimpleName"},{"identifier":"mpg","type":"SimpleName"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"add","type":"SimpleName"},"expression":{"identifier":"cars","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"car","type":"SimpleName"}],"typeArguments":[]}}]},"thenStatement":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"electricCar","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"identifier":"name","type":"SimpleName"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"ElectricCar","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"ElectricCar","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"add","type":"SimpleName"},"expression":{"identifier":"cars","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"electricCar","type":"SimpleName"}],"typeArguments":[]}}]},"expression":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"electric","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"y\""}],"typeArguments":[]}}]}},{"type":"EnhancedForStatement","parameter":{"type":"SingleVariableDeclaration","name":{"identifier":"c","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Car","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null},"expression":{"identifier":"cars","type":"SimpleName"},"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Car: \""},"rightOperand":{"name":{"identifier":"getModel","type":"SimpleName"},"expression":{"identifier":"c","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"MPG: \""},"rightOperand":{"name":{"identifier":"getMPG","type":"SimpleName"},"expression":{"identifier":"c","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"\""}],"typeArguments":[]}}]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"util","type":"SimpleName"}},"static":false,"onDemand":true}]}};</script>

@@ -17,39 +17,6 @@ var getUserStyle;
         document.head.appendChild(link);
     })();
 
-    (_global.createBreadcrumbs = function createBreadcrumbs() {
-        var header = document.querySelector("header");
-        var path = location.pathname.substring(1).split("/");
-        
-        var skipOffset = 0;
-
-        for (var i = 0; i < path.length; i++) {
-            var childIndex = i * 2 + 2 - skipOffset;
-            var part;
-            
-            if(path[i] == "codingbat" || path[i-1] == "codingbat" || path[i] == "on-request-from-discord") {
-                skipOffset += 2;
-                continue;
-            }
-
-            if (header.children[childIndex]) part = header.children[childIndex];
-            else part = document.createElement("a");
-
-            part.textContent = path[i];
-            part.href = "/" + path.slice(0, i + 1).join("/");
-
-            if (!header.children[childIndex]) {
-                var sep = document.createElement("span");
-                sep.textContent = "/";
-                sep.classList.add("breadcrumb-separator");
-
-                header.appendChild(sep);
-                header.appendChild(part);
-            }
-        }
-
-    })();
-
     window.addEventListener("popstate", function (event) {
         if (event.state) navigateToSpaPath(event.state);
     })
@@ -107,7 +74,6 @@ var getUserStyle;
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
                 _global.addTopNavigation();
                 _global.registerSpaLinks();
-                _global.createBreadcrumbs();
             });
         }
 

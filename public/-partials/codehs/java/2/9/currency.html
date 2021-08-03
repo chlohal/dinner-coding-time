@@ -1,0 +1,72 @@
+
+<h1>2.9.7 Currency</h1>
+
+        <code id="source">
+            public class Currency
+            {
+                private Double value;
+                
+                // Constructor
+                public Currency(Double startValue)
+                {
+                    value = startValue;
+                }
+                
+                // Sets value to newValue
+                public void setValue(Double newValue)
+                {
+                    value = newValue;
+                }
+                
+                // Returns the dollar portion of value
+                // if value is 12.34, returns 12
+                public Integer getDollars()
+                {
+                    return (int)value.doubleValue();
+                }
+                
+                // Returns the cents portion of value
+                // as an Integer
+                // if value is 12.34, returns 34
+                public Integer getCents()
+                {
+                    return (int)(value * 100) % 100;
+                }
+                
+                // Returns a String representation
+                // in the format
+                // $12.34
+                public String toString()
+                {
+                    return &quot;$&quot; + getDollars() + &quot;.&quot; + getCents();
+                }
+            }
+        </code>
+        <code id="source1">
+            public class CurrencyTester
+{
+    public static void main(String[] args)
+    {
+        Currency bankRoll = new Currency(12.45);
+        
+        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
+        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
+        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        
+        
+        bankRoll.setValue(20.56);
+        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
+        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
+        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        
+        bankRoll.setValue(67.78);
+        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
+        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
+        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        
+        
+    }
+}
+
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Currency","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"value","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"SimpleType","name":{"identifier":"Double","type":"SimpleName"}},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"startValue","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Double","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"value","type":"SimpleName"},"rightHandSide":{"identifier":"startValue","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Currency","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"newValue","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"Double","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"value","type":"SimpleName"},"rightHandSide":{"identifier":"newValue","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"setValue","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"CastExpression","typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"expression":{"name":{"identifier":"doubleValue","type":"SimpleName"},"expression":{"identifier":"value","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"name":{"identifier":"getDollars","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"%","leftOperand":{"type":"CastExpression","typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"expression":{"type":"ParenthesizedExpression","expression":{"type":"InfixExpression","operator":"*","leftOperand":{"identifier":"value","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"100"}}}},"rightOperand":{"type":"NumberLiteral","token":"100"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"Integer","type":"SimpleName"}},"name":{"identifier":"getCents","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"$\""},"rightOperand":{"name":{"identifier":"getDollars","type":"SimpleName"},"expression":null,"type":"MethodInvocation","arguments":[],"typeArguments":[]}},"rightOperand":{"type":"StringLiteral","escapedValue":"\".\""}},"rightOperand":{"name":{"identifier":"getCents","type":"SimpleName"},"expression":null,"type":"MethodInvocation","arguments":[],"typeArguments":[]}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"toString","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]},"source1":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"CurrencyTester","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"bankRoll","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"NumberLiteral","token":"12.45"}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Currency","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Currency","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Value of bankroll: \""},"rightOperand":{"identifier":"bankRoll","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Dollars: \""},"rightOperand":{"name":{"identifier":"getDollars","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Cents: \""},"rightOperand":{"name":{"identifier":"getCents","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"setValue","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"NumberLiteral","token":"20.56"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Value of bankroll: \""},"rightOperand":{"identifier":"bankRoll","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Dollars: \""},"rightOperand":{"name":{"identifier":"getDollars","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Cents: \""},"rightOperand":{"name":{"identifier":"getCents","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"setValue","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"type":"NumberLiteral","token":"67.78"}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Value of bankroll: \""},"rightOperand":{"identifier":"bankRoll","type":"SimpleName"}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Dollars: \""},"rightOperand":{"name":{"identifier":"getDollars","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Cents: \""},"rightOperand":{"name":{"identifier":"getCents","type":"SimpleName"},"expression":{"identifier":"bankRoll","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

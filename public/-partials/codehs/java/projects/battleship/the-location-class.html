@@ -1,0 +1,71 @@
+
+        <h1>Battleship: The Location Class</h1>
+        <script class="__codehsIndex-datascript">
+            window.__codehsIndex = [["/codehs/java/projects/battleship/the-ship-class", "The Ship Class"], ["/codehs/java/projects/battleship/the-location-class", "The Location Class"], ["/codehs/java/projects/battleship/the-grid-class", "The Grid Class"], ["/codehs/java/projects/battleship/adding-a-ship-to-the-grid", "Adding A Ship To The Grid"], ["/codehs/java/projects/battleship/the-player-class", "The Player Class"], ["/codehs/java/projects/battleship/the-battleship-class", "The Battleship Class"], ["/codehs/java/projects/battleship/finishing-the-game", "Finishing The Game"]];
+        </script>
+        <aside class="tip">
+            <h2>BTW</h2>
+            <p>The <code>LocationTester</code> class is ignored by the autograder. You can just leave it how it is!</p>
+        </aside>
+        <code id="source">
+            public class Location
+            {
+                public static final int UNGUESSED = 0;
+                public static final int HIT = 1;
+                public static final int MISSED = 2;
+                
+                private int status;
+                private boolean hasShip;
+                
+                // Location constructor. 
+                public Location() {
+                    this.status = UNGUESSED;
+                }
+                
+                // Was this Location a hit?
+                public boolean checkHit() {
+                    return status == HIT;
+                }
+                
+                // Was this location a miss?
+                public boolean checkMiss() {
+                    return status == MISSED;
+                }
+                
+                // Was this location unguessed?
+                public boolean isUnguessed() {
+                    return status == UNGUESSED;
+                }
+                
+                // Mark this location a hit.
+                public void markHit() {
+                    status = HIT;
+                }
+                
+                // Mark this location a miss.
+                public void markMiss() {
+                    status = MISSED;
+                }
+                
+                // Return whether or not this location has a ship.
+                public boolean hasShip() {
+                    return hasShip;
+                }
+                
+                // Set the value of whether this location has a ship.
+                public void setShip(boolean val) {
+                    this.hasShip = val;
+                }
+                
+                // Set the status of this Location.
+                public void setStatus(int status) {
+                    this.status = status;
+                }
+                
+                // Get the status of this Location.
+                public int getStatus() {
+                    return status;
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Location","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"UNGUESSED","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"0"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"},{"type":"Modifier","keyword":"final"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"HIT","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"1"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"},{"type":"Modifier","keyword":"final"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"MISSED","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NumberLiteral","token":"2"}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"},{"type":"Modifier","keyword":"final"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"status","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"type":"FieldDeclaration","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"hasShip","type":"SimpleName"},"extraDimensions":0,"initializer":null}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[{"type":"Modifier","keyword":"private"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"status","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"UNGUESSED","type":"SimpleName"}}}]},"returnType2":null,"constructor":true,"extraDimensions":0,"type":"MethodDeclaration","name":{"identifier":"Location","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"status","type":"SimpleName"},"rightOperand":{"identifier":"HIT","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"checkHit","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"status","type":"SimpleName"},"rightOperand":{"identifier":"MISSED","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"checkMiss","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"status","type":"SimpleName"},"rightOperand":{"identifier":"UNGUESSED","type":"SimpleName"}}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"isUnguessed","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"status","type":"SimpleName"},"rightHandSide":{"identifier":"HIT","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"markHit","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"status","type":"SimpleName"},"rightHandSide":{"identifier":"MISSED","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"markMiss","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"hasShip","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"hasShip","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"val","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"hasShip","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"val","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"setShip","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"status","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"type":"FieldAccess","name":{"identifier":"status","type":"SimpleName"},"expression":{"type":"ThisExpression","qualifier":null}},"rightHandSide":{"identifier":"status","type":"SimpleName"}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"setStatus","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"}]},{"parameters":[],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"identifier":"status","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"int"},"name":{"identifier":"getStatus","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

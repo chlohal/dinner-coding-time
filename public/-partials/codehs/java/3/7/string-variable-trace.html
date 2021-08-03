@@ -1,0 +1,46 @@
+
+<h1>3.7.7 String Variable Trace</h1>
+
+        <aside class="tip">
+            <h2>JSYK</h2>
+            <p>The reason you comment out the 3rd and 5th <code>if</code> statements is because as they evaluate to false, they don&apos;t contribute to the output</p>
+        </aside>
+        <code id="source">
+            public class StringTrace
+            {
+                public static void main(String[] args)
+                {
+                    String str1 = null;
+                    String str2 = new String(&quot;Karel&quot;);
+                    String str3 = &quot;Karel&quot;;
+                    
+                    if (str1 == null)
+                    {
+                        str1 = str2;
+                    }
+                    
+                    if (str1 == str2)
+                    {
+                        System.out.println(&quot;str1 and str2 refer to the same object&quot;);
+                    }
+                    
+                    /*if (str2 == str3)
+                    {
+                        System.out.println(&quot;str2 and str3 refer to the same object&quot;);
+                    }*/
+                    
+                    if (str1.equals(str2) &amp;&amp; str2.equals(str3))
+                    {
+                        System.out.println(&quot;str1, str2, and str3 are equal&quot;);
+                    }
+                    
+                    /*if ((str1 == str2) &amp;&amp; (str2 == str3))
+                    {
+                        System.out.println(&quot;str1, str2, and str3 are the same objects&quot;);
+                        
+                    }*/
+                    
+                }
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"StringTrace","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"str1","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"NullLiteral"}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"str2","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"StringLiteral","escapedValue":"\"Karel\""}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"str3","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"StringLiteral","escapedValue":"\"Karel\""}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"=","leftHandSide":{"identifier":"str1","type":"SimpleName"},"rightHandSide":{"identifier":"str2","type":"SimpleName"}}}]},"expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"str1","type":"SimpleName"},"rightOperand":{"type":"NullLiteral"}}},{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"str1 and str2 refer to the same object\""}],"typeArguments":[]}}]},"expression":{"type":"InfixExpression","operator":"==","leftOperand":{"identifier":"str1","type":"SimpleName"},"rightOperand":{"identifier":"str2","type":"SimpleName"}}},{"type":"IfStatement","elseStatement":null,"thenStatement":{"type":"Block","statements":[{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"StringLiteral","escapedValue":"\"str1, str2, and str3 are equal\""}],"typeArguments":[]}}]},"expression":{"type":"InfixExpression","operator":"&&","leftOperand":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"str1","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"str2","type":"SimpleName"}],"typeArguments":[]},"rightOperand":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"str2","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"str3","type":"SimpleName"}],"typeArguments":[]}}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[]}};</script>

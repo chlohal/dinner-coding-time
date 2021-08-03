@@ -1,0 +1,23 @@
+
+<h1>String-3 &gt; countYZ</h1>
+
+        <code id="source" data-entry-point="CLASS_BODY_MEMBER_DECLARATION">
+            public int countYZ(String str) {
+                int words = 0;
+                
+                for(int i = 0; i &lt; str.length(); i++) {
+              
+                  if(
+                      //put end-checker first so that it&apos;ll short-circuit if we&apos;re at the end and not try to get an undefined character for the space
+                      (i + 1 == str.length() || !Character.isLetter(str.charAt(i+1))) &amp;&amp; 
+                      (str.toLowerCase().charAt(i) == &apos;y&apos; || str.toLowerCase().charAt(i) == &apos;z&apos;)
+                    ) {
+                      words++;
+                    }
+                }
+                
+                return words;
+              }
+              
+        </code>
+    

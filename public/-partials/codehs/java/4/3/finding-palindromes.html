@@ -1,0 +1,46 @@
+
+<h1>4.3.8 Finding Palindromes</h1>
+
+        <code id="source">
+            import java.util.Scanner;
+            public class Palindromes
+            {
+                /**
+                 * This program lets the user input some text and
+                 * prints out whether or not that text is a palindrome.
+                 */
+                public static void main(String[] args)
+                {
+                   Scanner sc = new Scanner(System.in);
+                   String word = sc.nextLine();
+                   System.out.println(&quot;Your word is &quot; + (isPalindrome(word)?&quot;&quot;:&quot;not &quot;) + &quot;a palindrome!&quot;);
+                }
+                
+                /**
+                 * This method determines if a String is a palindrome,
+                 * which means it is the same forwards and backwards.
+                 * 
+                 * @param text The text we want to determine if it is a palindrome.
+                 * @return A boolean of whether or not it was a palindrome.
+                 */
+                public static boolean isPalindrome(String text)
+                {
+                   return text.equals(reverse(text));
+                }
+                
+                /**
+                 * This method reverses a String.
+                 * 
+                 * @param text The string to reverse.
+                 * @return The new reversed String.
+                 */
+                public static String reverse(String text)
+                {
+                    String r = &quot;&quot;;
+                    for(int i = text.length() - 1; i&gt;=0;i--) r+= text.charAt(i);
+                    return r;
+                }
+            
+            }
+        </code>
+    <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"CompilationUnit","types":[{"type":"TypeDeclaration","name":{"identifier":"Palindromes","type":"SimpleName"},"superInterfaceTypes":[],"superclassType":null,"bodyDeclarations":{"type":"Block","statements":[{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"args","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"ArrayType","componentType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"sc","type":"SimpleName"},"extraDimensions":0,"initializer":{"arguments":[{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"in","type":"SimpleName"}}],"anonymousClassDeclaration":null,"type":"ClassInstanceCreation","typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}},"typeArguments":[],"expression":null}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"Scanner","type":"SimpleName"}}},{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"word","type":"SimpleName"},"extraDimensions":0,"initializer":{"name":{"identifier":"nextLine","type":"SimpleName"},"expression":{"identifier":"sc","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"ExpressionStatement","expression":{"name":{"identifier":"println","type":"SimpleName"},"expression":{"type":"QualifiedName","qualifier":{"identifier":"System","type":"SimpleName"},"name":{"identifier":"out","type":"SimpleName"}},"type":"MethodInvocation","arguments":[{"type":"InfixExpression","operator":"+","leftOperand":{"type":"InfixExpression","operator":"+","leftOperand":{"type":"StringLiteral","escapedValue":"\"Your word is \""},"rightOperand":{"type":"ParenthesizedExpression","expression":{"type":"ConditionalExpression","expression":{"name":{"identifier":"isPalindrome","type":"SimpleName"},"expression":null,"type":"MethodInvocation","arguments":[{"identifier":"word","type":"SimpleName"}],"typeArguments":[]},"thenExpression":{"type":"StringLiteral","escapedValue":"\"\""},"elseExpression":{"type":"StringLiteral","escapedValue":"\"not \""}}}},"rightOperand":{"type":"StringLiteral","escapedValue":"\"a palindrome!\""}}],"typeArguments":[]}}]},"extraDimensions":0,"typeParameters":[],"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"void"},"name":{"identifier":"main","type":"SimpleName"},"constructor":false,"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"text","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"ReturnStatement","expression":{"name":{"identifier":"equals","type":"SimpleName"},"expression":{"identifier":"text","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"name":{"identifier":"reverse","type":"SimpleName"},"expression":null,"type":"MethodInvocation","arguments":[{"identifier":"text","type":"SimpleName"}],"typeArguments":[]}],"typeArguments":[]}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"PrimitiveType","primitiveTypeCode":"boolean"},"name":{"identifier":"isPalindrome","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]},{"parameters":[{"type":"SingleVariableDeclaration","name":{"identifier":"text","type":"SimpleName"},"extraDimensions":0,"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"modifiers":[],"varargs":false,"initializer":null}],"thrownExceptions":[],"extraDimensions":0,"body":{"type":"Block","statements":[{"type":"VariableDeclarationStatement","fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"r","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"StringLiteral","escapedValue":"\"\""}}],"modifiers":[],"typeType":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}}},{"type":"ForStatement","initializers":[{"type":"VariableDeclarationExpression","modifiers":[],"fragments":[{"type":"VariableDeclarationFragment","name":{"identifier":"i","type":"SimpleName"},"extraDimensions":0,"initializer":{"type":"InfixExpression","operator":"-","leftOperand":{"name":{"identifier":"length","type":"SimpleName"},"expression":{"identifier":"text","type":"SimpleName"},"type":"MethodInvocation","arguments":[],"typeArguments":[]},"rightOperand":{"type":"NumberLiteral","token":"1"}}}],"typeType":{"type":"PrimitiveType","primitiveTypeCode":"int"}}],"expression":{"type":"InfixExpression","operator":">=","leftOperand":{"identifier":"i","type":"SimpleName"},"rightOperand":{"type":"NumberLiteral","token":"0"}},"updaters":[{"type":"PostfixExpression","operator":"--","operand":{"identifier":"i","type":"SimpleName"}}],"body":{"type":"ExpressionStatement","expression":{"type":"Assignment","operator":"+=","leftHandSide":{"identifier":"r","type":"SimpleName"},"rightHandSide":{"name":{"identifier":"charAt","type":"SimpleName"},"expression":{"identifier":"text","type":"SimpleName"},"type":"MethodInvocation","arguments":[{"identifier":"i","type":"SimpleName"}],"typeArguments":[]}}}},{"type":"ReturnStatement","expression":{"identifier":"r","type":"SimpleName"}}]},"constructor":false,"type":"MethodDeclaration","returnType2":{"type":"SimpleType","name":{"identifier":"String","type":"SimpleName"}},"name":{"identifier":"reverse","type":"SimpleName"},"typeParameters":[],"modifiers":[{"type":"Modifier","keyword":"public"},{"type":"Modifier","keyword":"static"}]}]},"typeParameters":[],"interface":false,"modifiers":[{"type":"Modifier","keyword":"public"}]}],"package":null,"imports":[{"type":"ImportDeclaration","name":{"type":"QualifiedName","qualifier":{"type":"QualifiedName","qualifier":{"identifier":"java","type":"SimpleName"},"name":{"identifier":"util","type":"SimpleName"}},"name":{"identifier":"Scanner","type":"SimpleName"}},"static":false,"onDemand":false}]}};</script>

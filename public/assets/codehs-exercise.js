@@ -19,43 +19,35 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         document.head.appendChild(link);
     })();
 
-    (_global.createBreadcrumbs = function createBreadcrumbs() {
-        var header = document.querySelector("header");
-        var path = location.pathname.substring(1).split("/");
+    (_global.findAndExecuteDataScripts = function findAndExecuteDataScripts() {
+        var scripts = Array.from(document.querySelectorAll("script[class*=datascript]"));
+        for (var i = 0; i < scripts.length; i++) {
+            scripts[i].parentElement.removeChild(scripts[i]);
 
-        for (var i = 0; i < path.length; i++) {
-            var childIndex = i * 2 + 2;
-            var part;
+            var source = scripts[i].textContent;
+            var sourceRegex = /^\s*window(\.__\w+|\["__\w+"\])\s*=\s*(.+[^;]);?\s*$/.exec(source);
+            if(!sourceRegex) { console.log(source); continue; }
+            var name = sourceRegex[1].trim().replace(/^./, "");
+            var value = sourceRegex[2].trim().replace(/;$/, "");
 
-            if (header.children[childIndex]) part = header.children[childIndex];
-            else part = document.createElement("a");
-
-            part.textContent = path[i];
-            part.href = "/" + path.slice(0, i + 1).join("/");
-
-            if (!header.children[childIndex]) {
-                var sep = document.createElement("span");
-                sep.textContent = "/";
-                sep.classList.add("breadcrumb-separator");
-
-                header.appendChild(sep);
-                header.appendChild(part);
-            }
+            try {
+                window[name] = JSON.parse(value);
+            } catch(e) {}
         }
-
     })();
 
     (_global.addTopNavigation = function addTopNavigation() {
         var main = document.querySelector("main");
 
-        var codehsIndex = ["1-2-5", "1-2-6", "1-2-7", "1-2-8", "1-2-9", "1-3-5", "1-3-8", "1-3-9", "1-4-6", "1-4-7", "1-4-8", "1-5-5", "1-5-6", "1-6-4", "1-6-5", "1-6-6", "1-7-11", "1-7-4", "1-7-5", "1-7-8", "2-1-8", "2-1-9", "2-2-6", "2-2-7", "2-2-8", "2-2-9", "2-3-7", "2-3-8", "2-3-9", "2-3-10", "2-4-5", "2-4-6", "2-4-7", "2-4-8", "2-5-5", "2-5-7", "2-5-8", "2-5-9", "2-6-6", "2-6-7", "2-6-8", "2-7-7", "2-7-8", "2-7-9", "2-8-6", "2-8-7", "2-8-8", "2-8-9", "2-8-10", "2-9-6", "2-9-7", "2-9-8", "2-10-6", "2-10-7", "2-10-8", "3-1-6", "3-1-7", "3-1-8", "3-2-6", "3-2-7", "3-2-8", "3-2-9", "3-3-5", "3-3-6", "3-3-7", "3-3-8", "3-4-6", "3-4-7", "3-4-8", "3-4-9", "3-5-6", "3-5-7", "3-5-8", "3-5-9", "3-6-5", "3-6-6", "3-6-7", "3-7-7", "3-7-9", "3-7-10", "4-1-6", "4-1-7", "4-1-8", "4-1-9", "4-2-6", "4-2-7", "4-2-8", "4-2-9", "4-2-10", "4-3-6", "4-3-7", "4-3-8", "4-3-9", "4-3-10", "4-4-6", "4-4-7", "4-4-8", "4-5-7", "5-1-4", "5-1-5", "5-1-6", "5-2-5", "5-2-6", "5-2-7", "5-2-8", "5-3-5", "5-3-6", "5-3-7", "5-3-8", "5-4-5", "5-4-6", "5-4-7", "5-5-5", "5-5-6", "5-5-7", "5-6-5", "5-6-6", "5-6-7", "5-6-8", "5-7-5", "5-7-6", "5-7-7", "5-8-7", "5-8-8", "5-8-9", "5-9-5", "5-9-6", "5-9-7", "6-1-6", "6-1-7", "6-1-8", "6-1-9", "6-2-7", "6-2-8", "6-2-9", "6-2-10", "6-3-6", "6-3-7", "6-3-8", "6-3-9", "6-4-6", "6-4-7", "6-4-8", "6-4-9", "7-1-7", "7-1-8", "7-2-6", "7-2-7", "7-2-8", "7-2-9", "7-3-6", "7-3-8", "7-3-9", "7-4-6", "7-4-7", "7-4-8", "7-4-9", "7-5-6", "7-5-7", "7-5-8", "7-6-4", "7-6-9", "7-6-10", "8-1-5", "8-1-6", "8-1-7", "8-2-7", "8-2-8", "8-2-9", "9-1-6", "9-1-7", "9-1-8", "9-1-9", "9-2-6", "9-2-7", "9-2-8", "9-2-9", "9-3-6", "9-3-7", "9-3-8", "9-4-6", "9-4-7", "9-4-8", "9-4-9", "9-5-6", "9-5-7", "9-5-8", "9-5-9", "9-6-6", "9-6-7", "9-6-8", "9-6-9", "9-7-6", "9-7-7", "9-7-8", "9-7-9", "10-1-6", "10-1-7", "10-1-8", "10-1-9", "10-2-6", "10-2-7", "10-2-8", "10-3-6", "10-3-7", "10-3-8", "10-3-9"];
+        var codehsIndex;
+        if(typeof window.__codehsIndex  === "undefined") codehsIndex = [["/codehs/java/1/2/welcome-program","1-2-5"],["/codehs/java/1/2/ascii-art","1-2-6"],["/codehs/java/1/2/fixing-a-paragraph","1-2-7"],["/codehs/java/1/2/making-popcorn","1-2-8"],["/codehs/java/1/2/personal-timeline","1-2-9"],["/codehs/java/1/3/our-first-integer","1-3-5"],["/codehs/java/1/3/answering-questions","1-3-8"],["/codehs/java/1/3/team-rankings","1-3-9"],["/codehs/java/1/4/weight-of-a-pyramid","1-4-6"],["/codehs/java/1/4/add-fractions","1-4-7"],["/codehs/java/1/4/freely-falling-bodies","1-4-8"],["/codehs/java/1/5/work-shift","1-5-5"],["/codehs/java/1/5/my-age","1-5-6"],["/codehs/java/1/6/my-age-user-input","1-6-4"],["/codehs/java/1/6/night-out","1-6-5"],["/codehs/java/1/6/mla-citation","1-6-6"],["/codehs/java/1/7/casting-to-an-int","1-7-4"],["/codehs/java/1/7/casting-to-a-double","1-7-5"],["/codehs/java/1/7/movie-ratings","1-7-8"],["/codehs/java/1/7/integer-overflow","1-7-11"],["/codehs/java/2/1/pizza-instance-variables","2-1-8"],["/codehs/java/2/1/phone-skeleton","2-1-9"],["/codehs/java/2/2/using-the-rectangle-class","2-2-6"],["/codehs/java/2/2/student-gpa-field","2-2-7"],["/codehs/java/2/2/instance-variables-for-your-dog","2-2-8"],["/codehs/java/2/2/pizza-time","2-2-9"],["/codehs/java/2/3/plain-coffee","2-3-7"],["/codehs/java/2/3/custom-pinatas","2-3-8"],["/codehs/java/2/3/website-class","2-3-9"],["/codehs/java/2/3/empty-references","2-3-10"],["/codehs/java/2/4/hello","2-4-5"],["/codehs/java/2/4/loose-change","2-4-6"],["/codehs/java/2/4/chat-bot","2-4-7"],["/codehs/java/2/4/greetings-and-salutations","2-4-8"],["/codehs/java/2/5/using-the-point-class","2-5-5"],["/codehs/java/2/5/basketball-players","2-5-7"],["/codehs/java/2/5/more-operations","2-5-8"],["/codehs/java/2/5/chat-bot-2-0","2-5-9"],["/codehs/java/2/6/number-games","2-6-6"],["/codehs/java/2/6/construction-costs","2-6-7"],["/codehs/java/2/6/how-far-away-is","2-6-8"],["/codehs/java/2/7/pretty-printing-operations","2-7-7"],["/codehs/java/2/7/full-name","2-7-8"],["/codehs/java/2/7/quotemachine","2-7-9"],["/codehs/java/2/8/speaking","2-8-6"],["/codehs/java/2/8/tostring-for-flowers","2-8-7"],["/codehs/java/2/8/organizing-files","2-8-8"],["/codehs/java/2/8/concatenating-fractions","2-8-9"],["/codehs/java/2/8/word-games","2-8-10"],["/codehs/java/2/9/order-up","2-9-6"],["/codehs/java/2/9/currency","2-9-7"],["/codehs/java/2/9/guess-the-number","2-9-8"],["/codehs/java/2/10/circle-area","2-10-6"],["/codehs/java/2/10/the-unit-circle","2-10-7"],["/codehs/java/2/10/racing","2-10-8"],["/codehs/java/3/1/number-order","3-1-6"],["/codehs/java/3/1/sugar-tax","3-1-7"],["/codehs/java/3/1/triple-double","3-1-8"],["/codehs/java/3/2/discounts","3-2-6"],["/codehs/java/3/2/sweet-or-unsweet","3-2-7"],["/codehs/java/3/2/cooking","3-2-8"],["/codehs/java/3/2/rating","3-2-9"],["/codehs/java/3/3/positive-or-negative","3-3-5"],["/codehs/java/3/3/battleships-move","3-3-6"],["/codehs/java/3/3/ratings","3-3-7"],["/codehs/java/3/3/player-score","3-3-8"],["/codehs/java/3/4/positive-negative-or-zero","3-4-6"],["/codehs/java/3/4/salmon-spawn","3-4-7"],["/codehs/java/3/4/berries","3-4-8"],["/codehs/java/3/4/battleships","3-4-9"],["/codehs/java/3/5/roller-coaster","3-5-6"],["/codehs/java/3/5/compound-roller-coaster","3-5-7"],["/codehs/java/3/5/divisibility","3-5-8"],["/codehs/java/3/5/find-the-minimum","3-5-9"],["/codehs/java/3/6/amusement-park","3-6-5"],["/codehs/java/3/6/odd-numbers","3-6-6"],["/codehs/java/3/6/odd-and-even","3-6-7"],["/codehs/java/3/7/string-variable-trace","3-7-7"],["/codehs/java/3/7/three-strings","3-7-9"],["/codehs/java/3/7/comparing-circles","3-7-10"],["/codehs/java/4/1/making-taffy","4-1-6"],["/codehs/java/4/1/guess-the-number","4-1-7"],["/codehs/java/4/1/divisibility","4-1-8"],["/codehs/java/4/1/max-and-min-values","4-1-9"],["/codehs/java/4/2/print-the-odds","4-2-6"],["/codehs/java/4/2/repeat-100-times","4-2-7"],["/codehs/java/4/2/replace-while-with-for-loop","4-2-8"],["/codehs/java/4/2/replace-for-loop-with-while-loop","4-2-9"],["/codehs/java/4/2/multiplication-table","4-2-10"],["/codehs/java/4/3/replace-letter","4-3-6"],["/codehs/java/4/3/password-checker","4-3-7"],["/codehs/java/4/3/finding-palindromes","4-3-8"],["/codehs/java/4/3/fixing-grammar","4-3-9"],["/codehs/java/4/3/teen-talk","4-3-10"],["/codehs/java/4/4/upright-number-triangle","4-4-6"],["/codehs/java/4/4/make-a-tree","4-4-7"],["/codehs/java/4/4/multiplication-table","4-4-8"],["/codehs/java/4/5/improving-ischar-speed","4-5-7"],["/codehs/java/5/1/access-for-dna-class","5-1-4"],["/codehs/java/5/1/access-for-employee-class","5-1-5"],["/codehs/java/5/1/fixing-circle","5-1-6"],["/codehs/java/5/2/batting-average","5-2-5"],["/codehs/java/5/2/dog-class","5-2-6"],["/codehs/java/5/2/student-overload","5-2-7"],["/codehs/java/5/2/schoolclub-class","5-2-8"],["/codehs/java/5/3/commenting-activity-tracker","5-3-5"],["/codehs/java/5/3/commenting-activity-log","5-3-6"],["/codehs/java/5/3/c-y-o-a-layout","5-3-7"],["/codehs/java/5/3/c-y-o-a-finishing-the-story","5-3-8"],["/codehs/java/5/4/text-messages-getter-methods","5-4-5"],["/codehs/java/5/4/full-dragon-class","5-4-6"],["/codehs/java/5/4/a-different-dragon-class","5-4-7"],["/codehs/java/5/5/rectangle-class","5-5-5"],["/codehs/java/5/5/full-fraction-class","5-5-6"],["/codehs/java/5/5/weekly-routine","5-5-7"],["/codehs/java/5/6/distance-conversions","5-6-5"],["/codehs/java/5/6/food-app-demo","5-6-6"],["/codehs/java/5/6/car-class","5-6-7"],["/codehs/java/5/6/open-response-combination-lock-frq","5-6-8"],["/codehs/java/5/7/randomizer-class","5-7-5"],["/codehs/java/5/7/rock-paper-scissors","5-7-6"],["/codehs/java/5/7/how-many-players-in-the-game","5-7-7"],["/codehs/java/5/8/scope","5-8-7"],["/codehs/java/5/8/which-variables-exist","5-8-8"],["/codehs/java/5/8/broken-calculator","5-8-9"],["/codehs/java/5/9/write-your-own-codehs","5-9-5"],["/codehs/java/5/9/song-class","5-9-6"],["/codehs/java/5/9/fraction-math","5-9-7"],["/codehs/java/6/1/our-first-array","6-1-6"],["/codehs/java/6/1/set-scores","6-1-7"],["/codehs/java/6/1/last-element-in-array","6-1-8"],["/codehs/java/6/1/snap-shot-splash-screen","6-1-9"],["/codehs/java/6/2/print-array","6-2-7"],["/codehs/java/6/2/print-odd-array-indices","6-2-8"],["/codehs/java/6/2/find-index-of-a-string","6-2-9"],["/codehs/java/6/2/fibonacci-sequence","6-2-10"],["/codehs/java/6/3/print-odds","6-3-6"],["/codehs/java/6/3/largest-value","6-3-7"],["/codehs/java/6/3/classroom-array","6-3-8"],["/codehs/java/6/3/array-average","6-3-9"],["/codehs/java/6/4/find-the-median","6-4-6"],["/codehs/java/6/4/find-the-last-multiple-of-3","6-4-7"],["/codehs/java/6/4/most-improved","6-4-8"],["/codehs/java/6/4/car-showroom","6-4-9"],["/codehs/java/7/1/initializing-an-arraylist","7-1-7"],["/codehs/java/7/1/car-inventory","7-1-8"],["/codehs/java/7/2/get-first-element","7-2-6"],["/codehs/java/7/2/arraylist-of-even-numbers","7-2-7"],["/codehs/java/7/2/teacher-class-list","7-2-8"],["/codehs/java/7/2/teacher-class-list-methods","7-2-9"],["/codehs/java/7/3/traversing-odds","7-3-6"],["/codehs/java/7/3/arraylist-helper-methods","7-3-8"],["/codehs/java/7/3/road-trip","7-3-9"],["/codehs/java/7/4/arraylist-equals","7-4-6"],["/codehs/java/7/4/airline-tickets","7-4-7"],["/codehs/java/7/4/billboard-top-10","7-4-8"],["/codehs/java/7/4/user-data-cleanup","7-4-9"],["/codehs/java/7/5/linear-search-on-arraylist-with-while-loop","7-5-6"],["/codehs/java/7/5/fantasy-football-roster","7-5-7"],["/codehs/java/7/6/explore-selection-sort","7-6-4"],["/codehs/java/7/6/explore-insertion-sort","7-6-9"],["/codehs/java/7/6/selection-sort-vs-insertion-sort-run-time","7-6-10"],["/codehs/java/8/1/manipulating-2d-arrays","8-1-5"],["/codehs/java/8/1/complete-chessboard","8-1-6"],["/codehs/java/8/1/tic-tac-toe-board","8-1-7"],["/codehs/java/8/2/sum-rows-in-a-2d-array","8-2-7"],["/codehs/java/8/2/tic-tac-toe-methods","8-2-8"],["/codehs/java/9/1/person-student-object","9-1-6"],["/codehs/java/9/1/books","9-1-7"],["/codehs/java/9/1/computers","9-1-8"],["/codehs/java/9/1/more-animals","9-1-9"],["/codehs/java/9/2/students","9-2-6"],["/codehs/java/9/2/instruments","9-2-7"],["/codehs/java/9/2/foods","9-2-8"],["/codehs/java/9/2/clothing-store","9-2-9"],["/codehs/java/9/3/dogs-bark","9-3-6"],["/codehs/java/9/3/electric-cars","9-3-7"],["/codehs/java/9/3/online-companies","9-3-8"],["/codehs/java/9/4/squares","9-4-6"],["/codehs/java/9/4/bank-accounts","9-4-7"],["/codehs/java/9/4/employees","9-4-8"],["/codehs/java/9/4/student-test-scores","9-4-9"],["/codehs/java/9/5/pies","9-5-6"],["/codehs/java/9/5/creating-equals","9-5-7"],["/codehs/java/9/5/online-companies-revisited","9-5-8"],["/codehs/java/9/5/assignments","9-5-9"],["/codehs/java/9/6/which-team","9-6-6"],["/codehs/java/9/6/cars","9-6-7"],["/codehs/java/9/6/library-books","9-6-8"],["/codehs/java/9/6/fun-with-solids","9-6-9"],["/codehs/java/9/7/equal","9-7-6"],["/codehs/java/9/7/equals-part-2","9-7-7"],["/codehs/java/9/7/equal-rectangles","9-7-8"],["/codehs/java/9/7/2d-array-tester","9-7-9"],["/codehs/java/10/1/factorial","10-1-6"],["/codehs/java/10/1/countdown","10-1-7"],["/codehs/java/10/1/recursive-minimum","10-1-8"],["/codehs/java/10/1/bacteria-cultures","10-1-9"],["/codehs/java/10/2/exploring-binary-searches","10-2-6"],["/codehs/java/10/2/comparing-binary-search-and-linear-search","10-2-7"],["/codehs/java/10/2/maximum-iterations","10-2-8"],["/codehs/java/10/3/explore-merge-sort","10-3-6"],["/codehs/java/10/3/merge-sort-benchmark-testing","10-3-7"],["/codehs/java/10/3/recursive-calls","10-3-8"],["/codehs/java/10/3/sort-benchmark-testing","10-3-9"]];
+        else codehsIndex = window.__codehsIndex;
 
-        var self = /\d+-\d+-\d+/.exec(location.pathname)[0];
-        var selfIndex = codehsIndex.indexOf(self);
+        var self = location.pathname;
+        var selfIndex = codehsIndex.findIndex(function(x) {return x[0] == self});
 
         var previous = codehsIndex[selfIndex - 1];
         var next = codehsIndex[selfIndex + 1];
-
 
 
         var whetherToInitContainer = !topNavigationLinks[0];
@@ -65,9 +57,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
 
         if (whetherToInitContainer) topNavigationLinks[0] = document.createElement("a");
-        topNavigationLinks[0].textContent = previous ? ("Previous: " + previous.replace(/-/g, ".")) : "";
+        topNavigationLinks[0].textContent = previous ? DCT_LANG.format("CODE_PAGE_TOP_NAVIGATION_PREVIOUS_LABEL", getTitleFromAddress(previous[1])) : "";
         topNavigationLinks[0].style.cursor = previous ? "" : "default";
-        topNavigationLinks[0].href = previous || "";
+        topNavigationLinks[0].href = previous ? previous[0] : "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[0]);
 
         if (whetherToInitContainer) {
@@ -79,9 +71,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
 
         if (whetherToInitContainer) topNavigationLinks[1] = document.createElement("a");
-        topNavigationLinks[1].textContent = next ? ("Next: " + next.replace(/-/g, ".")) : "";
+        topNavigationLinks[1].textContent = next ? DCT_LANG.format("CODE_PAGE_TOP_NAVIGATION_NEXT_LABEL", getTitleFromAddress(next[1])) : "";
         topNavigationLinks[1].style.cursor = next ? "" : "default";
-        topNavigationLinks[1].href = next || "";
+        topNavigationLinks[1].href = next ? next[0] : "";
         if (whetherToInitContainer) navContainer.appendChild(topNavigationLinks[1]);
 
         if (whetherToInitContainer) main.insertBefore(navContainer, main.firstElementChild);
@@ -96,10 +88,10 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 //if the link leads to another codehs page
                 var path = new URL(link.href).pathname;
 
-                if (path.match(/^\/codehs\/\d+-\d+-\d+/) && !link.hasAttribute("data-is-default-prevented")) {
-                    link.setAttribute("data-is-default-prevented", "true");
-                    link.addEventListener("click", function (event) {
+                if (!link.hasAttribute("data-is-default-prevented")) {
+                    link.addEventListener("click", function click(event) {
                         if (link.getAttribute("href") == "") return event.preventDefault();
+                        link.removeEventListener("click", click);
 
                         path = new URL(link.href).pathname;
 
@@ -117,7 +109,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if (event.state) navigateToSpaPath(event.state);
     })
     function navigateToSpaPath(path) {
-        var partialAddress = path.replace("codehs", "-partials/codehs");
+        var partialAddress = "/-partials" + path;
         var originalUrl = window.location.toString();
 
         var xhr = new XMLHttpRequest();
@@ -151,7 +143,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             //attachment points for the children
             var head1 = document.querySelector("h1");
-            if (head1) head1.parentElement.removeChild(head1);
             var tips = Array.from(document.querySelectorAll("aside.tip"));
             tips.forEach(function (x) { x.parentElement.removeChild(x); });
 
@@ -164,13 +155,17 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 if (parsingParent.children[i].id.startsWith("source")) {
                     main.appendChild(parsingParent.children[i]);
                 } else {
-                    main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
+                    if(head1 && parsingParent.children[i].tagName == "H1") {
+                        head1.textContent = parsingParent.children[i].textContent;
+                    } else {
+                        main.insertBefore(parsingParent.children[i], main.children[1] || main.firstElementChild);
+                    }
                 }
             }
 
             selectedTabIndex = undefined;
             initialTabIdx = -1
-            executeDependencyFunction("ast-tools.js", "clearVariableRegistry", [], function () {
+            executeDependencyFunction("parsers/java/ast-tools.js", "clearVariableRegistry", [], function () {
                 removeTransientTabs();
                 _global.findAndExecuteDataScripts();
                 _global.garbageCleanEditors();
@@ -178,7 +173,6 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 _global.loadCodeIntelligence(localStorage.getItem("override-data-saver"), codeIntelligenceLoaded);
                 _global.addTopNavigation();
                 _global.registerSpaLinks();
-                _global.createBreadcrumbs();
                 _global.updateByline();
 
                 if (typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
@@ -188,53 +182,47 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         if (partialCache[partialAddress]) onLoadPartial(true, partialCache[partialAddress]);
         else xhr.send();
     }
-
-    (_global.findAndExecuteDataScripts = function findAndExecuteDataScripts() {
-        var annotationScript = document.querySelector("script.annotation-datascript");
-        if (annotationScript) eval(annotationScript.innerHTML);
-
-        var authorScript = document.querySelector("script.author-datascript");
-        if (authorScript) eval(authorScript.innerHTML);
-    });
+    
+    function getTitleFromAddress(str, sep) {
+        var lastSlash = str.lastIndexOf("/");
+        var slug = str.substring(lastSlash + 1);
+        var slugWords = slug.split("-");
+        var slugWordsCap = slugWords.map(function(x) {
+            return x.charAt(0).toUpperCase() + x.substring(1);
+        });
+        var title = slugWordsCap.join(sep || ".");
+        return title;
+    }
     (_global.cleanDataScripts = function cleanDataScripts() {
-        var annotationScript = Array.from(document.querySelectorAll("script.annotation-datascript"));
-        for (var i = 0; i < annotationScript.length; i++) annotationScript[i].parentElement.removeChild(annotationScript[i]);
-        window.__ANNOTATIONS = null;
+        var scripts = Array.from(document.querySelectorAll("script[class*=datascript]"));
+        for (var i = 0; i < scripts.length; i++) scripts[i].parentElement.removeChild(scripts[i]);
+    })();
 
-        var authorScript = document.querySelectorAll("script.author-datascript");
-        for (var i = 0; i < authorScript.length; i++) authorScript[i].parentElement.removeChild(authorScript[i]);
-        window.__AUTHOR = null;
-    });
-
-    ( _global.updateByline = function() {
+    (_global.updateByline = function () {
         var author = window.__AUTHOR;
 
         var byline = document.querySelector("p.byline");
 
-        if(byline && !author) {
+        if (byline && !author) {
             byline.parentElement.removeChild(byline);
         }
-        else if(!byline && author) {
+        else if (!byline && author) {
             byline = document.createElement("p");
             byline.classList.add("byline");
 
-            byline.appendChild(document.createTextNode("Annotated by "));
+            byline.innerHTML = DCT_LANG.format("CODE_PAGE_ANNOTATION_AUTHOR_ATTRIBUTION", `<a class="external-link" target="_blank" rel="author noopener"></a>`);
+        }
 
-            var link = document.createElement("a");
-            link.classList.add("external-link");
-            link.target = "_blank";
-            link.rel = "author noopener";
-
-            byline.appendChild(link);
+        if (author) {
 
             var title = document.querySelector("h1");
-
             title.parentElement.insertBefore(byline, title);
-        }
-        
-        if(author) {
+
             var bylineLink = byline.firstElementChild;
-            bylineLink.href = author.url;
+
+            //avoid javascript links
+            if(author.url.indexOf("javascript:") == -1) bylineLink.href = author.url;
+            
             bylineLink.textContent = author.name;
         }
     })();
@@ -374,6 +362,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
     (_global.loadEditors = function loadEditors() {
         var pathWithHash = window.location.pathname + "#/tab-";
 
+        var editorCount = 0;
+        for(var i = 0; document.getElementById("source" + (i || "")) != null; i++) editorCount++;
+
         for (var i = 0; ; i++) {
             var source = document.getElementById("source" + (i || ""));
             if (source && source.parentElement) source.parentElement.removeChild(source);
@@ -383,7 +374,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 continue;
             }
 
-            if (source != null) editors[pathWithHash + (i + 1)] = (makeEditor(source, i));
+            if (source != null) editors[pathWithHash + (i + 1)] = (makeEditor(source, i, editorCount));
             else break;
         }
 
@@ -398,6 +389,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 ((navigator.connection.type != "bluetooth" && navigator.connection.type != "cellular") &&
                     !navigator.connection.saveData)
             ) {
+                var lang = "java";
                 var editorArray = Object.values(editors);
                 for (var i = 0; i < editorArray.length; i++) {
                     (function () {
@@ -405,9 +397,10 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                         if (editor.onLoadCodeIntelligence) requestAnimationFrame(function () {
                             editor.onStartLoadingCodeIntelligence();
                         });
-                    })()
+                    })();
+                    lang = editorArray[i].language || lang;
                 }
-                loadDep(["java-parser.js", "ast-tools.js"], ["explainer.js", "name-manager.js"], function () {
+                loadDep([], ["parsers/" + lang + "/explainer.js", "name-manager.js"], function () {
                     requestAnimationFrame(function () {
                         startCodeIntelligence(quiet);
                     });
@@ -487,12 +480,15 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }
     }
 
-    function makeEditor(source, editorIndex) {
+    function makeEditor(source, editorIndex, totalEditorCount) {
         editorIndex = +editorIndex;
 
-        var sourceContent = source.textContent;
+        var language = source.getAttribute("language") || window.__defaultEditorLanguage || "java";
+
+        var sourceElementId = source.getAttribute("id");
+        var sourceContent = source.textContent.trim();
         var sourceLinesHtml = source.innerHTML.split("\n");
-        var annotations = (window.__ANNOTATIONS||{})[source.id];
+        var annotations = (window.__ANNOTATIONS || {})[source.id];
 
         var table = makeNumberedLinesTable(sourceLinesHtml);
 
@@ -549,8 +545,16 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         border.appendChild(parent);
 
         var tabTitle = document.createElement("button");
-        var titleRegexp = (/class\s+(\w+)( extends \w+)?( implements (\w+, *)+)?(\s|\n)+{/).exec(sourceContent);
-        var fileName = titleRegexp ? titleRegexp[1] + ".java" : sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
+        var fileName = sourceContent.substring(0, 32).replace(/\n/g, " ") + "...";
+        if(language == "java") {
+            var titleRegexp = (/class\s+(\w+)( extends \w+)?( implements (\w+, *)+)?(\s|\n)*{/).exec(sourceContent);
+            if(titleRegexp) fileName = titleRegexp[1] + "." + language;
+        } else if(totalEditorCount == 1) {
+            var titleRegexp = (/^\d+\.\d+\.\d+ ([^|]+) \| [^|]+$/).exec(document.title);
+            if(titleRegexp) fileName = slugify(titleRegexp[1]) + "." + languageToExtension(language);
+        }
+        
+        fileName = source.getAttribute("data-filename") || fileName
         tabTitle.innerHTML = `<span>${encodeCharacterEntities(fileName)}</span>`;
         tabTitle.addEventListener("mouseup", function (event) {
             requestAnimationFrame(function () {
@@ -597,14 +601,14 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
             try {
                 function printToTable(ast) {
-                    if (ast.error) return showErrorAndFallback(ast.error);
+                    if (ast.error) return showErrorAndFallback(ast.error, ed);
 
                     window.ast = ast;
                     ed.ast = ast;
 
                     ed.loaderMessage.textContent = "Formatting source tree";
 
-                    executeDependencyFunction("ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
+                    executeDependencyFunction("parsers/" + ed.language + "/ast-tools.js", "astToString", [ast, userStyle, ["@" + ed.exercise]], function (astSource) {
                         ed.loaderMessage.textContent = "Adding formatted code to document object model";
 
                         makeNumberedLinesTable(astSource.split("\n"), ed.table);
@@ -618,7 +622,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     });
                 }
 
-                ed.loaderMessage.textContent = "Parsing java code";
+                ed.loaderMessage.textContent = "Parsing " + ed.language + " code";
 
                 if (sourceContent.trim() == "") {
                     makeNumberedLinesTable(["### If you somehow got to this unlisted page ###", "Sorry, this exercise hasn't been done yet.", "All of these are manually filled by one person, so it takes a bit for them to be finished", "I'm doing Chapter 9 right now, so all chapters, 1 to 10, will be done soon, I promise.", "I apologize for the delay."], ed.table);
@@ -627,8 +631,9 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     ed.parent.classList.remove("code-with-lines--loading");
                     return;
                 }
-                if (ed.ast) printToTable(ed.ast);
-                else executeDependencyFunction("java-parser.js", "parse", [sourceContent], printToTable);
+                if(window.__preparsed && window.__preparsed[sourceElementId]) printToTable(window.__preparsed[sourceElementId]);
+                else if (ed.ast) printToTable(ed.ast);
+                else executeDependencyFunction("parsers/" + language + "/parser.js", "parse", [sourceContent], printToTable);
             } catch (e) {
                 showAlert({
                     text: `Error in activating Code Intelligence on ${fileName}.`,
@@ -642,7 +647,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         }
 
-        function showErrorAndFallback(errorMessage) {
+        function showErrorAndFallback(errorMessage, ed) {
             loader.firstElementChild.innerText = errorMessage + "\nPlease report this error. Falling back to raw source code (3)";
             var secs = 3;
             var loop = setInterval(function () {
@@ -659,13 +664,13 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             }, 1000);
         }
 
-        var exercise = window.location.pathname;
-        exercise = /\d+-\d+-\d+/.exec(exercise)[0].replace(/-/g, ".");
+        var exercise = window.location.pathname.replace("codehs/", "");
 
         var result = {
             ast: null,
             parent: parent,
             source: sourceContent,
+            sourceElementId: sourceElementId,
             index: editorIndex,
             table: table,
             exercise: exercise,
@@ -673,6 +678,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
             lines: sourceLinesHtml,
             border: border,
             tab: tabTitle,
+            language: language,
             loaderMessage: loader.firstElementChild.firstElementChild.firstElementChild
         };
 
@@ -684,22 +690,22 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
     }
 
     function addAnnotations(annotations, table) {
-        if(!annotations) return false;
+        if (!annotations) return false;
         //get content (TD elements' text) of table
         var source = "";
-        for(var i = 0; i < table.children.length; i++) {
+        for (var i = 0; i < table.children.length; i++) {
             source += table.children[i].lastElementChild.lastElementChild.textContent + "\n";
         }
-        executeDependencyFunction("hljs-worker.js", "getLineAddresses", [source], function(lineAddresses) {
+        executeDependencyFunction("lightweight-java-highlighter.js", "getLineAddresses", [source], function (lineAddresses) {
             var alreadyAdded = [];
-            for(var i = lineAddresses.length - 1; i >= 0; i--) {
-                var annotation = annotations.find(function(x) {
+            for (var i = lineAddresses.length - 1; i >= 0; i--) {
+                var annotation = annotations.find(function (x) {
                     return x.astConstruct == lineAddresses[i];
                 });
-                if(!annotation) continue;
-                
+                if (!annotation) continue;
+
                 //ensure that each annotation is only added once
-                if(alreadyAdded.includes(annotation.astConstruct)) continue;
+                if (alreadyAdded.includes(annotation.astConstruct)) continue;
                 else alreadyAdded.push(annotation.astConstruct);
 
                 //insert _before_ the line's code
@@ -716,6 +722,8 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
 
         return anno;
     }
+
+    var lastTabAppendedTime;
 
     function appendTab(tab, tabpanel, parent) {
         var plainLocalIdentifier = "tab-" + editorsParent.children.length;
@@ -743,8 +751,16 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 selectedTabpanel.setAttribute("aria-hidden", "true");
             }
 
-            if (window.history && window.history.replaceState) window.history.replaceState(window.location.pathname, "", generatedId);
-            else location.hash = "#/" + plainLocalIdentifier;
+            lastTabAppendedTime = Date.now();
+
+            setTimeout(function() {
+                //only set the new item if we haven't in the last ~45ms. Avoid causing DOM security 
+                if(location.hash != "#/" + plainLocalIdentifier) {
+                    if(Date.now() - lastTabAppendedTime > 45) {
+                        if (window.history && window.history.replaceState) window.history.replaceState(window.location.pathname, "", generatedId);
+                    }
+                }
+            }, 50);
 
             tab.setAttribute("tabindex", "0");
             tabpanel.removeAttribute("hidden");
@@ -886,31 +902,31 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         tabPanel.classList.add("editor-settings-tab");
 
         var tabPanelHeading = document.createElement("h2");
-        tabPanelHeading.textContent = "Code Formatting Settings";
+        tabPanelHeading.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_TITLE");
         tabPanel.appendChild(tabPanelHeading);
 
         var oldStyle = getUserStyle();
 
         //bracket options
         tabPanel.appendChild(createRadioControls({
-            heading: "Bracket Style",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_TITLE"),
             name: "javaBracketsStyle",
             opts: [
                 {
                     value: true,
                     checked: !!oldStyle.javaBracketsStyle,
-                    label: "Use <em>Java-style</em> brackets, on the same line as their block start. <blockquote><pre><code>if(true) {\n    //...\n}</code></pre></blockquote>"
+                    label:  DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_OPTION_JAVA_STYLE_SUMMARY") + "<blockquote><pre><code>if(true) {\n    //...\n}</code></pre></blockquote>"
                 },
                 {
                     value: false,
                     checked: !oldStyle.javaBracketsStyle,
-                    label: "Use <em>C-style</em> brackets, which are on a new line from their block start. <blockquote><pre><code>if(true)\n{\n    //...\n}</code></pre></blockquote>"
+                    label:  DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_BRACKET_STYLE_OPTION_C_STYLE_SUMMARY") + "<blockquote><pre><code>if(true)\n{\n    //...\n}</code></pre></blockquote>"
                 }
             ]
         }));
 
         tabPanel.appendChild(createTextarea({
-            heading: "Indentation",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_INDENTATION_TITLE"),
             name: "indentBy",
             pattern: "^\\s+$",
             value: oldStyle.indentBy || "    ",
@@ -918,197 +934,197 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 width: (oldStyle.indentBy || "    ").length + "ch"
             },
             resize: "none",
-            label: "How far each block should be indented by. This input MUST be entirely whitespace in order to give valid Java.",
+            label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_INDENTATION_SUMMARY"),
             onkeyup: function (event) {
                 event.target.style.width = event.target.value.length + "ch";
             }
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Code Spacing Out",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_TITLE"),
             name: "spaceAfterStatement",
             opts: [
                 {
                     value: " ",
                     checked: !!oldStyle.spaceAfterStatement,
-                    label: "<em>Loosely</em> space the code. Includes spaces added after <code>for</code> and <code>if</code> statements.<blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_LOOSE_SUMMARY") + "<blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "",
                     checked: !oldStyle.spaceAfterStatement,
-                    label: "Space the code out the <em>default</em> amount. This option will still indent code and make newlines, but won't include extra spacing inside parentheses or spaces after  <code>for</code> and <code>if</code> statements. <blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_DEFAULT_SUMMARY") + "<blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: "dense",
                     checked: oldStyle.spaceAfterStatement == "dense",
-                    label: "<em>Minify</em> the code. This will pack all of your code onto one line and try to make it as small as possible. It also removes all comments. <blockquote><pre><code>public static void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_CODE_SPACING_OUT_OPTION_MINIFY_SUMMARY") + "<blockquote><pre><code>public static void main(String[] args) {if(3*3>5) {}}</code></pre></blockquote>"
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Expression Spacing",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_TITLE"),
             name: "spaceInExpression",
             opts: [
                 {
                     value: " ",
                     checked: oldStyle.spaceInExpression === " ",
-                    label: "<em>Add spaces</em> inside expressions and between arguments."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_OPTION_ADD_SPACES_SUMMARY")
                 },
                 {
                     value: "",
                     checked: (oldStyle.spaceInExpression || "") == "",
-                    label: "<em>Use Code Spacing configuration</em> inside expressions and between arguments."
+                    label:  DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPRESSION_SPACING_OPTION_DEFAULT_TO_CODE_SPACING_SUMMARY") 
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Comments",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_TITLE"),
             name: "removeComments",
             opts: [
                 {
                     value: false,
                     checked: !oldStyle.removeComments,
-                    label: "<em>Keep</em> comments in the code <blockquote><pre><code>//this method runs when the program starts\npublic static void main(String[] args) {\n    if(3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_OPTION_KEEP_SUMMARY") + "<blockquote><pre><code>//this method runs when the program starts\npublic static void main(String[] args) {\n    if(3 * 3 > 5) {\n        //...\n    }\n}</code></pre></blockquote>"
                 },
                 {
                     value: true,
                     checked: !!oldStyle.removeComments,
-                    label: "<em>Remove</em> comments from the code completely.<blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        \n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_COMMENTS_OPTION_REMOVE_SUMMARY") + "<blockquote><pre><code>public static void main(String[] args) {\n    if(3*3>5) {\n        \n    }\n}</code></pre></blockquote>"
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Rich Formatting",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_TITLE"),
             name: "colorize",
             opts: [
                 {
                     value: true,
                     checked: !!oldStyle.colorize,
-                    label: "<em>Parse, analyze, and color</em> the code. This allows features like explainations and automatic refactoring."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_OPTION_DONT_PARSE_SUMMARY")
                 },
                 {
                     value: false,
                     checked: !oldStyle.colorize,
-                    label: "<em>Don't tokenize and color</em> the code. This will speed up loading times and make the code viewer more performant, but removes features like explainations. Because of this, some options will have no effect if this is on."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_RICH_FORMATTING_OPTION_PARSE_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Highlight Paired Characters",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_TITLE"),
             name: "dontHighlightPairedChars",
             opts: [
-                {
+                {   
                     value: true,
                     checked: !!oldStyle.dontHighlightPairedChars,
-                    label: "<em>Don't highlight</em> the counterpart of paired characters (like <code>(</code>, <code>[</code>, or <code>{</code>) when you hover over them."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_OPTION_DONT_HIGHLIGHT_SUMMARY")
                 },
                 {
                     value: false,
                     checked: !oldStyle.dontHighlightPairedChars,
-                    label: "<em>Highlight</em> the counterpart of paired characters (like <code>(</code>, <code>[</code>, or <code>{</code>) when you hover over them."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_PAIRED_CHARACTERS_OPTION_HIGHLIGHT_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Explain",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_TITLE"),
             name: "hideExplainations",
             opts: [
                 {
                     value: true,
                     checked: !!oldStyle.hideExplainations,
-                    label: "<em>Hide</em> explaination tooltips"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_OPTION_HIDE_TOOLTIPS_SUMMARY")
                 },
                 {
                     value: false,
                     checked: !oldStyle.hideExplainations,
-                    label: "<em>Show</em> explaination tooltips"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_EXPLAIN_OPTION_SHOW_TOOLTIPS_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Register Variable Scopes",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_TITLE"),
             name: "dontRegisterVariables",
             opts: [
                 {
                     value: true,
                     checked: !!oldStyle.dontRegisterVariables,
-                    label: "<em>Don't register variables</em>. This can save memory and make the code viewer faster, but removes features like variable definition finding and some refactoring features."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_OPTION_DONT_REGISTER_SUMMARY")
                 },
                 {
                     value: false,
                     checked: !oldStyle.dontRegisterVariables,
-                    label: "<em>Register variables</em>. This option will use an internal object to record variables used in the program and link variable usages to their definitions."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_REGISTER_VARIABLE_SCOPES_OPTION_REGISTER_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "If/Else Format",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_TITLE"),
             name: "ifElseNewline",
             opts: [
                 {
                     value: "\n",
                     checked: oldStyle.ifElseNewline == "\n" || oldStyle.ifElseNewline == undefined,
-                    label: "The <code>else</code> should be on a <em>new line</em> from its <code>if</code>'s ending bracket. <blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    }\n    else {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_OPTION_NEXT_LINE_SUMMARY")
                 },
                 {
                     value: " ",
                     checked: oldStyle.ifElseNewline == " ",
-                    label: "The <code>else</code> should be on the <em>same line</em> as its <code>if</code>'s ending bracket. <blockquote><pre><code>public static void main (String[] args) {\n    if (3 * 3 > 5) {\n        //...\n    } else {\n        //...\n    }\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_IF_ELSE_FORMAT_OPTION_SAME_LINE_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Single-Statement Blocks",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_TITLE"),
             name: "singleLineBlockBrackets",
             opts: [
                 {
                     value: "block",
                     checked: oldStyle.singleLineBlockBrackets == "block" || oldStyle.singleLineBlockBrackets == undefined,
-                    label: "Single-statement blocks should <em>always</em> have curly brackets. <blockquote><pre><code>if (3 * 3 > 5) {\n    System.out.println(\"hi\");\n}</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_ALWAYS_NEWLINE_SUMMARY")
                 },
                 {
                     value: "line",
                     checked: oldStyle.singleLineBlockBrackets == "line",
-                    label: "Single-statement blocks should <em>never</em> have curly brackets. <blockquote><pre><code>if (3 * 3 > 5) System.out.println(\"hi\");</code></pre></blockquote>"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_NEVER_NEWLINE_SUMMARY")
                 },
                 {
                     value: "source",
                     checked: oldStyle.singleLineBlockBrackets == "source",
-                    label: "Just leave it however the example code was written."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_SINGLE_STATEMENT_BLOCKS_OPTION_DEFAULT_NEWLINE_SUMMARY")
                 }
             ]
         }));
 
         tabPanel.appendChild(createRadioControls({
-            heading: "Line Wrap",
+            heading: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_TITLE"),
             name: "lineWrap",
             opts: [
                 {
                     value: "true",
                     checked: oldStyle.lineWrap == "true",
-                    label: "Wrap long lines to keep the display narrower. This only affects how code is displayed-- if you copy it, your clipboard copy won't have the wrap."
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_OPTION_WRAP_SUMMARY")
                 },
                 {
                     value: "false",
                     checked: oldStyle.lineWrap == "false" || oldStyle.lineWrap == undefined,
-                    label: "Scroll sideways instead of wrapping lines"
+                    label: DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SETTING_LINE_WRAP_OPTION_SCROLL_SIDEWAYS_SUMMARY")
                 }
             ]
         }));
-        
+
         //use lightweight highlighter 
         var codeblocks = tabPanel.querySelectorAll("pre code");
-        for(var i = 0; i < codeblocks.length; i++) {
-            (function(i) {
-                executeDependencyFunction("hljs-worker.js", "highlightAuto", [codeblocks[i].innerText], function(data) {
+        for (var i = 0; i < codeblocks.length; i++) {
+            (function (i) {
+                executeDependencyFunction("lightweight-java-highlighter.js", "highlightAuto", [codeblocks[i].innerText], function (data) {
                     codeblocks[i].innerHTML = data;
                 });
             })(i);
@@ -1124,7 +1140,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         buttonParent.classList.add("editor-settings-tab--button-container");
 
         var tabPanelSubmitButton = document.createElement("button");
-        tabPanelSubmitButton.textContent = "Save & Apply Changes";
+        tabPanelSubmitButton.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_SAVE_APPLY_CHANGES_BUTTON_LABEL");
         tabPanelSubmitButton.onclick = function (event) {
             event.preventDefault();
             event.stopPropagation();
@@ -1144,12 +1160,11 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         tabPanel.appendChild(unmovingButtonSection);
 
         var tabButton = document.createElement("button");
-        tabButton.textContent = "Format Settings";
+        tabButton.textContent = DCT_LANG.format("CODE_PAGE_TOOLS_FORMAT_SETTINGS_TAB_LABEL");
         _global.appendToolTab(tabButton, tabPanel);
 
         //sticky button
         tabButton.addEventListener("click", function () {
-            console.log("ee");
             requestAnimationFrame(function waitForLayoutChangeAnim() {
 
                 var top = getYPos(tabPanel);
@@ -1162,7 +1177,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                     if (toolsTablist.children[selectedToolTabIndex] != tabButton) {
                         buttonParent.style.position = "static";
                         buttonBackground.classList.remove("shadowed");
-                        return console.log("no longer sel");
+                        return false;
                     }
 
                     if (bottomVisibleThreshold - window.scrollY > containerOffset) {
@@ -1252,6 +1267,27 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
         }
 
         return controlParent;
+    }
+
+    /**
+     * Convert an input string to a slug that will fit well in URLs and filenames
+     * @param {string} str Input string
+     */
+    function slugify(str) {
+        return str.replace(/'/g, "") // ignore contractions
+            .replace(/\W+/g, "-") //replace non-word characters with dashes
+            .replace(/^-/, "") //ignore leading dashes
+            .replace(/-$/, "") //and trailing dashes
+            .toLowerCase(); //lowercase
+    }
+
+    /**
+     * Converts an input language's name into its file extension
+     * @param {string} lang Input language
+     */
+    function languageToExtension(lang) {
+        if(lang == "python") return "py";
+        else return lang;
     }
 
     function removeTransientTabs() {
