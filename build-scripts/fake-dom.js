@@ -31,6 +31,7 @@ module.exports = {
 function FakeDomNode(tag, value) {
     let self = this;
 
+    /**@type {string} */
     this.nodeName = tag;
     if (tag == "#text") this.value = value;
 

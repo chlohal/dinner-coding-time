@@ -45,14 +45,14 @@ searchIndex.write();
 
 /**
  * @typedef {Object} Page
- * @property {FakeDomNode} document A #root node representing the document of the page.
+ * @property {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
  * @property {string} location The location of the page, equal to the window.location.pathname property in a browser.
  */
 
 
 /**
  * Make a page from a document and location
- * @param {FakeDomNode} document A #root node representing the document of the page.
+ * @param {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
  * @param {string} location The location of the page, equal to the window.location.pathname property in a browser.
  * @returns {Page} The page
  */
@@ -62,10 +62,6 @@ function makePage(document, location) {
         document: document
     };
 }
-
-/**
- * @typedef {import("./fake-dom").FakeDomNode} FakeDomNode
- */
 
 /**
  * Load all HTML files from a given folder.

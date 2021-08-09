@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="400"
+   viewBox="0 0 800 400"
+   version="1.1"
+   id="svg869"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="opengraph-example.svg">
+  <defs
+     id="defs863">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1449">
+      <stop
+         style="stop-color:#57efec;stop-opacity:1"
+         offset="0"
+         id="stop1445" />
+      <stop
+         id="stop1453"
+         offset="0.49929675"
+         style="stop-color:#e85e90;stop-opacity:1" />
+      <stop
+         style="stop-color:#fcc9ba;stop-opacity:1"
+         offset="1"
+         id="stop1447" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1449"
+       id="linearGradient1451"
+       x1="208"
+       y1="191.16666"
+       x2="208"
+       y2="591.16663"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(12)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="411.53514"
+     inkscape:cy="219.29151"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     units="px"
+     inkscape:pagecheckerboard="true"
+     inkscape:snap-bbox="false"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-page="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-grids="true"
+     inkscape:object-paths="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1437"
+       spacingx="10"
+       spacingy="10"
+       enabled="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata866">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-191.16665)">
+    <rect
+       style="opacity:1;fill:#f7f5f5;fill-opacity:1;stroke:none;stroke-width:11.26677132;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect1439"
+       width="800"
+       height="400"
+       x="0"
+       y="191.16666"
+       ry="0.49999601" />
+    <path
+       style="opacity:1;fill:#1b1d35;fill-opacity:1;stroke:none;stroke-width:11.26677132;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       d="M 406.875,211.16666 H 750 c 16.62,0 30,13.37999 30,29.99999 v 299.99998 c 0,16.62 -13.38,30 -30,30 H 182 Z"
+       id="rect851"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="csssscc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:16px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Light';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#f7f5f5;fill-opacity:1;stroke:none;"
+       x="166.23126"
+       y="226.44666"
+       id="text1532"><tspan
+         sodipodi:role="line"
+         id="tspan1572"
+         x="166.23126"
+         y="226.44666">public class BinaryExplorer {</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1574"
+         x="166.23126"
+         y="246.44666" /><tspan
+         sodipodi:role="line"
+         id="tspan1576"
+         x="166.23126"
+         y="266.44666">    public static void main(String[] args) {</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1578"
+         x="166.23126"
+         y="286.44666">        int[] testArray = {3, 6, 12, 18, 24, 34, 54, 64, 87, 100};</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1580"
+         x="166.23126"
+         y="306.44666" /><tspan
+         sodipodi:role="line"
+         id="tspan1582"
+         x="166.23126"
+         y="326.44666">        binaryRec(testArray, 87, 0, testArray.length - 1);</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1584"
+         x="166.23126"
+         y="346.44666" /><tspan
+         sodipodi:role="line"
+         id="tspan1586"
+         x="166.23126"
+         y="366.44666">    }</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1588"
+         x="166.23126"
+         y="386.44666" /><tspan
+         sodipodi:role="line"
+         id="tspan1590"
+         x="166.23126"
+         y="406.44666">    /**</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1592"
+         x="166.23126"
+         y="426.44666">     * Add Print statements to the binaryRec method:</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1594"
+         x="166.23126"
+         y="446.44666">     * </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1596"
+         x="166.23126"
+         y="466.44666">     * Print Starting, ending, and midpoint values.</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1598"
+         x="166.23126"
+         y="486.44666">     * </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1600"
+         x="166.23126"
+         y="506.44666">     * Print when you find a match</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1602"
+         x="166.23126"
+         y="526.44666">     * </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1604"
+         x="166.23126"
+         y="546.44666">     * Print if you are too high or too low.</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1606"
+         x="166.23126"
+         y="566.44666">     * </tspan><tspan
+         sodipodi:role="line"
+         id="tspan1608"
+         x="166.23126"
+         y="586.44666">     **/</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1610"
+         x="166.23126"
+         y="606.44666">    public static int binaryRec(int[] array, int target, int begin, int end) {</tspan></text>
+    <path
+       style="fill:#f7fdfd;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 50,191.16665 h 350 l 0,1e-5 -250,399.99999 H 0 v -400 z"
+       id="path1441"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
+    <rect
+       style="opacity:1;fill:#57efec;fill-opacity:0;stroke:none;stroke-width:11.86325932;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect1477"
+       width="310.43243"
+       height="9.9999933"
+       x="19.783768"
+       y="230.68112"
+       ry="0.49999601" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.22266642px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#1b1d35;fill-opacity:1;stroke:none;stroke-width:0.73054612;"
+       x="17.369999"
+       y="235.42111"
+       id="text1457"><tspan
+         sodipodi:role="line"
+         id="tspan1467"
+         x="17.369999"
+         y="235.42111"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:29.22266642px;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr;text-anchor:start;stroke-width:0.73054612;fill:#1b1d35;fill-opacity:1;">codehs/java/10-2-3</tspan></text>
+    <text
+       id="text1465"
+       y="284.55258"
+       x="17.578884"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:42.47600047px;line-height:1.25;font-family:'JetBrains Mono';-inkscape-font-specification:'JetBrains Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#1b1d35;fill-opacity:1;stroke:none;stroke-width:1.06189311;"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan1471"
+         x="17.578884"
+         y="284.55258"
+         style="stroke-width:1.06189311;fill:#1b1d35;fill-opacity:1;-inkscape-font-specification:'JetBrains Mono, Medium';font-family:'JetBrains Mono';font-weight:500;font-style:normal;font-stretch:normal;font-variant:normal;font-size:42.47600047px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">Exploring</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1473"
+         x="17.578884"
+         y="337.64725"
+         style="stroke-width:1.06189311;fill:#1b1d35;fill-opacity:1;-inkscape-font-specification:'JetBrains Mono, Medium';font-family:'JetBrains Mono';font-weight:500;font-style:normal;font-stretch:normal;font-variant:normal;font-size:42.47600047px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">Binary</tspan><tspan
+         sodipodi:role="line"
+         id="tspan1475"
+         x="17.578884"
+         y="390.74191"
+         style="stroke-width:1.06189311;fill:#1b1d35;fill-opacity:1;-inkscape-font-specification:'JetBrains Mono, Medium';font-family:'JetBrains Mono';font-weight:500;font-style:normal;font-stretch:normal;font-variant:normal;font-size:42.47600047px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;">Searches</tspan></text>
+    <image
+       y="548.16663"
+       x="10"
+       id="image1635"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAIAAADYhlU4AAAAA3NCSVQICAjb4U/gAAADEUlEQVRI ic2XSU8UQRiG36+64ILBBHuZmQbkAvFCPDAzYTGKiSICP0D077n8AoQB4pIoq2yJUcOJbZilZ0wk ysFUV3loZpiuHoQYFt9Dp7rSVW/V99T3VZqUUgCC57mLiACwizOozkxSygsyqIqHbLc2ZXYLwbaI mNtBHV0/F9//+rwCbSmMNXUnr6XvnsWD1b7I3A6qcVNK5nYBHH7d0A0ASHn4Zf2M+wh5MLcDzKi8 GMztANDU3UOca8OI86bu5Bk9Lp0HAPHupViagPQBgBk8PcYHxwHsZ/eKxYJSiohs20m4rdM7+bn9 kh8+kwbRQMJ82B6r7QzFCoBYnT4yACB9sTodND2vWM0kzysCWMyX/cih95VazJe1Tt2DJ0dgNFRW 1cBTI0HTtp0goYjIdmIA+uMmZ6QPZ9Qft7TOq+HxSixPwBcAYHCeHuP3noRgOLFEwp3ZyX+sB+OO az1oc7Q5ozwyRwYAfCFWMtBgFAsAFk6AsZArRfcR4dEzDKOyOYPz5GNoMGwHQF/cNEiHYRD1xc2o x1XwCPT95caPiW9KSOLs+titlvHb2eyuVywCsGzHdVtndwsfst4/8gh0MLWphASghDyY2gRQ8jyl lFKq5BUBzOd04Dg7j0DNw11kMABksObhLgCmaREREZmWDaA3Vp9H7//Co0rieBUVJNGSldnOL+XL 6diNRzdjtW1tTj1WVRJVKSEPJjdxQsn6LWVQoGrbp3g0D3WSEQo0GdQ81IkKEgBEZJoWgKTTwhml nBatrelK6tWb5+LTJKQPZvDUCL//bG9vNzivlmW7rW1T2/n5XEnWHFxG1B83oxiOP9A91meP7g/p i7VZAOVSJTNKHoDlQlmGM0MqtVyog+FED54eA28EAN5opEYA2LbDGGOMBZVqIGE1sNCoBsb666VF VZfLQ7x9IZZf19zko3zwaWY7PxeOPgBGNJAwh9pPBKDpeNdibSZ8k88AWIpEH4BUaqleHpzuwVOj RyQA8EaeHgUwENejjwBAQr+0/6LL4MEoUj7PV0TEUPlLuCADAH8A/12k5+zw1ycAAAAASUVORK5C YII= "
+       preserveAspectRatio="none"
+       height="33"
+       width="33" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path1443"
+       d="m 400,191.16666 19.98828,-1e-5 -250,400 H 150 Z"
+       style="fill:url(#linearGradient1451);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       sodipodi:nodetypes="ccccc" />
+  </g>
+</svg>
