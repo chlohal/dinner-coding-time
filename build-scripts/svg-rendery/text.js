@@ -28,8 +28,22 @@ module.exports = function Text(textElement) {
         return new Path(pathElem);
     });
 
+    var clipMatches = function() {return 1;}
+    if(textElement.getAttribute("clip-path")) {
+        var root = findRoot(elem);
+        var clipIdRegex = /url\((?:'|")?#([\w-]+)(?:'|")?\)/.exec(textElement.getAttribute("clip-path"));
+        if(clipIdRegex && clipIdRegex[1]) {
+            var clipElement = root.getElementById(clipIdRegex[1]);
+            if(clipElement && clipElement.__svgRepresentation) {
+                clipMatches = clipElement.__svgRepresentation.coversPoint;
+            }
+        }
+    }
+
 
     self.coversPoint = function(x, y) {
+        if(clipMatches(x, y) == 0) return 0;
+        
         var letterformsCovers = 0;
         for(var i = 0; i < letters.length; i++) {
             var covers = letters[i].coversPoint(x, y);

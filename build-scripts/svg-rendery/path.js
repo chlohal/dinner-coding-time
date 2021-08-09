@@ -5,16 +5,6 @@ const Quadratic = require("./path-segments/quadratic");
 
 module.exports = Path;
 
-var numberRegex = "[-\\d.]+";
-var spaceRegex = "\\s*"
-
-var commands = [
-    "M" + numberRegex + spaceRegex + numberRegex,
-    "," + numberRegex + spaceRegex + numberRegex,
-]
-
-var commandRegex = new RegExp(commands.map(x=>`(?:${x}${spaceRegex})`).join("|"), "g");
-
 /**
  * @typedef {Path} Path
  * @param {import("../fake-dom").FakeDomNode} pathNode 
@@ -52,10 +42,24 @@ function Path(pathNode) {
         box.boundRight = Math.max(box.boundRight, lastSegment.box.boundRight);
     }
 
+    var clipMatches = function() {return 1;}
+    if(pathNode.getAttribute("clip-path")) {
+        var root = findRoot(elem);
+        var clipIdRegex = /url\((?:'|")?#([\w-]+)(?:'|")?\)/.exec(pathNode.getAttribute("clip-path"));
+        if(clipIdRegex && clipIdRegex[1]) {
+            var clipElement = root.getElementById(clipIdRegex[1]);
+            if(clipElement && clipElement.__svgRepresentation) {
+                clipMatches = clipElement.__svgRepresentation.coversPoint;
+            }
+        }
+    }
+
     self.coversPoint = function coversPoint(x, y) {
         if(box) {
             if(y < box.boundBottom || y > box.boundTop || x < box.boundLeft || x > box.boundRight) return 0;
         }
+
+        if(clipMatches(x, y) == 0) return 0;
         
         var multiplicity = 0;
         for(var i = 0; i < pathSegments.length; i++) {

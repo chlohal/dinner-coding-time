@@ -10,8 +10,8 @@ module.exports = function Svg(svgNode) {
     var drawChildren = [];
     function traverseNodesRecursive(node) {
         for(var i = 0; i < node.childNodes.length; i++) {
-            if(node.childNodes[i].nodeName.toLowerCase() == "path") drawChildren.push(    Path(node.childNodes[i]));
-            else if(node.childNodes[i].nodeName.toLowerCase() == "text") drawChildren.push(    Text(node.childNodes[i]));
+            if(node.childNodes[i].nodeName.toLowerCase() == "path") drawChildren.push( node.childNodes[i].__svgRepresentation = Path(node.childNodes[i]));
+            else if(node.childNodes[i].nodeName.toLowerCase() == "text") drawChildren.push( node.childNodes[i].__svgRepresentation = Text(node.childNodes[i]));
             else if(node.childNodes[i].nodeName.toLowerCase() == "g") traverseNodesRecursive(node.childNodes[i]);
             else continue;
 
@@ -46,8 +46,6 @@ module.exports = function Svg(svgNode) {
                 let painted = false;
                 for(let k = drawChildren.length - 1; k >= 0 && !painted; k--) {
                     if(drawChildren[k].coversPoint(scaledPoint[0], scaledPoint[1])) {
-                        if(i == 0 && j == 0) console.log(drawChildren[k], scaledPoint, drawChildren[k].getColor(scaledPoint[0], scaledPoint[1]));
-
                         var color = drawChildren[k].getColor(scaledPoint[0], scaledPoint[1]);
                         var colorDecloned = [color[0], color[1], color[2]];
                         row.push(colorDecloned);

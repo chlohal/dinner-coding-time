@@ -5,7 +5,8 @@ var fonts = {
     "JetBrains Mono": {
         "normal": load("JetBrainsMono-Medium.ttf"),
         "lighter": load("JetBrainsMono-Light.ttf"),
-        "bold": load("JetBrainsMono-Light.ttf")
+        "bold": load("JetBrainsMono-Light.ttf"),
+        "bolder": load("JetBrainsMono-ExtraBold.ttf")
     }
 }
 
