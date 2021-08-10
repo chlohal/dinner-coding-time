@@ -1,6 +1,14 @@
 var fs = require("fs");
 var path = require("path");
 var fakeDom = require("./fake-dom.js");
+var crypto = require("crypto");
+
+var cacheDir = path.join(__dirname, "../cache");
+if(!fs.existsSync(cacheDir)) {
+    fs.mkdirSync(cacheDir);
+    fs.writeFileSync(path.join(cacheDir, "hashes.json"), "{}");
+}
+var cacheHashes = require("../cache/hashes.json");
 
 var preparseCode = require("./pre-parse.js");
 var generatePartials = require("./generate-partials.js");
@@ -18,28 +26,41 @@ var DEBUG = true;
 
 for(var i = 0; i < files.length; i++) {
         var fileContent = fs.readFileSync(files[i]).toString();
+
+        var location = "/" + files[i].replace(publicDir, "").split(path.sep).join("/").replace(/^\//, "");
+
+        var sha = crypto.createHash("sha256").update(fileContent).digest("hex");
+        
         var html = fakeDom.parseHTML(fileContent);
         var document = fakeDom.makeDocument(html);
-        var location = "/" + files[i].replace(publicDir, "").split(path.sep).join("/").replace(/^\//, "");
+        
 
         if(DEBUG) console.log(`File ${i}/${files.length}: ${location}`);
 
         var page = makePage(document, location);
-
-        if(DEBUG) console.log("Pre-parsing code...");
-        preparseCode(page);
-        if(DEBUG) console.log("Generating paritals...");
-        generatePartials(page);
-        if(DEBUG) console.log("Updating titles...");
-        updateCodehsTitles(page);
-        if(DEBUG) console.log("Adding descriptions & OpenGraph...");
-        addMetaDescriptionOpenGraph(page);
-
+        if(sha != cacheHashes[location]) {
+            if(DEBUG) console.log("Pre-parsing code...");
+            preparseCode(page);
+            if(DEBUG) console.log("Generating paritals...");
+            generatePartials(page);
+            if(DEBUG) console.log("Updating titles...");
+            updateCodehsTitles(page);
+            if(DEBUG) console.log("Adding descriptions & OpenGraph...");
+            addMetaDescriptionOpenGraph(page);
+        } else {
+            if(DEBUG) console.log("Unchanged page -- skipping time-wasting operations preparseCode, generatePartials, updateCodehsTitles, and addMetaDescriptionOpenGraph");
+        }
         if(DEBUG) console.log("Adding to search index...");
         searchIndex.add(page);
 
-        fs.writeFileSync(files[i], document.innerHTML);
+        var updatedInnerhtml = document.innerHTML;
+        var updatedSha = crypto.createHash("sha256").update(updatedInnerhtml).digest("hex");
+        cacheHashes[location] = updatedSha;
+
+        fs.writeFileSync(files[i], updatedInnerhtml);
 }
+
+fs.writeFileSync(path.join(cacheDir, "hashes.json"), JSON.stringify(cacheHashes));
 
 searchIndex.write();
 

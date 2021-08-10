@@ -1,4 +1,7 @@
 [build]
     publish = "public/"
     functions = "functions/"
-    command = "./build.sh"
+    command = "bash ./build.sh"
+
+[[plugins]]
+package = "./plugins/cache"
