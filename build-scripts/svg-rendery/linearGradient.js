@@ -5,8 +5,6 @@
 module.exports = function linearGradient(linearGradientNode) {
     if (linearGradientNode.nodeName.toLowerCase() != "lineargradient") throw "Unknown linearGradient node: " + linearGradientNode.nodeName;
 
-    console.log("making a linear gradient fill controller")
-
     var self = {};
 
     var x1 = linearGradientNode.getAttribute("x1") || "0";
@@ -23,8 +21,6 @@ module.exports = function linearGradient(linearGradientNode) {
 
     var stopElems = linearGradientNode.getElementsByTagName("stop");
     var stops = stopElems.map(x => makeStop(x)).sort((a,b)=>a.offset-b.offset);
-
-    console.log(stops);
 
     self.getColor = function linearColor(x, y, box) {
         var boxedPoint = [

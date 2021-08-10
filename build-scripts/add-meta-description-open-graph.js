@@ -1,5 +1,7 @@
 var TITLE_DEFAULT = "Dinner Coding Time";
-var WEBSITE_ORIGIN = "https://dinnercodingtime.com"
+var WEBSITE_ORIGIN = "https://dinnercodingtime.com";
+
+var generateOpengraphImage = require("./generate-opengraph-image");
 
 /**
  * 
@@ -30,7 +32,7 @@ module.exports = function(page) {
     }
 
     var metaUrl = findOrCreateMetaElementOfType(page.document, "og:url");
-    metaUrl.setAttribute("content", WEBSITE_ORIGIN + page.location.replace(/\/(index)?\.html$/, ""));
+    metaUrl.setAttribute("content", WEBSITE_ORIGIN + page.location.replace(/(\/index)?\.html$/, ""));
     
     var metaTitle = findOrCreateMetaElementOfType(page.document, "og:title");
     var title = (page.document.getElementsByTagName("title")[0] ||
@@ -40,6 +42,23 @@ module.exports = function(page) {
 
     var metaSitename = findOrCreateMetaElementOfType(page.document, "og:site_name");
     metaSitename.setAttribute("content", TITLE_DEFAULT);
+
+    var metaImage = findOrCreateMetaElementOfType(page.document, "og:image");
+    metaImage.setAttribute("content", WEBSITE_ORIGIN + generateOpengraphImage(page));
+
+    var metaImageUrl = findOrCreateMetaElementOfType(page.document, "og:image:url");
+    metaImageUrl.setAttribute("content", metaImage.getAttribute("content"));
+
+    var metaImageAlt = findOrCreateMetaElementOfType(page.document, "og:image:alt");
+    metaImageAlt.setAttribute("content", "An image summary of the title and description");
+
+    var metaImageWidth = findOrCreateMetaElementOfType(page.document, "og:image:width");
+    metaImageWidth.setAttribute("content", "400");
+
+    var metaImageHeight = findOrCreateMetaElementOfType(page.document, "og:image:height");
+    metaImageHeight.setAttribute("content", "200");
+
+
 
     return page;
 }
