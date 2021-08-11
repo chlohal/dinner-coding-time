@@ -13,7 +13,7 @@ var objectParsers = {
 var gitDirectory = path.join(__dirname, "../.git");
 
 var HEADfilecontent = fs.readFileSync(path.join(gitDirectory, "HEAD")).toString();
-var HEADref = HEADfilecontent.split(":").slice(1).join(":").trim();
+var HEADref = HEADfilecontent.substring("ref: ".length).replace(/\r?\n/, "");
 
 var headSha = fs.readFileSync(path.join(gitDirectory, HEADref)).toString()
 

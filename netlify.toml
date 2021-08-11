@@ -1,7 +1,7 @@
 [build]
     publish = "public/"
     functions = "functions/"
-    command = "node build-scripts/index.js"
+    command = "node ./build-scripts/index.js"
 
 [[plugins]]
 package = "./plugins/cache"
