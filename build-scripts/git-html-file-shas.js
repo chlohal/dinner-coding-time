@@ -23,7 +23,9 @@ if(HEADfilecontent.startsWith("ref: ")) {
 }
 
 var commit = loadObject(headSha);
-var commitTree = loadObject(commit.headers.tree, true);
+
+var commitTree = null;
+if(commit != null) var commitTree = loadObject(commit.headers.tree, true);
 
 
 var files = {};
@@ -40,7 +42,7 @@ function traverseTreeForHtmlFiles(tree, dirname) {
     }
 }
 
-traverseTreeForHtmlFiles(commitTree.entries.find(x=>x.name=="public").entries);
+if(commitTree != null) traverseTreeForHtmlFiles(commitTree.entries.find(x=>x.name=="public").entries);
 
 module.exports = files;
 
@@ -55,6 +57,7 @@ function loadObject(sha, recursive) {
     try {
         var object = fs.readFileSync(shaPath);
     } catch(e) {
+        console.log("Could not load object " + sha);
         return null;
     }
 
