@@ -14,7 +14,7 @@ var gitDirectory = path.join(__dirname, "../.git");
 
 var HEADfilecontent = fs.readFileSync(path.join(gitDirectory, "HEAD")).toString();
 var headSha = "";
-if(HEADfilecontent.startsWith("ref: ")) {
+if (HEADfilecontent.startsWith("ref: ")) {
     var HEADref = HEADfilecontent.substring("ref: ".length).replace(/\r?\n/g, "");
 
     headSha = fs.readFileSync(path.join(gitDirectory, HEADref)).toString()
@@ -25,38 +25,46 @@ if(HEADfilecontent.startsWith("ref: ")) {
 var commit = loadObject(headSha);
 
 var commitTree = null;
-if(commit != null) var commitTree = loadObject(commit.headers.tree, true);
-
+if (commit != null) var commitTree = loadObject(commit.headers.tree, true);
 
 var files = {};
 
 function traverseTreeForHtmlFiles(tree, dirname) {
     dirname = dirname || "";
 
-    if(!tree || !tree.entries) return false;
+    if (!tree || !tree.entries) return console.error("Null directory", dirname);
 
-    for(var i = 0; i < tree.entries.length; i++) {
+    for (var i = 0; i < tree.entries.length; i++) {
         var location = dirname + "/" + tree.entries[i].name;
-        if(tree.entries[i].isDirectory) traverseTreeForHtmlFiles(tree.entries[i].entries, location);
-        else if(tree.entries[i].name.endsWith(".html")) files[location] = loadObject(tree.entries[i].sha);
+        if (tree.entries[i].isDirectory) {
+            //ignore partials
+            if(tree.entries[i].name.startsWith("-")) continue;
+            //otherwise, recurse
+            traverseTreeForHtmlFiles(tree.entries[i].entries, location);
+        } else if (tree.entries[i].name.endsWith(".html")) {
+            files[location] = loadObject(tree.entries[i].sha);
+            if (files[location] == null) console.log("Unloaded", location);
+        }
     }
 }
 
-if(commitTree != null) traverseTreeForHtmlFiles(commitTree.entries.find(x=>x.name=="public").entries);
+if(commitTree != null) traverseTreeForHtmlFiles(commitTree.entries.find(x => x.name == "public").entries);
 
 module.exports = files;
 
 
 function loadObject(sha, recursive) {
-    sha = sha.replace(/\s/g, "");
+    sha = sha.toLowerCase().replace(/[^0-9a-z]/g, "");
+
     var folder = sha.substring(0, 2);
     var file = sha.substring(2);
 
     var shaPath = path.join(gitDirectory, "objects", folder, file);
 
-    try {
-        var object = fs.readFileSync(shaPath);
-    } catch(e) {
+    var object;
+    if (fs.existsSync(shaPath)) {
+        object = fs.readFileSync(shaPath);
+    } else {
         console.log("Could not load object " + sha);
         return null;
     }
@@ -109,7 +117,7 @@ function parseBlob(buffer) {
         type: "blob",
         size: size,
         blob: blob,
-        sha: crypto.createHash("sha1").update("blob " + Buffer.byteLength(blob) + "\u0000" + blob).digest("hex")
+        sha: crypto.createHash("sha1").update(buffer).digest("hex")
     };
 }
 
@@ -137,7 +145,7 @@ function parseTree(buffer, recursive) {
                 name: name,
                 sha: shaText
             };
-            if(entry.isDirectory && recursive) entry.entries = loadObject(shaText, recursive);
+            if (entry.isDirectory && recursive) entry.entries = loadObject(shaText, recursive);
 
             entries.push(entry);
             lastEntryEnd = i;
