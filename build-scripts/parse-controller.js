@@ -60,7 +60,7 @@ for(var i = 0; i < files.length; i++) {
         searchIndex.add(page);
 
         var updatedInnerhtml = document.innerHTML;
-        var updatedSha = crypto.createHash("sha256").update(updatedInnerhtml).digest("hex");
+        var updatedSha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(updatedInnerhtml) + "\u0000" + updatedInnerhtml).digest("hex");
         cacheHashes[location] = updatedSha;
 
         fs.writeFileSync(files[i], updatedInnerhtml);
