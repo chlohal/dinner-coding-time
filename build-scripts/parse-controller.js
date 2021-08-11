@@ -44,8 +44,9 @@ for(var i = 0; i < files.length; i++) {
         if(DEBUG) console.log("Current hash: " + sha);
         if(DEBUG) console.log("Cache hash: " + (cacheHashes[location]));
         if(DEBUG) console.log("Git hash: " + (gitHashes[location] && gitHashes[location].sha));
-        if((cacheHashes[location] && sha != cacheHashes[location]) || 
-           (!cacheHashes[location] && gitHashes[location] && sha != gitHashes[location].sha)) {
+        if( (!cacheHashes[location] && !gitHashes[location]) ||
+            (cacheHashes[location] && sha != cacheHashes[location]) || 
+            (!cacheHashes[location] && gitHashes[location] && sha != gitHashes[location].sha)) {
             if(DEBUG) console.log("Pre-parsing code...");
             preparseCode(page);
             if(DEBUG) console.log("Generating paritals...");
