@@ -1,5 +1,3 @@
-if (typeof require === "function") var parserTools = require("./parser-tools.js");
-
 if (typeof module !== "object") var module = {};
 
 module.exports = {
@@ -33,7 +31,7 @@ function FakeDomNode(tag, value) {
 
     /**@type {string} */
     this.nodeName = tag;
-    if (tag == "#text") this.value = value;
+    if (tag.startsWith("#")) this.value = value;
 
     this.parentNode = null;
     /**@type {FakeDomNode[]} */
@@ -186,7 +184,7 @@ FakeDomNode.prototype.setAttributeNS = function (ns, attr, val) {
 
 Object.defineProperty(FakeDomNode.prototype, "textContent", {
     get: function () {
-        if (this.nodeName == "#text") return this.value;
+        if (this.nodeName.startsWith("#")) return this.value;
 
         return this.childNodes.map(node => {
             return node.textContent;
@@ -218,13 +216,16 @@ Object.defineProperty(FakeDomNode.prototype, "outerHTML", {
     }
 });
 FakeDomNode.prototype.__buildInnerHTML = function (includeStyles) {
-    if(this.nodeName == "script") return this.textContent;
+     
+    if(isUnsyntaxedElement(this.nodeName)) return this.textContent;
     if(this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
+    if(this.nodeName == "#comment") return this.value || "";
     return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
 };
 
 FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
     if (this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
+    if(this.nodeName == "#comment") return this.value || "";
     else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles);
 
     let attrs = Object.keys(this.attributes).map(attribute => {
@@ -405,9 +406,14 @@ function parseHTML(str) {
                     } else {
                         if (isLetter(str[i + 1]) || str[i + 1] == "!") {
                             add(new FakeDomNode("#text", parseCharacterEntities(content)));
-                            content = "";
+                            if(str[i + 1] == "!" && str[i + 2] == "-" && str[i + 3] == "-") {
+                                context = "comment";
+                                content = "<";
+                            } else {
+                                content = "";
 
-                            context = "open_tag";
+                                context = "open_tag";
+                            }
                         } else if (str[i + 1] == "/") {
                             add(new FakeDomNode("#text", parseCharacterEntities(content)));
                             content = "";
@@ -510,6 +516,14 @@ function parseHTML(str) {
                 }
                 if (str[i] != "/" && !isWhitespace(str[i])) currentCloseTag += str[i];
                 break;
+            case "comment":
+                content += str[i];
+                if(str[i] == ">" && str[i - 1] == "-" && str[i - 2] == "-") {
+                    add(new FakeDomNode("#comment", content), true);
+                    content = "";
+                    context = "base";
+                }
+                break;
         }
     }
     function add(elem, selfClosing) {
@@ -528,7 +542,7 @@ function parseHTML(str) {
             depth++;
         }
     }
-    add(new FakeDomNode("#text", parseCharacterEntities(content)))
+    if(content) add(new FakeDomNode("#text", parseCharacterEntities(content)))
     return elements;
 }
 
