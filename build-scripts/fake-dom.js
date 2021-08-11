@@ -234,7 +234,7 @@ FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
         //if it's truly `true`, then treat it as boolean
         else if(this.attributes[attribute] === true) return ` ${attribute}`;
 
-        else return ` ${attribute}="${this.attributes[attribute]}"`
+        else return ` ${attribute}="${basicEncodeCharacterEntities(this.attributes[attribute])}"`
     });
 
     if(this.nodeName == "!DOCTYPE") {
@@ -338,6 +338,10 @@ function camelToKebab(str) {
     words.push(str.substring(wordStartIndex).toLowerCase())
 
     return words.join("-").replace(/-+/g, "-");
+}
+
+function basicEncodeCharacterEntities(str) {
+    return str.replace(/"/g, "&quot;");
 }
 
 function encodeCharacterEntities(str) {
