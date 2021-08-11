@@ -13,9 +13,14 @@ var objectParsers = {
 var gitDirectory = path.join(__dirname, "../.git");
 
 var HEADfilecontent = fs.readFileSync(path.join(gitDirectory, "HEAD")).toString();
-var HEADref = HEADfilecontent.substring("ref: ".length).replace(/\r?\n/, "");
+var headSha = "";
+if(HEADfilecontent.startsWith("ref: ")) {
+    var HEADref = HEADfilecontent.substring("ref: ".length).replace(/\r?\n/g, "");
 
-var headSha = fs.readFileSync(path.join(gitDirectory, HEADref)).toString()
+    headSha = fs.readFileSync(path.join(gitDirectory, HEADref)).toString()
+} else {
+    headSha = HEADfilecontent.replace(/\r?\n/g, "");
+}
 
 var commit = loadObject(headSha);
 var commitTree = loadObject(commit.headers.tree, true);
