@@ -4,11 +4,12 @@ var fakeDom = require("./fake-dom.js");
 var crypto = require("crypto");
 
 var cacheDir = path.join(__dirname, "../cache");
-if(!fs.existsSync(cacheDir)) {
-    fs.mkdirSync(cacheDir);
-    fs.writeFileSync(path.join(cacheDir, "hashes.json"), "{}");
-}
+if(!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+if(!fs.existsSync(path.join(cacheDir, "hashes.json"))) fs.writeFileSync(path.join(cacheDir, "hashes.json"), "{}");
+
+
 var cacheHashes = require("../cache/hashes.json");
+var gitHashes = require("./git-html-file-shas.js");
 
 var preparseCode = require("./pre-parse.js");
 var generatePartials = require("./generate-partials.js");
@@ -26,10 +27,12 @@ var DEBUG = true;
 
 for(var i = 0; i < files.length; i++) {
         var fileContent = fs.readFileSync(files[i]).toString();
+        //remove windows-style EOL
+        fileContent = fileContent.replace(/\r\n/g, "\n");
 
         var location = "/" + files[i].replace(publicDir, "").split(path.sep).join("/").replace(/^\//, "");
 
-        var sha = crypto.createHash("sha256").update(fileContent).digest("hex");
+        var sha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(fileContent) + "\u0000" + fileContent).digest("hex");
         
         var html = fakeDom.parseHTML(fileContent);
         var document = fakeDom.makeDocument(html);
@@ -38,7 +41,10 @@ for(var i = 0; i < files.length; i++) {
         if(DEBUG) console.log(`File ${i}/${files.length}: ${location}`);
 
         var page = makePage(document, location);
-        if(sha != cacheHashes[location]) {
+        if(DEBUG) console.log("Current hash: " + sha);
+        if(DEBUG) console.log("Cache hash: " + (cacheHashes[location] && sha != cacheHashes[location]));
+        if(DEBUG) console.log("Git hash: " + (gitHashes[location] && sha != gitHashes[location].sha));
+        if((cacheHashes[location] && sha != cacheHashes[location]) || (gitHashes[location] && sha != gitHashes[location].sha)) {
             if(DEBUG) console.log("Pre-parsing code...");
             preparseCode(page);
             if(DEBUG) console.log("Generating paritals...");
