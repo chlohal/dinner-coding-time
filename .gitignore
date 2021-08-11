@@ -1,2 +1,6 @@
 .env
 .vscode/
+# Local Netlify folder
+.netlify
+#build cache
+cache

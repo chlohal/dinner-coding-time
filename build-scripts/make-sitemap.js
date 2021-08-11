@@ -3,9 +3,9 @@ var SITE_BASE_URL = "https://dinnercodingtime.com";
 var path = require("path");
 var fs = require("fs");
 
-var siteBase = path.join(__dirname, "..");
+var siteBase = path.join(__dirname, "../public");
 
-var sitemap = require(siteBase + "/build-scripts/sitemapper.js");
+var sitemap = require("./sitemapper.js");
 
 var pages = loadHtmlFilesFromFolder(siteBase);
 

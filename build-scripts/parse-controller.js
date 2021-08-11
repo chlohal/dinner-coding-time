@@ -1,6 +1,15 @@
 var fs = require("fs");
 var path = require("path");
 var fakeDom = require("./fake-dom.js");
+var crypto = require("crypto");
+
+var cacheDir = path.join(__dirname, "../cache");
+if(!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+if(!fs.existsSync(path.join(cacheDir, "hashes.json"))) fs.writeFileSync(path.join(cacheDir, "hashes.json"), "{}");
+
+
+var cacheHashes = require("../cache/hashes.json");
+var gitHashes = require("./git-html-file-shas.js");
 
 var preparseCode = require("./pre-parse.js");
 var generatePartials = require("./generate-partials.js");
@@ -18,41 +27,61 @@ var DEBUG = true;
 
 for(var i = 0; i < files.length; i++) {
         var fileContent = fs.readFileSync(files[i]).toString();
+        //remove windows-style EOL
+        fileContent = fileContent.replace(/\r\n/g, "\n");
+
+        var location = "/" + files[i].replace(publicDir, "").split(path.sep).join("/").replace(/^\//, "");
+
+        var sha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(fileContent) + "\u0000" + fileContent).digest("hex");
+        
         var html = fakeDom.parseHTML(fileContent);
         var document = fakeDom.makeDocument(html);
-        var location = "/" + files[i].replace(publicDir, "").split(path.sep).join("/").replace(/^\//, "");
+        
 
         if(DEBUG) console.log(`File ${i}/${files.length}: ${location}`);
 
         var page = makePage(document, location);
-
-        if(DEBUG) console.log("Pre-parsing code...");
-        preparseCode(page);
-        if(DEBUG) console.log("Generating paritals...");
-        generatePartials(page);
-        if(DEBUG) console.log("Updating titles...");
-        updateCodehsTitles(page);
-        if(DEBUG) console.log("Adding descriptions & OpenGraph...");
-        addMetaDescriptionOpenGraph(page);
-
+        if(DEBUG) console.log("Current hash: " + sha);
+        if(DEBUG) console.log("Cache hash: " + (cacheHashes[location]));
+        if(DEBUG) console.log("Git hash: " + (gitHashes[location] && gitHashes[location].sha));
+        if( (!cacheHashes[location] && !gitHashes[location]) ||
+            (cacheHashes[location] && sha != cacheHashes[location]) || 
+            (!cacheHashes[location] && gitHashes[location] && sha != gitHashes[location].sha)) {
+            if(DEBUG) console.log("Pre-parsing code...");
+            preparseCode(page);
+            if(DEBUG) console.log("Generating paritals...");
+            generatePartials(page);
+            if(DEBUG) console.log("Updating titles...");
+            updateCodehsTitles(page);
+            if(DEBUG) console.log("Adding descriptions & OpenGraph...");
+            addMetaDescriptionOpenGraph(page);
+        } else {
+            if(DEBUG) console.log("Unchanged page -- skipping time-wasting operations preparseCode, generatePartials, updateCodehsTitles, and addMetaDescriptionOpenGraph");
+        }
         if(DEBUG) console.log("Adding to search index...");
         searchIndex.add(page);
 
-        fs.writeFileSync(files[i], document.innerHTML);
+        var updatedInnerhtml = document.innerHTML;
+        var updatedSha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(updatedInnerhtml) + "\u0000" + updatedInnerhtml).digest("hex");
+        cacheHashes[location] = updatedSha;
+
+        fs.writeFileSync(files[i], updatedInnerhtml);
 }
+
+fs.writeFileSync(path.join(cacheDir, "hashes.json"), JSON.stringify(cacheHashes));
 
 searchIndex.write();
 
 /**
  * @typedef {Object} Page
- * @property {FakeDomNode} document A #root node representing the document of the page.
+ * @property {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
  * @property {string} location The location of the page, equal to the window.location.pathname property in a browser.
  */
 
 
 /**
  * Make a page from a document and location
- * @param {FakeDomNode} document A #root node representing the document of the page.
+ * @param {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
  * @param {string} location The location of the page, equal to the window.location.pathname property in a browser.
  * @returns {Page} The page
  */
@@ -62,10 +91,6 @@ function makePage(document, location) {
         document: document
     };
 }
-
-/**
- * @typedef {import("./fake-dom").FakeDomNode} FakeDomNode
- */
 
 /**
  * Load all HTML files from a given folder.
