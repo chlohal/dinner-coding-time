@@ -93,28 +93,28 @@
                 {
                     Scanner input = new Scanner(System.in);
                     
-                    Food burger = new Food(&quot;Hamburgers&quot;, 600);
-                    Food fries = new Food(&quot;Fries&quot;, 350);
-                    Food coke = new Food(&quot;Coke&quot;, 200);
+                    Food burger = new Food("Hamburgers", 600);
+                    Food fries = new Food("Fries", 350);
+                    Food coke = new Food("Coke", 200);
                     
                     System.out.println(burger);
-                    System.out.println(&quot;How many would you like?&quot;);
+                    System.out.println("How many would you like?");
                     int burgerCount = input.nextInt();
                     
                     System.out.println(fries);
-                    System.out.println(&quot;How many would you like?&quot;);
+                    System.out.println("How many would you like?");
                     int friesCount = input.nextInt();
                     
                     System.out.println(coke);
-                    System.out.println(&quot;How many would you like?&quot;);
+                    System.out.println("How many would you like?");
                     int cokeCount = input.nextInt();
                     
-                    System.out.println(&quot;Your meal will have a total of &quot;   + ( 
+                    System.out.println("Your meal will have a total of "   + ( 
                             burger.getCalories() * burgerCount +
                             fries .getCalories() * friesCount  +
                             coke  .getCalories() * cokeCount
                         )
-                        + &quot; calories&quot;);
+                        + " calories");
                 }
             }
             
@@ -152,7 +152,7 @@ public class Food
         
         
         public String toString() {
-            return name + &quot; have &quot; + calories + &quot; calories.&quot;;
+            return name + " have " + calories + " calories.";
         }
     
 }
@@ -199,7 +199,7 @@ public class Food
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

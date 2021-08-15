@@ -121,7 +121,7 @@
                 }
             
                 public boolean equals(Person other) {
-                    return other.getBirthday().equals(birthday) &amp;&amp; other.getName().equals(name);
+                    return other.getBirthday().equals(birthday) && other.getName().equals(name);
                 }
                 
             }
@@ -136,23 +136,23 @@ public class PersonTester
     {
         Scanner sc = new Scanner(System.in);
         
-        System.out.print(&quot;Please enter the Person&apos;s name: &quot;);
+        System.out.print("Please enter the Person's name: ");
         String p1name = sc.nextLine();
-        System.out.print(&quot;Please enter the Person&apos;s birthday: &quot;);
+        System.out.print("Please enter the Person's birthday: ");
         String p1bday = sc.nextLine();
         
         Person p1 = new Person(p1name, p1bday);
         
-        System.out.print(&quot;Please enter the Student&apos;s name: &quot;);
+        System.out.print("Please enter the Student's name: ");
         String p2name = sc.nextLine();
-        System.out.print(&quot;Please enter the Student&apos;s birthday: &quot;);
+        System.out.print("Please enter the Student's birthday: ");
         String p2bday = sc.nextLine();
-        System.out.print(&quot;Please enter the Student&apos;s grade: &quot;);
+        System.out.print("Please enter the Student's grade: ");
         int    p2grade = sc.nextInt();
         
         Student p2 = new Student(p2name, p2bday, p2grade);
         
-        System.out.println(&quot;Same: &quot; + p1.equals(p2));
+        System.out.println("Same: " + p1.equals(p2));
 
         
     }
@@ -200,7 +200,7 @@ public class PersonTester
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

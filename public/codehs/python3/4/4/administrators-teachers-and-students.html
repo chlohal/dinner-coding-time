@@ -93,13 +93,13 @@
             window.__AUTHOR = {"name":"Randosa","url":"/author/Randosa"};
         </script>
         <code id="source">
-role = input(&quot;Are you an administrator, teacher, or student? &quot;)
-if role == &quot;teacher&quot; or role == &quot;administrator&quot;:
-    print (&quot;Administrators and teachers get keys!&quot;)
-elif role == &quot;student&quot;:
-    print (&quot;Students do not get keys!&quot;)
+role = input("Are you an administrator, teacher, or student? ")
+if role == "teacher" or role == "administrator":
+    print ("Administrators and teachers get keys!")
+elif role == "student":
+    print ("Students do not get keys!")
 else:
-    print (&quot;You can only be an administrator, a teacher, or a student!&quot;)
+    print ("You can only be an administrator, a teacher, or a student!")
         </code>
     <script type="dct-datascript" class="preparsedcode-datascript">window.__preparsed = {"source":{"type":"Program","body":[{"type":"BlankLine"},{"type":"AssignmentExpressionStatement","expr":{"type":"Value","value":{"type":"Identifier","value":"role"}},"asgn":{"type":"Value","value":{"type":"Identifier","value":"input"},"trailers":[{"type":"FunctionCallerParams","args":{"type":"Arglist","args":[{"type":"Argument","arg":{"type":"Value","value":{"type":"StringLiteral","value":"\"Are you an administrator, teacher, or student? \""}}}]}}]}},{"type":"BlankLine"},{"type":"IfStatement","body":{"type":"Suite","body":[{"type":"PrintStatement","value":{"type":"Value","value":{"type":"ParenWrappedValue","value":{"type":"ListComp","list":[{"type":"Value","value":{"type":"StringLiteral","value":"\"Administrators and teachers get keys!\""}}]}}}}]},"test":{"type":"BooleanComparison","left":{"type":"Comparison","left":{"type":"Value","value":{"type":"Identifier","value":"role"}},"right":[{"operator":"==","right":{"type":"Value","value":{"type":"StringLiteral","value":"\"teacher\""}}}]},"operator":"or","right":[{"type":"Comparison","left":{"type":"Value","value":{"type":"Identifier","value":"role"}},"right":[{"operator":"==","right":{"type":"Value","value":{"type":"StringLiteral","value":"\"administrator\""}}}]}]},"elifBlocks":[{"type":"ElifStatement","test":{"type":"Comparison","left":{"type":"Value","value":{"type":"Identifier","value":"role"}},"right":[{"operator":"==","right":{"type":"Value","value":{"type":"StringLiteral","value":"\"student\""}}}]},"body":{"type":"Suite","body":[{"type":"PrintStatement","value":{"type":"Value","value":{"type":"ParenWrappedValue","value":{"type":"ListComp","list":[{"type":"Value","value":{"type":"StringLiteral","value":"\"Students do not get keys!\""}}]}}}}]}}],"elseBlock":{"type":"Suite","body":[{"type":"PrintStatement","value":{"type":"Value","value":{"type":"ParenWrappedValue","value":{"type":"ListComp","list":[{"type":"Value","value":{"type":"StringLiteral","value":"\"You can only be an administrator, a teacher, or a student!\""}}]}}}},{"type":"BlankLine"}]}}]}};</script></main>
     <footer>
@@ -142,7 +142,7 @@ else:
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

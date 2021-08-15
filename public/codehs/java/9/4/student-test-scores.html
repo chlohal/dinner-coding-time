@@ -161,7 +161,7 @@
                 // If the student has passed math, passed ela, and completed
                 // service hours, return true.
                 public boolean gradQualify(){
-                   return passMath() &amp;&amp; passEla() &amp;&amp; completeService();
+                   return passMath() && passEla() && completeService();
                    
                 }
             
@@ -169,13 +169,13 @@
                 // (name) has qualified for graduation.
                 // Otherwise print:
                 // (name) has not yet qualified for graduation.
-                // Where (name) is the student&apos;s name.
+                // Where (name) is the student's name.
                 public String toString(){
                     if (gradQualify()){
-                        return super.getName() + &quot; has qualified for graduation.&quot;;
+                        return super.getName() + " has qualified for graduation.";
                     }
             
-                    return super.getName() + &quot; has not yet qualified for graduation.&quot;;
+                    return super.getName() + " has not yet qualified for graduation.";
                 }
             }
             
@@ -190,25 +190,25 @@ public class StudentTester
         Scanner sc = new Scanner(System.in);
         
         // Prompt the user for name, test scores, and service hours
-        System.out.println(&quot;Please enter the student name: &quot;);
+        System.out.println("Please enter the student name: ");
         String name = sc.nextLine();
         
-        System.out.println(&quot;Please enter the Math Score: &quot;);
+        System.out.println("Please enter the Math Score: ");
         int mathScore = sc.nextInt();
         
-        System.out.println(&quot;Please enter the Ela Score: &quot;);
+        System.out.println("Please enter the Ela Score: ");
         int elaScore = sc.nextInt();
         
-        System.out.println(&quot;Please enter the Service Hours: &quot;);
+        System.out.println("Please enter the Service Hours: ");
         int hours = sc.nextInt();
         
         // Create a HSStudent object
         HSStudent student = new HSStudent(name, mathScore, elaScore, hours);
         
         // Print the results
-        System.out.println(&quot;Pass Math? &quot; + student.passMath());
-        System.out.println(&quot;Pass ELA? &quot; + student.passEla());
-        System.out.println(&quot;Completed Service Hours? &quot; + student.completeService());
+        System.out.println("Pass Math? " + student.passMath());
+        System.out.println("Pass ELA? " + student.passEla());
+        System.out.println("Completed Service Hours? " + student.completeService());
         
         System.out.println(student.toString());
     }
@@ -256,7 +256,7 @@ public class StudentTester
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

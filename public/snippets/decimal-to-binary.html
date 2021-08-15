@@ -5,7 +5,7 @@
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>It&apos;s Dinner Coding Time</title>
+        <title>It's Dinner Coding Time</title>
 
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -105,11 +105,11 @@
 <h2>The Easy Way</h2>
 
 <p>Java gives us a <a target="_blank" rel="noopener" href="/glossary/method">method</a> to convert binary!
-    Of course, teachers <em>usually</em> don&apos;t mean
+    Of course, teachers <em>usually</em> don't mean
     for you to use it. They want you to code something yourself. However, methods like this are usually more
     efficient and bug-tested than <em>anything</em> that a coder could make.</p>
 <p>You should always feel
-    justified in using a language&apos;s features instead of coding your own: that&apos;s what they&apos;re there for! To
+    justified in using a language's features instead of coding your own: that's what they're there for! To
     use
     the <code>Integer.toBinaryString()</code> method, pass any integer to it.</p>
 <figure>
@@ -120,7 +120,7 @@
         binary</figcaption>
 </figure>
 <h3>toString with radix/base</h3>
-<p>If the <code>toBinaryString</code> method doesn&apos;t work on your version
+<p>If the <code>toBinaryString</code> method doesn't work on your version
 of Java, try using <code>toString</code> with a radix.</p>
 <figure>
 <pre><code><span class="hlast-primitive-type">int</span> <span class="">foo</span> = <span class="hlast-decimal-literal">2003040</span>;
@@ -129,24 +129,24 @@ of Java, try using <code>toString</code> with a radix.</p>
     This also works for other common bases, like octal or hexidecimal</figcaption></figure>
     
 <h2>The Boring Way</h2>
-<p>Some teachers don&apos;t like this. As in, get-a-zero-if-you-use-those-methods. Here is some
+<p>Some teachers don't like this. As in, get-a-zero-if-you-use-those-methods. Here is some
 code for binary conversion that uses none of those methods!<p>
 <figure>
 <pre><code><span class="hlast-primitive-type">int</span> <span class="">foo</span> = <span class="hlast-decimal-literal">2003040</span>;
-<span class="hlast-linemarker" data-address="1"></span><span class="hlast-type-type">String</span> <span class="">result</span> = <span class="hlast-string-literal">&quot;&quot;</span>;
+<span class="hlast-linemarker" data-address="1"></span><span class="hlast-type-type">String</span> <span class="">result</span> = <span class="hlast-string-literal">""</span>;
 <span class="hlast-linemarker" data-address="2"></span><span class="hlast-keyword">while</span>(<span class="">foo</span> &gt; <span class="hlast-decimal-literal">0</span>) {
-&amp;nbsp;<span class="hlast-linemarker" data-address="2,0"></span>&amp;nbsp;&amp;nbsp; <span class="">result</span> = (<span class="">foo</span> % <span class="hlast-decimal-literal">2</span>) + <span class="">result</span>;
-&amp;nbsp;<span class="hlast-linemarker" data-address="2,1"></span>&amp;nbsp;&amp;nbsp; <span class="">foo</span> /= <span class="hlast-decimal-literal">2</span>;
+&nbsp;<span class="hlast-linemarker" data-address="2,0"></span>&nbsp;&nbsp; <span class="">result</span> = (<span class="">foo</span> % <span class="hlast-decimal-literal">2</span>) + <span class="">result</span>;
+&nbsp;<span class="hlast-linemarker" data-address="2,1"></span>&nbsp;&nbsp; <span class="">foo</span> /= <span class="hlast-decimal-literal">2</span>;
 }<span class="hlast-linemarker" data-address="3"></span>
 <span class="hlast-base"></span></code></pre> <figcaption>By repeatedly dividing by 2, we can build a binary string
     digit-by-digit.</figcaption></figure>
     
-    <p>It&apos;s easiest to understand this when you think of how
+    <p>It's easiest to understand this when you think of how
 <strong>decimal</strong> numbers work. Each digit place is <em>10</em> times larger (tens; hundreds;
 thousands; et cetera). With binary, each digit place is only <em>two</em> times larger, so <u>dividing by
-    2</u> &quot;moves&quot; the decimal place 1 smaller. Since this code deals with integers, we don&apos;t have to worry
+    2</u> "moves" the decimal place 1 smaller. Since this code deals with integers, we don't have to worry
 about numbers past the decimal point.</p><p>From there, the code uses the <strong>modulus</strong> operator to add the
-<strong>remainder</strong> onto the start of the binary string. When it&apos;s completed, the <code>result</code>
+<strong>remainder</strong> onto the start of the binary string. When it's completed, the <code>result</code>
 variable will hold a converted binary version!</p>
         </p></p></main>
         <footer>
@@ -189,7 +189,7 @@ variable will hold a converted binary version!</p>
                     <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                     <ul>
                         <li>
-                            <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                            <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                                 Conditions</a>
                         </li>
                         <li>

@@ -166,6 +166,9 @@ sources.forEach(source => {
                     <li>
                         <a href="/legal/privacy">Privacy Policy</a>
                     </li>
+                    <li>
+                        <a href="/ads">Ad Policy</a>
+                    </li>
                 </ul>
             </div>
         </div>

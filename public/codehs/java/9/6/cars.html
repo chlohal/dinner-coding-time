@@ -105,7 +105,7 @@
                 }
             
                 public String toString(){
-                    return model + &quot; gets &quot; + mpg + &quot; mpg.&quot;;
+                    return model + " gets " + mpg + " mpg.";
                 }
             }
             
@@ -115,14 +115,14 @@
 
                 // Complete the constructor
                 public ElectricCar(String model){
-                   super(model, &quot;Electric cars do not calculate MPG.&quot;);
+                   super(model, "Electric cars do not calculate MPG.");
                 }
             
                 // Override the getMPG here.
-                // It should return: &quot;Electric cars do not calculate MPG.
+                // It should return: "Electric cars do not calculate MPG.
                 @Override 
                 public String getMPG() {
-                    return &quot;Electric cars do not calculate MPG&quot;;
+                    return "Electric cars do not calculate MPG";
                 }
                 
             
@@ -130,7 +130,7 @@
                 // (model) is an  electric car.
                 @Override
                 public String toString() {
-                    return super.getModel() + &quot; is an electric car.&quot;;
+                    return super.getModel() + " is an electric car.";
                 }
                 
             }
@@ -149,19 +149,19 @@ public class CarTester
         
         //keep looping until the user exits with the `break;` statement
         while(true) {
-            System.out.println(&quot;Please enter a car model name(exit to quit): &quot;);
+            System.out.println("Please enter a car model name(exit to quit): ");
             String name = sc.nextLine();
-            if(name.equals(&quot;exit&quot;)) break;
+            if(name.equals("exit")) break;
             
-            System.out.println(&quot;Is this car electric? (y or n) &quot;);
+            System.out.println("Is this car electric? (y or n) ");
             String electric = sc.nextLine();
             
-            if(electric.equals(&quot;y&quot;)) {
+            if(electric.equals("y")) {
                 ElectricCar electricCar = new ElectricCar(name);
                 cars.add(electricCar);
             } else {
-                System.out.println(&quot;How many miles per gallon: &quot;);
-                //you&apos;d think you&apos;d want a double, but it represents it as strings for some reason. idk.
+                System.out.println("How many miles per gallon: ");
+                //you'd think you'd want a double, but it represents it as strings for some reason. idk.
                 String mpg = sc.nextLine();
                 
                 Car car = new Car(name, mpg);
@@ -172,9 +172,9 @@ public class CarTester
         //print out each car
         
         for(Car c : cars) {
-            System.out.println(&quot;Car: &quot; + c.getModel());
-            System.out.println(&quot;MPG: &quot; + c.getMPG());
-            System.out.println(&quot;&quot;);
+            System.out.println("Car: " + c.getModel());
+            System.out.println("MPG: " + c.getMPG());
+            System.out.println("");
         }
     }
 }
@@ -221,7 +221,7 @@ public class CarTester
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

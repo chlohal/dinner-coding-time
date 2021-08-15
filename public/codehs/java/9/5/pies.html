@@ -116,7 +116,7 @@
             
                 public PumpkinPie (int slices, boolean canned) 
                 {
-                    super(&quot;Pumpkin&quot;, slices);
+                    super("Pumpkin", slices);
                     this.canned = canned;
                 }
                 
@@ -133,7 +133,7 @@
 
                 public ApplePie (int slices) 
                 {
-                    super(&quot;Apple&quot;, slices);
+                    super("Apple", slices);
                 }
                 
                 public boolean hasSlice()
@@ -160,13 +160,13 @@ public class PieTester
     public static void main(String[] args)
     {
         Pie[] pies = new Pie[] {
-            new Pie(&quot;Blueberry&quot;, 3),
+            new Pie("Blueberry", 3),
             new PumpkinPie(4, true),
             new ApplePie(12)
         };
         
         for(Pie pie : pies) {
-            System.out.println(&quot;Pie: &quot; + pie.getType());
+            System.out.println("Pie: " + pie.getType());
         }
     }
 }
@@ -213,7 +213,7 @@ public class PieTester
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

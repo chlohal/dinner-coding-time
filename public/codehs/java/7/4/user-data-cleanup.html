@@ -93,7 +93,7 @@ public class DataPurgeTester
     {
         ArrayList&lt;String&gt; emails = new ArrayList&lt;String&gt;();
         addEmails(emails);
-        System.out.println(&quot;List is all emails: &quot; +DataPurge.containsOnlyEmails(emails));
+        System.out.println("List is all emails: " +DataPurge.containsOnlyEmails(emails));
         DataPurge.removeDuplicates(emails);
         DataPurge.removeAOL(emails);
         System.out.println(emails);
@@ -103,20 +103,20 @@ public class DataPurgeTester
     
     public static void addEmails(ArrayList&lt;String&gt; emails)
     {
-        emails.add(&quot;tbmaddux@icloud.com&quot;);
-        emails.add(&quot;rfisher@outlook.com&quot;);
-        emails.add(&quot;anicolao@verizon.net&quot;);
-        emails.add(&quot;openldap@me.com&quot;);
-        emails.add(&quot;improv@gmail.com&quot;);
-        emails.add(&quot;alias@sbcglobal.net&quot;);
-        emails.add(&quot;portele@me.com&quot;);
-        emails.add(&quot;doormat@icloud.com&quot;);
-        emails.add(&quot;mailarc@aol.com&quot;);
-        emails.add(&quot;portele@me.com&quot;);
-        emails.add(&quot;rmcfarla@optonline.net&quot;);
-        emails.add(&quot;chrisk@verizon.net&quot;);
-        emails.add(&quot;gordonjcp@aol.com&quot;);
-        emails.add(&quot;improv@gmail.com&quot;);
+        emails.add("tbmaddux@icloud.com");
+        emails.add("rfisher@outlook.com");
+        emails.add("anicolao@verizon.net");
+        emails.add("openldap@me.com");
+        emails.add("improv@gmail.com");
+        emails.add("alias@sbcglobal.net");
+        emails.add("portele@me.com");
+        emails.add("doormat@icloud.com");
+        emails.add("mailarc@aol.com");
+        emails.add("portele@me.com");
+        emails.add("rmcfarla@optonline.net");
+        emails.add("chrisk@verizon.net");
+        emails.add("gordonjcp@aol.com");
+        emails.add("improv@gmail.com");
     }
 }
 
@@ -140,8 +140,8 @@ public class DataPurgeTester
                 }
                 public static void removeAOL(ArrayList&lt;String&gt; list) {
                     for(int i = 0; i &lt; list.size(); i++) {
-                        if(list.get(i).indexOf(&quot;@aol.com&quot;) &gt; -1) {
-                            System.out.println(&quot;removing &quot; + list.get(i));
+                        if(list.get(i).indexOf("@aol.com") &gt; -1) {
+                            System.out.println("removing " + list.get(i));
                             list.remove(i);
                             i--;
                         }
@@ -149,7 +149,7 @@ public class DataPurgeTester
                 }
                 public static boolean containsOnlyEmails(ArrayList&lt;String&gt; list) {
                     for(int i = 0; i &lt; list.size(); i++) {
-                        if(list.get(i).indexOf(&quot;@&quot;) == -1 || list.get(i).indexOf(&quot;.&quot;) == -1) return false;
+                        if(list.get(i).indexOf("@") == -1 || list.get(i).indexOf(".") == -1) return false;
                     }
                     return true;
                 }
@@ -197,7 +197,7 @@ public class DataPurgeTester
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

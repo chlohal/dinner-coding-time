@@ -91,7 +91,7 @@
                 private String color;
                 
                 public Fruit(String foodName, int calories, boolean isLocal, String foodColor) {
-                    super(foodName, calories, &quot;Fruit&quot;);
+                    super(foodName, calories, "Fruit");
                     this.isLocal = isLocal;
                     this.color = foodColor;
                 }
@@ -110,8 +110,8 @@
 {
     public static void main(String[] args)
     {
-        System.out.println(new Food(&quot;Apple&quot;, 2000));
-        System.out.println(new HealthyFood(&quot;Cake&quot;, 2000, &quot;Meat&quot;));
+        System.out.println(new Food("Apple", 2000));
+        System.out.println(new HealthyFood("Cake", 2000, "Meat"));
     }
 }
 
@@ -151,7 +151,7 @@
     }
     
     public String toString() {
-        return name + &quot; has &quot; + calories + &quot; calories&quot;;
+        return name + " has " + calories + " calories";
     }
 }
 
@@ -197,7 +197,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

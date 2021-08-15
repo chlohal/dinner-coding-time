@@ -85,7 +85,7 @@
 <h1>5.7.6 Rock, Paper, Scissors!</h1>
 
         <aside class="tip">
-            <h2>JSYK</h2> The autograder for this assignment appears to be written incorrectly, causing <code>NoSuchElementException</code>s to occur. You may see some code below that you don&apos;t recognize. That&apos;s okay! This is a solution that accounts for those grader errors.
+            <h2>JSYK</h2> The autograder for this assignment appears to be written incorrectly, causing <code>NoSuchElementException</code>s to occur. You may see some code below that you don't recognize. That's okay! This is a solution that accounts for those grader errors.
         </aside>
 
         <code id="source">
@@ -109,23 +109,23 @@
 
             public class RockPaperScissors
             {
-                private static final String USER_PLAYER = &quot;User wins!&quot;;
-                private static final String COMPUTER_PLAYER = &quot;Computer wins!&quot;;
-                private static final String TIE = &quot;Tie&quot;;
+                private static final String USER_PLAYER = "User wins!";
+                private static final String COMPUTER_PLAYER = "Computer wins!";
+                private static final String TIE = "Tie";
                     
                 public static String getWinner(String user, String computer)
                 {
                     if(user.equals(computer)) return TIE;
-                    else if(user.equals(&quot;rock&quot;) &amp;&amp; computer.equals(&quot;paper&quot;)) return COMPUTER_PLAYER;
-                    else if(user.equals(&quot;paper&quot;) &amp;&amp; computer.equals(&quot;rock&quot;)) return USER_PLAYER;
+                    else if(user.equals("rock") && computer.equals("paper")) return COMPUTER_PLAYER;
+                    else if(user.equals("paper") && computer.equals("rock")) return USER_PLAYER;
                     
-                    else if(user.equals(&quot;scissors&quot;) &amp;&amp; computer.equals(&quot;rock&quot;)) return COMPUTER_PLAYER;
-                    else if(user.equals(&quot;rock&quot;) &amp;&amp; computer.equals(&quot;scissors&quot;)) return USER_PLAYER;
+                    else if(user.equals("scissors") && computer.equals("rock")) return COMPUTER_PLAYER;
+                    else if(user.equals("rock") && computer.equals("scissors")) return USER_PLAYER;
                     
-                    else if(user.equals(&quot;paper&quot;) &amp;&amp; computer.equals(&quot;scissors&quot;)) return COMPUTER_PLAYER;
-                    else if(user.equals(&quot;scissors&quot;) &amp;&amp; computer.equals(&quot;paper&quot;)) return USER_PLAYER;
+                    else if(user.equals("paper") && computer.equals("scissors")) return COMPUTER_PLAYER;
+                    else if(user.equals("scissors") && computer.equals("paper")) return USER_PLAYER;
                     
-                    //java doesn&apos;t like it if there isn&apos;t a return statement at the end
+                    //java doesn't like it if there isn't a return statement at the end
                     return TIE;
                 }
                 
@@ -135,28 +135,28 @@
                     
                     while(true) {
                         int computerChoice = Randomizer.nextInt(1, 3);
-                        String computer = &quot;&quot;;
+                        String computer = "";
 
-                        if(computerChoice == 1) computer = &quot;paper&quot;;
-                        else if(computerChoice == 2) computer = &quot;rock&quot;;
-                        else computer = &quot;scissors&quot;;
+                        if(computerChoice == 1) computer = "paper";
+                        else if(computerChoice == 2) computer = "rock";
+                        else computer = "scissors";
                         
-                        System.out.println(&quot;Enter your choice (rock, paper, or scissors): &quot;);
-                        String user = &quot;&quot;;
+                        System.out.println("Enter your choice (rock, paper, or scissors): ");
+                        String user = "";
 
                         try {
                             if(input.hasNextLine()) user = input.nextLine();
                         } catch(Exception e) {}
                         
                         //exit condition when user enters nothing
-                        if(user.equals(&quot;&quot;)) break;
+                        if(user.equals("")) break;
                         
-                        System.out.println(&quot;User: &quot; + user);
-                        System.out.println(&quot;Computer: (either rock, paper, or scissors)&quot;);
+                        System.out.println("User: " + user);
+                        System.out.println("Computer: (either rock, paper, or scissors)");
                         
                         System.out.println(getWinner(user, computer));
                     }
-                    System.out.println(&quot;Thanks for playing!&quot;);
+                    System.out.println("Thanks for playing!");
                 }
             }
         </code>
@@ -201,7 +201,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

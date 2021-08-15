@@ -112,7 +112,7 @@
     
     // Has the location been initialized
     public boolean isLocationSet() {
-        return row != -1 &amp;&amp; this.col != -1;
+        return row != -1 && this.col != -1;
     }
     
     // Has the direction been initialized
@@ -153,20 +153,20 @@
     
     // Helper method to get a string value from the direction
     private String directionToString() {
-        if(direction == HORIZONTAL) return &quot;horizontal&quot;;
-        else if(direction == VERTICAL) return &quot;vertical&quot;;
-        else return &quot;unset direction&quot;;
+        if(direction == HORIZONTAL) return "horizontal";
+        else if(direction == VERTICAL) return "vertical";
+        else return "unset direction";
     }
     
     // Helper method to get a (row, col) string value from the location
     private String locationToString() {
-        if(row == -1 &amp;&amp; col == -1) return &quot;(unset location)&quot;;
-        else return &quot;(&quot; + row + &quot;, &quot; + col + &quot;)&quot;;
+        if(row == -1 && col == -1) return "(unset location)";
+        else return "(" + row + ", " + col + ")";
     }
     
     // toString value for this Ship
     public String toString() {
-        return directionToString() + &quot; ship of length &quot; + length + &quot; at &quot; + locationToString();
+        return directionToString() + " ship of length " + length + " at " + locationToString();
     }
 }
 
@@ -208,7 +208,7 @@
                 <h4>Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms">Terms &amp; Conditions</a>
+                        <a href="/legal/terms">Terms & Conditions</a>
                     </li>
                     <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
@@ -221,6 +221,9 @@
                     </li>
                     <li>
                         <a href="/legal/privacy">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/ads">Ad Policy</a>
                     </li>
                 </ul>
             </div>

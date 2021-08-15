@@ -103,15 +103,15 @@
     public static void main(String[] args)
     {
         /**
-         * Don&apos;t Change This Tester Class!
+         * Don't Change This Tester Class!
          * 
          * When you are finished, this should run without error.
          */ 
-        Wind tuba = new Wind(&quot;Tuba&quot;, &quot;Brass&quot;, false);
-        Wind clarinet = new Wind(&quot;Clarinet&quot;, &quot;Woodwind&quot;, true);
+        Wind tuba = new Wind("Tuba", "Brass", false);
+        Wind clarinet = new Wind("Clarinet", "Woodwind", true);
         
-        Strings violin = new Strings(&quot;Violin&quot;, true);
-        Strings harp = new Strings(&quot;Harp&quot;, false);
+        Strings violin = new Strings("Violin", true);
+        Strings harp = new Strings("Harp", false);
         
         System.out.println(tuba);
         System.out.println(clarinet);
@@ -128,7 +128,7 @@
      private boolean usesBow;
     
     public Strings(String name, boolean usesBow) {
-        super(name, &quot;Strings&quot;);
+        super(name, "Strings");
         this.usesBow = usesBow;
     }
        
@@ -156,7 +156,7 @@
     }
     
     public String toString() {
-        return this.name + &quot; is a member of the &quot; + this.family + &quot; family.&quot;;
+        return this.name + " is a member of the " + this.family + " family.";
     }
 }
 
@@ -202,7 +202,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

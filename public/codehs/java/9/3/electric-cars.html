@@ -90,7 +90,7 @@
                 public static void main(String[] args)
                 {
                     // Create a Car object
-                    Car car = new Car(&quot;Toyota&quot;, &quot;20&quot;);
+                    Car car = new Car("Toyota", "20");
                     // Print out the model
                     System.out.println(car.getModel());
                     // Print out the MPG
@@ -98,7 +98,7 @@
                     // Print the object
                     System.out.println(car);
                     // Create an ElectricCar object
-                    ElectricCar elecCar = new ElectricCar(&quot;Tesla&quot;);
+                    ElectricCar elecCar = new ElectricCar("Tesla");
                     // Print out the model
                     System.out.println(elecCar.getModel());
                     // Print out the MPG
@@ -130,7 +130,7 @@
                 }
             
                 public String toString(){
-                    return model + &quot; gets &quot; + mpg + &quot; mpg.&quot;;
+                    return model + " gets " + mpg + " mpg.";
                 }
             }
             
@@ -140,14 +140,14 @@
 
                 // Complete the constructor
                 public ElectricCar(String model){
-                   super(model, &quot;Electric cars do not calculate MPG.&quot;);
+                   super(model, "Electric cars do not calculate MPG.");
                 }
             
                 // Override the getMPG here.
-                // It should return: &quot;Electric cars do not calculate MPG.
+                // It should return: "Electric cars do not calculate MPG.
                 @Override 
                 public String getMPG() {
-                    return &quot;Electric cars do not calculate MPG.&quot;;
+                    return "Electric cars do not calculate MPG.";
                 }
                 
             
@@ -155,7 +155,7 @@
                 // (model) is an  electric car.
                 @Override
                 public String toString() {
-                    return super.getModel() + &quot; is an electric car.&quot;;
+                    return super.getModel() + " is an electric car.";
                 }
                 
             }
@@ -202,7 +202,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

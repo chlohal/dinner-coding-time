@@ -130,7 +130,7 @@
                // returns a string representation of this geo location
                public String toString() 
                {
-                   return &quot;latitude: &quot; + latitude + &quot;, longitude: &quot; + longitude;
+                   return "latitude: " + latitude + ", longitude: " + longitude;
                }
            
                // returns the distance in miles between this geo location and the given
@@ -158,19 +158,19 @@ public class HowFarAway
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        System.out.print(&quot;Enter the latitude of the starting location: &quot;);
+        System.out.print("Enter the latitude of the starting location: ");
         double startLat = input.nextDouble();
         
-        System.out.print(&quot;\nEnter the longitude of the starting location: &quot;);
+        System.out.print("\nEnter the longitude of the starting location: ");
         double startLong = input.nextDouble();
         
-        System.out.print(&quot;\nEnter the latitude of the ending location: &quot;);
+        System.out.print("\nEnter the latitude of the ending location: ");
         double endLat = input.nextDouble();
         
-        System.out.print(&quot;\nEnter the longitude of the ending location: &quot;);
+        System.out.print("\nEnter the longitude of the ending location: ");
         double endLong = input.nextDouble();
         
-        System.out.println(&quot;The distance is &quot; + (new GeoLocation(startLat, startLong)).distanceFrom(new GeoLocation(endLat, endLong)) + &quot; miles.&quot;);
+        System.out.println("The distance is " + (new GeoLocation(startLat, startLong)).distanceFrom(new GeoLocation(endLat, endLong)) + " miles.");
 
 
     }
@@ -217,7 +217,7 @@ public class HowFarAway
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

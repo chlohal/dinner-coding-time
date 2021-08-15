@@ -86,8 +86,8 @@
 
         <aside class="tip jsyk">
             <h2>JSYK</h2>
-            <p>This assignment seems to have the wrong type, because you don&apos;t have to do anything at first. However,
-                it&apos;s used by the next task, which is an open-response (and, as such, not on Dinner Coding Time).</p>
+            <p>This assignment seems to have the wrong type, because you don't have to do anything at first. However,
+                it's used by the next task, which is an open-response (and, as such, not on Dinner Coding Time).</p>
         </aside>
 
         <code id="source">
@@ -98,63 +98,63 @@
                     /*
                     This program evaluates the speed that Selection and Insertion sort are able to 
                     sort different arrays. What do you notice about the difference in speed?
-                    Why do you think that&apos;s the case?
+                    Why do you think that's the case?
                     */
                     
                     //Try changing the size of the array by changing the value of makeReverseArray()
                     //Does that change the results?
                     int[] reverse = makeReverseArray(100);
-                    System.out.println(&quot;Reversed Array:&quot;);
+                    System.out.println("Reversed Array:");
                     printArray(reverse);
                     long startTime = System.nanoTime();
                     selectionSort(reverse);
                     long endTime = System.nanoTime();
                     long timeElapsed = endTime - startTime;
-                    System.out.println(&quot;\nSelection Sort on Reversed Array:&quot;);
+                    System.out.println("\nSelection Sort on Reversed Array:");
                     printArray(reverse);
-                    System.out.println(&quot;Time elapsed: &quot;+ timeElapsed + &quot; nanoseconds.&quot;);
+                    System.out.println("Time elapsed: "+ timeElapsed + " nanoseconds.");
                     
                     //Try changing the size of the array by changing the value of makeReverseArray()
                     //Does that change the results?
                     int[] reverse2 = makeReverseArray(100);
-                    System.out.println(&quot;\nReversed Array:&quot;);
+                    System.out.println("\nReversed Array:");
                     printArray(reverse2);
                     long newstartTime = System.nanoTime();
                     insertionSort(reverse2);
                     long newendTime = System.nanoTime();
                     long newtimeElapsed = newendTime - newstartTime;
-                    System.out.println(&quot;\nInsertion Sort on Reversed Array:&quot;);
+                    System.out.println("\nInsertion Sort on Reversed Array:");
                     printArray(reverse2);
-                    System.out.println(&quot;Time elapsed: &quot;+ newtimeElapsed + &quot; nanoseconds.\n&quot;);
+                    System.out.println("Time elapsed: "+ newtimeElapsed + " nanoseconds.\n");
                     
                     checkSpeed(timeElapsed, newtimeElapsed);
                     
-                    System.out.println(&quot;\n==================================================&quot;);
+                    System.out.println("\n==================================================");
                     //Try changing the size of the array by changing the value of makeAlmostSortedArray()
                     //Does that change the results?
                     int[] almostSorted = makeAlmostSortedArray(100);
-                    System.out.println(&quot;Almost Sorted Array:&quot;);
+                    System.out.println("Almost Sorted Array:");
                     printArray(almostSorted);
                     startTime = System.nanoTime();
                     selectionSort(almostSorted);
                     endTime = System.nanoTime();
                     timeElapsed = endTime - startTime;
-                    System.out.println(&quot;\nSelection Sort on Almost Sorted Array:&quot;);
+                    System.out.println("\nSelection Sort on Almost Sorted Array:");
                     printArray(almostSorted);
-                    System.out.println(&quot;Time elapsed: &quot;+ timeElapsed + &quot; nanoseconds.&quot;);
+                    System.out.println("Time elapsed: "+ timeElapsed + " nanoseconds.");
                     
                     //Try changing the size of the array by changing the value of makeAlmostSortedArray()
                     //Does that change the results?
                     int[] almostSorted2 = makeAlmostSortedArray(100);
-                    System.out.println(&quot;\nAlmost Sorted Array:&quot;);
+                    System.out.println("\nAlmost Sorted Array:");
                     printArray(almostSorted2);
                     newstartTime = System.nanoTime();
                     insertionSort(almostSorted2);
                     newendTime = System.nanoTime();
                     newtimeElapsed = newendTime - newstartTime;
-                    System.out.println(&quot;\nInsertion Sort on Almost Sorted Array:&quot;);
+                    System.out.println("\nInsertion Sort on Almost Sorted Array:");
                     printArray(almostSorted2);
-                    System.out.println(&quot;Time elapsed: &quot;+ newtimeElapsed + &quot; nanoseconds.\n&quot;);
+                    System.out.println("Time elapsed: "+ newtimeElapsed + " nanoseconds.\n");
                     
                     checkSpeed(timeElapsed, newtimeElapsed);
                 }
@@ -167,7 +167,7 @@
                         
                         int sortedIndex = index - 1;
                         
-                        while( sortedIndex &gt; -1 &amp;&amp; array[sortedIndex] &gt; currentIndexValue)
+                        while( sortedIndex &gt; -1 && array[sortedIndex] &gt; currentIndexValue)
                         {
                             array[sortedIndex + 1] = array[sortedIndex];
                             
@@ -200,7 +200,7 @@
                 {
                     for(int elem: array)
                     {
-                        System.out.print(elem+ &quot; &quot;);
+                        System.out.print(elem+ " ");
                     }
                     System.out.println();
                 }
@@ -255,11 +255,11 @@
                 {
                     if(selectionTime &gt; insertionTime)
                     {
-                        System.out.println(&quot;Insertion time is faster than Selection time by &quot; + (selectionTime- insertionTime) + &quot; nanoseconds.&quot;);
+                        System.out.println("Insertion time is faster than Selection time by " + (selectionTime- insertionTime) + " nanoseconds.");
                     }
                     else
                     {
-                        System.out.println(&quot;Selection time is faster than Insertion time by &quot;+ (insertionTime- selectionTime) + &quot; nanoseconds.&quot;);
+                        System.out.println("Selection time is faster than Insertion time by "+ (insertionTime- selectionTime) + " nanoseconds.");
             
                     }
                 }
@@ -307,7 +307,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

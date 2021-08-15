@@ -108,7 +108,7 @@
 
    public String toString()
    {
-      return this.name + &quot; with a top speed of &quot; + this.speed;
+      return this.name + " with a top speed of " + this.speed;
    }
 }
 
@@ -119,27 +119,27 @@
                public static void main (String[] args)
                {
                  CarShowroom showroom = new CarShowroom(7);
-                 showroom.spaces[0] = new CarModel(&quot;Mustang&quot;, 157);
-                 showroom.spaces[1] = new CarModel(&quot;Camaro&quot;,155);
-                 showroom.spaces[3] = new CarModel(&quot;Corvette&quot;, 194);
-                 showroom.spaces[6] = new CarModel(&quot;Porshe&quot;, 210);
+                 showroom.spaces[0] = new CarModel("Mustang", 157);
+                 showroom.spaces[1] = new CarModel("Camaro",155);
+                 showroom.spaces[3] = new CarModel("Corvette", 194);
+                 showroom.spaces[6] = new CarModel("Porshe", 210);
             
                  // print out what is in the showroom
                  System.out.println(showroom);
             
                  // test output
-                 System.out.println(&quot;Index of Mustang should be 0 and is &quot; +
-                                    showroom.findCarSpace(&quot;Mustang&quot;));
-                 System.out.println(&quot;Index of Corvette should be 3 and is &quot; +
-                                    showroom.findCarSpace(&quot;Corvette&quot;));
-                 System.out.println(&quot;Index of Miata should be -1 and is &quot; +
-                                    showroom.findCarSpace(&quot;Miata&quot;));
+                 System.out.println("Index of Mustang should be 0 and is " +
+                                    showroom.findCarSpace("Mustang"));
+                 System.out.println("Index of Corvette should be 3 and is " +
+                                    showroom.findCarSpace("Corvette"));
+                 System.out.println("Index of Miata should be -1 and is " +
+                                    showroom.findCarSpace("Miata"));
                                     
                  
-                 System.out.println(&quot;\nOriginal Car Showroom:&quot;);
+                 System.out.println("\nOriginal Car Showroom:");
                  System.out.println(showroom);
                  showroom.consolidate();
-                 System.out.println(&quot;Car Showroom after cars have been consolidated:&quot;);
+                 System.out.println("Car Showroom after cars have been consolidated:");
                  System.out.println(showroom);
                }
                
@@ -166,7 +166,7 @@
                }
                
                // Consolidates cars in the showroom so that there are no gaps
-               // in the parking spaces so that it&apos;s easier to move new models in
+               // in the parking spaces so that it's easier to move new models in
                
                public void consolidate()
                { 
@@ -175,10 +175,10 @@
                            //if this space is empty, search for cars after here that can be used to fill it in
                            for(int j = i; j &lt; spaces.length; j++) {
                                if(spaces[j] != null) {
-                                   //if/when we find one, slot it in &amp; remove it from its old spot
+                                   //if/when we find one, slot it in & remove it from its old spot
                                    spaces[i] = spaces[j];
                                    spaces[j] = null;
-                                   //break searching loop once we&apos;ve found something
+                                   //break searching loop once we've found something
                                    break;
                                }
                            }
@@ -188,21 +188,21 @@
             
                public String toString()
                {
-                 String result = &quot;&quot;;
+                 String result = "";
                  CarModel sp = null;
                  
                  // iterate through the spaces
                  for (int i = 0; i &lt; spaces.length; i++) 
                  {
                    sp = spaces[i];
-                   result = result + &quot;Space &quot; + i + &quot; has a &quot;;
+                   result = result + "Space " + i + " has a ";
                    
                    // locate empty spaces
                    if (sp == null)
                    {
-                        result = result + &quot; null \n&quot;;
+                        result = result + " null \n";
                    }
-                   else result = result + sp.toString() + &quot;\n&quot;;
+                   else result = result + sp.toString() + "\n";
                  }
                  return result;
                }
@@ -250,7 +250,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

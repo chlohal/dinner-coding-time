@@ -92,12 +92,12 @@
                 public static void main(String[] args) {
             
                    Scanner input = new Scanner(System.in);
-                   System.out.print(&quot;Hello. What is your name?&quot;);
+                   System.out.print("Hello. What is your name?");
                    Bot2 hal = new Bot2(input.nextLine());
                    hal.greeting();
-                   System.out.println(&quot;What is your favorite animal?&quot;);
+                   System.out.println("What is your favorite animal?");
                    String animal = input.nextLine();
-                   System.out.println(&quot;\n&quot;);
+                   System.out.println("\n");
                    hal.favoriteAnimal(animal);
                    
                    hal.home(input.nextLine());
@@ -116,50 +116,50 @@
                 }
             
                 public void greeting(){
-                    System.out.print(&quot;Hello &quot;);
+                    System.out.print("Hello ");
                     System.out.print(name);
-                    System.out.println(&quot;! My name is Hal!&quot;);
-                    System.out.println(&quot;How are you today!&quot;);
+                    System.out.println("! My name is Hal!");
+                    System.out.println("How are you today!");
                 }
             
                 public void help(){
-                    System.out.println(&quot;You can ask me about the weather,&quot;);
-                    System.out.println(&quot;or how many feet are in a mile.&quot;);
-                    System.out.println(&quot;I can even convert feet to meters!&quot;);
+                    System.out.println("You can ask me about the weather,");
+                    System.out.println("or how many feet are in a mile.");
+                    System.out.println("I can even convert feet to meters!");
                 }
             
                 public void weather(){
-                    System.out.println(&quot;It&apos;s always warm and dry inside your computer!&quot;);
+                    System.out.println("It's always warm and dry inside your computer!");
                 }
             
                 public void feetInMile() {
-                    System.out.println(&quot;There are 5280 feet in a mile.&quot;);
+                    System.out.println("There are 5280 feet in a mile.");
                 }
             
                 public void goodbye(){
-                    System.out.println(&quot;It was nice talking with you!&quot;);
-                    System.out.println(&quot;Have a great day!&quot;);
+                    System.out.println("It was nice talking with you!");
+                    System.out.println("Have a great day!");
                 }
             
                 public void favoriteNumber(int yourNumber){
-                    System.out.println(&quot;My favorite number is 8.&quot;);
-                    System.out.print(&quot;That is &quot;);
+                    System.out.println("My favorite number is 8.");
+                    System.out.print("That is ");
                     System.out.print(yourNumber - 8);
-                    System.out.println(&quot; away from your number.&quot;);
+                    System.out.println(" away from your number.");
                 }
             
                 public void favoriteAnimal(String yourAnimal){
-                    System.out.print(&quot;Cool. I also like &quot;);
+                    System.out.print("Cool. I also like ");
                     System.out.print(yourAnimal);
-                    System.out.println(&quot;s.&quot;);
-                    System.out.println(&quot;My favorite animals are dogs. Have you met Karel?&quot;);
+                    System.out.println("s.");
+                    System.out.println("My favorite animals are dogs. Have you met Karel?");
                 }
             
                 public void home(String location){
-                    System.out.print(&quot;I heard it is really nice in &quot;);
+                    System.out.print("I heard it is really nice in ");
                     System.out.print(location);
-                    System.out.println(&quot;.&quot;);
-                    System.out.println(&quot;I live in a cloud, which is actually pretty cool!&quot;);
+                    System.out.println(".");
+                    System.out.println("I live in a cloud, which is actually pretty cool!");
                 }
             
                 public double feetToMeters(double feet){
@@ -210,7 +210,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

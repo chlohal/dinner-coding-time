@@ -89,16 +89,16 @@
             {
                 public static void main(String[] args)
                 {
-                    //You don&apos;t need to change anything here, but feel free to add more Students!
-                    Student alan = new Student(&quot;Alan&quot;, 11);
-                    Student kevin = new Student(&quot;Kevin&quot;, 10);
-                    Student annie = new Student(&quot;Annie&quot;, 12);
+                    //You don't need to change anything here, but feel free to add more Students!
+                    Student alan = new Student("Alan", 11);
+                    Student kevin = new Student("Kevin", 10);
+                    Student annie = new Student("Annie", 12);
                     System.out.println(Student.printClassList());
                     
                     System.out.println(Student.getLastStudent());
                     System.out.println(Student.getStudent(1));
                 
-                    Student.addStudent(2, new Student(&quot;Trevor&quot;, 12));
+                    Student.addStudent(2, new Student("Trevor", 12));
                     System.out.println(Student.printClassList());
                     System.out.println(Student.getClassSize());
                 }
@@ -151,12 +151,12 @@ public class Student
 
     public static String printClassList()
     {
-        String names = &quot;&quot;;
+        String names = "";
         for(Student name: classList)
         {
-            names+= name.getName() + &quot;\n&quot;;
+            names+= name.getName() + "\n";
         }
-        return &quot;Student Class List:\n&quot; + names;
+        return "Student Class List:\n" + names;
     }
 }
         </code>
@@ -201,7 +201,7 @@ public class Student
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

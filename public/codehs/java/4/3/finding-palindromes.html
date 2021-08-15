@@ -96,7 +96,7 @@
                 {
                    Scanner sc = new Scanner(System.in);
                    String word = sc.nextLine();
-                   System.out.println(&quot;Your word is &quot; + (isPalindrome(word)?&quot;&quot;:&quot;not &quot;) + &quot;a palindrome!&quot;);
+                   System.out.println("Your word is " + (isPalindrome(word)?"":"not ") + "a palindrome!");
                 }
                 
                 /**
@@ -119,7 +119,7 @@
                  */
                 public static String reverse(String text)
                 {
-                    String r = &quot;&quot;;
+                    String r = "";
                     for(int i = text.length() - 1; i&gt;=0;i--) r+= text.charAt(i);
                     return r;
                 }
@@ -167,7 +167,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

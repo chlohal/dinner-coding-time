@@ -94,17 +94,17 @@
                 
                 public String getClue(String guess) {
                     //this clue will be built in the `for` loop later
-                    String clue = &quot;&quot;;
-                    //passwords &amp; guesses are always 4 letters
+                    String clue = "";
+                    //passwords & guesses are always 4 letters
                     for(int i = 0; i &lt; 4; i++) {
-                        //iterate through; for each letter, determine the clue character &amp; build on the clue
+                        //iterate through; for each letter, determine the clue character & build on the clue
                         char guessLetter = guess.charAt(i);
-                        //if the guess was correct for this char, it&apos;s the character itself
+                        //if the guess was correct for this char, it's the character itself
                         if(guessLetter == password.charAt(i)) clue += guessLetter;
-                        //if the guess is correct, but in the wrong spot, it&apos;s &apos;+&apos;
-                        else if(password.indexOf(guessLetter) &gt; -1) clue += &quot;+&quot;;
-                        //if it&apos;s just totally incorrect and you should be ashamed, add &quot;*&quot;
-                        else clue += &quot;*&quot;;
+                        //if the guess is correct, but in the wrong spot, it's '+'
+                        else if(password.indexOf(guessLetter) &gt; -1) clue += "+";
+                        //if it's just totally incorrect and you should be ashamed, add "*"
+                        else clue += "*";
                     }
                     return clue;
                 }
@@ -151,7 +151,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

@@ -89,8 +89,8 @@
             {
                 public static void main(String[] args)
                 {
-                    FormFill filler = new FormFill(&quot;Karel&quot;, &quot;Dog&quot;);
-                    filler.setAddress(123, &quot;Cherry Lane&quot;, &quot;4B&quot;);
+                    FormFill filler = new FormFill("Karel", "Dog");
+                    filler.setAddress(123, "Cherry Lane", "4B");
                     
                     System.out.println(filler.fullName());
                     System.out.println(filler.streetAddress());
@@ -136,7 +136,7 @@
     // For example: LastName, FirstName
     public String fullName()
     {
-        return lName + &quot;, &quot; + fName;
+        return lName + ", " + fName;
     }
     
     // Returns the formatted address
@@ -149,7 +149,7 @@
     // To create a new line in the String
     public String streetAddress()
     {
-        return streetNumber + &quot; &quot; + streetName + &quot;\nApt &quot; + aptNumber;
+        return streetNumber + " " + streetName + "\nApt " + aptNumber;
     }
     
     // Returns a string with the credit card information
@@ -158,11 +158,11 @@
     // Card Number: Card#
     // Expires: expMonth/expYear
     // 
-    // Take information as parameters so we don&apos;t store sensitive information!
+    // Take information as parameters so we don't store sensitive information!
     // You will need to use the escape character \n
     public String creditCardInfo(int creditCardNumber, int expMonth, int expYear)
     {
-        return &quot;Card Number: &quot; + creditCardNumber  + &quot;\nExpires: &quot; + expMonth + &quot;/&quot; + expYear;
+        return "Card Number: " + creditCardNumber  + "\nExpires: " + expMonth + "/" + expYear;
     }
     
 }
@@ -208,7 +208,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

@@ -116,7 +116,7 @@
                 // [min, max]
                 public String toString()
                 {
-                    return &quot;[&quot; + min + &quot;, &quot; + max + &quot;]&quot;;   
+                    return "[" + min + ", " + max + "]";   
                 }
             }
         </code>
@@ -135,12 +135,12 @@ public class ExtremeMain
         Extremes extremes = new Extremes();
         
         // Ask the user to guess the maximum value of an Integer
-        System.out.println(&quot;Guess the maximum Integer value: &quot;);
+        System.out.println("Guess the maximum Integer value: ");
         Integer guessMax = new Integer(input.nextInt());
-        System.out.println(&quot;You were off by &quot; + extremes.maxDiff(guessMax));
-        System.out.println(&quot;Guess the minimum Integer value: &quot;);
+        System.out.println("You were off by " + extremes.maxDiff(guessMax));
+        System.out.println("Guess the minimum Integer value: ");
         Integer guessMin = new Integer(input.nextInt());
-        System.out.println(&quot;You were off by &quot; + extremes.minDiff(guessMin));
+        System.out.println("You were off by " + extremes.minDiff(guessMin));
         
         // Compute and display the difference
         // between the max and the guess
@@ -198,7 +198,7 @@ public class ExtremeMain
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>

@@ -89,24 +89,24 @@ public class WordCount {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        System.out.println(&quot;Give me a string of text&quot;);
+        System.out.println("Give me a string of text");
         String text = sc.nextLine();
         
-        System.out.println(&quot;Give me a single character&quot;);
+        System.out.println("Give me a single character");
         
-        //this is weird but char doesn&apos;t have its own method. this is how you&apos;d do it instead
+        //this is weird but char doesn't have its own method. this is how you'd do it instead
         char letter = sc.next().charAt(0);
         
-        System.out.println(&quot;Word count: &quot; + wordCount(text));
-        System.out.println(&quot;Percent of words that start with letter: &quot; + (percentStartWith(text, letter)*100) + &quot;%&quot;);
+        System.out.println("Word count: " + wordCount(text));
+        System.out.println("Percent of words that start with letter: " + (percentStartWith(text, letter)*100) + "%");
         
     }
     public static int wordCount(String text) {
-        //it&apos;ll always have at least 1 word
+        //it'll always have at least 1 word
         int words = 1;
         
         for(int i = 0; i &lt; text.length(); i++) {
-            if(text.charAt(i) == &apos; &apos;) {
+            if(text.charAt(i) == ' ') {
                 words++;
             }
         }
@@ -128,8 +128,8 @@ public class WordCount {
             }
             //when this character is a space, remember that the next character will be the start of a word;
             //this will be checked in the next iteration.
-            //reset it to false when this character *isn&apos;t* a space
-            if(text.charAt(i) == &apos; &apos;) {
+            //reset it to false when this character *isn't* a space
+            if(text.charAt(i) == ' ') {
                 nextCharacterStartsWord = true;
             }
             else {
@@ -180,7 +180,7 @@ public class WordCount {
                 <h4>Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms">Terms &amp; Conditions</a>
+                        <a href="/legal/terms">Terms & Conditions</a>
                     </li>
 <li>
                         <a href="/legal/foss-usage">OSS Licenses</a>
@@ -193,6 +193,9 @@ public class WordCount {
                     </li>
                     <li>
                         <a href="/legal/privacy">Privacy Policy</a>
+                    </li>
+                    <li>
+                        <a href="/ads">Ad Policy</a>
                     </li>
                 </ul>
             </div>

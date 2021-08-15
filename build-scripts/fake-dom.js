@@ -72,7 +72,7 @@ function FakeDomNode(tag, value) {
         __buildAsAttribute: function () {
             let styles = Object.keys(this).map(style => {
                 if (typeof this[style] == "function") return "";
-                return `${camelToKebab(style)}: ${encodeCharacterEntities(this[style].toString())}`;
+                return `${camelToKebab(style)}: ${attributeEncodeCharacterEntities(this[style].toString())}`;
             });
 
             return styles.filter(x=>x!="").join(";");
@@ -218,13 +218,13 @@ Object.defineProperty(FakeDomNode.prototype, "outerHTML", {
 FakeDomNode.prototype.__buildInnerHTML = function (includeStyles) {
      
     if(isUnsyntaxedElement(this.nodeName)) return this.textContent;
-    if(this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
+    if(this.nodeName == "#text") return minimalTextEncodeCharacterEntities(this.value || "");
     if(this.nodeName == "#comment") return this.value || "";
     return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
 };
 
 FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
-    if (this.nodeName == "#text") return encodeCharacterEntities(this.value || "");
+    if (this.nodeName == "#text") return minimalTextEncodeCharacterEntities(this.value || "");
     if(this.nodeName == "#comment") return this.value || "";
     else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles);
 
@@ -235,7 +235,7 @@ FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
         //if it's truly `true`, then treat it as boolean
         else if(this.attributes[attribute] === true) return ` ${attribute}`;
 
-        else return ` ${attribute}="${basicEncodeCharacterEntities(this.attributes[attribute])}"`
+        else return ` ${attribute}="${attributeEncodeCharacterEntities(this.attributes[attribute])}"`
     });
 
     if(this.nodeName == "!DOCTYPE") {
@@ -341,8 +341,13 @@ function camelToKebab(str) {
     return words.join("-").replace(/-+/g, "-");
 }
 
-function basicEncodeCharacterEntities(str) {
+function attributeEncodeCharacterEntities(str) {
     return str.replace(/"/g, "&quot;");
+}
+
+function minimalTextEncodeCharacterEntities(str) {
+    return str.replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
 
 function encodeCharacterEntities(str) {

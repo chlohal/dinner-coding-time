@@ -108,7 +108,7 @@
                 
                 // toString() Should read: Student account with a balance of $__.__
                 public String toString(){
-                   return &quot;Student account with a balance of $&quot; + super.getBalance();
+                   return "Student account with a balance of $" + super.getBalance();
                    
                 }
             }
@@ -146,7 +146,7 @@
     
     // Should read: Regular account with a balance of $__.__
     public String toString(){
-       return &quot;Regular account with a balance of $&quot; + balance;
+       return "Regular account with a balance of $" + balance;
        
     }
 }
@@ -157,7 +157,7 @@
 {
     public static void main(String[] args)
     {
-        StudentAccount s = new StudentAccount(&quot;Jem&quot;, 300);
+        StudentAccount s = new StudentAccount("Jem", 300);
         System.out.println(s);
         s.deposit(20);
         System.out.println(s);
@@ -206,7 +206,7 @@
                 <h4 localization-string="FOOTER_CATEGORY_LEGAL_TITLE">Legal</h4>
                 <ul>
                     <li>
-                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &amp;
+                        <a href="/legal/terms" localization-string="FOOTER_CATEGORY_LEGAL_ITEM_TERMS_AND_CONDITIONS_LABEL">Terms &
                             Conditions</a>
                     </li>
                     <li>
