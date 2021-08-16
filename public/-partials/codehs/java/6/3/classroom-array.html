@@ -6,16 +6,16 @@
             {
                 public static void main(String[] args)
                 {
-                    Student julian = new Student(&quot;Julian&quot;, &quot;Jones&quot;, 9);
-                    Student larisa = new Student(&quot;Larisa&quot;, &quot;Torres&quot;, 10);
-                    Student amada = new Student(&quot;Amada&quot;, &quot;Robin&quot;, 10);
-                    Student mikka = new Student(&quot;Mikka&quot;, &quot;Leads&quot;, 9);
-                    Student jay = new Student(&quot;Jay&quot;, &quot;Khalil&quot;, 10);
+                    Student julian = new Student("Julian", "Jones", 9);
+                    Student larisa = new Student("Larisa", "Torres", 10);
+                    Student amada = new Student("Amada", "Robin", 10);
+                    Student mikka = new Student("Mikka", "Leads", 9);
+                    Student jay = new Student("Jay", "Khalil", 10);
                     
                     Student[] classroom = {julian, larisa, amada, mikka, jay};
             
                     for(Student kid : classroom) {
-                        System.out.println(kid.getFirstName() + &quot; &quot; + kid.getLastName() + &quot; is in grade &quot; + kid.getGradeLevel());
+                        System.out.println(kid.getFirstName() + " " + kid.getLastName() + " is in grade " + kid.getGradeLevel());
                     }
                     
                 }
@@ -62,7 +62,7 @@ public class Student
     /*
     public String toString()
     {
-        return firstName + &quot; &quot; + lastName + &quot; is in grade: &quot; + gradeLevel;
+        return firstName + " " + lastName + " is in grade: " + gradeLevel;
     }
     */
 }

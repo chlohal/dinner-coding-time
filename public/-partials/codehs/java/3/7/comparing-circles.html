@@ -4,18 +4,18 @@
             <aside class="tip btw">
                 <h2>BTW</h2>
                 <p>Because of some obscure features of the Java compiler, this assignment will work with <code>==</code>
-                    <em>or</em> <code>.equals()</code>. You don&apos;t need to change <em>anything</em> for this one!
+                    <em>or</em> <code>.equals()</code>. You don't need to change <em>anything</em> for this one!
                     <strong>Even so</strong>, you should still use the code below. This trick will fail on more complex assignments,
-                    where it isn&apos;t as easy for the compiler to optimize.</p>
+                    where it isn't as easy for the compiler to optimize.</p>
             </aside>
             <code id="source">
             public class CircleTester 
             {
                 public static void main(String[] args)
                 {
-                    Circle one = new Circle(10, &quot;blue&quot;, 50, 35);
-                    Circle two = new Circle(10, &quot;blue&quot;, 50, 35);
-                    Circle three = new Circle(20, &quot;red&quot;, 0, 0);
+                    Circle one = new Circle(10, "blue", 50, 35);
+                    Circle two = new Circle(10, "blue", 50, 35);
+                    Circle three = new Circle(20, "red", 0, 0);
                     Circle four = three;
                     
                     // Modify this program to correctly compare objects
@@ -23,14 +23,14 @@
                     
                     if(one.equals(two))
                     {
-                        System.out.println(&quot;Circles one and two are equal!&quot;);
+                        System.out.println("Circles one and two are equal!");
                         System.out.println(one);
                         System.out.println(two);
                     }
                     
                     if(three.equals(four))
                     {
-                        System.out.println(&quot;Circles three and four are equal!&quot;);
+                        System.out.println("Circles three and four are equal!");
                         System.out.println(three);
                         System.out.println(four);
                     }

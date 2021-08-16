@@ -20,12 +20,12 @@
                 
                 public void checkPerfect() {
                     for(int i = 0; i &lt; collection.size(); i++) {
-                        if(collection.get(i).getCondition().equals(&quot;perfect&quot;)) System.out.println(collection.get(i).getName());
+                        if(collection.get(i).getCondition().equals("perfect")) System.out.println(collection.get(i).getName());
                     }
                 }
                 
                 public void orderNumerically() {
-                    //horribly inoptimal sort algo, but we haven&apos;t learned anything better
+                    //horribly inoptimal sort algo, but we haven't learned anything better
                     for(int i = 0; i &lt; collection.size(); i++) {
                         int setNumBase = collection.get(i).getSetNum();
                         for(int j = i + 1; j &lt; collection.size(); j++) {

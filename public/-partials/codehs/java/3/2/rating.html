@@ -15,7 +15,7 @@
                 }
                 
                 // Set rating to newRating
-                // As long as it&apos;s no more than 5
+                // As long as it's no more than 5
                 public void setRating(double newRating)
                 {
                     rating = Math.min(newRating,5.0);
@@ -31,9 +31,9 @@
                 // based on their ratings
                 public String toString()
                 {
-                    if(rating &lt; 2) return &quot;Not Recommended Company &quot; + name;
-                    else if(rating &lt;= 3.5) return &quot;Well Rated Company &quot; + name;
-                    else return &quot;Gold Star Company &quot; + name;
+                    if(rating &lt; 2) return "Not Recommended Company " + name;
+                    else if(rating &lt;= 3.5) return "Well Rated Company " + name;
+                    else return "Gold Star Company " + name;
                 }
             }
         </code>
@@ -42,28 +42,28 @@
 {
     public static void main(String[] args)
     {
-        Rater jrs = new Rater(&quot;Jr Cookery&quot;, 2);
+        Rater jrs = new Rater("Jr Cookery", 2);
         
         
         // Test Case: In the middle
-        System.out.println(&quot;Current Rating: &quot; + jrs.getRating());
+        System.out.println("Current Rating: " + jrs.getRating());
         System.out.println(jrs);
         
         
         // Test Case: High rating
         jrs.setRating(4.5);
-        System.out.println(&quot;\nCurrent Rating: &quot; + jrs.getRating());
+        System.out.println("\nCurrent Rating: " + jrs.getRating());
         System.out.println(jrs);
         
         // Test Case: Setting rating too high
         jrs.setRating(100);
-        System.out.println(&quot;\nCurrent Rating: &quot; + jrs.getRating());
+        System.out.println("\nCurrent Rating: " + jrs.getRating());
         System.out.println(jrs);
         
         
         // Test Case: Low rating
         jrs.setRating(1);
-        System.out.println(&quot;\nCurrent Rating: &quot; + jrs.getRating());
+        System.out.println("\nCurrent Rating: " + jrs.getRating());
         System.out.println(jrs);
         
     }

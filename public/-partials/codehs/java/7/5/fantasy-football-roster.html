@@ -17,21 +17,21 @@
                     Scanner sc = new Scanner(System.in);
                     
                     for(int i = 0; i &lt; 5; i++) {
-                        System.out.println(&quot;Enter Player you would like on your team: &quot;);
+                        System.out.println("Enter Player you would like on your team: ");
                         String player = sc.nextLine();
                         int playerIndex = search(availablePlayers, player);
                         if(playerIndex &gt; -1) {
-                            System.out.println(&quot;Great! That player is added to your team!&quot;);   
+                            System.out.println("Great! That player is added to your team!");   
                             team[i] = player;
                             availablePlayers.remove(playerIndex);
                         } else {
-                            System.out.println(&quot;That player is not available, please pick another player.&quot;);
+                            System.out.println("That player is not available, please pick another player.");
                             i--;
                         }
-                        System.out.println(&quot;&quot;);
+                        System.out.println("");
                     }
                     
-                    System.out.println(&quot;Your team is:&quot;);
+                    System.out.println("Your team is:");
                     for(int i = 0; i &lt; 5; i++) {
                         System.out.println(team[i]);
                     }
@@ -47,21 +47,21 @@
                 
                 public static void addPlayers(ArrayList&lt;String&gt; array)
                 {
-                    array.add(&quot;Cam Newton&quot;);
-                    array.add(&quot;Antonio Brown&quot;);
-                    array.add(&quot;Leveon Bell&quot;);
-                    array.add(&quot;Patrick Mahomes&quot;);
-                    array.add(&quot;Saquon Barkley&quot;);
-                    array.add(&quot;Mike Evans&quot;);
-                    array.add(&quot;Odell Beckham Jr.&quot;);
-                    array.add(&quot;Travis Kelce&quot;);
-                    array.add(&quot;Baker Mayfield&quot;);
-                    array.add(&quot;Michael Thomas&quot;);
-                    array.add(&quot;Julio Jones&quot;);
-                    array.add(&quot;Ezekial Elliott&quot;);
-                    array.add(&quot;Alvin Kamara&quot;);
-                    array.add(&quot;Davante Adams&quot;);
-                    array.add(&quot;Aaron Rogers&quot;);
+                    array.add("Cam Newton");
+                    array.add("Antonio Brown");
+                    array.add("Leveon Bell");
+                    array.add("Patrick Mahomes");
+                    array.add("Saquon Barkley");
+                    array.add("Mike Evans");
+                    array.add("Odell Beckham Jr.");
+                    array.add("Travis Kelce");
+                    array.add("Baker Mayfield");
+                    array.add("Michael Thomas");
+                    array.add("Julio Jones");
+                    array.add("Ezekial Elliott");
+                    array.add("Alvin Kamara");
+                    array.add("Davante Adams");
+                    array.add("Aaron Rogers");
                 }
             }
         </code>

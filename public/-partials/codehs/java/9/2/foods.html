@@ -8,7 +8,7 @@
                 private String color;
                 
                 public Fruit(String foodName, int calories, boolean isLocal, String foodColor) {
-                    super(foodName, calories, &quot;Fruit&quot;);
+                    super(foodName, calories, "Fruit");
                     this.isLocal = isLocal;
                     this.color = foodColor;
                 }
@@ -27,8 +27,8 @@
 {
     public static void main(String[] args)
     {
-        System.out.println(new Food(&quot;Apple&quot;, 2000));
-        System.out.println(new HealthyFood(&quot;Cake&quot;, 2000, &quot;Meat&quot;));
+        System.out.println(new Food("Apple", 2000));
+        System.out.println(new HealthyFood("Cake", 2000, "Meat"));
     }
 }
 
@@ -68,7 +68,7 @@
     }
     
     public String toString() {
-        return name + &quot; has &quot; + calories + &quot; calories&quot;;
+        return name + " has " + calories + " calories";
     }
 }
 

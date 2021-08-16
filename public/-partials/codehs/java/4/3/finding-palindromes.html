@@ -13,7 +13,7 @@
                 {
                    Scanner sc = new Scanner(System.in);
                    String word = sc.nextLine();
-                   System.out.println(&quot;Your word is &quot; + (isPalindrome(word)?&quot;&quot;:&quot;not &quot;) + &quot;a palindrome!&quot;);
+                   System.out.println("Your word is " + (isPalindrome(word)?"":"not ") + "a palindrome!");
                 }
                 
                 /**
@@ -36,7 +36,7 @@
                  */
                 public static String reverse(String text)
                 {
-                    String r = &quot;&quot;;
+                    String r = "";
                     for(int i = text.length() - 1; i&gt;=0;i--) r+= text.charAt(i);
                     return r;
                 }

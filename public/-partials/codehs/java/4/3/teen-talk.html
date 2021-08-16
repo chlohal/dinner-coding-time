@@ -10,11 +10,11 @@
                     Scanner sc = new Scanner(System.in);
                     // Create a new Teen object and print it out; see the Teen class file
                     // to see how the constructor and toString method work.
-                    Teen myFriend = new Teen(&quot;Sonequa&quot;, &quot;Martin-Green&quot;, 10, true);
+                    Teen myFriend = new Teen("Sonequa", "Martin-Green", 10, true);
                     System.out.println(myFriend.toString());
                     
                     // Ask the user to input a text message
-                    System.out.println(&quot;Enter the text message being sent: &quot;);
+                    System.out.println("Enter the text message being sent: ");
                     //Call teenTalk method to translate the message to teen talk
                     System.out.println(myFriend.teenTalk(sc.nextLine()));
                 }
@@ -44,17 +44,17 @@ public class Teen
     // toString method to print out the state of teen object
     public String toString()
     {
-        return firstName + &quot; &quot; + lastName + &quot; is in grade &quot; + grade + &quot; and wants to send this text:&quot;;
+        return firstName + " " + lastName + " is in grade " + grade + " and wants to send this text:";
     }
     
     // Create this method so that it changes the text message 
-    // and places the word &quot;like&quot; in place of each space 
+    // and places the word "like" in place of each space 
     // in the message.
     public String teenTalk(String text)
     {
-        String re = &quot;&quot;;
+        String re = "";
         for(int i = 0; i &lt; text.length(); i++) {
-            if(text.charAt(i) == &apos; &apos;) re += &quot; like &quot;;
+            if(text.charAt(i) == ' ') re += " like ";
             else re += text.charAt(i);
         }
         

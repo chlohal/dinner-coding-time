@@ -23,33 +23,34 @@ module.exports = function (page) {
 
     var main = document.getElementsByTagName("main")[0];
 
-    var code = {};
-    for (var j = 0; ; j++) {
-        var id = "source" + (j || "");
-        var sourceElem = main.getElementById(id);
-        if (!sourceElem) break;
+    if(main) {
+        var code = {};
+        for (var j = 0; ; j++) {
+            var id = "source" + (j || "");
+            var sourceElem = main.getElementById(id);
+            if (!sourceElem) break;
 
-        var source = sourceElem.textContent;
-        //ignore empty sources
-        if (source.replace(/[\n\s]+/g, "") == "") continue;
+            var source = sourceElem.textContent;
+            //ignore empty sources
+            if (source.replace(/[\n\s]+/g, "") == "") continue;
 
-        try {
-            code[id] = parsers[language].parse(source);
-        } catch (e) {
-            throw "Problem parsing";
+            try {
+                code[id] = parsers[language].parse(source);
+            } catch (e) {
+                throw "Problem parsing";
+            }
         }
+
+        var datascriptContent = `window.__preparsed = ${JSON.stringify(code)};`;
+
+        var datascript = document.createElement("script");
+        datascript.textContent = datascriptContent;
+        datascript.setAttribute("type", "dct-datascript");
+        datascript.setAttribute("class", "preparsedcode-datascript");
+
+        var oldDatascript = main.getElementsByClassName("preparsedcode-datascript")[0];
+        if (oldDatascript) oldDatascript.parentNode.removeChild(oldDatascript);
+        main.appendChild(datascript);
     }
-
-    var datascriptContent = `window.__preparsed = ${JSON.stringify(code)};`;
-
-    var datascript = document.createElement("script");
-    datascript.textContent = datascriptContent;
-    datascript.setAttribute("type", "dct-datascript");
-    datascript.setAttribute("class", "preparsedcode-datascript");
-
-    var oldDatascript = main.getElementsByClassName("preparsedcode-datascript")[0];
-    if (oldDatascript) oldDatascript.parentNode.removeChild(oldDatascript);
-    main.appendChild(datascript);
-
     return page;
 }

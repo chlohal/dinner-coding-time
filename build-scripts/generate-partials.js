@@ -25,4 +25,6 @@ module.exports = function(page) {
         partialAddress,
         main.innerHTML
     );
+
+    return page;
 }

@@ -6,28 +6,28 @@
             {
                 public static void main(String[] args)
                 {
-                    Battleship sub = new Battleship(&quot;submarine&quot;, 6);
-                    Battleship raft = new Battleship(&quot;raft&quot;, 2);
-                    Battleship destroyer = new Battleship(&quot;destroyer&quot;, 9);
+                    Battleship sub = new Battleship("submarine", 6);
+                    Battleship raft = new Battleship("raft", 2);
+                    Battleship destroyer = new Battleship("destroyer", 9);
                  
                     System.out.println(sub);
-                    System.out.println(&quot;Sub has power &quot; + sub.getPower());
+                    System.out.println("Sub has power " + sub.getPower());
                     
                     System.out.println(raft);
-                    System.out.println(&quot;Raft has power &quot; + raft.getPower());
+                    System.out.println("Raft has power " + raft.getPower());
                     
                     System.out.println(destroyer);
-                    System.out.println(&quot;Destroyer has power &quot; + destroyer.getPower());
+                    System.out.println("Destroyer has power " + destroyer.getPower());
                     
-                    System.out.println(&quot;\nRaft attacks Sub&quot;);
+                    System.out.println("\nRaft attacks Sub");
                     sub.isAttacked(raft.getPower());
                     System.out.println(sub);
                     
-                    System.out.println(&quot;\nDestroyer attacks Raft&quot;);
+                    System.out.println("\nDestroyer attacks Raft");
                     raft.isAttacked(destroyer.getPower());
                     System.out.println(raft);
                     
-                    System.out.println(&quot;\nSub attacks Destroyer&quot;);
+                    System.out.println("\nSub attacks Destroyer");
                     destroyer.isAttacked(sub.getPower());
                     System.out.println(destroyer);
             
@@ -77,7 +77,7 @@
     // Battleship name
     public String toString()
     {
-        return name + &quot;(&quot; + health + &quot;)&quot;;    
+        return name + "(" + health + ")";    
     }
     
 }

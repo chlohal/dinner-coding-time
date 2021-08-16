@@ -4,7 +4,7 @@
         <code id="source">
             public class AirlineTicket
             {
-                private String[] seats = {&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;,&quot;F&quot;};
+                private String[] seats = {"A","B","C","D","E","F"};
                 private String name;
                 private String seat;
                 private int boardingGroup;
@@ -57,7 +57,7 @@
                 
                 public String toString()
                 {
-                    return name + &quot; Seat: &quot; +seat + &quot; Row: &quot; + row + &quot; Boarding Group: &quot; + boardingGroup;
+                    return name + " Seat: " +seat + " Row: " + row + " Boarding Group: " + boardingGroup;
                 }
             }
             
@@ -80,20 +80,20 @@
                     TicketOrganizer ticketOrganizer = new TicketOrganizer(tickets);
                     
                     //These are the methods of the ticketOrganizer in action
-                    System.out.println(&quot;\nPassengers Ordered by Boarding Group:&quot;);
+                    System.out.println("\nPassengers Ordered by Boarding Group:");
                     ticketOrganizer.printPassengersByBoardingGroup();
-                    System.out.println(&quot;\nPassengers in line who can board together:&quot;);
+                    System.out.println("\nPassengers in line who can board together:");
                     ticketOrganizer.canBoardTogether();
                 }
                 
                 //Do not touch this method! It is adding random passengers to the AirlineTicket array
                 public static void addPassengers(ArrayList&lt;AirlineTicket&gt; tickets)
                 {
-                    String[] seats = {&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;,&quot;F&quot;};
+                    String[] seats = {"A","B","C","D","E","F"};
                     for(int index = 0; index &lt; 15; index++)
                     {
                         int random = (int)(Math.random() * 5);
-                        AirlineTicket ticket = new AirlineTicket(&quot;Passenger &quot; + (index+1), seats[random], ((int)(Math.random()*5)+1), ((int)(Math.random()*8)+1));
+                        AirlineTicket ticket = new AirlineTicket("Passenger " + (index+1), seats[random], ((int)(Math.random()*5)+1), ((int)(Math.random()*8)+1));
                         tickets.add(ticket);
                     }
                 }
@@ -118,9 +118,9 @@
             
                 public void printPassengersByBoardingGroup() {
                     for(int i = 1; i &lt;= 5; i++) {
-                        System.out.println(&quot;Boarding Group &quot; + i + &quot;:&quot;);
+                        System.out.println("Boarding Group " + i + ":");
                         for(int j = 0; j &lt; tickets.size(); j++) {
-                            if(tickets.get(j).getBoardingGroup() == i) System.out.println(&quot;Passenger &quot; + (j + 1));
+                            if(tickets.get(j).getBoardingGroup() == i) System.out.println("Passenger " + (j + 1));
                         }
                     }
                 }
@@ -128,13 +128,13 @@
                 public void canBoardTogether() {
                     boolean somePassengersCanBoard = false;
                     for(int i = 0; i &lt; tickets.size() - 1; i++) {
-                        if(tickets.get(i).getBoardingGroup() == tickets.get(i + 1).getBoardingGroup() &amp;&amp;
+                        if(tickets.get(i).getBoardingGroup() == tickets.get(i + 1).getBoardingGroup() &&
                             tickets.get(i).getRow() == tickets.get(i + 1).getRow()) {
-                                System.out.println(&quot;Passenger &quot; + (i+1) +&quot; can board with Passenger &quot; + (i+2) +&quot;.&quot;);
+                                System.out.println("Passenger " + (i+1) +" can board with Passenger " + (i+2) +".");
                                 somePassengersCanBoard = true;
                             }
                     }
-                    if(!somePassengersCanBoard) System.out.println(&quot;There are no passengers with the same row and boarding group.&quot;);
+                    if(!somePassengersCanBoard) System.out.println("There are no passengers with the same row and boarding group.");
                 }
             }
             

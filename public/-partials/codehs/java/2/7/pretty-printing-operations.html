@@ -47,16 +47,16 @@ public class CalculatorTester
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        System.out.println(&quot;Enter two doubles&quot;);
+        System.out.println("Enter two doubles");
         double a = input.nextDouble();
         double b = input.nextDouble();
         
         Calculator calc = new Calculator();
         
-        System.out.println(a + &quot; + &quot; + b + &quot; = &quot; + calc.sum(a, b));
-        System.out.println(a + &quot; - &quot; + b + &quot; = &quot; + calc.subtract(a, b));
-        System.out.println(a + &quot; * &quot; + b + &quot; = &quot; + calc.multiply(a, b));
-        System.out.println(a + &quot; / &quot; + b + &quot; = &quot; + calc.divide(a, b));
+        System.out.println(a + " + " + b + " = " + calc.sum(a, b));
+        System.out.println(a + " - " + b + " = " + calc.subtract(a, b));
+        System.out.println(a + " * " + b + " = " + calc.multiply(a, b));
+        System.out.println(a + " / " + b + " = " + calc.divide(a, b));
 
     }
 }

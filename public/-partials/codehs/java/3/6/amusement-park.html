@@ -14,10 +14,10 @@
                 {
                     Scanner input = new Scanner(System.in);
                     
-                    System.out.println(&quot;Enter your age: &quot;); 
+                    System.out.println("Enter your age: "); 
                     int age = input.nextInt();
                     
-                    System.out.println(&quot;Enter your height in inches: &quot;);
+                    System.out.println("Enter your height in inches: ");
                     int height = input.nextInt();
                     
                     boolean oldEnough = age &gt;= AGE_LIMIT;
@@ -29,30 +29,30 @@
                     
                     if(cannotRide)
                     {
-                        System.out.println(&quot;You may not ride the rollercoasters.&quot;);
+                        System.out.println("You may not ride the rollercoasters.");
                     }
                     else
                     {
-                        System.out.println(&quot;You may ride the rollercoasters!&quot;);
+                        System.out.println("You may ride the rollercoasters!");
                     }
                     
-                    System.out.println(&quot;Can you swim? Enter true or false.&quot;);
+                    System.out.println("Can you swim? Enter true or false.");
                     boolean canSwim = input.nextBoolean();
                     
-                    System.out.println(&quot;Do you have a life jacket? Enter true or false.&quot;);
+                    System.out.println("Do you have a life jacket? Enter true or false.");
                     boolean hasLifeJacket = input.nextBoolean();
                     
                     // CHANGE THIS LINE
                     // Convert this boolean expression into its De Morgan equivalent
-                    boolean cannotSwim = !canSwim &amp;&amp; !hasLifeJacket;
+                    boolean cannotSwim = !canSwim && !hasLifeJacket;
                     
                     if(cannotSwim)
                     {
-                        System.out.println(&quot;You may not swim in the pool.&quot;);
+                        System.out.println("You may not swim in the pool.");
                     }
                     else
                     {
-                        System.out.println(&quot;You may swim in the pool!&quot;);
+                        System.out.println("You may swim in the pool!");
                     }
                 }
             }

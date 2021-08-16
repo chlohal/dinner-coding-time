@@ -12,18 +12,18 @@
                     Scanner input = new Scanner(System.in);
                     
                     // Ask for a quote
-                    System.out.println(&quot;Enter a quote: &quot;);
+                    System.out.println("Enter a quote: ");
                     String quote = input.nextLine();
                     // Ask for the author
-                    System.out.println(&quot;Enter the author of the quote: &quot;);
+                    System.out.println("Enter the author of the quote: ");
                     String author = input.nextLine();
                     
                     // Create a new String that has the quote in quotation marks
-                    // Don&apos;t forget to escape the quotation marks
-                    String quoted = &quot;\&quot;&quot; + quote + &quot;\&quot;&quot;;
+                    // Don't forget to escape the quotation marks
+                    String quoted = "\"" + quote + "\"";
                     // Print the quote, then the author on the next line 
                     // But you can only use ONE print statement!
-                    System.out.println(quoted + &quot;\n&quot; + author);
+                    System.out.println(quoted + "\n" + author);
                 }
             }
         </code>

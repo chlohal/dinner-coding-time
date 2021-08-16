@@ -8,8 +8,8 @@
             {
                 public static void main(String[] args)
                 {
-                    System.out.println(&quot;Table of comparison counts&quot;);
-                    System.out.println(&quot;Length\t\tBinary Search\tLinear Search&quot;);
+                    System.out.println("Table of comparison counts");
+                    System.out.println("Length\t\tBinary Search\tLinear Search");
                     testArrayOfLength(10);
                     testArrayOfLength(20);
                     testArrayOfLength(15);
@@ -20,14 +20,14 @@
                 // This problem generates an array of length length. Then we select a random
                 // index of that array and get the element. Then we print out the table row
                 // entry for how many comparisons it takes on binary search and linear search.
-                // You&apos;ll need to update those methods.
+                // You'll need to update those methods.
                 public static void testArrayOfLength(int length)
                 {
                     int[] arr = generateArrayOfLength(length);
                     //System.out.println(Arrays.toString(arr));
                     int index = (int)(Math.random() * length);
                     int elem = arr[index];
-                    System.out.println(length + &quot;\t\t&quot; + binarySearch(arr, elem) + &quot;\t\t&quot; + linearSearch(arr, elem));
+                    System.out.println(length + "\t\t" + binarySearch(arr, elem) + "\t\t" + linearSearch(arr, elem));
                 }
                 
                 public static int[] generateArrayOfLength(int length)
@@ -43,7 +43,7 @@
                     return arr;
                 }
                 
-                // Do a binary search on array to find number. You&apos;ll need to modify this 
+                // Do a binary search on array to find number. You'll need to modify this 
                 // method to return the number of comparisons done.
                 public static int binarySearch(int[] array, int number)
                 {
@@ -74,7 +74,7 @@
                     return comparisons;
                 }
                 
-                // Do a linear search on array to find the index of number. You&apos;ll need to modify
+                // Do a linear search on array to find the index of number. You'll need to modify
                 // this exercise to return the number of *comparisons* done.
                 public static int linearSearch(int[] array, int number)
                 {
@@ -90,7 +90,7 @@
                         }
                     }
                     //if nothing was found, that means we compared every single element
-                    return array.length; // the code will get here if the number isn&apos;t found
+                    return array.length; // the code will get here if the number isn't found
                 }
             }
             

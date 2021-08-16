@@ -7,8 +7,8 @@
                 public static void main(String[] args)
                 {
                     System.out.println(new Website());
-                    System.out.println(new Website(&quot;mass&quot;,&quot;edu&quot;));
-                    System.out.println(new Website(&quot;code&quot;,&quot;edu&quot;, 10));
+                    System.out.println(new Website("mass","edu"));
+                    System.out.println(new Website("code","edu", 10));
                 }
             }
         </code>
@@ -24,8 +24,8 @@
     
     //Default constructor
     public Website() {
-        domain = &quot;&quot;;
-        topLevelDomain = &quot;com&quot;;
+        domain = "";
+        topLevelDomain = "com";
         numUsers = 0;
     }
     
@@ -51,8 +51,8 @@
     // Do not modify this method
     public String toString()
     {
-        String res =  &quot;https://www.&quot; + domain + &quot;.&quot; + topLevelDomain;
-        res += &quot; has &quot; + numUsers + &quot; users&quot;;
+        String res =  "https://www." + domain + "." + topLevelDomain;
+        res += " has " + numUsers + " users";
         
         return res;
     }

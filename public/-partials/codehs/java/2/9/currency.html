@@ -38,7 +38,7 @@
                 // $12.34
                 public String toString()
                 {
-                    return &quot;$&quot; + getDollars() + &quot;.&quot; + getCents();
+                    return "$" + getDollars() + "." + getCents();
                 }
             }
         </code>
@@ -49,20 +49,20 @@
     {
         Currency bankRoll = new Currency(12.45);
         
-        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
-        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
-        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        System.out.println("Value of bankroll: " + bankRoll);
+        System.out.println("Dollars: " + bankRoll.getDollars());
+        System.out.println("Cents: " + bankRoll.getCents());
         
         
         bankRoll.setValue(20.56);
-        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
-        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
-        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        System.out.println("Value of bankroll: " + bankRoll);
+        System.out.println("Dollars: " + bankRoll.getDollars());
+        System.out.println("Cents: " + bankRoll.getCents());
         
         bankRoll.setValue(67.78);
-        System.out.println(&quot;Value of bankroll: &quot; + bankRoll);
-        System.out.println(&quot;Dollars: &quot; + bankRoll.getDollars());
-        System.out.println(&quot;Cents: &quot; + bankRoll.getCents());
+        System.out.println("Value of bankroll: " + bankRoll);
+        System.out.println("Dollars: " + bankRoll.getDollars());
+        System.out.println("Cents: " + bankRoll.getCents());
         
         
     }

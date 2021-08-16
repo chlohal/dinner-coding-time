@@ -57,25 +57,25 @@
     public static void main(String[] args)
     {
         Billboard top10 = new Billboard();
-        top10.add(new Musician(&quot;Beyonce&quot;, 316, 100000000));
-        top10.add(new Musician(&quot;The Beatles&quot;, 365, 600000000));
-        top10.add(new Musician(&quot;Drake&quot;, 425, 150000000));
-        top10.add(new Musician(&quot;Pink Floyd&quot;, 34, 250000000));
-        top10.add(new Musician(&quot;Mariah Carey&quot;, 287, 200000000));
-        top10.add(new Musician(&quot;Rihanna&quot;, 688, 250000000));
-        top10.add(new Musician(&quot;Queen&quot;, 327, 170000000));
-        top10.add(new Musician(&quot;Ed Sheeran&quot;, 536, 150000000));
-        top10.add(new Musician(&quot;Katy Perry&quot;, 317, 143000000));
-        top10.add(new Musician(&quot;Justin Bieber&quot;, 398, 140000000));
+        top10.add(new Musician("Beyonce", 316, 100000000));
+        top10.add(new Musician("The Beatles", 365, 600000000));
+        top10.add(new Musician("Drake", 425, 150000000));
+        top10.add(new Musician("Pink Floyd", 34, 250000000));
+        top10.add(new Musician("Mariah Carey", 287, 200000000));
+        top10.add(new Musician("Rihanna", 688, 250000000));
+        top10.add(new Musician("Queen", 327, 170000000));
+        top10.add(new Musician("Ed Sheeran", 536, 150000000));
+        top10.add(new Musician("Katy Perry", 317, 143000000));
+        top10.add(new Musician("Justin Bieber", 398, 140000000));
 
-        //This musician should not be added to the top10 because they don&apos;t have enough records sold        
-        top10.add(new Musician(&quot;Karel the Dog&quot;, 332, 60));
+        //This musician should not be added to the top10 because they don't have enough records sold        
+        top10.add(new Musician("Karel the Dog", 332, 60));
         
         //This musician should replace the artist with the least Weeks on the top 40 charts.
-        top10.add(new Musician(&quot;Tracy the Turtle&quot;, 332, 150000000));
+        top10.add(new Musician("Tracy the Turtle", 332, 150000000));
         
         //This musician should not replace an artist, but is a Platinum artist
-        top10.add(new Musician(&quot;Alex Eacker&quot;, 100, 23400000));
+        top10.add(new Musician("Alex Eacker", 100, 23400000));
         
         top10.printTop10();
 
@@ -94,7 +94,7 @@
              
                 public void add(Musician m) {
                     if(!m.getIsPlatinum()) {
-                        System.out.println(&quot;Sorry, &quot; + m.getName() + &quot; does not qualify for Top 10&quot;);
+                        System.out.println("Sorry, " + m.getName() + " does not qualify for Top 10");
                         return;
                     }
                     if(top10.size() &lt; 10) top10.add(m);
@@ -113,15 +113,15 @@
                     }
                     
                     if(toAdd.getWeeksInTop40() &lt;= minWeeksTop40) {
-                        System.out.println(&quot;Sorry, &quot; + toAdd.getName() + &quot; has less weeks in the Top 40 than the other musicians.&quot;);
+                        System.out.println("Sorry, " + toAdd.getName() + " has less weeks in the Top 40 than the other musicians.");
                     } else {
-                        System.out.println(&quot;The musician &quot; + top10.get(minWeeksTop40Index).getName() + &quot; has been replaced by &quot; + toAdd.getName() + &quot;.&quot;);
+                        System.out.println("The musician " + top10.get(minWeeksTop40Index).getName() + " has been replaced by " + toAdd.getName() + ".");
                         top10.set(minWeeksTop40Index, toAdd);
                     }
                 }
              
              
-                //Don&apos;t make alterations to this method!
+                //Don't make alterations to this method!
                 public void printTop10()
                 {
                     System.out.println(top10);

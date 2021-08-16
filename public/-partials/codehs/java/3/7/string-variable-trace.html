@@ -3,7 +3,7 @@
 
         <aside class="tip">
             <h2>JSYK</h2>
-            <p>The reason you comment out the 3rd and 5th <code>if</code> statements is because as they evaluate to false, they don&apos;t contribute to the output</p>
+            <p>The reason you comment out the 3rd and 5th <code>if</code> statements is because as they evaluate to false, they don't contribute to the output</p>
         </aside>
         <code id="source">
             public class StringTrace
@@ -11,8 +11,8 @@
                 public static void main(String[] args)
                 {
                     String str1 = null;
-                    String str2 = new String(&quot;Karel&quot;);
-                    String str3 = &quot;Karel&quot;;
+                    String str2 = new String("Karel");
+                    String str3 = "Karel";
                     
                     if (str1 == null)
                     {
@@ -21,22 +21,22 @@
                     
                     if (str1 == str2)
                     {
-                        System.out.println(&quot;str1 and str2 refer to the same object&quot;);
+                        System.out.println("str1 and str2 refer to the same object");
                     }
                     
                     /*if (str2 == str3)
                     {
-                        System.out.println(&quot;str2 and str3 refer to the same object&quot;);
+                        System.out.println("str2 and str3 refer to the same object");
                     }*/
                     
-                    if (str1.equals(str2) &amp;&amp; str2.equals(str3))
+                    if (str1.equals(str2) && str2.equals(str3))
                     {
-                        System.out.println(&quot;str1, str2, and str3 are equal&quot;);
+                        System.out.println("str1, str2, and str3 are equal");
                     }
                     
-                    /*if ((str1 == str2) &amp;&amp; (str2 == str3))
+                    /*if ((str1 == str2) && (str2 == str3))
                     {
-                        System.out.println(&quot;str1, str2, and str3 are the same objects&quot;);
+                        System.out.println("str1, str2, and str3 are the same objects");
                         
                     }*/
                     

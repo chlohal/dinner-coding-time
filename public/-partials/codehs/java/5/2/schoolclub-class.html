@@ -27,7 +27,7 @@
          this.firstName = fN;
          this.lastName = lN;
          this.gradeLevel = grd;
-         this.school = grd &gt;= 9 ? &quot;high school&quot; : grd &gt;= 6 ? &quot;middle school&quot; : &quot;elementary school&quot;;
+         this.school = grd &gt;= 9 ? "high school" : grd &gt;= 6 ? "middle school" : "elementary school";
      }
    
    
@@ -37,11 +37,11 @@
      * representation of the object, which includes the fields
      * in that object.
      * 
-     * Modify the to string to add &apos;and goes to _____&apos; at the end
+     * Modify the to string to add 'and goes to _____' at the end
      */
     public String toString()
     {
-        return firstName + &quot; &quot; + lastName + &quot; is in grade &quot; + gradeLevel + &quot; and goes to &quot; + school;
+        return firstName + " " + lastName + " is in grade " + gradeLevel + " and goes to " + school;
     }
     
     public String getFirstName(){
@@ -55,13 +55,13 @@
             {
                 public static void main(String[] args)
                 {
-                    Student alan = new Student(&quot;Alan&quot;, &quot;Turing&quot;, 11, &quot;Liberty High School&quot;);
-                    Student ada = new Student(&quot;Ada&quot;, &quot;Lovelace&quot;, 5);
+                    Student alan = new Student("Alan", "Turing", 11, "Liberty High School");
+                    Student ada = new Student("Ada", "Lovelace", 5);
                     
                     System.out.println(alan);
                     System.out.println(ada);
                     
-                    System.out.println(new SchoolClub(alan, &quot;dnd club&quot;));
+                    System.out.println(new SchoolClub(alan, "dnd club"));
                     
                 }
             }            
@@ -90,7 +90,7 @@
                 }
             
                 public String toString(){
-                    return leader.getFirstName() + &quot; is the leader of the &quot; + name + &quot; club.&quot;;
+                    return leader.getFirstName() + " is the leader of the " + name + " club.";
                 }
             }
             

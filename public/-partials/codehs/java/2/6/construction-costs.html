@@ -48,16 +48,16 @@ public class ConstructionTester
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        System.out.println(&quot;Enter the sales tax rate:&quot;);
+        System.out.println("Enter the sales tax rate:");
         double taxRate = input.nextDouble();
-        System.out.println(&quot;How many boards do you need? &quot;);
+        System.out.println("How many boards do you need? ");
         int boards = input.nextInt();
-        System.out.println(&quot;How many windows do you need? &quot;);
+        System.out.println("How many windows do you need? ");
         int windows = input.nextInt();
         
         Construction buildPlan = new Construction(8, 11, taxRate);
-        System.out.println(&quot;Total: &quot; + (buildPlan.windowCost(windows) + buildPlan.lumberCost(boards)));
-        System.out.println(&quot;Grand Total: &quot; + buildPlan.grandTotal(buildPlan.windowCost(windows) + buildPlan.lumberCost(boards)));
+        System.out.println("Total: " + (buildPlan.windowCost(windows) + buildPlan.lumberCost(boards)));
+        System.out.println("Grand Total: " + buildPlan.grandTotal(buildPlan.windowCost(windows) + buildPlan.lumberCost(boards)));
     }
 }
 

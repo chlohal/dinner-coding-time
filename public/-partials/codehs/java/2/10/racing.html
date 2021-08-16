@@ -22,7 +22,7 @@
                 
                 public String toString()
                 {
-                    return &quot;Racer &quot; + name;
+                    return "Racer " + name;
                 }
             }
         </code>
@@ -35,8 +35,8 @@
         double distance = 2414; // ~ 1.5 miles
         
         // Generate a random acceleration for each car
-        Racecar brett = new Racecar(Math.random()*100+1, &quot;Dave&quot;);
-        Racecar jules = new Racecar(Math.random()*100+1, &quot;Jules&quot;);
+        Racecar brett = new Racecar(Math.random()*100+1, "Dave");
+        Racecar jules = new Racecar(Math.random()*100+1, "Jules");
         
         // Create two Racecar objects
         
@@ -45,8 +45,8 @@
         double julesTime = jules.computeTime(distance);
         
         // Print times of each car
-        System.out.println(&quot;First car finished in &quot; + Math.min(brettTime, julesTime) + &quot; seconds&quot;);
-        System.out.println(&quot;Second car finished in &quot; + Math.max(brettTime, julesTime)+ &quot; seconds&quot;);
+        System.out.println("First car finished in " + Math.min(brettTime, julesTime) + " seconds");
+        System.out.println("Second car finished in " + Math.max(brettTime, julesTime)+ " seconds");
                 
         
     }

@@ -6,21 +6,21 @@
 
                 public static void main(String[] args) {
                     int[] myArray = {20, 9, 13, 34, 11, 22, 13, 10};
-                    System.out.print(&quot;Unsorted: &quot;);
+                    System.out.print("Unsorted: ");
                     
-                    System.out.println(&quot;&quot;);
-                    for(int n : myArray) System.out.print(n + &quot; &quot;);
-                    System.out.println(&quot;&quot;);
+                    System.out.println("");
+                    for(int n : myArray) System.out.print(n + " ");
+                    System.out.println("");
                     
                     mergeSort(myArray, myArray.length);
             
-                    System.out.print(&quot;Sorted: &quot;);
+                    System.out.print("Sorted: ");
                    
                     // Print Sorted Array
                    
                     System.out.println();
                     
-                    for(int n : myArray) System.out.print(n + &quot; &quot;);
+                    for(int n : myArray) System.out.print(n + " ");
                 }
             
                 public static void mergeSort(int[] current, int length) {
@@ -28,7 +28,7 @@
                         return;
                     }
                     
-                    System.out.println(&quot;Splitting ...&quot;);
+                    System.out.println("Splitting ...");
                     
                     int mid = length / 2;
                     int[] left = new int[mid];
@@ -36,7 +36,7 @@
                     int[] right = new int[length - mid];
                     
                     
-                    System.out.print(&quot;*** Left: &quot;);
+                    System.out.print("*** Left: ");
                     
                     // Create and print left array
                     
@@ -44,12 +44,12 @@
                         left[i] = current[i];
                     }
                     
-                    System.out.println(&quot;&quot;);
-                    for(int n : left) System.out.print(n + &quot; &quot;);
-                    System.out.println(&quot;&quot;);
+                    System.out.println("");
+                    for(int n : left) System.out.print(n + " ");
+                    System.out.println("");
                     
                     System.out.println();
-                    System.out.print(&quot;*** Right: &quot;);
+                    System.out.print("*** Right: ");
                     
                     // Create and print right array
                     for (int i = mid; i &lt; length; i++) {
@@ -57,9 +57,9 @@
             
                     }
                     
-                    System.out.println(&quot;&quot;);
-                    for(int n : right) System.out.print(n + &quot; &quot;);
-                    System.out.println(&quot;&quot;);
+                    System.out.println("");
+                    for(int n : right) System.out.print(n + " ");
+                    System.out.println("");
                     
                     System.out.println();
                     System.out.println();
@@ -69,24 +69,24 @@
             
                     merge(current, left, right);
                     
-                    System.out.print(&quot;*** Current: &quot;);
+                    System.out.print("*** Current: ");
                     
                     // Print current array
                     
-                    System.out.println(&quot;&quot;);
-                    for(int n : current) System.out.print(n + &quot; &quot;);
-                    System.out.println(&quot;&quot;);
+                    System.out.println("");
+                    for(int n : current) System.out.print(n + " ");
+                    System.out.println("");
                     
                 }
             
                 public static void merge(int[] current, int[] left, int[] right)
                 {
-                    System.out.println(&quot;Merging ... &quot;);
+                    System.out.println("Merging ... ");
                     int leftSize = left.length;
                     int rightSize = right.length;
             
                     int i = 0, j = 0, k = 0;
-                    while (i &lt; leftSize &amp;&amp; j &lt; rightSize) {
+                    while (i &lt; leftSize && j &lt; rightSize) {
                         if (left[i] &lt;= right[j]) {
                             current[k++] = left[i++];
                         }

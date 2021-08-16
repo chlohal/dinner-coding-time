@@ -15,11 +15,11 @@
                     
                     int input = 0;
                     while(true) {
-                        System.out.println(&quot;Enter a number (-1 to quit): &quot;);
+                        System.out.println("Enter a number (-1 to quit): ");
                         input = sc.nextInt();
                         if(input != -1) {
-                            System.out.println(&quot;Smallest # so far: &quot; + (smallest = Math.min(smallest, input)));
-                            System.out.println(&quot;Largest # so far: &quot; + (largest = Math.max(largest, input)));
+                            System.out.println("Smallest # so far: " + (smallest = Math.min(smallest, input)));
+                            System.out.println("Largest # so far: " + (largest = Math.max(largest, input)));
                         } else {
                             break;
                         }

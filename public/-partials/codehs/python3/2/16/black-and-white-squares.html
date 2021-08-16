@@ -11,16 +11,16 @@
         </script>
         <code id="source">
 
-inputs = [&quot;Yes&quot;]
+inputs = ["Yes"]
 def draw_black_square():
-    color(&quot;black&quot;)
+    color("black")
     begin_fill()
     pendown()
     circle(10)
     end_fill()
     penup()
-black = input(&quot;Is square black? (Yes/No): &quot;)
-if black %&quot;Yes&quot;:
+black = input("Is square black? (Yes/No): ")
+if black %"Yes":
     penup()
     right(90)
 for i in range(1):

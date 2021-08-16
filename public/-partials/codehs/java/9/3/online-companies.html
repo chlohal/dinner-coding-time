@@ -35,7 +35,7 @@
                 * Springfield, OH
                 */
                 public String address(){
-                   return streetAddress + &quot;\n&quot; + city + &quot;, &quot; + state;
+                   return streetAddress + "\n" + city + ", " + state;
                 }
             
                 /**
@@ -45,7 +45,7 @@
                 * Springfield, OH
                 */
                 public String toString(){
-                   return name + &quot;\n&quot; + this.address();
+                   return name + "\n" + this.address();
                 }
             }
             
@@ -75,7 +75,7 @@
                 */
                 
                 public String toString(){
-                    return super.getName() + &quot;\n&quot; + webAddress;
+                    return super.getName() + "\n" + webAddress;
                 }
             }
             
@@ -85,8 +85,8 @@
 {
     public static void main(String[] args)
     {
-        System.out.println((new Company(&quot;McDonalds&quot;, &quot;123 Main Street&quot;, &quot;Anytown&quot;, &quot;USA&quot;)).toString());
-        System.out.println((new OnlineCompany(&quot;Google&quot;, &quot;https://google.com&quot;)).toString());
+        System.out.println((new Company("McDonalds", "123 Main Street", "Anytown", "USA")).toString());
+        System.out.println((new OnlineCompany("Google", "https://google.com")).toString());
     }
 }
 

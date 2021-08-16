@@ -13,12 +13,12 @@
                 {
                     name = company;
                     rating = initialRating;
-                    review = &quot;&quot;;
+                    review = "";
                     
                 }
                 
                 // Set rating to newRating
-                // As long as it&apos;s no more than 5
+                // As long as it's no more than 5
                 public void setRating(double newRating)
                 {
                     rating = Math.min(newRating, 5);
@@ -27,8 +27,8 @@
                 // Updates review line based on rating
                 public void updateReview()
                 {
-                    if(rating &gt;= 3) review = &quot;Proudly recommended&quot;;
-                    else review = &quot;Needs more ratings&quot;;
+                    if(rating &gt;= 3) review = "Proudly recommended";
+                    else review = "Needs more ratings";
                 }
                 
                 
@@ -43,7 +43,7 @@
                 // name : review
                 public String toString()
                 {
-                    return name + &quot; : &quot; + review;
+                    return name + " : " + review;
                 }
             }
             
@@ -53,11 +53,11 @@
 {
     public static void main(String[] args)
     {
-        Rater company1 = new Rater(&quot;a&quot;, 0.0);
+        Rater company1 = new Rater("a", 0.0);
         company1.updateReview();
         System.out.println(company1);
         
-        Rater company2 = new Rater(&quot;b&quot;, 5.0);
+        Rater company2 = new Rater("b", 5.0);
         company2.updateReview();
         System.out.println(company2);
     }

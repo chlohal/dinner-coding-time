@@ -8,8 +8,8 @@
                 {
                     // Make Pinatas!
                     Pinata ella = new Pinata();
-                    Pinata pete = new Pinata(&quot;chocolate&quot;, &quot;blue&quot;, &quot;star&quot;);
-                    Pinata sweetie = new Pinata(&quot;sour straws&quot;);
+                    Pinata pete = new Pinata("chocolate", "blue", "star");
+                    Pinata sweetie = new Pinata("sour straws");
                     
                     // Print the pinatas
                     System.out.println(ella);
@@ -32,9 +32,9 @@
     // Constructor without parameters
     public Pinata()
     {
-        candy = &quot;hard candy&quot;;
-        color = &quot;rainbow&quot;;
-        shape = &quot;donkey&quot;;
+        candy = "hard candy";
+        color = "rainbow";
+        shape = "donkey";
     }
     
     // Add an overloaded constructor that allows the user
@@ -48,7 +48,7 @@
     // Add an overloaded constructor that allows the user
     // to customize the color and shape
     public Pinata(String _color, String _shape) {
-        candy = &quot;hard candy&quot;;
+        candy = "hard candy";
         color = _color;
         shape = _shape;
     }
@@ -57,14 +57,14 @@
     // to customize the candy
     public Pinata(String _candy) {
         candy = _candy;
-        color = &quot;rainbow&quot;;
-        shape = &quot;donkey&quot;;
+        color = "rainbow";
+        shape = "donkey";
     }
     
     
     public String toString()
     {
-        return color + &quot; &quot; + shape + &quot; pinata filled with &quot; + candy;
+        return color + " " + shape + " pinata filled with " + candy;
     }
 }
         </code>

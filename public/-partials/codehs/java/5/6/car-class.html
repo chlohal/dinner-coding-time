@@ -10,23 +10,23 @@
                     //Fill up the gas tank
                     minivan.addGas();
                     //Check the miles available
-                    System.out.println(&quot;Miles available: &quot; + minivan.milesAvailable());
+                    System.out.println("Miles available: " + minivan.milesAvailable());
                     //Drive 100 miles
                     minivan.drive(100.0);
                     //Check the miles available
-                    System.out.println(&quot;Miles available: &quot; + minivan.milesAvailable());
+                    System.out.println("Miles available: " + minivan.milesAvailable());
                     //Add 2 gallons to the gas tank
                     minivan.addGas(2.0);
                     //Check the miles available
-                    System.out.println(&quot;Miles available: &quot; + minivan.milesAvailable());
+                    System.out.println("Miles available: " + minivan.milesAvailable());
                     //Try driving more miles than available by driving 1000 miles
                     minivan.drive(1000.0);
                     //Drive 200 miles
                     minivan.drive(200.0);
                     //Check how much gas you have left
-                    System.out.println(&quot;Gas remaining: &quot; + minivan.getGas());
+                    System.out.println("Gas remaining: " + minivan.getGas());
                     //Print total miles driven
-                    System.out.println(&quot;Total Miles Driven: &quot; + minivan.getTotalMilesDriven());
+                    System.out.println("Total Miles Driven: " + minivan.getTotalMilesDriven());
                 }
             }
             
@@ -47,11 +47,11 @@
                 }
                 
                 public void addGas() {
-                    System.out.println(&quot;Filling up ...&quot;);
+                    System.out.println("Filling up ...");
                     this.gas = tankCapacity;
                 }
                 public void addGas(double amount) {
-                    System.out.println(&quot;Adding gas ...&quot;);
+                    System.out.println("Adding gas ...");
                     
                     //you could also use `this.gas = Math.min(gas + amount, tankCapacity)`
                     this.gas += amount;
@@ -63,11 +63,11 @@
                 }
                 public void drive(double distance) {
                     if(canDrive(distance)) {
-                        System.out.println(&quot;Driving &quot; + distance);
+                        System.out.println("Driving " + distance);
                         totalMilesDriven += distance;
                         gas -= distance / efficiency;
                     } else {
-                        System.out.println(&quot;Can&apos;t drive &quot; + distance + &quot;. That&apos;s too far!&quot;);
+                        System.out.println("Can't drive " + distance + ". That's too far!");
                     }
                 }
                 public boolean canDrive(double distance) {

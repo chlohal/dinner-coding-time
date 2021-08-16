@@ -23,8 +23,8 @@
                  **/
                 public static int binaryRec(int[] array, int target, int begin, int end) {
                     
-                    System.out.println(&quot;Starting value: &quot; + array[begin]);
-                    System.out.println(&quot;Ending value: &quot; + array[end]);
+                    System.out.println("Starting value: " + array[begin]);
+                    System.out.println("Ending value: " + array[end]);
                     
                     if (begin &lt;= end)
                     {
@@ -32,25 +32,25 @@
                         int mid = (begin + end) / 2;
                         int midVal = array[mid];
                         
-                        System.out.println(&quot;Testing midpoint value: &quot; + midVal);
+                        System.out.println("Testing midpoint value: " + midVal);
                     
                         
                         // Base Case
                         if (target == midVal) {
-                            System.out.println(&quot;Match!&quot;);
-                            System.out.println(&quot;&quot;);
+                            System.out.println("Match!");
+                            System.out.println("");
                             return mid;
                         }
                 
                         if (target &lt; midVal) {
-                            System.out.println(&quot;Too high!&quot;);
-                            System.out.println(&quot;&quot;);
+                            System.out.println("Too high!");
+                            System.out.println("");
                             return binaryRec(array, target, begin, mid - 1);
                         }
                 
                         if (target &gt; midVal) {
-                            System.out.println(&quot;Too low!&quot;);
-                            System.out.println(&quot;&quot;);
+                            System.out.println("Too low!");
+                            System.out.println("");
                             return binaryRec(array, target, mid + 1, end);
                         }
                     }

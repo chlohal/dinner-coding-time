@@ -21,6 +21,8 @@ module.exports = function(page) {
         }
     }
 
+    if(!page.document.getElementsByTagName("head")[0]) return page;
+
     description = description.replace(/\r?\n\s*/g, " ").substring(0, 160);
 
     var metaDescription = findOrCreateMetaElementOfType(page.document, "description");

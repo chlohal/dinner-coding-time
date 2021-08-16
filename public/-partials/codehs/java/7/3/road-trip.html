@@ -54,7 +54,7 @@
                // returns a string representation of this geo location
                public String toString() 
                {
-                   return name + &quot; (&quot; + latitude + &quot;, &quot; + longitude + &quot;)&quot;;
+                   return name + " (" + latitude + ", " + longitude + ")";
                }
            
                // returns the distance in miles between this geo location and the given
@@ -80,15 +80,15 @@
     public static void main(String[] args)
     {
         RoadTrip rt = new RoadTrip();
-        rt.addStop(&quot;San Francisco&quot;, 37.7833, -122.4167);
-        rt.addStop(&quot;Los Angeles&quot;, 34.052235, -118.243683);
-        rt.addStop(&quot;Las Vegas&quot;, 36.114647, -115.172813);
+        rt.addStop("San Francisco", 37.7833, -122.4167);
+        rt.addStop("Los Angeles", 34.052235, -118.243683);
+        rt.addStop("Las Vegas", 36.114647, -115.172813);
 
         
         System.out.println(rt);
         
-        System.out.println(&quot;Stops: &quot; + rt.getNumberOfStops());
-        System.out.println(&quot;Total Miles: &quot; + rt.getTripLength());
+        System.out.println("Stops: " + rt.getNumberOfStops());
+        System.out.println("Total Miles: " + rt.getTripLength());
     }
 }
 
@@ -125,9 +125,9 @@
                 
                 // Return a formatted toString of the trip
                 public String toString() {
-                    String list = &quot;&quot;;
+                    String list = "";
                     
-                    for(int i = 0; i &lt; places.size(); i++) list += (i + 1) + &quot;. &quot; + places.get(i).toString() + &quot;\n&quot;;
+                    for(int i = 0; i &lt; places.size(); i++) list += (i + 1) + ". " + places.get(i).toString() + "\n";
                     
                     return list;
                 }

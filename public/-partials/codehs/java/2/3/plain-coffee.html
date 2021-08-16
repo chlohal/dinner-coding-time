@@ -7,7 +7,7 @@
     public static void main(String[] args)
     {
         // Create Specialized Coffee
-        Coffee latte = new Coffee(4, false, &quot;soy&quot;);
+        Coffee latte = new Coffee(4, false, "soy");
         System.out.println(latte);
         
         // Create a default coffee
@@ -31,7 +31,7 @@ public class Coffee
     private int brewStrength; // on a scale of 1 to 5, 5 being the darkest
     private boolean sugar;    // has sugar (true) or does not (false)
     
-    // takes the values &quot;none&quot;, &quot;whole&quot;, &quot;nonfat&quot;, &quot;soy&quot;, or &quot;almond&quot;
+    // takes the values "none", "whole", "nonfat", "soy", or "almond"
     private String milkType; 
     
     // Add a default constructor (no parameters)
@@ -50,7 +50,7 @@ public class Coffee
     public Coffee() {
         brewStrength = 3;
         sugar = true;
-        milkType = &quot;whole&quot;;
+        milkType = "whole";
     }
     
     
@@ -58,7 +58,7 @@ public class Coffee
     // Do not modify this function
     public String toString()
     {
-        return &quot;Coffee brewed to level &quot; + brewStrength + &quot; with &quot; + milkType + &quot; milk. Sugar? &quot; + sugar;
+        return "Coffee brewed to level " + brewStrength + " with " + milkType + " milk. Sugar? " + sugar;
     }
     
 }

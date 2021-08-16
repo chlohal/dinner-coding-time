@@ -13,18 +13,18 @@
                 
                 public static String useProperGrammar(String theText)
                 {
-                    String replaced = &quot;&quot;;
+                    String replaced = "";
                     int correctCount = 0;
                     for(int i = 0; i &lt; theText.length(); i++) {
-                        if(theText.charAt(i) == &apos;2&apos;) {
-                            replaced += &quot;to&quot;;
+                        if(theText.charAt(i) == '2') {
+                            replaced += "to";
                             correctCount++;
                         } else {
-                            replaced += &quot;&quot; + theText.charAt(i);
+                            replaced += "" + theText.charAt(i);
                         }
                     }
                     
-                    System.out.println(&quot;Fixed &quot; + correctCount + &quot; grammatical errors:&quot;);
+                    System.out.println("Fixed " + correctCount + " grammatical errors:");
                     
                     return replaced;
                 }
