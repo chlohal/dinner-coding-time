@@ -66,9 +66,11 @@ for(var i = 0; i < files.length; i++) {
         cacheHashes[location] = updatedSha;
 
         fs.writeFileSync(files[i], updatedInnerhtml);
+
+        fs.writeFileSync(path.join(cacheDir, "hashes.json"), JSON.stringify(cacheHashes));
+
 }
 
-fs.writeFileSync(path.join(cacheDir, "hashes.json"), JSON.stringify(cacheHashes));
 
 searchIndex.write();
 
