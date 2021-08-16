@@ -9,7 +9,6 @@ if (!fs.existsSync(path.join(cacheDir, "hashes.json"))) fs.writeFileSync(path.jo
 
 
 var cacheHashes = require("../cache/hashes.json");
-var gitHashes = require("./git-html-file-shas.js");
 
 var threadPool = require("./worker-thread-pool.js");
 
@@ -37,10 +36,7 @@ for (var i = 0; i < files.length; i++) {
 
     if (DEBUG) console.log("Current hash: " + sha);
     if (DEBUG) console.log("Cache hash: " + (cacheHashes[location]));
-    if (DEBUG) console.log("Git hash: " + (gitHashes[location] && gitHashes[location].sha));
-    if ((!cacheHashes[location] && !gitHashes[location]) ||
-        (cacheHashes[location] && sha != cacheHashes[location]) ||
-        (!cacheHashes[location] && gitHashes[location] && sha != gitHashes[location].sha)) {
+    if (!cacheHashes[location] || sha != cacheHashes[location]) {
 
         //preserve `i` and `location` 
         (function (i, location) {
