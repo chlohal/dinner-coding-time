@@ -8,13 +8,14 @@ var fakeDom = require("./fake-dom.js");
 
 var worker_threads = require('worker_threads');
 
-var DEBUG = true;
 var POOL_SIZE = 20;
 
 /**
  * @type {workpoolunit[]}
  */
 var pool = [];
+
+var DEBUG;
 
 var queue = [];
 var nonceId = 0;
@@ -28,32 +29,37 @@ var nonces = {};
 
 if (worker_threads.isMainThread) {
 
-    for (var i = 0; i < POOL_SIZE; i++) {
-        (function () {
-            /**
-             * @type {workpoolunit}
-             */
-            var workpoolunit = {
-                worker: new worker_threads.Worker(__filename),
-                open: false
-            };
-            workpoolunit.worker.on("message", function (value) {
-                if (value.t == "result") {
-                    if(DEBUG) console.log("finished job " + value.nonce)
-                    nonces[value.nonce](value.fileContent);
-
-                    if (queue.length) workpoolunit.worker.postMessage(queue.pop());
-                    else workpoolunit.open = true;
-                } else if (value.t == "ready") {
-                    if (queue.length) workpoolunit.worker.postMessage(queue.pop());
-                    else workpoolunit.open = true;
-                }
-            });
-            pool.push(workpoolunit);
-        })();
-    }
-
     module.exports = {
+        setDebug: function(d) {
+            DEBUG = d;
+        },
+        initPool: function(size) {
+            size = +size || POOL_SIZE;
+            for (var i = 0; i < size; i++) {
+                (function () {
+                    /**
+                     * @type {workpoolunit}
+                     */
+                    var workpoolunit = {
+                        worker: new worker_threads.Worker(__filename),
+                        open: false
+                    };
+                    workpoolunit.worker.on("message", function (value) {
+                        if (value.t == "result") {
+                            if(DEBUG) console.log("finished job " + value.nonce)
+                            nonces[value.nonce](value.fileContent);
+        
+                            if (queue.length) workpoolunit.worker.postMessage(queue.pop());
+                            else workpoolunit.open = true;
+                        } else if (value.t == "ready") {
+                            if (queue.length) workpoolunit.worker.postMessage(queue.pop());
+                            else workpoolunit.open = true;
+                        }
+                    });
+                    pool.push(workpoolunit);
+                })();
+            }
+        },
         giveJob: function (fileContent, location, cb) {
             var openWorker = pool.find(x => x.open);
 

@@ -124,7 +124,8 @@
                     "OPEN_SOURCE_SOFTWARE_LICENSES_LABEL": "OSS Licenses",
                     "LICENSE_LABEL": "License",
                     "FAIR_USE_STATEMENT_LABEL": "Fair Use Statement",
-                    "PRIVACY_POLICY_LABEL": "Privacy Policy"
+                    "PRIVACY_POLICY_LABEL": "Privacy Policy",
+                    "ADS_POLICY_LABEL": "Ads Policy"
                 }
             }
         }

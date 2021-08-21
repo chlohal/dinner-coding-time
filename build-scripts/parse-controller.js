@@ -1,6 +1,5 @@
 var fs = require("fs");
 var path = require("path");
-var fakeDom = require("./fake-dom.js");
 var crypto = require("crypto");
 
 var cacheDir = path.join(__dirname, "../cache");
@@ -12,15 +11,15 @@ var cacheHashes = require("../cache/hashes.json");
 
 var threadPool = require("./worker-thread-pool.js");
 
-var searchIndex = require("./generate-search-index.js");
-searchIndex.reset();
-
 var publicDir = path.join(__dirname, "../public");
 
 var files = loadHtmlFilesFromFolder(publicDir);
 var finished = 0;
 
-var DEBUG = true;
+threadPool.initPool(files.length / 5);
+
+var DEBUG = false;
+threadPool.setDebug(DEBUG);
 
 for (var i = 0; i < files.length; i++) {
     var fileContent = fs.readFileSync(files[i]).toString();
@@ -33,12 +32,12 @@ for (var i = 0; i < files.length; i++) {
 
     if (DEBUG) console.log(`File ${i}/${files.length}: ${location}`);
 
-
-    if (DEBUG) console.log("Current hash: " + sha);
-    if (DEBUG) console.log("Cache hash: " + (cacheHashes[location]));
     if (!cacheHashes[location] || sha != cacheHashes[location]) {
 
-        //preserve `i` and `location` 
+        //preserve `i` and `location` in an iefe
+        //could this be cause for a `let`?
+        //yes, it should be, but it's easier to do it this way
+        //(not really, but from an 'i dont want to use emca2015' perspective)
         (function (i, location) {
             threadPool.giveJob(fileContent, location, function (updatedInnerhtml) {
                 var updatedSha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(updatedInnerhtml) + "\u0000" + updatedInnerhtml).digest("hex");
@@ -50,34 +49,14 @@ for (var i = 0; i < files.length; i++) {
                 finished++;
                 checkAllDone();
             });
-        })(i, location,);
+        })(i, location);
     } else {
         finished++;
-        if (DEBUG) console.log("Unchanged page -- skipping time-wasting operations preparseCode, generatePartials, updateCodehsTitles, and addMetaDescriptionOpenGraph");
+        if (DEBUG) console.log("Unchanged page -- skipping");
     }
-
-    var html = fakeDom.parseHTML(fileContent);
-    var document = fakeDom.makeDocument(html);
-
-    var page = makePage(document, location);
-
-    if (DEBUG) console.log("Adding to search index...");
-    searchIndex.add(page);
-
-    var updatedInnerhtml = document.innerHTML;
-    var updatedSha = crypto.createHash("sha1").update("blob " + Buffer.byteLength(updatedInnerhtml) + "\u0000" + updatedInnerhtml).digest("hex");
-    cacheHashes[location] = updatedSha;
-
-    fs.writeFileSync(files[i], updatedInnerhtml);
-    updateCache();
-
 }
 
 checkAllDone();
-
-
-searchIndex.write();
-
 
 function checkAllDone() {
     if(finished >= files.length) {
@@ -91,20 +70,6 @@ function checkAllDone() {
  * @property {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
  * @property {string} location The location of the page, equal to the window.location.pathname property in a browser.
  */
-
-
-/**
- * Make a page from a document and location
- * @param {import("./fake-dom").FakeDomNode} document A #root node representing the document of the page.
- * @param {string} location The location of the page, equal to the window.location.pathname property in a browser.
- * @returns {Page} The page
- */
-function makePage(document, location) {
-    return {
-        location: location,
-        document: document
-    };
-}
 
 function updateCache() {
     fs.writeFileSync(path.join(cacheDir, "hashes.json"), JSON.stringify(cacheHashes));

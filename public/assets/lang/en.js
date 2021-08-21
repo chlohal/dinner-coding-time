@@ -97,6 +97,7 @@
         "FOOTER_CATEGORY_LEGAL_ITEM_LICENSE_LABEL": "License",
         "FOOTER_CATEGORY_LEGAL_ITEM_FAIR_USE_STATEMENT_LABEL": "Fair Use Statement",
         "FOOTER_CATEGORY_LEGAL_ITEM_PRIVACY_POLICY_LABEL": "Privacy Policy",
+        "FOOTER_CATEGORY_LEGAL_ITEM_ADS_POLICY_LABEL": "Ads Policy",
         "HOMEPAGE_HERO_TITLE": "Dinner Coding Time",
         "HOMEPAGE_HERO_SUBTITLE": "Easy help on AP Computer Science",
         "HOMEPAGE_HERO_BUTTON_CODEHS_LABEL": "CodeHS",
