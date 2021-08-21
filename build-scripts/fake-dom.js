@@ -215,18 +215,28 @@ Object.defineProperty(FakeDomNode.prototype, "outerHTML", {
         return this.__buildOuterHTML(true);
     }
 });
-FakeDomNode.prototype.__buildInnerHTML = function (includeStyles) {
+FakeDomNode.prototype.__buildInnerHTML = function (includeStyles,pretty) {
      
     if(isUnsyntaxedElement(this.nodeName)) return this.textContent;
-    if(this.nodeName == "#text") return minimalTextEncodeCharacterEntities(this.value || "");
+    if(this.nodeName == "#text") {
+        //collapse empty text nodes
+        if(pretty && this.value.match(/^[\s\n]+$/)) return " ";
+        
+        return minimalTextEncodeCharacterEntities(this.value || "");
+    }
     if(this.nodeName == "#comment") return this.value || "";
-    return this.childNodes.map(node => node.__buildOuterHTML(includeStyles)).join("");
+    
+    if(pretty) {
+        return this.childNodes.map(node => node.__buildOuterHTML(includeStyles, pretty)).join("\n");
+    } else {
+        return this.childNodes.map(node => node.__buildOuterHTML(includeStyles, pretty)).join("");
+    }
 };
 
-FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
+FakeDomNode.prototype.__buildOuterHTML = function (includeStyles, pretty) {
     if (this.nodeName == "#text") return minimalTextEncodeCharacterEntities(this.value || "");
     if(this.nodeName == "#comment") return this.value || "";
-    else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles);
+    else if(this.nodeName == "#root") return this.__buildInnerHTML(includeStyles, pretty);
 
     let attrs = Object.keys(this.attributes).map(attribute => {
         if (attribute == "style" && !includeStyles) return "";
@@ -244,9 +254,15 @@ FakeDomNode.prototype.__buildOuterHTML = function (includeStyles) {
     else if(isSelfClosingTag(this.nodeName)) {
         return "<" + this.nodeName + attrs.join("") + " />";
     } else {
-        return "<" + this.nodeName + attrs.join("") + ">" +
-            this.__buildInnerHTML(includeStyles) +
-            "</" + this.nodeName + ">";
+        if(pretty) {
+            return "<" + this.nodeName + attrs.join("") + ">\n" +
+                indent(this.__buildInnerHTML(includeStyles, pretty), "    ") +
+                "\n</" + this.nodeName + ">";
+        } else {
+            return "<" + this.nodeName + attrs.join("") + ">" +
+                this.__buildInnerHTML(includeStyles, pretty) +
+                "</" + this.nodeName + ">";
+        }
     }
 };
 /**
@@ -570,4 +586,7 @@ function isSelfClosingTag(tagName) {
 
 function isUnsyntaxedElement(tagName) {
     return ["style", "script"].includes(tagName.toLowerCase());
+}
+function indent(text, ind) {
+    return text.split("\n").map(x=>ind+x).join("\n");
 }
