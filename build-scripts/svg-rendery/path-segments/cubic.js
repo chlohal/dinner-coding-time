@@ -44,7 +44,7 @@ module.exports = function CubicBezier(lineData) {
         if ((point[0] > boundRight || point[0] < boundLeft) && (point[1] > boundTop || point[1] < boundBottom)) return 0;
 
         var zeroes = solveCubic(point[1], coefA[1], coefB[1], coefC[1], coefD[1]);
-        var inBandZeroes = zeroes.filter(x=>0<=x&&x<=1);
+        var inBandZeroes = zeroes.filter(x=>0<=x&&x<1);
 
         if(inBandZeroes.length == 0) return 0;
 

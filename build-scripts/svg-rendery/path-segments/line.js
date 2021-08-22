@@ -30,6 +30,9 @@ module.exports = function Line(lineData) {
         if(slope == 0) return 0;
         //if it's outside the box, it'll always be 0
         if(point[1] > boundTop || point[1] < boundBottom || point[0] < boundLeft) return 0;
+        
+        //make sure it's not overlapping with other segments!
+        if(point2[1] == point[1]) return 0;
 
         if(point[1] < boundTop && point[1] > boundBottom && point[0] > boundRight) return 1;
 
