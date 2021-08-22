@@ -3,7 +3,6 @@ var fs = require("fs");
 var fakeDom = require("./fake-dom");
 var Svg = require("./svg-rendery/svg");
 var PngFile = require("./png-file/png-file");
-const { addListener } = require("process");
 
 var public = path.join(__dirname, "../public");
 
@@ -24,6 +23,8 @@ module.exports = function (page) {
     var title = page.document.getElementsByTagName("title")[0].textContent.replace(/\d+\.\d+\.\d+/, "").replace(/\|[^|]+$/, "").trim();
 
     var code = (page.document.getElementById("source") || page.document.getElementsByTagName("p")[0] || { textContent: "" }).textContent;
+    
+    code = code.substring(128);
 
     var ib = makeImageBuffer(slug, title, code);
 
@@ -96,7 +97,7 @@ function makeImageBuffer(slug, title, code) {
         "font-size": 32,
         "font-weight": "bolder"
     },
-        20, 85);
+        20, 85, 7);
 
     for (var i = 0; i < titleTexts.length; i++) svgElem.insertBefore(titleTexts[i], gradientRibbon);
 
@@ -106,7 +107,7 @@ function makeImageBuffer(slug, title, code) {
         "font-size": 20,
         "font-weight": "lighter"
     },
-        185, 85);
+        185, 85, 12);
 
     for (var i = 0; i < codeTexts.length; i++) svgElem.insertBefore(codeTexts[i], titleOverlap);
 
@@ -136,12 +137,14 @@ function makeImageBuffer(slug, title, code) {
  * @param {object} attributes 
  * @param {number} x 
  * @param {number} y 
+ * @param {number} maxLines
  */
-function makeTextLines(text, lineLengths, attributes, x, y) {
+function makeTextLines(text, lineLengths, attributes, x, y, maxLines) {
     var lines = lineBreak(text, lineLengths);
 
+    maxLines = maxLines || lines.length
 
-    return lines.map((line,index) => {
+    return lines.slice(0,maxLines).map((line,index) => {
         var titleText = fakeDom.createElement("text");
         titleText.textContent = line;
         titleText.setAttribute("y", y + index * 30);

@@ -2,6 +2,8 @@ var fs = require("fs");
 var path = require("path");
 var crypto = require("crypto");
 
+var cpuCoreCount = require("os").cpus().length;
+
 var cacheDir = path.join(__dirname, "../cache");
 if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
 if (!fs.existsSync(path.join(cacheDir, "hashes.json"))) fs.writeFileSync(path.join(cacheDir, "hashes.json"), "{}");
@@ -16,7 +18,9 @@ var publicDir = path.join(__dirname, "../public");
 var files = loadHtmlFilesFromFolder(publicDir);
 var finished = 0;
 
-threadPool.initPool(files.length / 5);
+threadPool.initPool(cpuCoreCount * 2);
+
+console.log(cpuCoreCount);
 
 var DEBUG = false;
 threadPool.setDebug(DEBUG);

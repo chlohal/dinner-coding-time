@@ -5,6 +5,7 @@ var updateCodehsTitles = require("./update-codehs-titles.js");
 var addMetaDescriptionOpenGraph = require("./add-meta-description-open-graph.js");
 
 var fakeDom = require("./fake-dom.js");
+var fs = require("fs");
 
 var worker_threads = require('worker_threads');
 
@@ -20,6 +21,7 @@ var DEBUG;
 var queue = [];
 var nonceId = 0;
 var nonces = {};
+var jobHistory = [];
 
 /**
  * @typedef workpoolunit
@@ -46,6 +48,7 @@ if (worker_threads.isMainThread) {
                     };
                     workpoolunit.worker.on("message", function (value) {
                         if (value.t == "result") {
+                            jobHistory.push(value);
                             if(DEBUG) console.log("finished job " + value.nonce)
                             nonces[value.nonce](value.fileContent);
         
@@ -77,6 +80,7 @@ if (worker_threads.isMainThread) {
             else queue.push(job);
         },
         close: function() {
+            fs.writeFileSync(__dirname + "/../cache/worker-metrics.json", JSON.stringify(jobHistory, null, 2));
             for(var i = 0; i < pool.length; i++) {
                 pool[i].worker.unref();
             }
@@ -93,18 +97,41 @@ if (worker_threads.isMainThread) {
         var document = fakeDom.makeDocument(html);
 
         var page = makePage(document, location);
-
+        
+        var timings = {};
+        
+        timings.start = Date.now();
+        
         if (DEBUG) console.log("Pre-parsing code...");
         preparseCode(page);
+        timings.preparseCode = Date.now();
+        timings.preparseCodeDuration = timings.preparseCode - timings.start;
+
+        
         if (DEBUG) console.log("Generating paritals...");
         generatePartials(page);
+        timings.generatePartials = Date.now();
+        timings.generatePartialsDuration = timings.generatePartials - timings.preparseCode;
+        
         if (DEBUG) console.log("Updating titles...");
         updateCodehsTitles(page);
+        timings.updateCodehsTitles = Date.now();
+        timings.updateCodehsTitlesDuration = timings.updateCodehsTitles - timings.generatePartials;
+        
         if (DEBUG) console.log("Adding descriptions & OpenGraph...");
         addMetaDescriptionOpenGraph(page);
+        timings.addMetaDescriptionOpenGraph = Date.now();
+        timings.addMetaDescriptionOpenGraphDuration = timings.addMetaDescriptionOpenGraph - timings.updateCodehsTitles;
+
+        
+        timings.end = Date.now();
+        timings.totalDuration = timings.end - timings.start;
+        
         worker_threads.parentPort.postMessage({
             nonce: value.nonce,
             fileContent: document.innerHTML,
+            location: location,
+            timings: timings,
             t: "result"
         });
     });
