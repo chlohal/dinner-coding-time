@@ -37,7 +37,8 @@ module.exports = function (page) {
             try {
                 code[id] = parsers[language].parse(source);
             } catch (e) {
-                throw "Problem parsing";
+                console.error("ERROR IN" + page.location);
+                throw e;
             }
         }
 

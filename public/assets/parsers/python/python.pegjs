@@ -450,8 +450,8 @@ typelist = (test (COMMA test)* (COMMA
 // =========== Token ============
 
 
-SAMEDENT = (i:tabs &{
-      return i.length == 0 || i.length / singleIndentLen === indentLevel;
+SAMEDENT = (i:tabs isEmptyLine:NEWLINE? &{
+      return (i.length == 0 && isEmptyLine) || i.length / singleIndentLen === indentLevel;
     }) { return ""; }
 
 INDENT
