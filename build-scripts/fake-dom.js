@@ -255,9 +255,14 @@ FakeDomNode.prototype.__buildOuterHTML = function (includeStyles, pretty) {
         return "<" + this.nodeName + attrs.join("") + " />";
     } else {
         if(pretty) {
-            return "<" + this.nodeName + attrs.join("") + ">\n" +
-                indent(this.__buildInnerHTML(includeStyles, pretty), "    ") +
-                "\n</" + this.nodeName + ">";
+            //don't indent a text node
+            if(this.childNodes.length == 1 && this.childNodes[0].nodeName == "#text") {
+                return "<" + this.nodeName + attrs.join("") + ">" + this.childNodes[0].__buildOuterHTML(includeStyles, pretty) + "</" + this.nodeName + ">";
+            } else {
+                return "<" + this.nodeName + attrs.join("") + ">\n" +
+                    indent(this.__buildInnerHTML(includeStyles, pretty), "    ") +
+                    "\n</" + this.nodeName + ">";
+            }
         } else {
             return "<" + this.nodeName + attrs.join("") + ">" +
                 this.__buildInnerHTML(includeStyles, pretty) +
