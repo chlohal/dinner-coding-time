@@ -212,6 +212,9 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 
             buttonNo.classList.remove("helpfulness-form--selected");
 
+            parent.classList.add("submission-completed");
+            parent.setAttribute("aria-hidden", "true");
+
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/count/page-count?rec=1&idsite=1" +
                     "&url=" + encodeURIComponent(window.location) +
