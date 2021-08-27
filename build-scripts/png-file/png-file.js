@@ -2,6 +2,8 @@ var binaryTools = require("./binary.js");
 var Chunk = require("./png-chunk.js");
 var zlib = require("zlib");
 
+var FILTER_TYPE = 0;
+
 /**
  * 
  * @param {number[][][]} pixels 
@@ -52,7 +54,7 @@ module.exports = function PngFile(pixels, width) {
 
         for(var i = 0; i < pixels.length; i++) {
             var line = [];
-            var filterType = 2;
+            var filterType = FILTER_TYPE;
             line.push(filterType);
             for(var j = 0; j < pixels[i].length; j++) {
                 for(var k = 0; k < pixels[i][j].length; k++) {
