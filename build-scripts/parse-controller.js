@@ -22,7 +22,7 @@ threadPool.initPool(cpuCoreCount * 2);
 
 console.log(cpuCoreCount);
 
-var DEBUG = false;
+var DEBUG = true;
 threadPool.setDebug(DEBUG);
 
 for (var i = 0; i < files.length; i++) {
@@ -56,7 +56,7 @@ for (var i = 0; i < files.length; i++) {
         })(i, location);
     } else {
         finished++;
-        if (DEBUG) console.log("Unchanged page -- skipping");
+        if (DEBUG) console.log("Cache hit!");
     }
 }
 

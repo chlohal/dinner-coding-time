@@ -176,6 +176,9 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
     whyInput.addEventListener("keypress", function() {
         whyCharLimitDisplay.textContent = whyInput.value.length + " / 250";
     });
+    whyInput.addEventListener("keyup", function() {
+        whyCharLimitDisplay.textContent = whyInput.value.length + " / 250";
+    });
 
     var whyCharLimitDisplay = document.createElement("span");
     whyCharLimitDisplay.classList.add("helpfulness-form--why-input-char-limit");
@@ -209,6 +212,9 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
 
             buttonNo.classList.remove("helpfulness-form--selected");
 
+            parent.classList.add("submission-completed");
+            parent.setAttribute("aria-hidden", "true");
+
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/count/page-count?rec=1&idsite=1" +
                     "&url=" + encodeURIComponent(window.location) +
@@ -217,12 +223,10 @@ function sendServerFeedbackFormEvent(category, action, name, value, cb) {
                     );
             xhr.send();
         } else {
-
-            
-
             sendServerFeedbackFormEvent("dct--form", "dct--helpfulnessForm", "Helpful", 1, function () {
                 sentYesno = true;
-                addWhy();
+                parent.classList.add("submission-completed");
+                parent.setAttribute("aria-hidden", "true");
             });
         }
     });

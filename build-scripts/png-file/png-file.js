@@ -2,6 +2,8 @@ var binaryTools = require("./binary.js");
 var Chunk = require("./png-chunk.js");
 var zlib = require("zlib");
 
+var FILTER_TYPE = 0;
+
 /**
  * 
  * @param {number[][][]} pixels 
@@ -37,6 +39,8 @@ module.exports = function PngFile(pixels, width) {
 
         var headerChunk = new Chunk("IHDR", Buffer.concat([width, height, bitDepth, colorType, compressionMethod, filterMethod, interlaceMethod]));
 
+        var bitDepthMax = Math.pow(2, bitDepth[0]);
+
         var lines = [];
 
         var max = 0;
@@ -50,14 +54,24 @@ module.exports = function PngFile(pixels, width) {
 
         for(var i = 0; i < pixels.length; i++) {
             var line = [];
-            var filterType = 2;
+            var filterType = FILTER_TYPE;
             line.push(filterType);
             for(var j = 0; j < pixels[i].length; j++) {
                 for(var k = 0; k < pixels[i][j].length; k++) {
                     //normalize to a bit depth of 8
-                    pixels[i][j][k] = Math.floor((pixels[i][j][k] / max) * 0xFF);
+                    pixels[i][j][k] = Math.floor((pixels[i][j][k] / max) * bitDepthMax);
 
-                    var predicted = pixels[i - 1] ? pixels[i - 1][j][k] : 0;
+                    var predicted = 0;
+                    var predictedBytes = {
+                        a: pixels[i][j - 1] ? pixels[i][j - 1][k] : 0,
+                        b: pixels[i - 1] ? pixels[i - 1][j][k] : 0,
+                        c: pixels[i - 1] ? pixels[i - 1][j - 1] ? pixels[i - 1][j - 1][k] : 0 : 0,
+                    }
+                    if(filterType == 1) predicted = predictedBytes.a
+                    else if(filterType == 2) predicted = predictedBytes.b
+                    else if(filterType == 3) predicted = (predictedBytes.a + predictedBytes.b) / 2
+                    else if(filterType == 4) predicted = paeth(predictedBytes.a, predictedBytes.b, predictedBytes.c);
+
                     var delta = pixels[i][j][k] - predicted;
                     var byteDelta = (delta + 256) % 256;
                     line.push(byteDelta);
@@ -80,6 +94,16 @@ module.exports = function PngFile(pixels, width) {
         ])
 
     }
+}
+
+function paeth(a, b, c) {
+    var p = a + b - c;
+    var pa = Math.abs(p - a);
+    var pb = Math.abs(p - b);
+    var pc = Math.abs(p - c);
+
+    //round in case of float inaccuracy
+    return Math.round(Math.min(pa, pb, pc));
 }
 
 function slice2d(pixels, x, y, width, height) {
