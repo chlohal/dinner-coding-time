@@ -1,0 +1,28 @@
+public class KarelProgram extends Karel
+{
+    public void run()
+    {
+while(frontIsClear())
+{
+    if(ballsPresent())
+    {
+        takeBall();
+    }
+    else
+    {
+        putBall();
+    }
+    move();
+    
+}
+if(frontIsBlocked())
+{
+    if(ballsPresent())
+    {
+        takeBall();
+    }
+    else
+    putBall();
+}
+    }
+}

@@ -1,0 +1,57 @@
+public class KarelProgram extends Karel
+{
+    public void run()
+    {
+turnLeft();
+move3();
+turnRight();
+for(int i = 0; i < 2; i++) {
+    move3();
+square();
+move();
+}
+turnRight();
+move3();
+turnLeft();
+
+
+    }
+    
+    private void square()
+    {
+    putBall();
+    move();
+    turnLeft();
+    putBall();
+    move();
+    turnLeft();
+    putBall();
+    move();
+    turnLeft();
+    putBall();
+    move();
+    turnLeft();
+    }
+    private void turnRight()
+{
+    turnLeft();
+    turnLeft();
+    turnLeft();
+}
+
+// "Defining a method"
+private void turnAround()
+{
+    turnLeft();
+    turnLeft();
+}
+
+// "Defining a method"
+private void move3()
+{
+    move();
+    move();
+    move();
+    
+}
+}

@@ -1,0 +1,69 @@
+public class MarioKarel extends Karel
+{
+    public void run()
+    {
+    move();
+    collectCoins();
+    moveTwice();
+    collectCoins();
+    moveTwice();
+    collectCoins();
+    moveTwice();
+    collectCoins();
+    
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    public void collectCoins()
+    {
+        turnLeft();
+        move();
+        move();
+        move();
+        takeBall();
+        takeBall();
+        turnAround();
+        move();
+        move();
+        move();
+        turnLeft();
+    }
+    
+    private void turnRight()
+{
+    turnLeft();
+    turnLeft();
+    turnLeft();
+}
+
+// "Defining a method"
+private void turnAround()
+{
+    turnLeft();
+    turnLeft();
+}
+
+// "Defining a method"
+private void moveTwice()
+{
+    move();
+    move();
+}
+    
+    
+    
+    
+    
+    
+    
+    
+}

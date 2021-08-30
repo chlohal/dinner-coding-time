@@ -1,0 +1,10 @@
+public class TakeEmAllKarel extends SuperKarel
+{
+public void run(){  
+     move();
+     for(int i = 0; i < 100; i++){
+          takeBall();
+     }
+     move();
+}
+}

@@ -1,0 +1,21 @@
+/* Write a program to lay a row of tennis balls
+ * across first street. Make sure to test your
+ * program on multiple worlds. */
+public class TennisBallRowKarel extends SuperKarel
+{
+    public void run()
+    {
+        
+        while(frontIsClear())
+        {
+            putBall();
+            move();
+            
+            
+            
+            
+        }
+        putBall();
+        
+    }
+}

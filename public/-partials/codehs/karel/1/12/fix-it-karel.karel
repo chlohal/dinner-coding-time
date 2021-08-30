@@ -1,0 +1,32 @@
+public class KarelProgram extends Karel
+{
+    public void run()
+    {
+while(frontIsClear())
+{
+    
+    if(leftIsClear())
+    {
+        putBall();
+        putBall();
+        putBall();
+        putBall();
+        if(frontIsClear())
+        {move();}
+    }
+    else
+    {
+        putBall();
+        if(frontIsClear())
+        {move();}
+        
+    }
+    if(frontIsBlocked())
+    {
+        putBall();
+        
+    }
+    
+}
+    }
+}
