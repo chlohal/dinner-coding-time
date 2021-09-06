@@ -15,7 +15,9 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /contribute/edit/sheet/:folder/* /contribute/edit/sheet 200
 
 #ads :/
-/proxy/vpnetwork/* https://www.videosprofitnetwork.com/:splat 200
+/proxy/vpnetwork/view dat=:dat https://www.videosprofitnetwork.com/impr.gif?sid=:dat 200
+/proxy/vpnetwork/watch key=:key https://www.videosprofitnetwork.com/watch.xml?key=:key 200
+
 /proxy/cloudvideocdn/* https://cdn.cloudvideosa.com/:splat 200
 
 # authors!
