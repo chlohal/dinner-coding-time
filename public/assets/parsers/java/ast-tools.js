@@ -429,7 +429,7 @@ function astToString(ast, style, parentScope, nodePath, siblingIndex, address, p
                 lineSep +
                 recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.thenStatement), "thenStatement") +
                 (ast.elseStatement ?
-                    (style.singleLineBlockBrackets == "block" || (ast.body.type == "Block" && ast.thenStatement.statements.length > 1) ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
+                    (style.singleLineBlockBrackets == "block" || (ast.thenStatement.type == "Block" && ast.thenStatement.statements.length > 1) ? style.ifElseNewline : "\n") + //if it's a single-line, then the else separator is *always* \n
                     (style.colorize ? "<span class=\"hlast hlast-keyword\">else</span>" : "else") +
                     lineSep + recurse(conditionallyRemoveBracketsFromSingleLineBlocks(ast.elseStatement), "elseStatement")
                     : "");
