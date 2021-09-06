@@ -4,7 +4,7 @@
     <br>All ads on Dinner Coding Time are context-based, reviewed by humans and controlled by first-party systems. 
     <br>For more info, see our <a href="/legal/ads">ad policy</a>
     <br>If this ad is inappropriate to you, please <a href="/report-bug">report it</a>
-    `
+    `;
 
     window.addEventListener("load", window.scanSpons = function() {
         var spons = Array.from(document.getElementsByClassName("spon"));
@@ -19,6 +19,14 @@
             spon.appendChild(makeSponInfoButton());
         }
     });
+
+    window.__reloadSpons = function() {
+        var spons = Array.from(document.getElementsByClassName("spontent"));
+        for(var i = spons.length - 1; i >= 0; i--) {
+            spons[i].innerHTML = "";
+            getDynamicFill(spons[i]);
+        }
+    }
 
     function makeSponInfoButton() {
         var button = document.createElement("button");
@@ -104,8 +112,6 @@
         if(getTagElementContent(xml, "Impression")) {
             sendCallback(xml.getElementsByTagName("Impression")[0].textContent);
         }
-
-        window.xml = xml;
         var link = document.createElement("a");
         link.style.display = "block";
         link.setAttribute("target", "_blank");

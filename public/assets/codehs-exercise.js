@@ -176,6 +176,7 @@ var SPA_TITLE_SUFFIX = " | Dinner Coding Time";
                 _global.updateByline();
 
                 if (typeof window.__onloadSendPageview === "function") window.__onloadSendPageview(true, originalUrl);
+                if (typeof window.__reloadSpons === "function") window.__reloadSpons();
             });
         }
 
