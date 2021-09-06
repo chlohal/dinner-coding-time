@@ -1613,6 +1613,87 @@ svg.emoji {
     vertical-align: sub;
 }
 
+
+.spon {
+    position: relative;
+    font-size: 1.4rem;
+    max-width: 100%;
+    width: 100ch;
+    padding: 0.25em;
+    margin: 3px auto;
+    border-radius: 5px;
+    flex-grow: 1;
+    background: inherit;
+    border:hsl(239, 19%, 45%) solid 1px;
+    background: #f7f5f5;
+    font-weight: lighter;
+}
+
+.spon::before {
+    background: #f7f5f5;
+    content: "Ad";
+    height: 2px;
+    position: absolute;
+    top: -2px;
+    right: 0.25em;
+    font-size: 0.85em;
+    color: transparent;
+    padding-right: 0.15em;
+    transform: translateX(-0.70em);
+}
+
+.spon::after {
+    content: "Ad";
+    position: absolute;
+    top: 0;
+    right: 0.25em;
+    font-size: 0.85em;
+    transform: translateY(-50%) translateX(-0.85em);
+}
+
+.spontent {
+    background: inherit;
+    z-index: 2;
+}
+
+.sponfo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    font: inherit;
+    font-size: 0.85em;
+    transform: translateY(-50%);
+    padding: 0;
+    margin: 0;
+    background: #f7f5f5;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+
+.sponfo:focus, .sponfo:focus-visible {
+    outline: 1px dotted;
+}
+
+.sponfo svg {
+    height: 100%;
+}
+
+.sponalog {
+    margin: 0;
+    border: 0;
+    background: #f7fdfd;
+    box-shadow: 0 0 0.5em 0 #0005;
+    border-radius: 0.5em;
+    width: 20em;
+    max-width: 80vw;
+    z-index: 999999;
+}
+
 @keyframes progress-alert-bottom-slide {
     from {
         background-position: 0em 0em;

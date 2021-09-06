@@ -14,6 +14,10 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 /contribute/edit/exercise/:folder/* /contribute/edit/exercise 200
 /contribute/edit/sheet/:folder/* /contribute/edit/sheet 200
 
+#ads :/
+/proxy/vpnetwork/* https://www.videosprofitnetwork.com/:splat 200
+/proxy/cloudvideocdn/* https://cdn.cloudvideosa.com/:splat 200
+
 # authors!
 /author/:author /author 200
 
