@@ -179,6 +179,9 @@
         else if (url.startsWith("https://www.videosprofitnetwork.com/impr.gif?sid=")) {
             return url.replace("https://www.videosprofitnetwork.com/impr.gif?sid=", "/proxy/vpnetwork/view?dat=");
         }
+        else if (url.startsWith("https://www.videosprofitnetwork.com/clk.gif")) {
+            return url.replace("https://www.videosprofitnetwork.com/clk.gif", "/proxy/vpnetwork/click");
+        }
         else if (url.startsWith("https://cdn.cloudvideosa.com")) {
             return url.replace("https://cdn.cloudvideosa.com", "/proxy/cloudvideocdn");
         }
