@@ -142,17 +142,50 @@
                 link.appendChild(titleElem);
             }
 
+            var mediaFileSrc = "";
+
             //ad parameters. If it's one of the formats we know, just handle it ourselves
             var adParams = getTagElementContent(xml, "AdParameters");
-            var adParamsJson = JSON.parse(adParams);
-            if (adParamsJson.video_id) {
+            if(adParams) {
+                var adParamsJson = {};
+                try {
+                    adParamsJson = JSON.parse(adParams);
+                } catch(e) {}
+
+                if (adParamsJson.video_id) {
+                    mediaFileSrc = generateYoutubeEmbedUrl(adParamsJson.video_id);
+                }
+            }
+
+            var mediaFileElems = xml.getElementsByTagName("MediaFile");
+            for(var i = 0; i < mediaFileElems.length; i++) {
+                if(isAllowedMediaType(mediaFileElems[i].getAttribute("type"))) {
+                    mediaFileSrc = mediaFileElems[i].textContent;
+                }
+            }
+
+            if(mediaFileSrc) {
                 var iframe = document.createElement("iframe");
-                iframe.src = generateYoutubeEmbedUrl(adParamsJson.video_id);
-                iframe.setAttribute("style", 'display:block;margin:auto;height:200px');
-                link.appendChild(iframe);
+                    iframe.src = proxify(mediaFileSrc);
+                    iframe.setAttribute("style", 'display:block;margin:auto;height:200px');
+                    link.appendChild(iframe);
+            }
+
+
+            //ad description
+            var adDescription = getTagElementContent(xml, "Description");
+            if (adDescription) {
+                var descElem = document.createElement("p");
+                descElem.setAttribute("style", 'margin:0');
+                descElem.textContent = adDescription;
+                link.appendChild(descElem);
             }
         }
 
+    }
+
+    function isAllowedMediaType(mimeType) {
+        return (["video/mkv", "video/mp4", "image/png", "image/jpg"]).includes(mimeType);
     }
 
     function generateYoutubeEmbedUrl(videoId) {
