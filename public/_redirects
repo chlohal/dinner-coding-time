@@ -35,6 +35,8 @@ https://dct.cool/* https://dinnercodingtime.com/:splat 301!
 
 /api/* /.netlify/functions/:splat 200
 
+/codehs/* /legal/takedown 451!
+
 # INSERT NUMBER-NAME REDIRECTS HERE
 /codehs/java/1-2-5 /codehs/java/1/2/welcome-program
 /codehs/java/1/2/5 /codehs/java/1/2/welcome-program
