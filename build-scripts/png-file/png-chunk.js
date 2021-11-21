@@ -10,8 +10,8 @@ module.exports = function Chunk(type, data) {
     this.toBuffer = function() {
         //split into multiple chunks if required
         var subchunks = [];
-        for(var i = 0; i < data.length; i+=0xFFFFFF) {
-            var subchunk = data.slice(i, i + 0xFFFFFF);
+        for(var i = 0; i <= data.length; i+=0xFF_FF_FF) {
+            var subchunk = data.slice(i, i + 0xFF_FF_FF);
 
             var lengthHeader = binaryTools.padTo(subchunk.length, 4);
             if(lengthHeader.length != 4) throw "Bad length header";
