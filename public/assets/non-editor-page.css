@@ -878,7 +878,7 @@ code {
     max-width: 100%;
     width: 100ch;
     padding: 0.25em;
-    margin: 3px auto;
+    margin: 0.5em auto;
     border-radius: 5px;
     flex-grow: 1;
     background: inherit;
